@@ -623,7 +623,7 @@ export default function HeroSectionGSAP() {
                         {/* Buttons */}
                         <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-14">
                             <Link
-                                href="https://canvas.maula.ai"
+                                href="https://canvas.sanbayfusion.com"
                                 className="group relative inline-flex items-center gap-3 px-9 py-4 rounded-xl font-bold text-white overflow-hidden transition-all duration-400 hover:scale-105"
                                 style={{
                                     background: 'linear-gradient(135deg, rgba(59,130,246,0.55) 0%, rgba(37,99,235,0.4) 100%)',

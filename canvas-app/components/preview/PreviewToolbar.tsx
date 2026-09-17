@@ -158,7 +158,7 @@ const PreviewToolbar: React.FC<PreviewToolbarProps> = ({
           )}
 
           <div className="flex items-center bg-white/[0.04] border border-canvas-border rounded-lg px-2 py-1 gap-1.5 group-hover:border-white/[0.1] transition-colors">
-            <div className={`w-2 h-2 rounded-full shrink-0 ${url.includes('preview.maula.ai') ? 'bg-emerald-400' : 'bg-emerald-400/60'}`} />
+            <div className={`w-2 h-2 rounded-full shrink-0 ${url.includes('preview.sanbayfusion.com') ? 'bg-emerald-400' : 'bg-emerald-400/60'}`} />
             <span className="text-[10px] text-canvas-muted font-mono truncate select-all min-w-0" title={url}>
               {(() => {
                 try {

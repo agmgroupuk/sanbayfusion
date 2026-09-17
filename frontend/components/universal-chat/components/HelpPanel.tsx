@@ -36,7 +36,7 @@ const HelpPanel: React.FC<HelpPanelProps> = ({ isOpen, onClose, userEmail, userI
       label: 'Download Apps',
       description: 'Get Maula AI on your devices',
       color: 'cyan',
-      href: 'https://maula.ai/apps'
+      href: 'https://sanbayfusion.com/apps'
     },
     {
       id: 'support',
@@ -44,7 +44,7 @@ const HelpPanel: React.FC<HelpPanelProps> = ({ isOpen, onClose, userEmail, userI
       label: 'Live Support',
       description: 'Chat with our support team',
       color: 'green',
-      href: 'https://maula.ai/support/live-support'
+      href: 'https://sanbayfusion.com/support/live-support'
     },
     {
       id: 'tools',
@@ -52,7 +52,7 @@ const HelpPanel: React.FC<HelpPanelProps> = ({ isOpen, onClose, userEmail, userI
       label: 'AI Tools',
       description: 'Explore our AI tools',
       color: 'purple',
-      href: 'https://maula.ai/tools'
+      href: 'https://sanbayfusion.com/tools'
     },
     {
       id: 'lab',
@@ -60,7 +60,7 @@ const HelpPanel: React.FC<HelpPanelProps> = ({ isOpen, onClose, userEmail, userI
       label: 'AI Lab',
       description: 'Experimental features',
       color: 'amber',
-      href: 'https://maula.ai/lab'
+      href: 'https://sanbayfusion.com/lab'
     },
     {
       id: 'rewards',
@@ -68,7 +68,7 @@ const HelpPanel: React.FC<HelpPanelProps> = ({ isOpen, onClose, userEmail, userI
       label: 'Rewards',
       description: 'Earn rewards & benefits',
       color: 'pink',
-      href: 'https://maula.ai/rewards'
+      href: 'https://sanbayfusion.com/rewards'
     }
   ];
 
@@ -331,8 +331,8 @@ const HelpPanel: React.FC<HelpPanelProps> = ({ isOpen, onClose, userEmail, userI
       <div className="p-4 border-t border-gray-900 bg-[#0a0a0a]/50">
         <p className="text-[10px] text-gray-600 text-center">
           Need help? Contact us at{' '}
-          <a href="mailto:support@maula.ai" className="text-purple-400 hover:text-purple-300">
-            support@maula.ai
+          <a href="mailto:support@sanbayfusion.com" className="text-purple-400 hover:text-purple-300">
+            support@sanbayfusion.com
           </a>
         </p>
       </div>

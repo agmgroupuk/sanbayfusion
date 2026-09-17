@@ -43,7 +43,7 @@ interface BillingPanelProps {
     authUser?: { id: string; email: string } | null;
 }
 
-const MAULA_BASE = 'https://maula.ai';
+const MAULA_BASE = 'https://sanbayfusion.com';
 
 const BillingPanel: React.FC<BillingPanelProps> = ({ authUser }) => {
     const [planData, setPlanData] = useState<PlanData | null>(null);

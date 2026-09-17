@@ -739,7 +739,7 @@ export async function fetchUrl(url) {
 
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; MaulaAI/1.0; +https://maula.ai)',
+        'User-Agent': 'Mozilla/5.0 (compatible; MaulaAI/1.0; +https://sanbayfusion.com)',
         Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       },
       redirect: 'follow',
@@ -1334,7 +1334,7 @@ export async function deleteFile(filename, userId = 'default') {
 // IMAGE & VIDEO GENERATION
 // ═══════════════════════════════════════════════════════════════════
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://canvas.maula.ai';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://canvas.sanbayfusion.com';
 
 /**
  * Generate an AI image using Stability AI
@@ -4083,7 +4083,7 @@ export async function executeTool(toolName, params) {
       else if (code.includes('angular.json')) detectedFramework = 'angular';
       else if (code.includes('requirements.txt') || code.includes('flask') || code.includes('django')) detectedFramework = 'python';
       const providerDomains = { aws: 'amazonaws.com', gcp: 'run.app', azure: 'azurewebsites.net', vercel: 'vercel.app', netlify: 'netlify.app' };
-      const domain = providerDomains[provider] || 'cloud.maula.ai';
+      const domain = providerDomains[provider] || 'cloud.sanbayfusion.com';
       return {
         success: true,
         deployId,
@@ -4152,7 +4152,7 @@ export async function executeTool(toolName, params) {
         logs: [],
         service,
         total: 0,
-        note: 'No logs available yet. Deploy your application first to start collecting logs. Logs will appear here from your live deployments on Maula.ai.',
+        note: 'No logs available yet. Deploy your application first to start collecting logs. Logs will appear here from your live deployments on sanbayfusion.com.',
         setup: {
           steps: [
             '1. Deploy your app using the Deploy panel',
@@ -4225,7 +4225,7 @@ export async function executeTool(toolName, params) {
       }
       breakdown.forEach(b => { b.percentage = round((parseFloat(b.cost.replace('$', '')) / total) * 100, 1); });
       const recommendations = [];
-      if (isStatic) recommendations.push('Your app appears static — hosting is nearly free on Maula.ai or Vercel/Netlify');
+      if (isStatic) recommendations.push('Your app appears static — hosting is nearly free on sanbayfusion.com or Vercel/Netlify');
       if (hasDb) recommendations.push('Consider serverless databases (PlanetScale, Neon) to reduce costs for low-traffic apps');
       if (!hasCdn && !isStatic) recommendations.push('Add a CDN to reduce server load and improve global performance');
       recommendations.push(`Estimated cost based on ${provider.toUpperCase()} standard pricing for the ${period} period`);
@@ -4384,7 +4384,7 @@ export async function executeTool(toolName, params) {
           type: 'oauth',
           clientId: crypto.randomBytes(16).toString('hex'),
           clientSecret: crypto.randomBytes(32).toString('hex'),
-          redirectUri: params.redirectUri || process.env.OAUTH_REDIRECT_URI || `${process.env.FRONTEND_URL || 'https://canvas.maula.ai'}/callback`,
+          redirectUri: params.redirectUri || process.env.OAUTH_REDIRECT_URI || `${process.env.FRONTEND_URL || 'https://canvas.sanbayfusion.com'}/callback`,
         };
       }
       if (authType === 'password_hash') {
@@ -4751,7 +4751,7 @@ export async function executeTool(toolName, params) {
       const action = params.action || 'start';
       const webhookId = params.webhookId || 'wh_' + Date.now();
       if (action === 'start') {
-        const baseUrl = process.env.BACKEND_URL || process.env.API_URL || 'https://canvas.maula.ai';
+        const baseUrl = process.env.BACKEND_URL || process.env.API_URL || 'https://canvas.sanbayfusion.com';
         return {
           success: true,
           webhookId,
@@ -4775,7 +4775,7 @@ export async function executeTool(toolName, params) {
           events: [],
           action: 'poll',
           note: 'No events received yet. Send a test POST request to your webhook URL to verify it works.',
-          testCommand: `curl -X POST ${process.env.BACKEND_URL || 'https://canvas.maula.ai'}/api/webhooks/${webhookId} -H "Content-Type: application/json" -d '{"event": "test", "data": "hello"}'`,
+          testCommand: `curl -X POST ${process.env.BACKEND_URL || 'https://canvas.sanbayfusion.com'}/api/webhooks/${webhookId} -H "Content-Type: application/json" -d '{"event": "test", "data": "hello"}'`,
         };
       }
       if (action === 'stop') {

@@ -41,7 +41,7 @@ const DeviceFrames: React.FC<DeviceFramesProps> = ({ device, children, className
                     </div>
                     <div className="flex-1 mx-8">
                       <div className="bg-white/[0.04] border border-canvas-border rounded-md px-3 py-0.5 text-[10px] text-canvas-muted-deep font-mono max-w-md mx-auto text-center">
-                        maula.ai/preview
+                        sanbayfusion.com/preview
                       </div>
                     </div>
                   </div>

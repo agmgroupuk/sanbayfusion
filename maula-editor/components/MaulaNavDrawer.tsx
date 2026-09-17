@@ -254,10 +254,10 @@ const MaulaNavDrawer: React.FC<MaulaNavDrawerProps> = ({ isOpen, onClose }) => {
               Sign in to access your dashboard, track usage, manage credits, and view analytics.
             </p>
             <div className="flex gap-3 mb-8">
-              <a href="https://maula.ai/auth/login" className="px-6 py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold text-sm rounded-lg transition-all">
+              <a href="https://sanbayfusion.com/auth/login" className="px-6 py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold text-sm rounded-lg transition-all">
                 Sign In
               </a>
-              <a href="https://maula.ai/auth/signup" className="px-6 py-3 border border-orange-500/30 text-orange-400 hover:bg-orange-500/10 font-bold text-sm rounded-lg transition-all">
+              <a href="https://sanbayfusion.com/auth/signup" className="px-6 py-3 border border-orange-500/30 text-orange-400 hover:bg-orange-500/10 font-bold text-sm rounded-lg transition-all">
                 Create Account
               </a>
             </div>
@@ -491,7 +491,7 @@ const MaulaNavDrawer: React.FC<MaulaNavDrawerProps> = ({ isOpen, onClose }) => {
           </button>
 
           <button
-            onClick={() => { window.location.href = 'https://maula.ai/home'; }}
+            onClick={() => { window.location.href = 'https://sanbayfusion.com/home'; }}
             className="px-4 py-2 bg-gradient-to-r from-red-600/20 to-orange-600/20 hover:from-red-600/40 hover:to-orange-600/40 border border-red-500/50 hover:border-red-400 rounded-lg flex items-center gap-2 text-red-400 hover:text-red-300 transition-all group"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">

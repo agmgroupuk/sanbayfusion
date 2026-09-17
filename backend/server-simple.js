@@ -41,8 +41,8 @@ const server = createServer(app);
 const io = new Server(server, {
   cors: {
     origin: process.env.ALLOWED_ORIGINS?.split(',') || [
-      'https://maula.ai',
-      'https://www.maula.ai',
+      'https://sanbayfusion.com',
+      'https://www.sanbayfusion.com',
     ],
     credentials: true,
   },
@@ -102,8 +102,8 @@ app.use(helmet());
 // CORS configuration
 const corsOptions = {
   origin: process.env.ALLOWED_ORIGINS?.split(',') || [
-    'https://maula.ai',
-    'https://www.maula.ai',
+    'https://sanbayfusion.com',
+    'https://www.sanbayfusion.com',
   ],
   credentials: true,
   optionsSuccessStatus: 200,
@@ -872,8 +872,8 @@ app.get('/api/status/stream', (req, res) => {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive',
     'Access-Control-Allow-Origin': process.env.ALLOWED_ORIGINS?.split(',') || [
-      'https://maula.ai',
-      'https://www.maula.ai',
+      'https://sanbayfusion.com',
+      'https://www.sanbayfusion.com',
     ],
     'Access-Control-Allow-Credentials': 'true',
   });
@@ -1151,7 +1151,7 @@ app.get('/api/status/analytics', async (req, res) => {
         _count: { id: true },
       });
       toolViews.forEach(tv => {
-        // Extract tool name from URL like "/tools/dns-lookup" or "https://maula.ai/tools/dns-lookup"
+        // Extract tool name from URL like "/tools/dns-lookup" or "https://sanbayfusion.com/tools/dns-lookup"
         const urlPath = tv.url.includes('://') ? new URL(tv.url).pathname : tv.url;
         const segment = urlPath.split('/tools/')[1]?.split('/')[0]?.split('?')[0];
         if (segment) {

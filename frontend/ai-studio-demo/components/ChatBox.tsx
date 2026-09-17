@@ -2345,9 +2345,9 @@ const ChatBox: React.FC<ChatBoxProps> = ({
             <button onClick={() => setDemoRestriction(null)} className="absolute top-3 right-3 text-gray-500 hover:text-white transition-colors"><X size={20} /></button>
             <div className="text-4xl mb-4">🚫</div>
             <h3 className="text-lg font-semibold text-white mb-2">{demoRestriction}</h3>
-            <p className="text-gray-400 text-sm mb-5">Visit <a href="https://www.maula.ai" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 font-medium">www.maula.ai</a> and sign up for full access to all AI features including live voice, file uploads, agent memory, and more.</p>
+            <p className="text-gray-400 text-sm mb-5">Visit <a href="https://www.sanbayfusion.com" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 font-medium">www.sanbayfusion.com</a> and sign up for full access to all AI features including live voice, file uploads, agent memory, and more.</p>
             <div className="flex gap-3 justify-center">
-              <a href="https://www.maula.ai" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-xl transition-all text-sm">Sign Up Free</a>
+              <a href="https://www.sanbayfusion.com" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-xl transition-all text-sm">Sign Up Free</a>
               <button onClick={() => setDemoRestriction(null)} className="px-5 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl transition-all text-sm">Close</button>
             </div>
           </div>

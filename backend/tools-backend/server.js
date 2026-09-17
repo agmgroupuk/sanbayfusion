@@ -24,8 +24,8 @@ app.use(helmet({
 
 app.use(cors({
   origin: [
-    'https://maula.ai',
-    'https://www.maula.ai',
+    'https://sanbayfusion.com',
+    'https://www.sanbayfusion.com',
     'http://localhost:3000',
     'http://localhost:3005',
   ],

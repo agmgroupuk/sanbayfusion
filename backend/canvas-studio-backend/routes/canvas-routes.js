@@ -76,7 +76,7 @@ const getSystemPrompt = (currentCode, history) => {
   let prompt = `You are Nova, an expert web developer and UI/UX designer. You create stunning, production-ready web applications based on exactly what the user asks for.
 
 ## CRITICAL RULE
-- NEVER reference "Maula AI", "maula.ai", or any real company/website in the generated code
+- NEVER reference "Maula AI", "sanbayfusion.com", or any real company/website in the generated code
 - NEVER create content that looks like an existing website - always create ORIGINAL designs
 - All content must be based solely on the user's description
 - Use generic placeholder branding (e.g. "Acme Co", "Your Brand", "Company Name") unless the user specifies a brand name
@@ -517,7 +517,7 @@ router.post('/image-to-code', [
  * POST /api/canvas/deploy
  * Deploy a canvas project to S3 static hosting
  * Supports both single-code and multi-file deployments
- * Apps are accessible via {appSlug}.maula.ai
+ * Apps are accessible via {appSlug}.sanbayfusion.com
  */
 router.post('/deploy', [
   body('projectName').notEmpty().withMessage('Project name required'),
@@ -616,7 +616,7 @@ router.post('/deploy/domain', [
       success: true,
       message: `Custom domain ${domain} added. SSL certificate will be provisioned automatically.`,
       dnsRecords: [
-        { type: 'CNAME', name: domain, value: 'apps.maula.ai' },
+        { type: 'CNAME', name: domain, value: 'apps.sanbayfusion.com' },
       ],
     });
   } catch (error) {
@@ -708,7 +708,7 @@ const getConversationalPrompt = (currentCode, history, conversationHistory) => {
   return `You are Nova, a real human-like web developer friend. Talk naturally like a colleague, not a scripted bot.
 
 ## CRITICAL RULE
-- NEVER reference "Maula AI", "maula.ai", or any real company in generated content
+- NEVER reference "Maula AI", "sanbayfusion.com", or any real company in generated content
 - When building apps, create ORIGINAL content based on what the user describes
 - Use generic placeholder branding unless the user specifies a brand name
 - All navigation links must use "#" anchors (href="#about") - NEVER use path links (href="/page")
@@ -3512,7 +3512,7 @@ print(json.dumps({"__test_results": True, "passed": __passed, "failed": __failed
       return {
         success: true,
         action: 'webhook_listen',
-        url: `https://studio.maula.ai/webhook/${crypto.randomBytes(8).toString('hex')}`,
+        url: `https://studio.sanbayfusion.com/webhook/${crypto.randomBytes(8).toString('hex')}`,
         method: args.method || 'POST',
         _uiEvent: true,
         message: 'Webhook endpoint created. Incoming requests will be logged.',

@@ -300,7 +300,7 @@ export default function CanvasStudioPricingPage() {
         body: JSON.stringify({
           plan: planId,
           userEmail: authUser.email,
-          returnUrl: 'https://maula.ai',
+          returnUrl: 'https://sanbayfusion.com',
         }),
       });
 
@@ -724,7 +724,7 @@ export default function CanvasStudioPricingPage() {
                     <span className="relative z-10">View Agent Pricing</span>
                     <ArrowRight className="w-4 h-4 relative z-10" />
                   </Link>
-                  <Link href="https://maula.ai/agents" className="px-8 py-3.5 rounded-xl text-gray-300 font-semibold text-sm flex items-center justify-center gap-2 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:text-white hover:border-violet-500/30 transition-all duration-300">
+                  <Link href="https://sanbayfusion.com/agents" className="px-8 py-3.5 rounded-xl text-gray-300 font-semibold text-sm flex items-center justify-center gap-2 border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:text-white hover:border-violet-500/30 transition-all duration-300">
                     Explore AI Agents <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

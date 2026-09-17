@@ -5547,7 +5547,7 @@ export async function fetchUrl(url) {
     const response = await fetch(url, {
       headers: {
         'User-Agent':
-          'Mozilla/5.0 (compatible; MaulaAI/1.0; +https://maula.ai)',
+          'Mozilla/5.0 (compatible; MaulaAI/1.0; +https://sanbayfusion.com)',
         Accept:
           'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       },

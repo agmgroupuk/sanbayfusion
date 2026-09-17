@@ -111,7 +111,7 @@ export default function GlobalError({
                         </div>
 
                         <p style={{ marginTop: '40px', color: '#475569', fontSize: '14px' }}>
-                            Error code: 500 &middot; maula.ai
+                            Error code: 500 &middot; sanbayfusion.com
                         </p>
                     </div>
                 </div>

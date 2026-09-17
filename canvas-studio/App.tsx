@@ -229,7 +229,7 @@ const App: React.FC = () => {
     if (!currentApp?.id) return null;
     if (/^\d+$/.test(currentApp.id)) return null; // temp ID — not yet saved to DB
     const lang = (currentApp.language || 'html').toLowerCase();
-    return `https://appview.maula.ai/app-${lang}-${currentApp.id}`;
+    return `https://appview.sanbayfusion.com/app-${lang}-${currentApp.id}`;
   })();
   const [deviceMode, setDeviceMode] = useState<DeviceMode>('desktop');
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -1028,7 +1028,7 @@ const App: React.FC = () => {
         setShowDeployPanel(true);
         break;
       case 'main-app':
-        window.location.href = 'https://maula.ai/home';
+        window.location.href = 'https://sanbayfusion.com/home';
         break;
       default:
         break;
@@ -1115,7 +1115,7 @@ const App: React.FC = () => {
         content: JSON.stringify({
           name: currentApp.name?.replace(/[^a-z0-9-]/gi, '-').toLowerCase() || 'canvas-studio-app',
           version: '1.0.0',
-          description: 'Created with Maula.AI Canvas Studio',
+          description: 'Created with sanbayfusion.com Canvas Studio',
           main: 'index.html'
         }, null, 2),
         isBinary: false
@@ -1261,10 +1261,10 @@ const App: React.FC = () => {
           {/* Quick Nav Links */}
           <div className="flex flex-wrap items-center justify-center gap-2">
             {[
-              { label: 'Dashboard', href: 'https://maula.ai/dashboard/canvas-studio', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86zm2-15.86c1.03.13 2 .45 2.87.93H15v-0.93zM15 7h3.58c.76.89 1.33 1.91 1.67 3H15V7zm0 5h5.24c.01.17.01.33.01.5 0 .67-.06 1.33-.18 1.97H15v-2.47zm0 4.47h4.42c-.76 1.51-1.97 2.77-3.43 3.61V16.47z' },
-              { label: 'AI Chat', href: 'https://demo.maula.ai', icon: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' },
-              { label: 'GenCraft', href: 'https://canvas.maula.ai', icon: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' },
-              { label: 'Home', href: 'https://maula.ai/home', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+              { label: 'Dashboard', href: 'https://sanbayfusion.com/dashboard/canvas-studio', icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86zm2-15.86c1.03.13 2 .45 2.87.93H15v-0.93zM15 7h3.58c.76.89 1.33 1.91 1.67 3H15V7zm0 5h5.24c.01.17.01.33.01.5 0 .67-.06 1.33-.18 1.97H15v-2.47zm0 4.47h4.42c-.76 1.51-1.97 2.77-3.43 3.61V16.47z' },
+              { label: 'AI Chat', href: 'https://demo.sanbayfusion.com', icon: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' },
+              { label: 'GenCraft', href: 'https://canvas.sanbayfusion.com', icon: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' },
+              { label: 'Home', href: 'https://sanbayfusion.com/home', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
             ].map((link) => (
               <a
                 key={link.label}
@@ -1331,7 +1331,7 @@ const App: React.FC = () => {
             <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-cyan-900/30">
               <img
                 src="/logo.png"
-                alt="Maula.AI"
+                alt="sanbayfusion.com"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -1345,7 +1345,7 @@ const App: React.FC = () => {
           >
             <div className="flex flex-col items-center gap-1 px-2">
               {/* Home */}
-              <button onClick={() => window.location.href = 'https://maula.ai/home'} className={`p-2.5 rounded-lg ${isDarkMode ? 'text-canvas-muted-deep hover:text-cyan-400 hover:bg-cyan-500/10' : 'text-canvas-muted hover:text-cyan-600 hover:bg-cyan-50'} transition-all w-full flex justify-center border border-transparent ${isDarkMode ? 'hover:border-cyan-500/20' : 'hover:border-cyan-200'}`} title="Home">
+              <button onClick={() => window.location.href = 'https://sanbayfusion.com/home'} className={`p-2.5 rounded-lg ${isDarkMode ? 'text-canvas-muted-deep hover:text-cyan-400 hover:bg-cyan-500/10' : 'text-canvas-muted hover:text-cyan-600 hover:bg-cyan-50'} transition-all w-full flex justify-center border border-transparent ${isDarkMode ? 'hover:border-cyan-500/20' : 'hover:border-cyan-200'}`} title="Home">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
@@ -1939,12 +1939,12 @@ const App: React.FC = () => {
                               { label: 'Tokens Used', used: 0, limit: 250000, unit: 'tokens', icon: 'tokens' },
                             ]}
                             plan={bd.plan || activePlan?.type || 'free'}
-                            onUpgrade={() => window.open('https://maula.ai/overview/studio/', '_blank')}
+                            onUpgrade={() => window.open('https://sanbayfusion.com/overview/studio/', '_blank')}
                           />
                           <InvoiceHistory
                             invoices={bd.invoices || []}
-                            onDownload={(id) => window.open('https://maula.ai/dashboard/billing', '_blank')}
-                            onViewDetails={(id) => window.open('https://maula.ai/dashboard/billing', '_blank')}
+                            onDownload={(id) => window.open('https://sanbayfusion.com/dashboard/billing', '_blank')}
+                            onViewDetails={(id) => window.open('https://sanbayfusion.com/dashboard/billing', '_blank')}
                           />
                         </div>
                       );
@@ -3052,8 +3052,8 @@ const App: React.FC = () => {
             </div>
             <p className="text-canvas-muted text-sm mb-5">Sign in to start building apps with Canvas Studio. It's free to create an account!</p>
             <div className="flex flex-col gap-2.5">
-              <a href="https://maula.ai/auth/login?redirect=https%3A%2F%2Fstudio.maula.ai" className="w-full py-2.5 px-4 bg-gradient-to-r from-cyan-600 to-cyan-500 text-white font-semibold rounded-xl hover:from-cyan-700 hover:to-cyan-600 transition-all text-center text-sm">Log In</a>
-              <a href="https://maula.ai/auth/signup?redirect=https%3A%2F%2Fstudio.maula.ai" className="w-full py-2.5 px-4 bg-white/5 border border-canvas-border text-white font-semibold rounded-xl hover:bg-white/10 transition-all text-center text-sm">Create Free Account</a>
+              <a href="https://sanbayfusion.com/auth/login?redirect=https%3A%2F%2Fstudio.sanbayfusion.com" className="w-full py-2.5 px-4 bg-gradient-to-r from-cyan-600 to-cyan-500 text-white font-semibold rounded-xl hover:from-cyan-700 hover:to-cyan-600 transition-all text-center text-sm">Log In</a>
+              <a href="https://sanbayfusion.com/auth/signup?redirect=https%3A%2F%2Fstudio.sanbayfusion.com" className="w-full py-2.5 px-4 bg-white/5 border border-canvas-border text-white font-semibold rounded-xl hover:bg-white/10 transition-all text-center text-sm">Create Free Account</a>
             </div>
           </div>
         </div>
@@ -3076,7 +3076,7 @@ const App: React.FC = () => {
             </div>
             <p className="text-canvas-muted text-sm mb-5">A subscription is required to use Canvas Studio features. Choose a plan to get started.</p>
             <a
-              href="https://maula.ai/overview/studio/"
+              href="https://sanbayfusion.com/overview/studio/"
               className="w-full py-3 px-4 bg-gradient-to-r from-cyan-600 to-cyan-500 text-white font-semibold rounded-xl hover:from-cyan-500 hover:to-cyan-400 transition-all text-sm text-center block shadow-lg shadow-cyan-900/20"
             >
               View Pricing

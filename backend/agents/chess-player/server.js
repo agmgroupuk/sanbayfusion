@@ -29,8 +29,8 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
 app.use(cors({
   origin: process.env.CORS_ORIGIN?.split(',') || [
-    'https://chess-player-chat.maula.ai',
-    'https://maula.ai',
+    'https://chess-player-chat.sanbayfusion.com',
+    'https://sanbayfusion.com',
   ],
   credentials: true,
 }));

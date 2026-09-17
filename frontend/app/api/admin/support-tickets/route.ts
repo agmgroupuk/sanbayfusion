@@ -456,7 +456,7 @@ export async function PATCH(req: NextRequest) {
             userName: ticket.name || 'Customer',
             userEmail: ticket.email,
             priority: 'urgent'
-          }, 'support@maula.ai');
+          }, 'support@sanbayfusion.com');
         }
       }
     }

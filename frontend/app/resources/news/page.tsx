@@ -1015,7 +1015,7 @@ export default function NewsPage() {
                     </p>
                     <div className="flex gap-3">
                       <Link href="/overview/spaces" className="px-4 py-2 bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90 text-white rounded-xl text-sm font-semibold shadow-lg shadow-violet-600/15">View Current Plans</Link>
-                      <Link href="https://maula.ai/agents" className="px-4 py-2 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] rounded-xl text-sm text-gray-400 hover:text-white transition">Browse Available Agents</Link>
+                      <Link href="https://sanbayfusion.com/agents" className="px-4 py-2 bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.08] rounded-xl text-sm text-gray-400 hover:text-white transition">Browse Available Agents</Link>
                     </div>
                     <p className="text-gray-500 text-sm mt-3">🔔 Sign up for our newsletter to be notified when new agents launch!</p>
                   </div>

@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       sameSite: 'lax',
       maxAge: 0,
       path: '/',
-      domain: isProduction ? '.maula.ai' : undefined,
+      domain: isProduction ? '.sanbayfusion.com' : undefined,
     });
 
     // Also clear sessionId cookie (backend uses this name)
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       sameSite: 'lax',
       maxAge: 0,
       path: '/',
-      domain: isProduction ? '.maula.ai' : undefined,
+      domain: isProduction ? '.sanbayfusion.com' : undefined,
     });
 
     // Clear visitorId cookie too
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       sameSite: 'lax',
       maxAge: 0,
       path: '/',
-      domain: isProduction ? '.maula.ai' : undefined,
+      domain: isProduction ? '.sanbayfusion.com' : undefined,
     });
 
     console.log('✅ All auth cookies cleared');

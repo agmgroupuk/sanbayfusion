@@ -608,7 +608,7 @@ export default function AIShowcaseSection() {
                   </div>
                   <div className="flex-1 mx-4">
                     <div className="h-6 rounded-md flex items-center px-3" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.04)' }}>
-                      <span className="text-[10px]" style={{ color: 'rgba(156,163,175,0.5)', textShadow: '0 0 6px rgba(6,182,212,0.2)' }}>maula.ai/agents</span>
+                      <span className="text-[10px]" style={{ color: 'rgba(156,163,175,0.5)', textShadow: '0 0 6px rgba(6,182,212,0.2)' }}>sanbayfusion.com/agents</span>
                     </div>
                   </div>
                 </div>
@@ -716,7 +716,7 @@ export default function AIShowcaseSection() {
           {/* CTA */}
           <div ref={ctaRef} className="flex flex-wrap items-center justify-center gap-4 mt-12">
             <Link
-              href="https://maula.ai/agents"
+              href="https://sanbayfusion.com/agents"
               className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 group"
               style={{
                 background: 'linear-gradient(135deg, #06b6d4, #2563eb)',
@@ -728,7 +728,7 @@ export default function AIShowcaseSection() {
               <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
             </Link>
             <a
-              href="https://canvas.maula.ai"
+              href="https://canvas.sanbayfusion.com"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold transition-all duration-300 hover:-translate-y-1 group"

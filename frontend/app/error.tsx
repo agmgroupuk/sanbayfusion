@@ -115,7 +115,7 @@ export default function Error({
                 )}
 
                 <p className="mt-8 text-neural-600 text-sm">
-                    Error code: 500 &middot; maula.ai
+                    Error code: 500 &middot; sanbayfusion.com
                 </p>
             </div>
         </div>

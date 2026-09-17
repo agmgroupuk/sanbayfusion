@@ -1,7 +1,7 @@
 /**
  * Canvas Studio Deployment Service (Standalone Canvas Studio)
  * 
- * Handles deploying projects to Maula.ai, Vercel, Railway, Netlify, and Cloudflare Pages.
+ * Handles deploying projects to sanbayfusion.com, Vercel, Railway, Netlify, and Cloudflare Pages.
  * Credentials and deploy history are stored in the database via /api/canvas/deploy.
  * NO localStorage — 100% server-side persistence with AES-256-GCM encryption.
  */
@@ -144,7 +144,7 @@ export interface PlatformInfo {
 export const PLATFORMS: PlatformInfo[] = [
   {
     id: 'maula',
-    name: 'Maula.ai',
+    name: 'sanbayfusion.com',
     icon: '🚀',
     color: '#8B5CF6',
     tokenUrl: '',
@@ -203,7 +203,7 @@ export function getPlatformInfo(platform: DeploymentPlatform): PlatformInfo {
 type StatusCallback = (status: DeploymentStatus) => void;
 
 /**
- * Deploy to Maula.ai hosting (S3 + subdomain)
+ * Deploy to sanbayfusion.com hosting (S3 + subdomain)
  * No token needed — uses the backend Express API directly
  */
 export async function deployToMaula(
@@ -215,8 +215,8 @@ export async function deployToMaula(
     state: 'preparing',
     platform: 'maula',
     progress: 10,
-    message: 'Preparing project for Maula.ai...',
-    logs: ['🚀 Deploying to Maula.ai...'],
+    message: 'Preparing project for sanbayfusion.com...',
+    logs: ['🚀 Deploying to sanbayfusion.com...'],
   });
 
   try {
@@ -234,7 +234,7 @@ export async function deployToMaula(
       platform: 'maula',
       progress: 30,
       message: `Uploading ${Object.keys(cleanFiles).length} files...`,
-      logs: ['🚀 Deploying to Maula.ai...', `📦 Uploading ${Object.keys(cleanFiles).length} files...`],
+      logs: ['🚀 Deploying to sanbayfusion.com...', `📦 Uploading ${Object.keys(cleanFiles).length} files...`],
     });
 
     const response = await fetch('/api/canvas/deploy', {
@@ -253,7 +253,7 @@ export async function deployToMaula(
       platform: 'maula',
       progress: 70,
       message: 'Publishing to CDN...',
-      logs: ['🚀 Deploying to Maula.ai...', `📦 Uploading ${Object.keys(cleanFiles).length} files...`, '🌐 Publishing to CDN...'],
+      logs: ['🚀 Deploying to sanbayfusion.com...', `📦 Uploading ${Object.keys(cleanFiles).length} files...`, '🌐 Publishing to CDN...'],
     });
 
     const data = await response.json();
@@ -283,9 +283,9 @@ export async function deployToMaula(
       state: 'ready',
       platform: 'maula',
       progress: 100,
-      message: '✅ Live on Maula.ai!',
+      message: '✅ Live on sanbayfusion.com!',
       logs: [
-        '🚀 Deploying to Maula.ai...',
+        '🚀 Deploying to sanbayfusion.com...',
         `📦 Uploaded ${data.filesUploaded || Object.keys(cleanFiles).length} files`,
         '🌐 Published to CDN',
         `✅ Live at ${url}`,
@@ -546,7 +546,7 @@ export function prepareDeploymentFiles(
     const pkg: Record<string, unknown> = {
       name: config.projectName.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
       version: '1.0.0',
-      description: `Built with Maula.AI Canvas Studio`,
+      description: `Built with sanbayfusion.com Canvas Studio`,
       private: true,
     };
 

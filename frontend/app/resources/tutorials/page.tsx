@@ -19,7 +19,7 @@ const tutorials = [
     duration: '20 min',
     topics: ['Text to App', 'Image to Code', 'Voice Input', '170+ Tools', 'One-Click Deploy', 'Live Preview'],
     steps: [
-      'Open GenCraft Pro at maula.ai/canvas — you\'ll see the AI prompt bar',
+      'Open GenCraft Pro at sanbayfusion.com/canvas — you\'ll see the AI prompt bar',
       'Type a description like "Build a task management app with drag and drop"',
       'Or upload a screenshot/mockup — AI will convert it to working code',
       'Use Voice Input to speak your app ideas naturally',
@@ -40,7 +40,7 @@ const tutorials = [
     duration: '25 min',
     topics: ['16 Panels', 'Knowledge Graph', 'Collaboration', 'AI Image Gen', 'Security Scanner', 'Terminal'],
     steps: [
-      'Open Canvas Studio at studio.maula.ai — the professional code editor',
+      'Open Canvas Studio at studio.sanbayfusion.com — the professional code editor',
       'Create a new project or open an existing one from the Workspace panel',
       'Use the AI Chat panel to describe what you want to build or modify',
       'Navigate files with the File Explorer panel and edit with Monaco editor',

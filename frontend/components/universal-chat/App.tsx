@@ -7,7 +7,7 @@ import HelpPanel from './components/HelpPanel';
 import ChatBox from './components/ChatBox';
 import NavigationDrawer from './components/NavigationDrawer';
 import ToastContainer, { toast } from './components/Toast';
-// CanvasAppDrawer removed — Canvas Studio is now a standalone app at studio.maula.ai
+// CanvasAppDrawer removed — Canvas Studio is now a standalone app at studio.sanbayfusion.com
 import FilePanel from './components/FilePanel';
 import Overlay from './components/Overlay';
 import Footer from './components/Footer';
@@ -164,7 +164,7 @@ const App: React.FC<AppProps> = ({
     const user = secureAuthStorage.getUser?.();
     if (!user?.id) {
       // Not logged in → redirect to subscribe page (which will prompt login)
-      window.location.href = `https://maula.ai/subscribe?agent=${encodeURIComponent(initialAgentName)}&slug=${encodeURIComponent(initialAgentId || '')}`;
+      window.location.href = `https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(initialAgentName)}&slug=${encodeURIComponent(initialAgentId || '')}`;
       return;
     }
 
@@ -173,7 +173,7 @@ const App: React.FC<AppProps> = ({
       try {
         const result = await subscriptionService.check(user.id, initialAgentId || '');
         if (!cancelled && !result.hasAccess) {
-          window.location.href = `https://maula.ai/subscribe?agent=${encodeURIComponent(initialAgentName)}&slug=${encodeURIComponent(initialAgentId || '')}`;
+          window.location.href = `https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(initialAgentName)}&slug=${encodeURIComponent(initialAgentId || '')}`;
         }
       } catch (e) {
         console.error('[App] Subscription check failed:', e);
@@ -710,7 +710,7 @@ const App: React.FC<AppProps> = ({
 
       // Handle subscription required error — redirect to subscribe page
       if (error.message?.includes('SUBSCRIPTION_REQUIRED')) {
-        window.location.href = `https://maula.ai/subscribe?agent=${encodeURIComponent(initialAgentName)}&slug=${encodeURIComponent(initialAgentId)}`;
+        window.location.href = `https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(initialAgentName)}&slug=${encodeURIComponent(initialAgentId)}`;
         return;
       }
 
@@ -1529,8 +1529,8 @@ const App: React.FC<AppProps> = ({
   // ── AUTH GATE: Require login for agent pages (not studio demo) ──
   if (authChecked && !isLoggedIn && !isStudioMode) {
     const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
-    const loginUrl = `https://maula.ai/auth/login?redirect=https://maula.ai${encodeURIComponent(currentPath)}`;
-    const signupUrl = `https://maula.ai/auth/signup?redirect=https://maula.ai${encodeURIComponent(currentPath)}`;
+    const loginUrl = `https://sanbayfusion.com/auth/login?redirect=https://sanbayfusion.com${encodeURIComponent(currentPath)}`;
+    const signupUrl = `https://sanbayfusion.com/auth/signup?redirect=https://sanbayfusion.com${encodeURIComponent(currentPath)}`;
 
     return (
       <div className="text-gray-300 h-screen flex flex-col items-center justify-center overflow-hidden relative font-mono" style={{ background: 'radial-gradient(circle at 20% 50%, rgba(74, 222, 128, 0.08) 0%, transparent 40%), radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 40%), linear-gradient(135deg, #0A0A0A 0%, #111111 100%)' }}>
@@ -1581,13 +1581,13 @@ const App: React.FC<AppProps> = ({
               </p>
               <div className="space-y-3">
                 <a
-                  href="https://maula.ai/auth/signup?redirect=https://maula.ai"
+                  href="https://sanbayfusion.com/auth/signup?redirect=https://sanbayfusion.com"
                   className="block w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all"
                 >
                   Sign Up Free
                 </a>
                 <a
-                  href="https://maula.ai/auth/login?redirect=https://maula.ai"
+                  href="https://sanbayfusion.com/auth/login?redirect=https://sanbayfusion.com"
                   className="block w-full py-3 px-6 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all"
                 >
                   Already have an account? Log In
@@ -1693,7 +1693,7 @@ const App: React.FC<AppProps> = ({
           // Canvas App — redirect to standalone Canvas Studio
           if (item.tool === 'canvas_app') {
             setIsNavDrawerOpen(false);
-            window.open('https://studio.maula.ai', '_blank');
+            window.open('https://studio.sanbayfusion.com', '_blank');
             return;
           }
 

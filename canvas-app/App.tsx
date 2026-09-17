@@ -187,7 +187,7 @@ const App: React.FC = () => {
     if (!currentApp?.id) return null;
     if (/^\d+$/.test(currentApp.id)) return null; // temp ID — not yet saved to DB
     const lang = (currentApp.language || currentLanguage || 'html').toLowerCase();
-    return `https://preview.maula.ai/app-${lang}-${currentApp.id}`;
+    return `https://preview.sanbayfusion.com/app-${lang}-${currentApp.id}`;
   })();
 
   // New feature modals
@@ -1192,8 +1192,8 @@ const App: React.FC = () => {
             </div>
             <p className="text-canvas-muted text-sm mb-5">Sign in to start building apps with AI. It's free to create an account!</p>
             <div className="flex flex-col gap-2.5">
-              <a href="https://maula.ai/auth/login?redirect=https%3A%2F%2Fcanvas.maula.ai" className="w-full py-2.5 px-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-xl hover:from-primary-700 hover:to-primary-600 transition-all text-center text-sm">Log In</a>
-              <a href="https://maula.ai/auth/signup?redirect=https%3A%2F%2Fcanvas.maula.ai" className="w-full py-2.5 px-4 bg-white/5 border border-canvas-border text-white font-semibold rounded-xl hover:bg-white/10 transition-all text-center text-sm">Create Free Account</a>
+              <a href="https://sanbayfusion.com/auth/login?redirect=https%3A%2F%2Fcanvas.sanbayfusion.com" className="w-full py-2.5 px-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-xl hover:from-primary-700 hover:to-primary-600 transition-all text-center text-sm">Log In</a>
+              <a href="https://sanbayfusion.com/auth/signup?redirect=https%3A%2F%2Fcanvas.sanbayfusion.com" className="w-full py-2.5 px-4 bg-white/5 border border-canvas-border text-white font-semibold rounded-xl hover:bg-white/10 transition-all text-center text-sm">Create Free Account</a>
             </div>
           </div>
         </div>
@@ -1217,7 +1217,7 @@ const App: React.FC = () => {
               <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-green-400" />Unlimited AI generations</span>
               <span className="flex items-center gap-1"><CheckCircle className="w-3.5 h-3.5 text-green-400" />All AI models</span>
             </div>
-            <a href="https://maula.ai/canvas-studio-pricing" className="block w-full py-2.5 px-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-xl hover:from-primary-700 hover:to-primary-600 transition-all text-center text-sm shadow-lg shadow-primary-500/20">View Plans & Pricing →</a>
+            <a href="https://sanbayfusion.com/canvas-studio-pricing" className="block w-full py-2.5 px-4 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-xl hover:from-primary-700 hover:to-primary-600 transition-all text-center text-sm shadow-lg shadow-primary-500/20">View Plans & Pricing →</a>
           </div>
         </div>
       )}
@@ -1328,10 +1328,10 @@ const App: React.FC = () => {
             {/* Quick Nav Links */}
             <div className="flex flex-wrap items-center justify-center gap-2">
               {[
-                { label: 'Dashboard', icon: Globe, href: 'https://maula.ai/dashboard/deployed-sites' },
-                { label: 'AI Chat', icon: MessageSquare, href: 'https://demo.maula.ai' },
-                { label: 'Agents', icon: Cpu, href: 'https://maula.ai/agents' },
-                { label: 'Home', icon: Home, href: 'https://maula.ai/home' },
+                { label: 'Dashboard', icon: Globe, href: 'https://sanbayfusion.com/dashboard/deployed-sites' },
+                { label: 'AI Chat', icon: MessageSquare, href: 'https://demo.sanbayfusion.com' },
+                { label: 'Agents', icon: Cpu, href: 'https://sanbayfusion.com/agents' },
+                { label: 'Home', icon: Home, href: 'https://sanbayfusion.com/home' },
               ].map((link) => (
                 <a
                   key={link.label}
@@ -2278,7 +2278,7 @@ const App: React.FC = () => {
                 <div className="flex-1 flex min-h-0">
                   {viewMode === 'split' && (
                     <div className="w-1/2 border-r border-canvas-border flex flex-col">
-                      <PreviewToolbar device={deviceMode} onDeviceChange={setDeviceMode} url={previewUrl || sandboxUrl || 'canvas.maula.ai'} onRefresh={handleRefreshPreview} showConsole={showConsolePanel} onToggleConsole={() => setShowConsolePanel(p => !p)} showNetwork={showNetworkPanel} onToggleNetwork={() => setShowNetworkPanel(p => !p)} zoom={previewZoom} onZoomChange={setPreviewZoom} canUndo={canUndo} onUndo={handleUndo} canRedo={canRedo} onRedo={handleRedo} versionIndex={historyIndex} versionTotal={codeHistory.length} onOpenExternal={previewUrl ? () => window.open(previewUrl, '_blank', 'noopener') : undefined} viewMode={viewMode} onViewModeChange={setViewMode} onEditorModeEdit={() => setEditorMode('edit')} />
+                      <PreviewToolbar device={deviceMode} onDeviceChange={setDeviceMode} url={previewUrl || sandboxUrl || 'canvas.sanbayfusion.com'} onRefresh={handleRefreshPreview} showConsole={showConsolePanel} onToggleConsole={() => setShowConsolePanel(p => !p)} showNetwork={showNetworkPanel} onToggleNetwork={() => setShowNetworkPanel(p => !p)} zoom={previewZoom} onZoomChange={setPreviewZoom} canUndo={canUndo} onUndo={handleUndo} canRedo={canRedo} onRedo={handleRedo} versionIndex={historyIndex} versionTotal={codeHistory.length} onOpenExternal={previewUrl ? () => window.open(previewUrl, '_blank', 'noopener') : undefined} viewMode={viewMode} onViewModeChange={setViewMode} onEditorModeEdit={() => setEditorMode('edit')} />
                       <div className="flex-1 min-h-0">
                         <SandpackPreview code={currentApp?.code || ''} language={(() => { const c = (currentApp?.code || '').trimStart(); const isHtml = c.startsWith('<!DOCTYPE') || c.startsWith('<html') || (c.startsWith('<') && (c.includes('</html>') || c.includes('</body>'))); return isHtml ? 'html' : ['react', 'nextjs'].includes(currentLanguage) ? 'react' : 'html'; })()} currentLanguage={currentLanguage} viewMode="desktop" onViewModeChange={setViewMode} onCodeChange={(newCode) => { if (currentApp) { const updatedApp = { ...currentApp, code: newCode }; setCurrentApp(updatedApp); saveApp(updatedApp, false); } }} autoRun={previewAutoRun} onAutoRunStarted={() => setPreviewAutoRun(false)} onSessionUrl={(url) => setSandboxUrl(url)} />
                       </div>
@@ -2289,7 +2289,7 @@ const App: React.FC = () => {
                   <div className={`${viewMode === 'split' ? 'w-1/2' : 'w-full'} flex flex-col`}>
                     {/* View mode toolbar in code-only mode */}
                     {viewMode === 'code' && (
-                      <PreviewToolbar device={deviceMode} onDeviceChange={setDeviceMode} url={previewUrl || sandboxUrl || 'canvas.maula.ai'} onRefresh={handleRefreshPreview} showConsole={showConsolePanel} onToggleConsole={() => setShowConsolePanel(p => !p)} showNetwork={showNetworkPanel} onToggleNetwork={() => setShowNetworkPanel(p => !p)} zoom={previewZoom} onZoomChange={setPreviewZoom} canUndo={canUndo} onUndo={handleUndo} canRedo={canRedo} onRedo={handleRedo} versionIndex={historyIndex} versionTotal={codeHistory.length} onOpenExternal={previewUrl ? () => window.open(previewUrl, '_blank', 'noopener') : undefined} viewMode={viewMode} onViewModeChange={setViewMode} onEditorModeEdit={() => setEditorMode('edit')} />
+                      <PreviewToolbar device={deviceMode} onDeviceChange={setDeviceMode} url={previewUrl || sandboxUrl || 'canvas.sanbayfusion.com'} onRefresh={handleRefreshPreview} showConsole={showConsolePanel} onToggleConsole={() => setShowConsolePanel(p => !p)} showNetwork={showNetworkPanel} onToggleNetwork={() => setShowNetworkPanel(p => !p)} zoom={previewZoom} onZoomChange={setPreviewZoom} canUndo={canUndo} onUndo={handleUndo} canRedo={canRedo} onRedo={handleRedo} versionIndex={historyIndex} versionTotal={codeHistory.length} onOpenExternal={previewUrl ? () => window.open(previewUrl, '_blank', 'noopener') : undefined} viewMode={viewMode} onViewModeChange={setViewMode} onEditorModeEdit={() => setEditorMode('edit')} />
                     )}
                     <div className="flex-1 min-h-0 flex">
                       {/* Inline File Explorer (only in full code mode) */}
@@ -2318,7 +2318,7 @@ const App: React.FC = () => {
                 </div>
               ) : (
                 <div className="flex-1 flex flex-col min-h-0">
-                  <PreviewToolbar device={deviceMode} onDeviceChange={setDeviceMode} url={previewUrl || sandboxUrl || 'canvas.maula.ai'} onRefresh={handleRefreshPreview} showConsole={showConsolePanel} onToggleConsole={() => setShowConsolePanel(p => !p)} showNetwork={showNetworkPanel} onToggleNetwork={() => setShowNetworkPanel(p => !p)} zoom={previewZoom} onZoomChange={setPreviewZoom} canUndo={canUndo} onUndo={handleUndo} canRedo={canRedo} onRedo={handleRedo} versionIndex={historyIndex} versionTotal={codeHistory.length} onOpenExternal={previewUrl ? () => window.open(previewUrl, '_blank', 'noopener') : undefined} viewMode={viewMode} onViewModeChange={setViewMode} onEditorModeEdit={() => setEditorMode('edit')} />
+                  <PreviewToolbar device={deviceMode} onDeviceChange={setDeviceMode} url={previewUrl || sandboxUrl || 'canvas.sanbayfusion.com'} onRefresh={handleRefreshPreview} showConsole={showConsolePanel} onToggleConsole={() => setShowConsolePanel(p => !p)} showNetwork={showNetworkPanel} onToggleNetwork={() => setShowNetworkPanel(p => !p)} zoom={previewZoom} onZoomChange={setPreviewZoom} canUndo={canUndo} onUndo={handleUndo} canRedo={canRedo} onRedo={handleRedo} versionIndex={historyIndex} versionTotal={codeHistory.length} onOpenExternal={previewUrl ? () => window.open(previewUrl, '_blank', 'noopener') : undefined} viewMode={viewMode} onViewModeChange={setViewMode} onEditorModeEdit={() => setEditorMode('edit')} />
                   <div className="flex-1 min-h-0">
                     <SandpackPreview code={currentApp?.code || ''} language={(() => { const c = (currentApp?.code || '').trimStart(); const isHtml = c.startsWith('<!DOCTYPE') || c.startsWith('<html') || (c.startsWith('<') && (c.includes('</html>') || c.includes('</body>'))); return isHtml ? 'html' : ['react', 'nextjs'].includes(currentLanguage) ? 'react' : 'html'; })()} currentLanguage={currentLanguage} viewMode={viewMode} onViewModeChange={setViewMode} onCodeChange={(newCode) => { if (currentApp) { const updatedApp = { ...currentApp, code: newCode }; setCurrentApp(updatedApp); saveApp(updatedApp, false); } }} autoRun={previewAutoRun} onAutoRunStarted={() => setPreviewAutoRun(false)} onSessionUrl={(url) => setSandboxUrl(url)} />
                   </div>
@@ -2397,7 +2397,7 @@ const App: React.FC = () => {
               {activeOverlay === 'billing' && (
                 <div className="p-4 space-y-6">
                   <UsageDashboard plan="free" metrics={[{ label: 'API Calls', used: 0, limit: 1000, unit: 'calls', icon: 'tokens' as const }, { label: 'Storage', used: 0, limit: 5000, unit: 'MB', icon: 'storage' as const }, { label: 'Builds', used: 0, limit: 100, unit: 'builds', icon: 'compute' as const }]} />
-                  <InvoiceHistory invoices={[]} onDownload={(id) => toast.info('Invoice', 'Invoice download will open in billing dashboard.')} onViewDetails={(id) => window.open('https://maula.ai/dashboard/billing', '_blank')} />
+                  <InvoiceHistory invoices={[]} onDownload={(id) => toast.info('Invoice', 'Invoice download will open in billing dashboard.')} onViewDetails={(id) => window.open('https://sanbayfusion.com/dashboard/billing', '_blank')} />
                 </div>
               )}
               {activeOverlay === 'deploy-status' && <DeployStatus projectId={currentApp?.id || 'default'} />}

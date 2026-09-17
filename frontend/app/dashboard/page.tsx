@@ -638,7 +638,7 @@ function DashboardContent() {
                       {deployedSites.length} deployed site
                       {deployedSites.length === 1 ? '' : 's'}
                     </span>{' '}
-                    on maula.ai.
+                    on sanbayfusion.com.
                   </>
                 ) : (
                   'No sites deployed yet. Use Canvas to build and deploy your first site.'
@@ -881,7 +881,7 @@ function DashboardContent() {
                 ) : (
                   <div className="text-center py-8 text-gray-500">
                     <p className="text-sm">No agent subscriptions yet.</p>
-                    <Link href="https://maula.ai/agents" className="text-cyan-400 hover:underline text-sm mt-2 inline-block">
+                    <Link href="https://sanbayfusion.com/agents" className="text-cyan-400 hover:underline text-sm mt-2 inline-block">
                       Browse available agents →
                     </Link>
                   </div>

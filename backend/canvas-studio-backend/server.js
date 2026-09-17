@@ -28,7 +28,7 @@ app.use(helmet({
 }));
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN?.split(',') || ['https://studio.maula.ai'],
+    origin: process.env.CORS_ORIGIN?.split(',') || ['https://studio.sanbayfusion.com'],
     credentials: true,
 }));
 app.use(cookieParser());
@@ -49,7 +49,7 @@ app.use((req, _res, next) => {
 // ROUTES
 // ============================================
 
-// Public preview routes — no auth required (served via appview.maula.ai)
+// Public preview routes — no auth required (served via appview.sanbayfusion.com)
 app.use('/p', canvasPreviewRouter);
 
 // Mount all canvas API routes under /api
@@ -77,7 +77,7 @@ async function start() {
 
         app.listen(PORT, () => {
             console.log(`\n🚀 Canvas Studio Backend running on port ${PORT}`);
-            console.log(`   Health: https://studio.maula.ai/api/health (port ${PORT})`);
+            console.log(`   Health: https://studio.sanbayfusion.com/api/health (port ${PORT})`);
             console.log(`   Env:    ${process.env.NODE_ENV || 'development'}\n`);
         });
     } catch (error) {

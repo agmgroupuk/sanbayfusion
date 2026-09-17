@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Maula AI',
   webDir: 'out',
   server: {
-    url: 'https://maula.ai',
+    url: 'https://sanbayfusion.com',
     cleartext: false,
   },
   android: {

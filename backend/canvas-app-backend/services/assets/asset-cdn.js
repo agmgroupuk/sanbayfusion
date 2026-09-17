@@ -9,7 +9,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import crypto from 'crypto';
 
 const ASSET_BUCKET = process.env.ASSET_S3_BUCKET || 'maula-assets';
-const CDN_DOMAIN = process.env.ASSET_CDN_DOMAIN || 'cdn.maula.ai';
+const CDN_DOMAIN = process.env.ASSET_CDN_DOMAIN || 'cdn.sanbayfusion.com';
 
 class AssetCDN {
   constructor() {

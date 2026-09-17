@@ -34,6 +34,6 @@ export default function robots(): MetadataRoute.Robots {
                 ],
             },
         ],
-        sitemap: 'https://maula.ai/sitemap.xml',
+        sitemap: 'https://sanbayfusion.com/sitemap.xml',
     };
 }

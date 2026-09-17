@@ -219,7 +219,7 @@ export default function CollaborationPanel({ projectId, projectName, isDarkMode 
   };
 
   const generateShareLink = () => {
-    const link = `https://studio.maula.ai/project/${projectId}?share=true`;
+    const link = `https://studio.sanbayfusion.com/project/${projectId}?share=true`;
     setShareLink(link);
   };
 

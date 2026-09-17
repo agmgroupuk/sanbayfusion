@@ -233,7 +233,7 @@ export default function CanvasStudioDocsPage() {
             <div className="relative z-10">
               <h2 className="text-2xl font-bold mb-4">Open Canvas Studio</h2>
               <p className="text-gray-400 mb-6">Professional IDE experience with AI assistance and real-time team collaboration.</p>
-              <Link href="https://studio.maula.ai" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
+              <Link href="https://studio.sanbayfusion.com" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
                 <Rocket className="w-5 h-5" />
                 Launch Canvas Studio
               </Link>
@@ -332,7 +332,7 @@ export default function CanvasStudioDocsPage() {
               <h2 className="text-2xl md:text-3xl font-bold mb-4">Start Coding Now</h2>
               <p className="text-gray-400 mb-6">Professional IDE experience with AI, collaboration, and 16 specialized panels.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="https://studio.maula.ai" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
+                <Link href="https://studio.sanbayfusion.com" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
                   💻 Launch Canvas Studio
                 </Link>
                 <Link href="/docs/canvas" className="inline-flex items-center gap-2 px-8 py-4 bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] rounded-xl font-semibold transition-all">

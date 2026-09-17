@@ -391,7 +391,7 @@ export default function ProcessAutomation() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="https://maula.ai/agents"
+              href="https://sanbayfusion.com/agents"
               className="pulse-btn px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl text-white font-semibold text-lg transition-all duration-300 shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2"
             >
               Try Automation Agents
@@ -577,7 +577,7 @@ export default function ProcessAutomation() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="https://maula.ai/agents"
+                href="https://sanbayfusion.com/agents"
                 className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl text-white font-semibold text-lg transition-all duration-300"
               >
                 Explore Automation Agents

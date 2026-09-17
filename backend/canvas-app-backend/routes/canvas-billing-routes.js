@@ -103,8 +103,8 @@ router.post('/studio-checkout', async (req, res) => {
             return res.status(500).json({ success: false, error: 'Payment configuration not set up yet.' });
         }
 
-        // ALL flows redirect to the unified maula.ai thank-you page (with dashboard + open-app buttons).
-        const mainDomain = (req.body.returnUrl || 'https://maula.ai').replace(/\/$/, '');
+        // ALL flows redirect to the unified sanbayfusion.com thank-you page (with dashboard + open-app buttons).
+        const mainDomain = (req.body.returnUrl || 'https://sanbayfusion.com').replace(/\/$/, '');
         const successUrl = `${mainDomain}/payment/success?session_id={CHECKOUT_SESSION_ID}&app=gencraft-pro&plan=${plan}&agent=GenCraft+Pro&slug=gencraft-pro`;
         const cancelUrl = `${mainDomain}/overview/pricing?purchase=cancelled&plan=${plan}`;
 
@@ -150,7 +150,7 @@ router.get('/studio-plan', async (req, res) => {
         }
 
         // Main DB is the sole authoritative source for gencraft-pro subscriptions.
-        // All purchases (via canvas.maula.ai or maula.ai/overview/pricing) are written here.
+        // All purchases (via canvas.sanbayfusion.com or sanbayfusion.com/overview/pricing) are written here.
         let subscription = null;
         try {
             const mainSubs = await authPrisma.$queryRawUnsafe(

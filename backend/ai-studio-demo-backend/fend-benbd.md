@@ -1,7 +1,7 @@
 # AI Studio Demo — Full-Stack Documentation
 
 > **App**: AI Studio Demo  
-> **Domain**: `demo.maula.ai`  
+> **Domain**: `demo.sanbayfusion.com`  
 > **Backend Port**: `3500`  
 > **PM2 Process**: `ai-studio-demo-backend`  
 > **Database**: PostgreSQL (`ai_studio_demo`)
@@ -12,7 +12,7 @@
 
 ```
 ┌──────────────────────────────────┐     ┌──────────────────────────────┐
-│  demo.maula.ai (Vite SPA)       │     │  ai-studio-demo-backend      │
+│  demo.sanbayfusion.com (Vite SPA)       │     │  ai-studio-demo-backend      │
 │  frontend/ai-studio-demo/dist/  │────▶│  Port 3500                   │
 │  React 19 + Vite                │     │  Express + Prisma            │
 └──────────────────────────────────┘     └──────────┬───────────────────┘
@@ -34,7 +34,7 @@
 | **Framework** | Vite + React 19 (SPA) |
 | **Dev Port** | 3000 (Vite dev server, proxy → `:3500`) |
 | **Build Output** | `frontend/ai-studio-demo/dist/` |
-| **Domain** | `demo.maula.ai` |
+| **Domain** | `demo.sanbayfusion.com` |
 | **Type** | Single-page AI studio demo with multi-model chat |
 
 ---

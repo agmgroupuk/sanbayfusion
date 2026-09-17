@@ -34,7 +34,7 @@ import Docker from 'dockerode';
 const log = createLogger('Server');
 
 // ── Main DB pool for cross-domain session SSO ──
-// When user signs in on maula.ai, sessionId cookie is set with domain .maula.ai
+// When user signs in on sanbayfusion.com, sessionId cookie is set with domain .sanbayfusion.com
 // We look up that session in the main maulaai database to authenticate
 // Strip sslmode from URL — newer pg lib treats sslmode=require as verify-full,
 // overriding our explicit ssl config and causing "self-signed certificate" errors
@@ -177,10 +177,10 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
         process.env.MAULA_EDITOR_FRONTEND_URL || 'http://localhost:3104',
         'http://localhost:3000',
         'http://localhost:5173',
-        'http://editor.maula.ai',
-        'https://editor.maula.ai',
-        'https://maula.ai',
-        'https://www.maula.ai',
+        'http://editor.sanbayfusion.com',
+        'https://editor.sanbayfusion.com',
+        'https://sanbayfusion.com',
+        'https://www.sanbayfusion.com',
     ];
 
 app.use(cors({
@@ -357,8 +357,8 @@ const requireAuth = async (req, res, next) => {
             }
         }
 
-        // 2) Try maula.ai session cookies (sessionId / session_id) — cross-domain SSO
-        //    These are set by the main site with domain=.maula.ai, so available here
+        // 2) Try sanbayfusion.com session cookies (sessionId / session_id) — cross-domain SSO
+        //    These are set by the main site with domain=.sanbayfusion.com, so available here
         const mainSessionId = req.cookies?.sessionId || req.cookies?.session_id;
         if (mainSessionId && mainDbPool) {
             const result = await mainDbPool.query(
@@ -380,7 +380,7 @@ const requireAuth = async (req, res, next) => {
                         },
                         include: { credits: true },
                     });
-                    log.info(`[Auth] Auto-provisioned user ${mainUser.email} from maula.ai session SSO`);
+                    log.info(`[Auth] Auto-provisioned user ${mainUser.email} from sanbayfusion.com session SSO`);
                 }
                 req.user = editorUser;
                 return next();
@@ -496,8 +496,8 @@ app.post('/api/billing/checkout/:appId', requireAuth, async (req, res) => {
                 credits: String(credits),
                 packageId,
             },
-            success_url: `https://maula.ai/payment/success?session_id={CHECKOUT_SESSION_ID}&app=maula-editor&credits=${credits}&agent=Maula+Editor&slug=maula-editor`,
-            cancel_url: `https://maula.ai/overview/pricing?purchase=cancelled&app=maula-editor`,
+            success_url: `https://sanbayfusion.com/payment/success?session_id={CHECKOUT_SESSION_ID}&app=maula-editor&credits=${credits}&agent=Maula+Editor&slug=maula-editor`,
+            cancel_url: `https://sanbayfusion.com/overview/pricing?purchase=cancelled&app=maula-editor`,
         });
 
         res.json({ success: true, url: session.url, sessionId: session.id });
@@ -536,7 +536,7 @@ async function createSession(res, user) {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        domain: '.maula.ai',
+        domain: '.sanbayfusion.com',
     };
     res.cookie('maula_editor_session', token, cookieOpts);
     res.cookie('auth_token', token, cookieOpts);
@@ -866,7 +866,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         });
 
         const proto = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-        const domain = process.env.APP_DOMAIN || 'editor.maula.ai';
+        const domain = process.env.APP_DOMAIN || 'editor.sanbayfusion.com';
         const resetUrl = `${proto}://${domain}/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`;
 
         await emailService.sendPasswordResetEmail(email, user.name || '', resetUrl);
@@ -988,7 +988,7 @@ app.get('/api/auth/me', async (req, res) => {
             } catch { /* JWT invalid — fall through */ }
         }
 
-        // 2) Try maula.ai session cookies (cross-domain SSO)
+        // 2) Try sanbayfusion.com session cookies (cross-domain SSO)
         const mainSessionId = req.cookies?.sessionId || req.cookies?.session_id;
         if (mainSessionId && mainDbPool) {
             const result = await mainDbPool.query(
@@ -1009,7 +1009,7 @@ app.get('/api/auth/me', async (req, res) => {
                         },
                         include: { credits: true },
                     });
-                    log.info(`[Auth/me] Auto-provisioned user ${mainUser.email} from maula.ai session`);
+                    log.info(`[Auth/me] Auto-provisioned user ${mainUser.email} from sanbayfusion.com session`);
                 }
                 return res.json({
                     success: true,
@@ -1253,7 +1253,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            domain: '.maula.ai',
+            domain: '.sanbayfusion.com',
         };
         res.cookie('maula_editor_session', token, cookieOpts);
         res.cookie('auth_token', token, cookieOpts);
@@ -1375,7 +1375,7 @@ app.get('/api/auth/yahoo/callback', async (req, res) => {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            domain: '.maula.ai',
+            domain: '.sanbayfusion.com',
         };
         res.cookie('maula_editor_session', token, cookieOpts);
         res.cookie('auth_token', token, cookieOpts);
@@ -1498,7 +1498,7 @@ app.get('/api/auth/microsoft/callback', async (req, res) => {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            domain: '.maula.ai',
+            domain: '.sanbayfusion.com',
         };
         res.cookie('maula_editor_session', token, cookieOpts);
         res.cookie('auth_token', token, cookieOpts);
@@ -1630,7 +1630,7 @@ app.get('/api/auth/github/callback', async (req, res) => {
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            domain: '.maula.ai',
+            domain: '.sanbayfusion.com',
         };
         res.cookie('maula_editor_session', token, cookieOpts);
         res.cookie('auth_token', token, cookieOpts);
@@ -2173,8 +2173,8 @@ app.get('/api/docker/networks', requireAuth, async (req, res) => {
 const io = new SocketIOServer(httpServer, {
     cors: {
         origin: [
-            'https://editor.maula.ai',
-            'https://maula.ai',
+            'https://editor.sanbayfusion.com',
+            'https://sanbayfusion.com',
             'http://localhost:3000',
             'http://localhost:5173',
         ],

@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
                 totalReferrals: referralCode.totalReferrals,
                 totalPointsEarned: referralCode.totalPointsEarned,
                 isActive: referralCode.isActive,
-                shareUrl: `https://maula.ai/signup?ref=${referralCode.code}`,
+                shareUrl: `https://sanbayfusion.com/signup?ref=${referralCode.code}`,
                 recentReferrals: referrals.map(r => ({
                     id: r.id,
                     status: r.status,

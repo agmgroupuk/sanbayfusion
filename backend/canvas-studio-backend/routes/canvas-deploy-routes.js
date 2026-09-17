@@ -299,7 +299,7 @@ router.get('/domains', async (req, res) => {
         isPrimary: i === 0,
         addedAt: d.createdAt.toISOString(),
         dnsRecords: [
-          { type: 'CNAME', name: d.domain, value: d.url || 'appview.maula.ai' },
+          { type: 'CNAME', name: d.domain, value: d.url || 'appview.sanbayfusion.com' },
         ],
       }));
 
@@ -330,7 +330,7 @@ router.post('/domains', async (req, res) => {
 
     const cleaned = domain.toLowerCase().trim();
 
-    // Extract subdomain part (strip .maula.ai if sent)
+    // Extract subdomain part (strip .sanbayfusion.com if sent)
     const sub = cleaned.replace(/\.maula\.ai$/, '');
 
     // Validate subdomain format
@@ -346,7 +346,7 @@ router.post('/domains', async (req, res) => {
       return res.status(400).json({ success: false, error: `"${sub}" is a reserved system subdomain` });
     }
 
-    const fullDomain = sub + '.maula.ai';
+    const fullDomain = sub + '.sanbayfusion.com';
 
     // Check for duplicate — no other deployment should already use this domain
     const existing = await prisma.deployment.findFirst({
@@ -384,7 +384,7 @@ router.post('/domains', async (req, res) => {
         isPrimary: false,
         addedAt: new Date().toISOString(),
         dnsRecords: [
-          { type: 'CNAME', name: fullDomain, value: deployment?.url || 'appview.maula.ai' },
+          { type: 'CNAME', name: fullDomain, value: deployment?.url || 'appview.sanbayfusion.com' },
         ],
       },
     });

@@ -63,7 +63,7 @@ const nextConfig = {
           },
           // Separate heavy libraries
           heavy: {
-            test: /[\\/]node_modules[\\/](@prisma|stripe|axios)[\\/]/,
+            test: /[\\/]node_modules[\\/](@prisma|axios)[\\/]/,
             name: 'heavy-libs',
             chunks: 'async', // Load asynchronously
             priority: 5,
@@ -122,8 +122,8 @@ const nextConfig = {
   images: {
     // Modern configuration: prefer remotePatterns over deprecated domains list
     remotePatterns: [
-      { protocol: 'https', hostname: 'maula.ai' },
-      { protocol: 'https', hostname: 'www.maula.ai' },
+      { protocol: 'https', hostname: 'sanbayfusion.com' },
+      { protocol: 'https', hostname: 'www.sanbayfusion.com' },
       { protocol: 'http', hostname: 'localhost' },
       { protocol: 'https', hostname: 'upload.wikimedia.org' },
       { protocol: 'https', hostname: '*.wikimedia.org' },
@@ -215,7 +215,7 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             // Allow Monaco workers (blob), Google Maps, PayPal, base64 image downloads, audio playback, third-party assets used by the canvas preview.
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https://challenges.cloudflare.com https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://js.stripe.com https://m.stripe.network https://www.paypal.com https://static.cloudflareinsights.com https://maps.googleapis.com https://maps.gstatic.com https://checkout.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://tagmanager.google.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://js.stripe.com https://checkout.stripe.com https://tagmanager.google.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' blob: data: https://challenges.cloudflare.com https://maula.ai wss://maula.ai https://canvas.maula.ai wss://canvas.maula.ai https://studio.maula.ai wss://studio.maula.ai https://demo.maula.ai https://maula.ai/chat https://api.stripe.com https://m.stripe.network https://cloudflareinsights.com https://api.openai.com wss://api.openai.com https://api.anthropic.com https://generativelanguage.googleapis.com https://*.s3.ap-southeast-1.amazonaws.com https://maula-ai-bucket.s3.ap-southeast-1.amazonaws.com https://maps.googleapis.com https://checkout.stripe.com https://api.ipify.org https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net; frame-src 'self' https://demo.maula.ai https://editor.maula.ai https://challenges.cloudflare.com https://js.stripe.com https://hooks.stripe.com https://www.google.com https://checkout.stripe.com; worker-src 'self' blob: data:; media-src 'self' blob: data: https://www.soundhelix.com https://*.s3.ap-southeast-1.amazonaws.com https://maula-ai-bucket.s3.ap-southeast-1.amazonaws.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self';",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https://challenges.cloudflare.com https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://js.stripe.com https://m.stripe.network https://www.paypal.com https://static.cloudflareinsights.com https://maps.googleapis.com https://maps.gstatic.com https://checkout.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://tagmanager.google.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://js.stripe.com https://checkout.stripe.com https://tagmanager.google.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' blob: data: https://challenges.cloudflare.com https://sanbayfusion.com wss://sanbayfusion.com https://canvas.sanbayfusion.com wss://canvas.sanbayfusion.com https://studio.sanbayfusion.com wss://studio.sanbayfusion.com https://demo.sanbayfusion.com https://sanbayfusion.com/chat https://api.stripe.com https://m.stripe.network https://cloudflareinsights.com https://api.openai.com wss://api.openai.com https://api.anthropic.com https://generativelanguage.googleapis.com https://*.s3.ap-southeast-1.amazonaws.com https://maula-ai-bucket.s3.ap-southeast-1.amazonaws.com https://maps.googleapis.com https://checkout.stripe.com https://api.ipify.org https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net; frame-src 'self' https://demo.sanbayfusion.com https://editor.sanbayfusion.com https://challenges.cloudflare.com https://js.stripe.com https://hooks.stripe.com https://www.google.com https://checkout.stripe.com; worker-src 'self' blob: data:; media-src 'self' blob: data: https://www.soundhelix.com https://*.s3.ap-southeast-1.amazonaws.com https://maula-ai-bucket.s3.ap-southeast-1.amazonaws.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self';",
           },
         ],
       },

@@ -180,7 +180,7 @@ function CanvasStudioDashboardContent() {
                                 Billing
                             </Link>
                             <a
-                                href="https://studio.maula.ai"
+                                href="https://studio.sanbayfusion.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 rounded-xl font-semibold transition-all shadow-lg shadow-violet-500/20"
@@ -236,7 +236,7 @@ function CanvasStudioDashboardContent() {
                                         </div>
                                     </div>
                                     <a
-                                        href="https://studio.maula.ai"
+                                        href="https://studio.sanbayfusion.com"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 rounded-xl font-semibold transition-all text-sm"
@@ -259,7 +259,7 @@ function CanvasStudioDashboardContent() {
                                         </div>
                                     </div>
                                     <a
-                                        href="https://studio.maula.ai"
+                                        href="https://studio.sanbayfusion.com"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 rounded-xl font-semibold transition-all text-sm"
@@ -313,7 +313,7 @@ function CanvasStudioDashboardContent() {
                                 </h2>
                                 {data.stats.apps > 5 && (
                                     <a
-                                        href="https://studio.maula.ai"
+                                        href="https://studio.sanbayfusion.com"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-sm text-violet-400 hover:text-violet-300 transition-colors flex items-center gap-1"
@@ -327,7 +327,7 @@ function CanvasStudioDashboardContent() {
                                 <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] text-center">
                                     <Code2 className="w-8 h-8 text-gray-600 mx-auto mb-3" />
                                     <p className="text-gray-400">No apps created yet</p>
-                                    <a href="https://studio.maula.ai" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-sm text-violet-400 hover:text-violet-300">
+                                    <a href="https://studio.sanbayfusion.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-sm text-violet-400 hover:text-violet-300">
                                         Create your first app <ExternalLink className="w-3 h-3" />
                                     </a>
                                 </div>
@@ -376,7 +376,7 @@ function CanvasStudioDashboardContent() {
                                 </h2>
                                 {data.stats.projects > 5 && (
                                     <a
-                                        href="https://studio.maula.ai"
+                                        href="https://studio.sanbayfusion.com"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1"
@@ -390,7 +390,7 @@ function CanvasStudioDashboardContent() {
                                 <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] text-center">
                                     <FolderOpen className="w-8 h-8 text-gray-600 mx-auto mb-3" />
                                     <p className="text-gray-400">No projects created yet</p>
-                                    <a href="https://studio.maula.ai" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-sm text-cyan-400 hover:text-cyan-300">
+                                    <a href="https://studio.sanbayfusion.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 mt-3 text-sm text-cyan-400 hover:text-cyan-300">
                                         Start a new project <ExternalLink className="w-3 h-3" />
                                     </a>
                                 </div>
@@ -480,7 +480,7 @@ function CanvasStudioDashboardContent() {
                         {/* Quick Links */}
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <a
-                                href="https://studio.maula.ai"
+                                href="https://studio.sanbayfusion.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-violet-500/30 transition-all group backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
@@ -509,7 +509,7 @@ function CanvasStudioDashboardContent() {
                                     <Globe className="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" />
                                     <span className="font-semibold text-white">Hosted Sites</span>
                                 </div>
-                                <p className="text-xs text-gray-500">Manage sites deployed on maula.ai hosting</p>
+                                <p className="text-xs text-gray-500">Manage sites deployed on sanbayfusion.com hosting</p>
                             </Link>
                         </div>
                     </>
@@ -521,7 +521,7 @@ function CanvasStudioDashboardContent() {
                         <Layers className="w-12 h-12 text-gray-600" />
                         <p className="text-gray-400 text-lg">No Canvas Studio data found</p>
                         <a
-                            href="https://studio.maula.ai"
+                            href="https://studio.sanbayfusion.com"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-violet-600 to-cyan-600 rounded-xl font-semibold transition-all"

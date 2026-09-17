@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60,
             path: '/',
-            domain: isProduction ? '.maula.ai' : undefined,
+            domain: isProduction ? '.sanbayfusion.com' : undefined,
         });
         response.cookies.set('sessionId', sessionId, {
             httpOnly: true,
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60,
             path: '/',
-            domain: isProduction ? '.maula.ai' : undefined,
+            domain: isProduction ? '.sanbayfusion.com' : undefined,
         });
 
         // Send welcome email on first login (with coupon code for free 1-day agent access)

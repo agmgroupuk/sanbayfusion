@@ -6,7 +6,7 @@
  * State is managed via Zustand (in-memory) with auto-save to backend DB + S3.
  * ZERO localStorage. ZERO sessionStorage.
  * 
- * Location: /canvas-studio/ (standalone at studio.maula.ai)
+ * Location: /canvas-studio/ (standalone at studio.sanbayfusion.com)
  * Builds to: /frontend/public/canvas-studio/
  */
 

@@ -56,12 +56,12 @@ const GLASS_ICONS = {
 
 // Quick nav items - 6 buttons with consistent labels
 const NAV_ITEMS = [
-  { label: 'HOME PAGE', iconKey: 'home', href: 'https://maula.ai/home' },
-  { label: '18 AGENTS', iconKey: 'agents', href: 'https://maula.ai/agents' },
-  { label: 'CANVAS APP', iconKey: 'canvas', href: 'https://canvas.maula.ai' },
-  { label: 'STUDIO APP', iconKey: 'studio', href: 'https://studio.maula.ai' },
-  { label: 'ALL TOOLS', iconKey: 'tools', href: 'https://maula.ai/tools' },
-  { label: 'AI LABS', iconKey: 'labs', href: 'https://maula.ai/lab' },
+  { label: 'HOME PAGE', iconKey: 'home', href: 'https://sanbayfusion.com/home' },
+  { label: '18 AGENTS', iconKey: 'agents', href: 'https://sanbayfusion.com/agents' },
+  { label: 'CANVAS APP', iconKey: 'canvas', href: 'https://canvas.sanbayfusion.com' },
+  { label: 'STUDIO APP', iconKey: 'studio', href: 'https://studio.sanbayfusion.com' },
+  { label: 'ALL TOOLS', iconKey: 'tools', href: 'https://sanbayfusion.com/tools' },
+  { label: 'AI LABS', iconKey: 'labs', href: 'https://sanbayfusion.com/lab' },
 ];
 
 const Overlay: React.FC<OverlayProps> = ({ active, onActivate, agentName = 'Neural Companion' }) => {

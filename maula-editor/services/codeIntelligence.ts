@@ -208,7 +208,7 @@ export interface AnalysisResult {
 
 const isProd = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
 const API_BASE_URL = import.meta.env.VITE_API_URL
-  || (isProd ? 'https://editor.maula.ai/api' : 'http://localhost:3204/api');
+  || (isProd ? 'https://editor.sanbayfusion.com/api' : 'http://localhost:3204/api');
 
 // ============================================================================
 // Helper Functions

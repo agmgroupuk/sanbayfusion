@@ -169,7 +169,7 @@ export default function DarkThemeShowcase() {
           <p className="text-xl mb-8 text-brand-100">
             Toggle the theme switch in the navigation to see the transformation
           </p>
-          <Link href="https://maula.ai/agents" className="btn-secondary !bg-white !text-brand-600 hover:!bg-brand-50">
+          <Link href="https://sanbayfusion.com/agents" className="btn-secondary !bg-white !text-brand-600 hover:!bg-brand-50">
             Explore AI Agents
           </Link>
         </div>

@@ -136,7 +136,7 @@ export default function CommunityStats() {
           {/* CTA Button */}
           <div ref={ctaRef} className="text-center">
             <Link
-              href="https://maula.ai/community/overview"
+              href="https://sanbayfusion.com/community/overview"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-lg shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] hover:scale-105 transition-all duration-300"
             >
               Explore Our Community

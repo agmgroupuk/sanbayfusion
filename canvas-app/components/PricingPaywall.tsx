@@ -35,7 +35,7 @@ const PLAN_META: Record<string, Omit<PricingPlan, 'id' | 'name' | 'price' | 'ori
       'Unlimited AI generations',
       'All AI models access',
       'Multi-page site builder',
-      'One-click deploy to Maula.ai',
+      'One-click deploy to sanbayfusion.com',
       'Export & download code',
     ],
     color: '#3B82F6',
@@ -126,8 +126,8 @@ const PricingPaywall: React.FC<PricingPaywallProps> = ({ userId, userEmail, onCl
 
   const handlePurchase = async (planId: string) => {
     if (!userId || !userEmail) {
-      // Redirect to centralized login at maula.ai
-      window.location.href = 'https://maula.ai/auth/login?redirect=' + encodeURIComponent('https://canvas.maula.ai');
+      // Redirect to centralized login at sanbayfusion.com
+      window.location.href = 'https://sanbayfusion.com/auth/login?redirect=' + encodeURIComponent('https://canvas.sanbayfusion.com');
       return;
     }
 

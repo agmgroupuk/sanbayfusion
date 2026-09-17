@@ -72,7 +72,7 @@ export default function HeroSection({
                   href={(() => {
                     try {
                       const u = new URL(primaryAction.href);
-                      u.host = 'canvas.maula.ai';
+                      u.host = 'canvas.sanbayfusion.com';
                       return u.toString();
                     } catch (e) {
                       return primaryAction.href;

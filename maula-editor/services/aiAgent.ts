@@ -205,7 +205,7 @@ class AIAgentService {
   ): Promise<{ response: string; operations: FileOperation[]; commands: string[] }> {
     // Use api subdomain in production, localhost in development
     const API_URL = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
-      ? 'https://editor.maula.ai/api'
+      ? 'https://editor.sanbayfusion.com/api'
       : 'http://localhost:4000/api/v1';
     
     const messagesWithSystem = [

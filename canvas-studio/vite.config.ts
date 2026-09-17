@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
-    // Served at root of canvas.maula.ai
+    // Served at root of canvas.sanbayfusion.com
     base: '/',
     server: {
       port: 3002,

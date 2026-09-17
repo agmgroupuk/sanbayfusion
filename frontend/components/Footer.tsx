@@ -84,9 +84,9 @@ export default function Footer() {
   // All navigation links in one organized structure
   const footerLinks = [
     { name: 'Agents', href: '/agents' },
-    { name: 'Demo', href: 'https://demo.maula.ai' },
-    { name: 'Canvas', href: 'https://studio.maula.ai' },
-    { name: 'Editor', href: 'https://editor.maula.ai' },
+    { name: 'Demo', href: 'https://demo.sanbayfusion.com' },
+    { name: 'Canvas', href: 'https://studio.sanbayfusion.com' },
+    { name: 'Editor', href: 'https://editor.sanbayfusion.com' },
     { name: 'AI Lab', href: '/lab' },
     { name: 'Industries', href: '/industries' },
     { name: 'Pricing', href: '/overview' },

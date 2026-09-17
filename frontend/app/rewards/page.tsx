@@ -861,7 +861,7 @@ export default function RewardsCenterPage() {
                 Join thousands of users already earning rewards. Every interaction counts!
               </p>
               <Link
-                href="https://maula.ai/agents"
+                href="https://sanbayfusion.com/agents"
                 className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 text-black font-black text-xl hover:shadow-2xl hover:shadow-amber-500/30 hover:scale-105 transition-all"
               >
                 Explore Agents

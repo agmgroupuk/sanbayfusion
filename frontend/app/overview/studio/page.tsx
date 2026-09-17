@@ -301,7 +301,7 @@ export default function CanvasStudioPricingPage() {
                 body: JSON.stringify({
                     plan: planId,
                     userEmail: authUser.email,
-                    returnUrl: 'https://maula.ai',
+                    returnUrl: 'https://sanbayfusion.com',
                 }),
             });
 

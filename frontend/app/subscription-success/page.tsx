@@ -109,35 +109,11 @@ function SuccessContent() {
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [introComplete, setIntroComplete] = useState(false);
 
-    const agentLink = isCanvasStudio ? 'https://canvas.maula.ai' : `https://${agentSlug}-chat.maula.ai/`;
+    const agentLink = isCanvasStudio ? 'https://canvas.sanbayfusion.com' : `https://${agentSlug}-chat.sanbayfusion.com/`;
 
-    // Verify session on mount
+    // Checkout provider removed — always show static success state.
     useEffect(() => {
-        if (!sessionId) {
-            // Demo / no session — show static success
-            setStatus('success');
-            return;
-        }
-        const verify = async () => {
-            try {
-                const timeout = setTimeout(() => { setStatus('error'); setErrorMsg('Verification timed out. Check your dashboard.'); }, 12000);
-                const res = await fetch('/api/stripe/verify-session', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId }) });
-                clearTimeout(timeout);
-                if (!res.ok) {
-                    const d = await res.json().catch(() => ({}));
-                    setErrorMsg(d.error || 'Verification failed. Please contact support.');
-                    setStatus('error');
-                    return;
-                }
-                const data = await res.json();
-                if (data.subscription) setSubData(data.subscription);
-                setStatus('success');
-            } catch {
-                setStatus('error');
-                setErrorMsg('Network error. Your subscription is likely active \u2014 check the dashboard.');
-            }
-        };
-        verify();
+        setStatus('success');
     }, [sessionId]);
 
     // Twinkling stars (brand background)

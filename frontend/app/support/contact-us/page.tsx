@@ -20,7 +20,7 @@ export default function ContactUsPage() {
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const contactMethods = [
-    { icon: '📧', title: 'Email', value: 'support@maula.ai', color: 'from-blue-500 to-cyan-500' },
+    { icon: '📧', title: 'Email', value: 'support@sanbayfusion.com', color: 'from-blue-500 to-cyan-500' },
     { icon: '💬', title: 'Live Chat', value: 'Available 24/7', color: 'from-purple-500 to-pink-500' },
     { icon: '🌐', title: 'Social Media', value: '@maulaai', color: 'from-green-500 to-emerald-500' }
   ];

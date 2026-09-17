@@ -318,7 +318,7 @@ export default function PerAgentPricingPage() {
                         ))}
                       </ul>
 
-                      <Link href="https://maula.ai/agents"
+                      <Link href="https://sanbayfusion.com/agents"
                         className={`block w-full text-center py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${tier.popular
                           ? 'bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90 text-white shadow-lg shadow-violet-600/15 hover:shadow-violet-600/30'
                           : 'bg-white/[0.04] border border-white/[0.08] text-gray-300 hover:bg-white/[0.08] hover:text-white hover:border-white/[0.15]'}`}>
@@ -468,7 +468,7 @@ export default function PerAgentPricingPage() {
                   Choose your plan and start building amazing AI experiences today. Browse our collection of specialized AI agents.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                  <Link href="https://maula.ai/agents" className="group relative px-8 py-3.5 rounded-xl text-white font-semibold text-sm flex items-center justify-center gap-2 overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-violet-600/20" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.85) 0%, rgba(192,38,211,0.75) 100%)' }}>
+                  <Link href="https://sanbayfusion.com/agents" className="group relative px-8 py-3.5 rounded-xl text-white font-semibold text-sm flex items-center justify-center gap-2 overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-violet-600/20" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.85) 0%, rgba(192,38,211,0.75) 100%)' }}>
                     <div className="absolute inset-0 bg-gradient-to-r from-violet-400/0 via-white/10 to-violet-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <Bot className="w-4 h-4 relative z-10" />
                     <span className="relative z-10">Browse Agents</span>

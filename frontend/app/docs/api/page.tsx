@@ -164,11 +164,8 @@ const apiCategories = [
     },
     {
         id: 'billing', label: 'Billing & Subscriptions', icon: CreditCard, color: 'orange',
-        description: 'Manage subscriptions, process payments via Stripe, and handle billing lifecycle events.',
+        description: 'Manage subscriptions and handle billing lifecycle events.',
         endpoints: [
-            { method: 'POST', path: '/api/stripe/checkout', desc: 'Create a Stripe checkout session' },
-            { method: 'POST', path: '/api/stripe/verify-session', desc: 'Verify a completed checkout' },
-            { method: 'POST', path: '/api/stripe/webhook', desc: 'Stripe webhook handler' },
             { method: 'GET', path: '/api/subscriptions', desc: 'List subscription plans' },
             { method: 'GET', path: '/api/subscriptions/:userId', desc: 'Get user subscription details' },
             { method: 'GET', path: '/api/subscriptions/check', desc: 'Check subscription status' },
@@ -211,7 +208,7 @@ const apiCategories = [
 
 const codeExamples: Record<string, { title: string; language: string; code: string }> = {
     authentication: {
-        title: 'Login & Get Token', language: 'JavaScript', code: `const res = await fetch('https://maula.ai/api/auth/login', {
+        title: 'Login & Get Token', language: 'JavaScript', code: `const res = await fetch('https://sanbayfusion.com/api/auth/login', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -223,13 +220,13 @@ const { token, user } = await res.json();
 // Use token in subsequent requests:
 // headers: { 'Authorization': \`Bearer \${token}\` }` },
     agents: {
-        title: 'List All Agents', language: 'JavaScript', code: `const res = await fetch('https://maula.ai/api/agents', {
+        title: 'List All Agents', language: 'JavaScript', code: `const res = await fetch('https://sanbayfusion.com/api/agents', {
   headers: { 'Authorization': \`Bearer \${token}\` }
 });
 const { agents } = await res.json();
 console.log(agents);` },
     conversations: {
-        title: 'Chat with an Agent', language: 'JavaScript', code: `const res = await fetch('https://maula.ai/api/agent/chat', {
+        title: 'Chat with an Agent', language: 'JavaScript', code: `const res = await fetch('https://sanbayfusion.com/api/agent/chat', {
   method: 'POST',
   headers: {
     'Authorization': \`Bearer \${token}\`,
@@ -242,7 +239,7 @@ console.log(agents);` },
 });
 const { reply } = await res.json();` },
     canvas: {
-        title: 'Generate a Canvas App', language: 'JavaScript', code: `const res = await fetch('https://maula.ai/api/canvas/generate', {
+        title: 'Generate a Canvas App', language: 'JavaScript', code: `const res = await fetch('https://sanbayfusion.com/api/canvas/generate', {
   method: 'POST',
   headers: {
     'Authorization': \`Bearer \${token}\`,
@@ -258,7 +255,7 @@ const { code, preview_url } = await res.json();` },
         title: 'Generate an Image', language: 'Python', code: `import requests
 
 res = requests.post(
-    'https://maula.ai/api/lab/image-generation',
+    'https://sanbayfusion.com/api/lab/image-generation',
     headers={'Authorization': f'Bearer {token}'},
     json={
         'prompt': 'A futuristic cityscape at sunset',
@@ -268,7 +265,7 @@ res = requests.post(
 )
 image_url = res.json()['url']` },
     tools: {
-        title: 'DNS Lookup', language: 'JavaScript', code: `const res = await fetch('https://maula.ai/api/tools/dns-lookup', {
+        title: 'DNS Lookup', language: 'JavaScript', code: `const res = await fetch('https://sanbayfusion.com/api/tools/dns-lookup', {
   method: 'POST',
   headers: {
     'Authorization': \`Bearer \${token}\`,
@@ -429,7 +426,7 @@ export default function DocsAPIPage() {
                 ScrollTrigger.create({
                     trigger: baseUrlEl,
                     start: 'top 85%',
-                    onEnter: () => gsap.to(baseUrlEl, { duration: 1.5, scrambleText: { text: 'https://maula.ai/api', chars: 'abcdefghijklmnopqrstuvwxyz./:', speed: 0.4 } })
+                    onEnter: () => gsap.to(baseUrlEl, { duration: 1.5, scrambleText: { text: 'https://sanbayfusion.com/api', chars: 'abcdefghijklmnopqrstuvwxyz./:', speed: 0.4 } })
                 });
             }
 
@@ -536,7 +533,7 @@ export default function DocsAPIPage() {
                         <div className="flex items-center gap-2 text-xs text-white/30">
                             <Server className="w-3.5 h-3.5" /> Base URL
                         </div>
-                        <code className="block text-xs text-blue-400 font-mono break-all">https://maula.ai/api</code>
+                        <code className="block text-xs text-blue-400 font-mono break-all">https://sanbayfusion.com/api</code>
                         <div className="flex items-center gap-2 text-xs text-white/30 mt-3">
                             <Shield className="w-3.5 h-3.5" /> Auth
                         </div>
@@ -583,7 +580,7 @@ export default function DocsAPIPage() {
                             {/* Quick info cards */}
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
                                 {[
-                                    { icon: Server, label: 'Base URL', value: 'https://maula.ai/api', cls: 'base-url-code' },
+                                    { icon: Server, label: 'Base URL', value: 'https://sanbayfusion.com/api', cls: 'base-url-code' },
                                     { icon: Lock, label: 'Auth', value: 'Bearer token in header' },
                                     { icon: Zap, label: 'Format', value: 'JSON request & response' },
                                 ].map((item, i) => (

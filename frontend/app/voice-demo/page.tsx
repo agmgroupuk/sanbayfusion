@@ -147,7 +147,7 @@ export default function VoiceInputDemo() {
           {/* Back Navigation */}
           <div className="text-center mt-8">
             <a
-              href="https://maula.ai/agents"
+              href="https://sanbayfusion.com/agents"
               className="inline-flex items-center px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-md hover:shadow-lg transition-shadow"
             >
               ← Back to Agents

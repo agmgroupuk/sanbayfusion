@@ -1,7 +1,7 @@
 /**
  * AUTH ROUTES — Authentication endpoints for Canvas App
  * Provides session verification and logout.
- * Auth is centralized at https://maula.ai/auth/login
+ * Auth is centralized at https://sanbayfusion.com/auth/login
  * This backend verifies sessions from the MAIN maulaai database.
  */
 
@@ -58,7 +58,7 @@ router.post('/verify', async (req, res) => {
  * Returns the centralized login URL for cross-subdomain redirect
  */
 router.get('/login-url', (_req, res) => {
-    const loginUrl = `https://maula.ai/auth/login?redirect=${encodeURIComponent('https://canvas.maula.ai')}`;
+    const loginUrl = `https://sanbayfusion.com/auth/login?redirect=${encodeURIComponent('https://canvas.sanbayfusion.com')}`;
     res.json({ success: true, loginUrl });
 });
 
@@ -68,8 +68,8 @@ router.get('/login-url', (_req, res) => {
  * Clears auth cookies (invalidation happens on main app side)
  */
 router.post('/logout', async (req, res) => {
-    // Clear cookies with .maula.ai domain so they're removed cross-subdomain
-    const cookieOpts = { domain: '.maula.ai', path: '/' };
+    // Clear cookies with .sanbayfusion.com domain so they're removed cross-subdomain
+    const cookieOpts = { domain: '.sanbayfusion.com', path: '/' };
     res.clearCookie('sessionId', cookieOpts);
     res.clearCookie('session_id', cookieOpts);
     res.clearCookie('token', cookieOpts);

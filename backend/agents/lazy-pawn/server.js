@@ -29,8 +29,8 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
 app.use(cors({
   origin: process.env.CORS_ORIGIN?.split(',') || [
-    'https://lazy-pawn-chat.maula.ai',
-    'https://maula.ai',
+    'https://lazy-pawn-chat.sanbayfusion.com',
+    'https://sanbayfusion.com',
   ],
   credentials: true,
 }));

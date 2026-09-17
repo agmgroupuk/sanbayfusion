@@ -186,7 +186,7 @@ router.post('/report/:id/generate-report', async (req, res) => {
     }
 
     // Build payment URL (Stripe checkout created client-side or we use /api/payment/create-checkout)
-    const paymentUrl = `${process.env.APP_URL || 'https://maula.ai'}/security/report-pay?report=${report.id}`;
+    const paymentUrl = `${process.env.APP_URL || 'https://sanbayfusion.com'}/security/report-pay?report=${report.id}`;
 
     await prisma.lostReport.update({
         where: { id: report.id },

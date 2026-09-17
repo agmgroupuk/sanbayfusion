@@ -88,17 +88,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Cancel Stripe subscription if exists
-    if (subscription.stripeSubscriptionId) {
-      try {
-        const { cancelSubscription } = await import('@/lib/stripe-client');
-        await cancelSubscription(subscription.stripeSubscriptionId);
-      } catch (stripeErr) {
-        console.error('[/api/subscriptions/cancel] Stripe error:', stripeErr);
-        // Continue with DB cancellation even if Stripe fails
-      }
-    }
-
     // Update subscription status in database
     const updated = await prisma.agentSubscription.update({
       where: { id: subscription.id },

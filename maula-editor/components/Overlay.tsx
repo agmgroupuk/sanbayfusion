@@ -141,11 +141,11 @@ const Overlay: React.FC<OverlayProps> = ({ active, onActivate }) => {
         {/* Navigation */}
         <div className="flex flex-wrap justify-center gap-2.5 ov-stagger-5">
           {[
-            { label: 'Canvas Studio', icon: '🎨', href: 'https://studio.maula.ai', color: 'border-cyan-500/40 text-cyan-400 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)]' },
-            { label: 'AI Space', icon: '🚀', href: 'https://canvas.maula.ai', color: 'border-violet-500/40 text-violet-400 hover:border-violet-400 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]' },
-            { label: 'Tools', icon: '🔧', href: 'https://maula.ai/tools', color: 'border-amber-500/40 text-amber-400 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]' },
-            { label: 'AI Lab', icon: '🧪', href: 'https://maula.ai/lab', color: 'border-emerald-500/40 text-emerald-400 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)]' },
-            { label: 'Agents', icon: '🤖', href: 'https://maula.ai/agents', color: 'border-pink-500/40 text-pink-400 hover:border-pink-400 hover:shadow-[0_0_20px_rgba(236,72,153,0.15)]' },
+            { label: 'Canvas Studio', icon: '🎨', href: 'https://studio.sanbayfusion.com', color: 'border-cyan-500/40 text-cyan-400 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)]' },
+            { label: 'AI Space', icon: '🚀', href: 'https://canvas.sanbayfusion.com', color: 'border-violet-500/40 text-violet-400 hover:border-violet-400 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]' },
+            { label: 'Tools', icon: '🔧', href: 'https://sanbayfusion.com/tools', color: 'border-amber-500/40 text-amber-400 hover:border-amber-400 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]' },
+            { label: 'AI Lab', icon: '🧪', href: 'https://sanbayfusion.com/lab', color: 'border-emerald-500/40 text-emerald-400 hover:border-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)]' },
+            { label: 'Agents', icon: '🤖', href: 'https://sanbayfusion.com/agents', color: 'border-pink-500/40 text-pink-400 hover:border-pink-400 hover:shadow-[0_0_20px_rgba(236,72,153,0.15)]' },
           ].map((nav) => (
             <a
               key={nav.label}

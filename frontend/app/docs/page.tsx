@@ -380,7 +380,7 @@ export default function DocsPage() {
               <Link href="/docs/agents" className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 rounded-xl font-semibold text-white shadow-lg shadow-blue-500/20 transition-all text-center">
                 View Agent Docs
               </Link>
-              <Link href="https://maula.ai/agents" className="px-8 py-4 bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] rounded-xl font-semibold text-white transition-all text-center">
+              <Link href="https://sanbayfusion.com/agents" className="px-8 py-4 bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] rounded-xl font-semibold text-white transition-all text-center">
                 Browse Agents
               </Link>
             </div>

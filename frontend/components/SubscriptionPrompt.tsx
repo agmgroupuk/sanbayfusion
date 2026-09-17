@@ -106,7 +106,7 @@ export default function SubscriptionPrompt({
             Cancel
           </button>
           <Link
-            href={`https://maula.ai/subscribe?agent=${encodeURIComponent(
+            href={`https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(
               agentName
             )}&slug=${agentSlug}`}
             className="flex-1 py-3 px-6 bg-brand-500 hover:bg-brand-600 text-center rounded-lg font-semibold transition-colors"

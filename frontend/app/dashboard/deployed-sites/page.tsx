@@ -194,7 +194,7 @@ export default function DeployedSitesPage() {
   }, [state.user, fetchSites, fetchHistory]);
 
   const handleDelete = async (slug: string) => {
-    if (!confirm(`Delete ${slug}.maula.ai permanently? This cannot be undone.`)) return;
+    if (!confirm(`Delete ${slug}.sanbayfusion.com permanently? This cannot be undone.`)) return;
     setDeleting(slug);
     try {
       const response = await fetch(`/api/canvas/deploy/${slug}`, {
@@ -255,7 +255,7 @@ export default function DeployedSitesPage() {
                   Billing
                 </Link>
                 <Link
-                  href="https://canvas.maula.ai"
+                  href="https://canvas.sanbayfusion.com"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 rounded-xl font-semibold transition-all shadow-lg shadow-purple-500/20"
                 >
                   <Rocket className="w-5 h-5" />
@@ -303,7 +303,7 @@ export default function DeployedSitesPage() {
                 <BarChart3 className="w-4 h-4 text-amber-400" />
                 <span className="text-xs text-gray-400">Domain</span>
               </div>
-              <p className="text-xl font-bold text-purple-400">*.maula.ai</p>
+              <p className="text-xl font-bold text-purple-400">*.sanbayfusion.com</p>
               <p className="text-xs text-gray-500 mt-2">Global CDN delivery</p>
             </div>
           </div>
@@ -475,7 +475,7 @@ export default function DeployedSitesPage() {
                       : 'Build your first website with AI in Canvas Studio and deploy it here.'}
                   </p>
                   {!searchQuery && (
-                    <Link href="https://canvas.maula.ai" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-xl font-semibold transition-colors">
+                    <Link href="https://canvas.sanbayfusion.com" className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-xl font-semibold transition-colors">
                       <Rocket className="w-5 h-5" />
                       Create Your First Site
                     </Link>
@@ -602,7 +602,7 @@ export default function DeployedSitesPage() {
                             <div>
                               <p className="text-xs text-gray-500 mb-1">Actions</p>
                               <Link
-                                href="https://canvas.maula.ai"
+                                href="https://canvas.sanbayfusion.com"
                                 className="text-xs px-3 py-1 bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 rounded-lg transition-colors inline-block"
                                 onClick={(e) => e.stopPropagation()}
                               >
@@ -691,7 +691,7 @@ export default function DeployedSitesPage() {
             <h3 className="font-semibold text-white mb-3">💡 Tips</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>• All sites include automatic HTTPS/SSL and global CDN delivery</li>
-              <li>• Use <Link href="https://canvas.maula.ai" className="text-purple-400 hover:text-purple-300 underline">Canvas Studio</Link> to build and deploy multi-page apps with AI</li>
+              <li>• Use <Link href="https://canvas.sanbayfusion.com" className="text-purple-400 hover:text-purple-300 underline">Canvas Studio</Link> to build and deploy multi-page apps with AI</li>
               <li>• Redeploy to the same URL to update your site instantly</li>
               <li>• Upgrade to Pro for custom domains and site analytics</li>
             </ul>

@@ -47,7 +47,7 @@ export function checkLockout(email: string): {
             // Permanent lock
             return {
                 locked: true,
-                message: 'Account permanently locked. Contact support@maula.ai to unlock.',
+                message: 'Account permanently locked. Contact support@sanbayfusion.com to unlock.',
                 permanent: true,
             };
         }
@@ -101,7 +101,7 @@ export function recordFailedAttempt(email: string): {
             failedAttempts.set(key, record);
             return {
                 locked: true,
-                message: 'Account permanently locked due to too many failed attempts. Contact support@maula.ai.',
+                message: 'Account permanently locked due to too many failed attempts. Contact support@sanbayfusion.com.',
                 permanent: true,
             };
         }

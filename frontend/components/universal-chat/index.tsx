@@ -8,28 +8,28 @@ import App from './App';
 import { AGENTS, getAgentFromHostname } from './agentRegistry';
 
 // ── Subdomain detection ───────────────────────────────────────────────────────
-// If visited via a standalone agent subdomain (e.g. ben-sega-chat.maula.ai),
+// If visited via a standalone agent subdomain (e.g. ben-sega-chat.sanbayfusion.com),
 // render that agent directly — no URL routing needed.
 // If on the main chat host (or localhost dev), use the normal /agents/:agentId routes.
 const standaloneSlug = getAgentFromHostname(window.location.hostname);
 
-// Redirect component — sends non-agent routes to maula.ai/agents
+// Redirect component — sends non-agent routes to sanbayfusion.com/agents
 const RedirectToAgents: React.FC = () => {
-  window.location.href = 'https://maula.ai/agents';
+  window.location.href = 'https://sanbayfusion.com/agents';
   return null;
 };
 
-// Redirect /subscribe to the main maula.ai subscribe page
+// Redirect /subscribe to the main sanbayfusion.com subscribe page
 const RedirectToSubscribe: React.FC = () => {
   const params = new URLSearchParams(window.location.search);
-  window.location.href = `https://maula.ai/subscribe?${params.toString()}`;
+  window.location.href = `https://sanbayfusion.com/subscribe?${params.toString()}`;
   return null;
 };
 
-// Redirect /subscription-success to the main maula.ai page
+// Redirect /subscription-success to the main sanbayfusion.com page
 const RedirectToSuccess: React.FC = () => {
   const params = new URLSearchParams(window.location.search);
-  window.location.href = `https://maula.ai/subscription-success?${params.toString()}`;
+  window.location.href = `https://sanbayfusion.com/subscription-success?${params.toString()}`;
   return null;
 };
 

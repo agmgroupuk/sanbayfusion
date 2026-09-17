@@ -283,11 +283,11 @@ export default function DocumentationPage() {
                   <h3 className="text-lg font-bold text-white">Quick Start Steps</h3>
                   <ol className="space-y-3">
                     {[
-                      'Chat with 18 specialized AI agents at maula.ai/chat',
-                      'Build full apps from text or images with GenCraft Pro at maula.ai/canvas',
-                      'Code professionally with Canvas Studio at studio.maula.ai',
-                      'Use 29 free developer tools at maula.ai/tools',
-                      'Experiment with AI Lab at maula.ai/lab'
+                      'Chat with 18 specialized AI agents at sanbayfusion.com/chat',
+                      'Build full apps from text or images with GenCraft Pro at sanbayfusion.com/canvas',
+                      'Code professionally with Canvas Studio at studio.sanbayfusion.com',
+                      'Use 29 free developer tools at sanbayfusion.com/tools',
+                      'Experiment with AI Lab at sanbayfusion.com/lab'
                     ].map((step, i) => (
                       <li key={i} className="flex items-start gap-3 text-gray-400">
                         <span className="w-6 h-6 rounded-full bg-cyan-500/20 border border-cyan-500/20 flex items-center justify-center flex-shrink-0 text-cyan-400 text-sm font-bold">
@@ -315,10 +315,10 @@ export default function DocumentationPage() {
                   <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Base URL</h3>
                   <div className="relative">
                     <div className={`p-4 rounded-xl font-mono text-sm text-emerald-400 ${card}`}>
-                      https://api.maula.ai/v1
+                      https://api.sanbayfusion.com/v1
                     </div>
                     <button
-                      onClick={() => copyToClipboard('https://api.maula.ai/v1')}
+                      onClick={() => copyToClipboard('https://api.sanbayfusion.com/v1')}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] transition-colors border border-white/[0.06]"
                     >
                       {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-gray-400" />}
@@ -412,7 +412,7 @@ export default function DocumentationPage() {
                   Canvas Studio
                 </h2>
                 <p className="text-gray-400 mb-6 leading-relaxed">
-                  Canvas Studio is a professional AI-powered code editor at studio.maula.ai with 16 specialized panels, real-time collaboration, and a built-in knowledge graph for complex projects.
+                  Canvas Studio is a professional AI-powered code editor at studio.sanbayfusion.com with 16 specialized panels, real-time collaboration, and a built-in knowledge graph for complex projects.
                 </p>
 
                 <div className="space-y-4 mb-6">
@@ -453,7 +453,7 @@ export default function DocumentationPage() {
                   </div>
                 </div>
 
-                <Link href="https://studio.maula.ai" className="mt-2 inline-flex items-center text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+                <Link href="https://studio.sanbayfusion.com" className="mt-2 inline-flex items-center text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
                   Open Canvas Studio <ArrowRight className="w-4 h-4 ml-1" />
                 </Link>
               </div>

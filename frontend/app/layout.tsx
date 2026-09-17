@@ -30,14 +30,14 @@ export const metadata: Metadata = {
   authors: [{ name: 'Maula AI' }],
   creator: 'Maula AI',
   publisher: 'Maula AI',
-  metadataBase: new URL('https://maula.ai'),
+  metadataBase: new URL('https://sanbayfusion.com'),
   alternates: {
-    canonical: 'https://maula.ai',
+    canonical: 'https://sanbayfusion.com',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://maula.ai',
+    url: 'https://sanbayfusion.com',
     title: 'Maula AI - Your AI Dream Team',
     description:
       "Transform your workflow with 18 specialized AI personalities. From Einstein's genius to Shakespeare's creativity.",

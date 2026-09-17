@@ -228,8 +228,8 @@ ${ticketInfo}
 PLATFORM INFO
 ═══════════════════════════════════════
 Maula AI is a platform offering AI agents for various tasks. Plans: daily, weekly, monthly, yearly, lifetime.
-Website: https://maula.ai
-Support email: support@maula.ai
+Website: https://sanbayfusion.com
+Support email: support@sanbayfusion.com
 Users can manage subscriptions at /dashboard/billing.`;
 }
 

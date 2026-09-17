@@ -1,7 +1,7 @@
 /**
  * S3 DEPLOY SERVICE
  * Handles deploying canvas apps to S3 static hosting
- * Apps are accessible via {appSlug}.maula.ai
+ * Apps are accessible via {appSlug}.sanbayfusion.com
  */
 
 import { S3Client, PutObjectCommand, DeleteObjectsCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
@@ -24,7 +24,7 @@ class S3DeployService {
       standalone: 'canvas-apps-standalone/',
       embedded: 'canvas-apps-embedded/',
     };
-    this.domain = process.env.APP_DOMAIN || 'maula.ai';
+    this.domain = process.env.APP_DOMAIN || 'sanbayfusion.com';
   }
 
   /**

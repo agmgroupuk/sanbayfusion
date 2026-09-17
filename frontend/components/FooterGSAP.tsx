@@ -51,9 +51,9 @@ export default function FooterGSAP() {
 
   const footerLinks = [
     { name: 'Agents', href: '/agents' },
-    { name: 'Demo', href: 'https://demo.maula.ai' },
-    { name: 'Canvas', href: 'https://studio.maula.ai' },
-    { name: 'Editor', href: 'https://editor.maula.ai' },
+    { name: 'Demo', href: 'https://demo.sanbayfusion.com' },
+    { name: 'Canvas', href: 'https://studio.sanbayfusion.com' },
+    { name: 'Editor', href: 'https://editor.sanbayfusion.com' },
     { name: 'AI Lab', href: '/lab' },
     { name: 'Industries', href: '/industries' },
     { name: 'Pricing', href: '/overview' },
@@ -247,7 +247,7 @@ export default function FooterGSAP() {
                   <Image src="/images/logos/company-logo.png" alt="Maula AI" width={44} height={44} className="relative w-11 h-11 object-contain" />
                 </div>
                 <span className="text-xl font-bold" style={{ background: 'linear-gradient(135deg, #e2e8f0 0%, #bae6fd 50%, #93c5fd 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  Maula.AI
+                  sanbayfusion.com
                 </span>
               </Link>
               <p className="relative text-sm leading-relaxed text-slate-400/80 mb-6">

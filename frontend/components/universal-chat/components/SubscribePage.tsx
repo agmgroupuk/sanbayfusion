@@ -128,44 +128,9 @@ export default function SubscribePage() {
         },
     ];
 
-    const handleSubscribe = async (plan: SubscriptionPlan) => {
-        setErrorMessage(null);
-
-        if (!isLoggedIn || !userId || !userEmail) {
-            window.location.href = `https://maula.ai/auth/login?redirect=${encodeURIComponent(window.location.href)}`;
-            return;
-        }
-
-        if (processingPlan) return;
-        setProcessingPlan(plan.billingCycle);
-
-        try {
-            const token = secureAuthStorage.getToken?.() || '';
-
-            const data = await subscriptionService.createCheckout({
-                agentId: agentSlug,
-                agentName,
-                plan: plan.billingCycle,
-                userId,
-                userEmail,
-            }, token);
-
-            if (!data.success || !data.url) {
-                if (data.alreadySubscribed && data.existingSubscription) {
-                    const expiryDate = new Date(data.existingSubscription.expiryDate).toLocaleDateString();
-                    throw new Error(
-                        `You already have an active ${data.existingSubscription.plan} subscription. It expires on ${expiryDate} (${data.existingSubscription.daysRemaining || 0} days remaining).`
-                    );
-                }
-                throw new Error(data.error || 'Failed to start checkout');
-            }
-
-            window.location.href = data.url;
-        } catch (error) {
-            console.error('Checkout error:', error);
-            setErrorMessage(error instanceof Error ? error.message : 'Unable to start checkout. Please try again.');
-            setProcessingPlan(null);
-        }
+    const handleSubscribe = async (_plan: SubscriptionPlan) => {
+        // Payments are temporarily unavailable — checkout provider was removed.
+        setErrorMessage('Payments are temporarily unavailable. Please check back soon.');
     };
 
     const handleCancel = async () => {
@@ -260,7 +225,7 @@ export default function SubscribePage() {
                         <h3 className="text-lg font-semibold mb-2 text-white">Sign In Required</h3>
                         <p className="text-gray-500 text-sm mb-4">You need to sign in to subscribe. Click below to log in.</p>
                         <a
-                            href={`https://maula.ai/auth/login?redirect=${encodeURIComponent(window.location.href)}`}
+                            href={`https://sanbayfusion.com/auth/login?redirect=${encodeURIComponent(window.location.href)}`}
                             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90 rounded-xl font-semibold hover:from-violet-600 hover:to-fuchsia-600 transition-all shadow-lg shadow-violet-600/15"
                         >
                             Sign In <ArrowRight className="w-4 h-4" />
@@ -387,20 +352,10 @@ export default function SubscribePage() {
                                             {/* CTA */}
                                             <button
                                                 onClick={() => handleSubscribe(plan)}
-                                                disabled={!!processingPlan || !isLoggedIn}
-                                                className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${plan.popular
-                                                    ? 'bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90 text-white shadow-lg shadow-violet-600/15 hover:shadow-violet-600/30'
-                                                    : 'bg-white/[0.04] border border-white/[0.08] text-gray-300 hover:bg-white/[0.08] hover:text-white hover:border-white/[0.15]'
-                                                    }`}
+                                                disabled
+                                                className="w-full py-3 rounded-xl font-semibold text-sm opacity-50 cursor-not-allowed bg-white/[0.04] border border-white/[0.08] text-gray-300"
                                             >
-                                                {processingPlan === plan.billingCycle ? (
-                                                    <>
-                                                        <RefreshCw className="w-4 h-4 animate-spin" />
-                                                        Processing...
-                                                    </>
-                                                ) : (
-                                                    'Get Started'
-                                                )}
+                                                Currently Unavailable
                                             </button>
                                         </div>
                                     </div>
@@ -417,7 +372,7 @@ export default function SubscribePage() {
                             <Shield className="w-5 h-5 text-emerald-400" />
                         </div>
                         <h4 className="font-semibold mb-1 text-white">Secure Payments</h4>
-                        <p className="text-gray-600 text-sm">Processed by Stripe. We never see your card details.</p>
+                        <p className="text-gray-600 text-sm">Processed securely. We never see your card details.</p>
                     </div>
                     <div className="p-5 rounded-xl bg-white/[0.02] border border-white/[0.06]">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 border border-violet-400/20" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.15), rgba(192,38,211,0.1))' }}>
@@ -437,7 +392,7 @@ export default function SubscribePage() {
 
                 {/* Footer */}
                 <div className="text-center mt-12 text-gray-700 text-xs">
-                    <p>By subscribing, you agree to our <a href="https://maula.ai/legal/terms" className="text-violet-400 hover:text-violet-300 hover:underline transition-colors">Terms of Service</a> and <a href="https://maula.ai/legal/payments-refunds" className="text-violet-400 hover:text-violet-300 hover:underline transition-colors">Payments & Refunds Policy</a></p>
+                    <p>By subscribing, you agree to our <a href="https://sanbayfusion.com/legal/terms" className="text-violet-400 hover:text-violet-300 hover:underline transition-colors">Terms of Service</a> and <a href="https://sanbayfusion.com/legal/payments-refunds" className="text-violet-400 hover:text-violet-300 hover:underline transition-colors">Payments & Refunds Policy</a></p>
                 </div>
             </div>
         </div>

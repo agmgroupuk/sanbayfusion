@@ -3,11 +3,11 @@
  * Serves generated apps directly as full HTML pages at:
  *   GET /p/app-{language}-{id}
  *
- * Used by preview.maula.ai domain (nginx rewrites /app-* → /p/app-*)
+ * Used by preview.sanbayfusion.com domain (nginx rewrites /app-* → /p/app-*)
  * No auth required — public preview links.
- * URL format: https://preview.maula.ai/app-html-clx123abc
- *             https://preview.maula.ai/app-react-clx456def
- *             https://preview.maula.ai/app-python-clx789ghi
+ * URL format: https://preview.sanbayfusion.com/app-html-clx123abc
+ *             https://preview.sanbayfusion.com/app-react-clx456def
+ *             https://preview.sanbayfusion.com/app-python-clx789ghi
  */
 
 import express from 'express';
@@ -138,14 +138,14 @@ router.get('/app-:slug', async (req, res) => {
         });
 
         if (!app || !app.code) {
-            return res.status(404).send(`<!DOCTYPE html><html><body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#0a0a0f;color:#888"><div style="text-align:center"><h2 style="color:#ef4444;margin-bottom:8px">App not found</h2><p style="margin-bottom:16px">This preview link may have expired or been deleted.</p><a href="https://canvas.maula.ai" style="color:#ef4444;text-decoration:none;font-size:14px">← Back to Canvas</a></div></body></html>`);
+            return res.status(404).send(`<!DOCTYPE html><html><body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#0a0a0f;color:#888"><div style="text-align:center"><h2 style="color:#ef4444;margin-bottom:8px">App not found</h2><p style="margin-bottom:16px">This preview link may have expired or been deleted.</p><a href="https://canvas.sanbayfusion.com" style="color:#ef4444;text-decoration:none;font-size:14px">← Back to Canvas</a></div></body></html>`);
         }
 
         const html = prepareHtml(app.code);
 
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
         res.setHeader('Cache-Control', 'public, max-age=60'); // short cache — code can change
-        // Allow embedding from canvas.maula.ai and anywhere else (shareable)
+        // Allow embedding from canvas.sanbayfusion.com and anywhere else (shareable)
         res.removeHeader('X-Frame-Options');
         res.send(html);
     } catch (error) {
@@ -154,9 +154,9 @@ router.get('/app-:slug', async (req, res) => {
     }
 });
 
-// Root — landing page for preview.maula.ai
+// Root — landing page for preview.sanbayfusion.com
 router.get('/', (_req, res) => {
-    res.send(`<!DOCTYPE html><html><body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#0a0a0f;color:#888"><div style="text-align:center"><h2 style="color:#ef4444;margin-bottom:8px">Maula AI Preview</h2><p>Build apps at <a href="https://canvas.maula.ai" style="color:#ef4444;text-decoration:none">canvas.maula.ai</a></p><p style="font-size:12px;margin-top:8px;opacity:0.5">Preview URLs: preview.maula.ai/app-html-abc123</p></div></body></html>`);
+    res.send(`<!DOCTYPE html><html><body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#0a0a0f;color:#888"><div style="text-align:center"><h2 style="color:#ef4444;margin-bottom:8px">Maula AI Preview</h2><p>Build apps at <a href="https://canvas.sanbayfusion.com" style="color:#ef4444;text-decoration:none">canvas.sanbayfusion.com</a></p><p style="font-size:12px;margin-top:8px;opacity:0.5">Preview URLs: preview.sanbayfusion.com/app-html-abc123</p></div></body></html>`);
 });
 
 export default router;

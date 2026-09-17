@@ -34,7 +34,7 @@ export function useSubscribeRedirect(
         params.set('intent', options.intent);
       }
 
-      const subscribeUrl = `https://maula.ai/subscribe?${params.toString()}`;
+      const subscribeUrl = `https://sanbayfusion.com/subscribe?${params.toString()}`;
       window.location.href = subscribeUrl;
     },
     [defaultAgentName, defaultAgentSlug, router]

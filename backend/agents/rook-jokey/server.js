@@ -29,8 +29,8 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
 app.use(cors({
   origin: process.env.CORS_ORIGIN?.split(',') || [
-    'https://rook-jokey-chat.maula.ai',
-    'https://maula.ai',
+    'https://rook-jokey-chat.sanbayfusion.com',
+    'https://sanbayfusion.com',
   ],
   credentials: true,
 }));

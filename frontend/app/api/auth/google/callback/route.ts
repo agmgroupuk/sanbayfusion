@@ -25,7 +25,7 @@ interface GoogleUser {
 export async function GET(request: NextRequest) {
     // Build the real external base URL from proxy headers (not request.url which is localhost:3000)
     const proto = request.headers.get('x-forwarded-proto') || 'https';
-    const host = request.headers.get('host') || 'maula.ai';
+    const host = request.headers.get('host') || 'sanbayfusion.com';
     const baseUrl = `${proto}://${host}`;
 
     try {
@@ -170,7 +170,7 @@ export async function GET(request: NextRequest) {
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60,
             path: '/',
-            domain: isProduction ? '.maula.ai' : undefined,
+            domain: isProduction ? '.sanbayfusion.com' : undefined,
         });
 
         response.cookies.set('sessionId', sessionId, {
@@ -179,7 +179,7 @@ export async function GET(request: NextRequest) {
             sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60,
             path: '/',
-            domain: isProduction ? '.maula.ai' : undefined,
+            domain: isProduction ? '.sanbayfusion.com' : undefined,
         });
 
         // Clear the OAuth state cookie

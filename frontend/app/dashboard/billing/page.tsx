@@ -506,7 +506,7 @@ function BillingContent() {
                               {isCancelling ? 'Cancelling...' : 'Cancel'}
                             </button>
                             <a
-                              href={`https://${sub.agentId}-chat.maula.ai/${sub.id}`}
+                              href={`https://${sub.agentId}-chat.sanbayfusion.com/${sub.id}`}
                               className="px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 text-white text-sm font-medium rounded-xl transition-colors"
                             >
                               Chat Now
@@ -561,8 +561,8 @@ function BillingContent() {
                         <Link
                           href={
                             sub.agentId === 'canvas-studio'
-                              ? 'https://maula.ai/overview/studio'
-                              : `https://maula.ai/subscribe?agent=${encodeURIComponent(sub.agentName || sub.agentId)}&slug=${sub.agentId}`
+                              ? 'https://sanbayfusion.com/overview/studio'
+                              : `https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(sub.agentName || sub.agentId)}&slug=${sub.agentId}`
                           }
                           className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 text-white text-sm font-medium rounded-xl transition-colors"
                         >
@@ -624,7 +624,7 @@ function BillingContent() {
                               {cancellingId === sub.id ? 'Cancelling...' : 'Cancel'}
                             </button>
                             <Link
-                              href={sub.app === 'gencraft-pro' ? 'https://canvas.maula.ai' : 'https://studio.maula.ai'}
+                              href={sub.app === 'gencraft-pro' ? 'https://canvas.sanbayfusion.com' : 'https://studio.sanbayfusion.com'}
                               className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-sm font-medium rounded-xl transition-colors"
                             >
                               Open {sub.app === 'gencraft-pro' ? 'GenCraft' : 'Studio'}
@@ -669,7 +669,7 @@ function BillingContent() {
                           </div>
                         </div>
                         <Link
-                          href={sub.app === 'gencraft-pro' ? 'https://maula.ai/overview/pricing' : 'https://maula.ai/overview/studio'}
+                          href={sub.app === 'gencraft-pro' ? 'https://sanbayfusion.com/overview/pricing' : 'https://sanbayfusion.com/overview/studio'}
                           className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-sm font-medium rounded-xl transition-colors"
                         >
                           <RefreshCw className="w-4 h-4" />
@@ -754,14 +754,14 @@ function BillingContent() {
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
-                    href="https://canvas.maula.ai"
+                    href="https://canvas.sanbayfusion.com"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-semibold rounded-xl transition-colors"
                   >
                     GenCraft Pro
                     <Sparkles className="w-4 h-4" />
                   </Link>
                   <Link
-                    href="https://studio.maula.ai"
+                    href="https://studio.sanbayfusion.com"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-700 hover:to-cyan-600 text-white font-semibold rounded-xl transition-colors"
                   >
                     Canvas Studio

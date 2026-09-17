@@ -219,7 +219,7 @@ export default function AgentManagementPage() {
 
   const handleChatWithAgent = (agentId: string, subscriptionId: string) => {
     // Navigate to the dedicated agent chat subdomain
-    window.location.href = `https://${agentId}-chat.maula.ai/${subscriptionId}`;
+    window.location.href = `https://${agentId}-chat.sanbayfusion.com/${subscriptionId}`;
   };
 
   const handleRefreshSubscriptions = () => {

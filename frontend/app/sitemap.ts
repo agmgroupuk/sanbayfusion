@@ -1,8 +1,8 @@
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://maula.ai';
-    const agentsBase = 'https://maula.ai';
+    const baseUrl = 'https://sanbayfusion.com';
+    const agentsBase = 'https://sanbayfusion.com';
     const now = new Date().toISOString();
 
     // Priority levels:
@@ -144,7 +144,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${baseUrl}/status/api-status`, lastModified: now, changeFrequency: 'daily', priority: 0.6 },
 
         // ===== STUDIO (Canvas IDE) =====
-        { url: 'https://demo.maula.ai', lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+        { url: 'https://demo.sanbayfusion.com', lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
 
         // ===== SUPPORT =====
         { url: `${baseUrl}/support`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },

@@ -1,4 +1,4 @@
-// Dynamic Agent Chat Route — redirects to per-agent subdomain {slug}-chat.maula.ai
+// Dynamic Agent Chat Route — redirects to per-agent subdomain {slug}-chat.sanbayfusion.com
 // Each agent now has its own subdomain serving the universal chat SPA via nginx.
 
 import { redirect } from 'next/navigation';
@@ -31,7 +31,7 @@ export default async function AgentChatPage({ params }: { params: Promise<{ agen
         notFound();
     }
 
-    redirect(`https://${encodeURIComponent(agentId)}-chat.maula.ai/`);
+    redirect(`https://${encodeURIComponent(agentId)}-chat.sanbayfusion.com/`);
 }
 
 export function generateStaticParams() {

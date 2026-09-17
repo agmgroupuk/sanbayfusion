@@ -29,8 +29,8 @@ const app = express();
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
 app.use(cors({
   origin: process.env.CORS_ORIGIN?.split(',') || [
-    'https://emma-emotional-chat.maula.ai',
-    'https://maula.ai',
+    'https://emma-emotional-chat.sanbayfusion.com',
+    'https://sanbayfusion.com',
   ],
   credentials: true,
 }));

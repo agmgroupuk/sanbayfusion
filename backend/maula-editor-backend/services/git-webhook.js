@@ -118,7 +118,7 @@ async function handleGitLabPush(payload, project) {
  * Generate webhook URL for a project
  */
 function generateWebhookUrl(projectId) {
-  return `${process.env.API_BASE_URL || 'https://maula.ai'}/api/project/${projectId}/git/webhook`;
+  return `${process.env.API_BASE_URL || 'https://sanbayfusion.com'}/api/project/${projectId}/git/webhook`;
 }
 
 export {

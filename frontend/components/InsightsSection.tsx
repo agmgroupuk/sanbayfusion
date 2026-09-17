@@ -425,7 +425,7 @@ export default function InsightsSection() {
         {/* ── CTA ── */}
         <div ref={ctaRef} className="text-center">
           <a
-            href="https://maula.ai/status"
+            href="https://sanbayfusion.com/status"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 group"

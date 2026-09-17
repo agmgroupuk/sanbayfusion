@@ -196,7 +196,7 @@ export default function PricingSection() {
 
                 {/* Features */}
                 <ul className="space-y-2.5 mb-6 flex-1">
-                  {['Unlimited AI generations', 'All AI models (GPT-4, Claude, Gemini)', 'Multi-page site builder', 'One-click deploy to Maula.ai', 'Export & download code', 'Image-to-code conversion'].map((f, j) => (
+                  {['Unlimited AI generations', 'All AI models (GPT-4, Claude, Gemini)', 'Multi-page site builder', 'One-click deploy to sanbayfusion.com', 'Export & download code', 'Image-to-code conversion'].map((f, j) => (
                     <li key={j} className="flex items-center gap-2 text-gray-300 text-sm">
                       <svg className="w-3.5 h-3.5 text-violet-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                       {f}
@@ -293,7 +293,7 @@ export default function PricingSection() {
 
                 {/* CTA */}
                 <a
-                  href="https://spaces.maula.ai/"
+                  href="https://spaces.sanbayfusion.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block text-center rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 hover:-translate-y-0.5"

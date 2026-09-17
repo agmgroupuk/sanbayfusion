@@ -107,7 +107,7 @@ const getSystemPrompt = (currentCode, history) => {
   let prompt = `You are Nova, an expert web developer and UI/UX designer. You create stunning, production-ready web applications based on exactly what the user asks for.
 
 ## CRITICAL RULE
-- NEVER reference "Maula AI", "maula.ai", or any real company/website in the generated code
+- NEVER reference "Maula AI", "sanbayfusion.com", or any real company/website in the generated code
 - NEVER create content that looks like an existing website - always create ORIGINAL designs
 - All content must be based solely on the user's description
 - Use generic placeholder branding (e.g. "Acme Co", "Your Brand", "Company Name") unless the user specifies a brand name
@@ -553,7 +553,7 @@ router.post('/image-to-code', [
  * POST /api/canvas/deploy
  * Deploy a canvas project to S3 static hosting
  * Supports both single-code and multi-file deployments
- * Apps are accessible via {appSlug}.maula.ai
+ * Apps are accessible via {appSlug}.sanbayfusion.com
  */
 router.post('/deploy', [
   body('projectName').notEmpty().withMessage('Project name required'),
@@ -626,7 +626,7 @@ router.post('/deploy', [
 
 /**
  * POST /api/canvas/deploy/domain
- * Add a custom subdomain (.maula.ai) to a deployment
+ * Add a custom subdomain (.sanbayfusion.com) to a deployment
  */
 const RESERVED_SUBDOMAINS = new Set([
   'www', 'maula', 'app', 'canvas', 'chat', 'demo', 'studio', 'preview',
@@ -648,7 +648,7 @@ router.post('/deploy/domain', [
 
   try {
     const cleaned = domain.toLowerCase().trim();
-    // Extract subdomain (strip .maula.ai if sent)
+    // Extract subdomain (strip .sanbayfusion.com if sent)
     const sub = cleaned.replace(/\.maula\.ai$/, '');
 
     // Validate format
@@ -662,7 +662,7 @@ router.post('/deploy/domain', [
       return res.status(400).json({ success: false, error: `"${sub}" is a reserved system subdomain` });
     }
 
-    const fullDomain = sub + '.maula.ai';
+    const fullDomain = sub + '.sanbayfusion.com';
 
     // Check for duplicate across all live deployments
     const existing = await prisma.deployment.findFirst({
@@ -693,7 +693,7 @@ router.post('/deploy/domain', [
       success: true,
       message: `Subdomain ${fullDomain} added. SSL is active via wildcard certificate.`,
       dnsRecords: [
-        { type: 'CNAME', name: fullDomain, value: 'apps.maula.ai' },
+        { type: 'CNAME', name: fullDomain, value: 'apps.sanbayfusion.com' },
       ],
     });
   } catch (error) {
@@ -854,7 +854,7 @@ const getConversationalPrompt = (currentCode, history, conversationHistory) => {
   return `You are Nova, a real human-like web developer friend. Talk naturally like a colleague, not a scripted bot.
 
 ## CRITICAL RULE
-- NEVER reference "Maula AI", "maula.ai", or any real company in generated content
+- NEVER reference "Maula AI", "sanbayfusion.com", or any real company in generated content
 - When building apps, create ORIGINAL content based on what the user describes
 - Use generic placeholder branding unless the user specifies a brand name
 - All navigation links must use "#" anchors (href="#about") - NEVER use path links (href="/page")

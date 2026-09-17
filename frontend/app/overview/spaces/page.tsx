@@ -18,7 +18,7 @@ const apps = [
   {
     name: 'Neural Chat',
     tagline: 'AI Conversational Assistant',
-    href: 'https://spaces.maula.ai/neural-chat/',
+    href: 'https://spaces.sanbayfusion.com/neural-chat/',
     icon: MessageSquare,
     gradient: 'from-violet-500 to-purple-600',
     glow: 'rgba(139,92,246,0.4)',
@@ -38,7 +38,7 @@ const apps = [
   {
     name: 'Canvas Studio',
     tagline: 'AI App Builder & Code Generator',
-    href: 'https://canvas.maula.ai',
+    href: 'https://canvas.sanbayfusion.com',
     icon: Paintbrush,
     gradient: 'from-blue-500 to-cyan-500',
     glow: 'rgba(6,182,212,0.4)',
@@ -58,7 +58,7 @@ const apps = [
   {
     name: 'GenCraft Pro',
     tagline: 'AI Full-Stack App Builder',
-    href: 'https://spaces.maula.ai/gen-craft-pro/',
+    href: 'https://spaces.sanbayfusion.com/gen-craft-pro/',
     icon: Code2,
     gradient: 'from-emerald-500 to-teal-500',
     glow: 'rgba(16,185,129,0.4)',
@@ -78,7 +78,7 @@ const apps = [
   {
     name: 'Maula Editor',
     tagline: 'Full Cloud IDE',
-    href: 'https://spaces.maula.ai/maula-editor/',
+    href: 'https://spaces.sanbayfusion.com/maula-editor/',
     icon: Terminal,
     gradient: 'from-orange-500 to-amber-500',
     glow: 'rgba(234,179,8,0.4)',
@@ -236,7 +236,7 @@ export default function SpacesPage() {
       }
 
       if (typewriterRef.current) {
-        const phrases = ['4 AI apps at spaces.maula.ai', 'Credit-based, no subscriptions', '268 AI tools across 39 categories', 'Pay only for what you use', 'Credits never expire'];
+        const phrases = ['4 AI apps at spaces.sanbayfusion.com', 'Credit-based, no subscriptions', '268 AI tools across 39 categories', 'Pay only for what you use', 'Credits never expire'];
         const tl = gsap.timeline({ repeat: -1, delay: 1.2 });
         phrases.forEach((phrase) => {
           tl.to(typewriterRef.current, { duration: 0.6, text: { value: phrase, delimiter: '' }, ease: 'none' });
@@ -305,7 +305,7 @@ export default function SpacesPage() {
 
           <p ref={subtitleRef} className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-6 leading-relaxed font-light" style={{ opacity: 0 }}>
             4 powerful AI applications at{' '}
-            <a href="https://spaces.maula.ai" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline decoration-emerald-400/40 hover:decoration-emerald-400 transition">spaces.maula.ai</a>.
+            <a href="https://spaces.sanbayfusion.com" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline decoration-emerald-400/40 hover:decoration-emerald-400 transition">spaces.sanbayfusion.com</a>.
             <span className="text-emerald-400"> Credit-based pay-as-you-go — no subscriptions.</span>
           </p>
 
@@ -455,7 +455,7 @@ export default function SpacesPage() {
                       <div className="flex items-center gap-2 text-xs"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400/70 flex-shrink-0" /><span className="text-gray-400">Credits never expire</span></div>
                       <div className="flex items-center gap-2 text-xs"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-400/70 flex-shrink-0" /><span className="text-gray-400">No auto-renewal</span></div>
                     </div>
-                    <a href="https://spaces.maula.ai" target="_blank" rel="noopener noreferrer"
+                    <a href="https://spaces.sanbayfusion.com" target="_blank" rel="noopener noreferrer"
                       className={`w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition ${pack.popular ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-600/20 hover:shadow-violet-600/40' : 'bg-white/[0.04] border border-white/[0.08] text-gray-400 hover:bg-white/[0.08] hover:text-white'}`}>
                       Buy in App <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -631,8 +631,8 @@ export default function SpacesPage() {
               <h2 className="text-3xl font-bold text-white mb-3">Start Using AI Apps Today</h2>
               <p className="text-gray-500 mb-8 max-w-xl mx-auto text-sm">4 powerful apps, 268 AI tools, credit-based pricing. No subscriptions — pay only for what you use.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-3">
-                <a href="https://spaces.maula.ai" target="_blank" rel="noopener noreferrer" className="px-7 py-3.5 bg-gradient-to-r from-emerald-600/90 to-cyan-600/90 rounded-xl text-white font-semibold text-sm shadow-lg shadow-emerald-600/15 hover:shadow-emerald-600/30 transition-all duration-400 flex items-center justify-center gap-2">
-                  <Globe className="w-4 h-4" /> Visit spaces.maula.ai <ExternalLink className="w-3.5 h-3.5" />
+                <a href="https://spaces.sanbayfusion.com" target="_blank" rel="noopener noreferrer" className="px-7 py-3.5 bg-gradient-to-r from-emerald-600/90 to-cyan-600/90 rounded-xl text-white font-semibold text-sm shadow-lg shadow-emerald-600/15 hover:shadow-emerald-600/30 transition-all duration-400 flex items-center justify-center gap-2">
+                  <Globe className="w-4 h-4" /> Visit spaces.sanbayfusion.com <ExternalLink className="w-3.5 h-3.5" />
                 </a>
                 <Link href="/overview" className="px-7 py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-gray-400 font-semibold text-sm hover:bg-white/[0.06] hover:text-white hover:border-white/[0.15] transition-all duration-400 flex items-center justify-center gap-2">
                   All Plans <ArrowRight className="w-4 h-4" />

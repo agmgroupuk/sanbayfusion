@@ -392,52 +392,9 @@ function SubscriptionContent() {
     },
   ]
 
-  const handleSubscribe = async (plan: any) => {
-    setErrorMessage(null)
-
-    if (!state.isAuthenticated || !state.user) {
-      const currentUrl = `${window.location.origin}/subscribe?agent=${agentName}&slug=${agentSlug}`
-      router.push(`/auth/login?redirect=${encodeURIComponent(currentUrl)}`)
-      return
-    }
-
-    if (processingPlan) return
-
-    setProcessingPlan(plan.billingCycle)
-
-    try {
-      const response = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          agentId: agentSlug,
-          agentName,
-          plan: plan.billingCycle,
-          userId: state.user.id,
-          userEmail: state.user.email,
-        }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok || !data.success || !data.url) {
-        if (data.alreadySubscribed && data.existingSubscription) {
-          const expiryDate = new Date(data.existingSubscription.expiryDate).toLocaleDateString()
-          throw new Error(
-            `You already have an active ${data.existingSubscription.plan} subscription. ` +
-            `It expires on ${expiryDate} (${data.existingSubscription.daysUntilRenewal || 0} days remaining).`
-          )
-        }
-        throw new Error(data.error || 'Failed to start checkout session')
-      }
-
-      window.location.href = data.url
-    } catch (error) {
-      console.error('Stripe checkout error:', error)
-      const message = error instanceof Error ? error.message : 'Unable to start checkout. Please try again.'
-      setErrorMessage(message)
-      setProcessingPlan(null)
-    }
+  const handleSubscribe = async (_plan: any) => {
+    // Payments are temporarily unavailable — checkout provider was removed.
+    setErrorMessage('Payments are temporarily unavailable. Please check back soon.')
   }
 
   // Mouse-following ambient light
@@ -602,7 +559,7 @@ function SubscriptionContent() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href={`https://${agentSlug}-chat.maula.ai/?fresh=1`}
+                href={`https://${agentSlug}-chat.sanbayfusion.com/?fresh=1`}
                 className="flex-1 py-3.5 px-6 bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90 rounded-xl text-white font-semibold text-sm text-center shadow-lg shadow-violet-600/15 hover:shadow-violet-600/30 transition-all duration-400"
               >
                 Open Agent Chat
@@ -697,23 +654,10 @@ function SubscriptionContent() {
 
                       <button
                         onClick={() => handleSubscribe(plan)}
-                        disabled={processingPlan !== null}
-                        className={`w-full py-3.5 px-6 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-400 ${plan.recommended
-                          ? 'bg-gradient-to-r from-violet-600/80 to-fuchsia-600/80 text-white/90 shadow-lg shadow-violet-900/20 hover:shadow-violet-800/30 hover:from-violet-600/90 hover:to-fuchsia-600/90'
-                          : 'bg-white/[0.02] text-gray-500 border border-white/[0.05] hover:bg-white/[0.04] hover:text-gray-300 hover:border-white/[0.1]'
-                          } ${processingPlan !== null ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled
+                        className="w-full py-3.5 px-6 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-400 bg-white/[0.02] text-gray-500 border border-white/[0.05] opacity-50 cursor-not-allowed"
                       >
-                        {processingPlan === plan.billingCycle ? (
-                          <span className="flex items-center justify-center gap-2">
-                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            Processing...
-                          </span>
-                        ) : (
-                          <>
-                            Get {plan.type} Access
-                            <ChevronRight className="w-4 h-4" />
-                          </>
-                        )}
+                        Currently Unavailable
                       </button>
                     </div>
                   </div>
@@ -768,7 +712,7 @@ function SubscriptionContent() {
       {/* Back Link */}
       <div className="relative py-12 px-4 text-center z-10">
         <Link
-          href="https://maula.ai/agents"
+          href="https://sanbayfusion.com/agents"
           className="inline-flex items-center gap-2 text-gray-600 hover:text-violet-400 transition-colors duration-300 text-sm"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

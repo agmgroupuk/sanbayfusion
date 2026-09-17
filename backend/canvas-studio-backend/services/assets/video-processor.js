@@ -302,7 +302,7 @@ class VideoProcessor {
       const thumb = await this.generateThumbnail(inputPath);
       const thumbKey = `videos/${projectId}/${assetId}/thumb.jpg`;
       await this._uploadToS3(thumbKey, thumb.buffer, 'image/jpeg');
-      results.thumbnail = `https://cdn.maula.ai/${thumbKey}`;
+      results.thumbnail = `https://cdn.sanbayfusion.com/${thumbKey}`;
     } catch (err) {
       console.error('[VideoProcessor] Thumbnail failed:', err.message);
     }
@@ -328,7 +328,7 @@ class VideoProcessor {
           preset,
           resolution: variant.resolution,
           size: variant.size,
-          url: `https://cdn.maula.ai/${variantKey}`,
+          url: `https://cdn.sanbayfusion.com/${variantKey}`,
         });
       } catch (err) {
         console.error(`[VideoProcessor] Transcode ${preset} failed:`, err.message);
@@ -342,7 +342,7 @@ class VideoProcessor {
       // Upload all HLS files to S3
       const hlsBase = `videos/${projectId}/${assetId}/hls`;
       await this._uploadHlsDirectory(hls.directory, hlsBase);
-      results.hlsUrl = `https://cdn.maula.ai/${hlsBase}/master.m3u8`;
+      results.hlsUrl = `https://cdn.sanbayfusion.com/${hlsBase}/master.m3u8`;
 
       // Cleanup temp HLS dir
       await fs.rm(hls.directory, { recursive: true, force: true }).catch(() => {});

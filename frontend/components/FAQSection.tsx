@@ -7,7 +7,7 @@ import { gsap, ScrollTrigger, DrawSVGPlugin, CustomEase, Observer, ScrambleTextP
 const faqs = [
   {
     q: 'What is Maula AI and what can I do with it?',
-    a: 'Maula AI is an all-in-one AI platform with 20+ specialized AI agents, Canvas Studio for building and deploying web apps, and powerful creative tools. You can chat with unique AI personalities, generate code, build full-stack web apps, create images and videos, process data, and much more — all from one place at maula.ai and spaces.maula.ai.'
+    a: 'Maula AI is an all-in-one AI platform with 20+ specialized AI agents, Canvas Studio for building and deploying web apps, and powerful creative tools. You can chat with unique AI personalities, generate code, build full-stack web apps, create images and videos, process data, and much more — all from one place at sanbayfusion.com and spaces.sanbayfusion.com.'
   },
   {
     q: 'How do the AI agents work?',
@@ -35,7 +35,7 @@ const faqs = [
   },
   {
     q: 'What are my rights over my data?',
-    a: 'You have full control. You can access, export (JSON), correct, or delete your personal data at any time. AI agent memories about your preferences can be individually viewed, disabled, or deleted. If you delete your account, all your data (projects, chats, memories, credentials) is permanently removed within 30 days. Contact privacy@maula.ai for any data request.'
+    a: 'You have full control. You can access, export (JSON), correct, or delete your personal data at any time. AI agent memories about your preferences can be individually viewed, disabled, or deleted. If you delete your account, all your data (projects, chats, memories, credentials) is permanently removed within 30 days. Contact privacy@sanbayfusion.com for any data request.'
   },
 ];
 
@@ -190,7 +190,7 @@ export default function FAQSection() {
             {/* CTA Button */}
             <div ref={ctaRef} className="text-center mt-10">
               <Link
-                href="https://maula.ai/support/faqs"
+                href="https://sanbayfusion.com/support/faqs"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-lg shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] hover:scale-105 transition-all duration-300"
               >
                 View All FAQs

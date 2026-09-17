@@ -439,7 +439,7 @@ export default function About() {
                         Join thousands of businesses already using Maula AI to transform their workflows
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-3">
-                        <Link href="https://maula.ai/agents" className="px-7 py-3.5 bg-gradient-to-r from-cyan-600/90 to-violet-600/90 rounded-xl text-white font-semibold text-sm shadow-lg shadow-cyan-600/15 hover:shadow-cyan-600/30 transition-all duration-400 flex items-center justify-center gap-2">
+                        <Link href="https://sanbayfusion.com/agents" className="px-7 py-3.5 bg-gradient-to-r from-cyan-600/90 to-violet-600/90 rounded-xl text-white font-semibold text-sm shadow-lg shadow-cyan-600/15 hover:shadow-cyan-600/30 transition-all duration-400 flex items-center justify-center gap-2">
                             Explore AI Agents
                             <ChevronRight className="w-4 h-4" />
                         </Link>

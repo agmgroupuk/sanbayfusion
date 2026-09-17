@@ -7,7 +7,7 @@ const transporter = nodemailer.createTransport({
     auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
 });
 
-const FROM = process.env.SMTP_FROM || '"Maula Security" <security@maula.ai>';
+const FROM = process.env.SMTP_FROM || '"Maula Security" <security@sanbayfusion.com>';
 
 export async function sendReportReadyEmail(ownerEmail, ownerName, paymentUrl) {
     await transporter.sendMail({
@@ -23,7 +23,7 @@ export async function sendReportReadyEmail(ownerEmail, ownerName, paymentUrl) {
   <a href="${paymentUrl}" style="display:inline-block;margin:24px 0;padding:14px 28px;background:linear-gradient(135deg,#06b6d4,#3b82f6);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;">
     Download My Report
   </a>
-  <p style="color:#6b7280;font-size:13px;">This link expires in 48 hours. If your device has been recovered, please contact security@maula.ai to close the case.</p>
+  <p style="color:#6b7280;font-size:13px;">This link expires in 48 hours. If your device has been recovered, please contact security@sanbayfusion.com to close the case.</p>
   <p style="color:#6b7280;font-size:13px;">Report ID: ${paymentUrl.split('report=')[1] || 'see link'}</p>
 </div>`,
     });
@@ -60,7 +60,7 @@ export async function sendReportRejectedEmail(ownerEmail, ownerName, reason) {
   <p>Unfortunately our security team was unable to verify your ownership of the reported device.</p>
   ${reason ? `<p><strong>Reason:</strong> ${reason}</p>` : ''}
   <p>If you believe this is an error, please reply to this email with additional proof of ownership (purchase receipt, IMEI, etc.).</p>
-  <p style="color:#6b7280;font-size:13px;">Contact: security@maula.ai</p>
+  <p style="color:#6b7280;font-size:13px;">Contact: security@sanbayfusion.com</p>
 </div>`,
     });
 }
@@ -81,7 +81,7 @@ export async function sendAdminNewReportEmail(report) {
     <tr><td style="padding:6px 0;color:#9ca3af;">Owner Email</td><td>${report.ownerEmail}</td></tr>
     <tr><td style="padding:6px 0;color:#9ca3af;">Description</td><td>${report.description || 'N/A'}</td></tr>
   </table>
-  <p style="margin-top:24px;"><a href="${process.env.ADMIN_URL || 'https://security-admin.maula.ai'}/report/${report.id}" style="padding:10px 20px;background:#f59e0b;color:#000;border-radius:6px;text-decoration:none;font-weight:600;">Review Report →</a></p>
+  <p style="margin-top:24px;"><a href="${process.env.ADMIN_URL || 'https://security-admin.sanbayfusion.com'}/report/${report.id}" style="padding:10px 20px;background:#f59e0b;color:#000;border-radius:6px;text-decoration:none;font-weight:600;">Review Report →</a></p>
 </div>`,
     });
 }

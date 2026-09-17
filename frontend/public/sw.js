@@ -27,7 +27,6 @@ const APP_SHELL = [
 // Paths that should NEVER be cached
 const NEVER_CACHE = [
     '/api/auth',
-    '/api/stripe',
     '/api/canvas/generate',
     '/api/canvas/chat',
     '/api/studio/chat/stream',

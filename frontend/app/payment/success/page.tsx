@@ -112,12 +112,12 @@ function SuccessContent() {
     const isEditor = appType === 'maula-editor';
     // Derived URLs for buttons
     const openAppUrl = isStudio
-        ? 'https://studio.maula.ai'
+        ? 'https://studio.sanbayfusion.com'
         : isGencraft
-            ? 'https://canvas.maula.ai'
+            ? 'https://canvas.sanbayfusion.com'
             : isEditor
-                ? 'https://editor.maula.ai'
-                : `https://${agentSlug}-chat.maula.ai/`;
+                ? 'https://editor.sanbayfusion.com'
+                : `https://${agentSlug}-chat.sanbayfusion.com/`;
     const openAppLabel = isStudio
         ? 'Open Canvas Studio'
         : isGencraft
@@ -126,11 +126,11 @@ function SuccessContent() {
                 ? 'Open Maula Editor'
                 : 'Start Chatting';
     const dashboardUrl = isStudio
-        ? 'https://maula.ai/dashboard/canvas-studio'
+        ? 'https://sanbayfusion.com/dashboard/canvas-studio'
         : isGencraft
-            ? 'https://maula.ai/dashboard/billing'
+            ? 'https://sanbayfusion.com/dashboard/billing'
             : isEditor
-                ? 'https://maula.ai/dashboard/billing'
+                ? 'https://sanbayfusion.com/dashboard/billing'
                 : '/dashboard';
 
     // Subscription data from API
@@ -139,41 +139,9 @@ function SuccessContent() {
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
     const [introComplete, setIntroComplete] = useState(false);
 
-    // Verify session on mount
+    // Checkout provider removed — always show static success state.
     useEffect(() => {
-        if (!sessionId) {
-            // Demo / no session — show static success
-            setStatus('success');
-            return;
-        }
-        // Maula Editor: webhook fulfills credits on editor.maula.ai backend; no cross-subdomain verify here.
-        if (isEditor) {
-            setStatus('success');
-            return;
-        }
-        const verify = async () => {
-            try {
-                const timeout = setTimeout(() => { setStatus('error'); setErrorMsg('Verification timed out. Check your dashboard.'); }, 12000);
-
-                // Unified verify endpoint — handles agent, canvas-studio, gencraft-pro, maula-editor
-                const res = await fetch('/api/stripe/verify-session', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sessionId }) });
-                clearTimeout(timeout);
-                if (!res.ok) {
-                    const d = await res.json().catch(() => ({}));
-                    setErrorMsg(d.error || 'Verification failed. Please contact support.');
-                    setStatus('error');
-                    return;
-                }
-                const data = await res.json();
-                if (data.app && !resolvedApp) setResolvedApp(data.app);
-                if (data.subscription) setSubData(data.subscription);
-                setStatus('success');
-            } catch {
-                setStatus('error');
-                setErrorMsg('Network error. Your subscription is likely active \u2014 check the dashboard.');
-            }
-        };
-        verify();
+        setStatus('success');
     }, [sessionId, isCanvasStudio, isEditor]);
 
     // Twinkling stars (brand background)

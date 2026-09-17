@@ -50,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({
         </button>
 
         <button
-          onClick={() => window.open('https://maula.ai/home', '_blank')}
+          onClick={() => window.open('https://sanbayfusion.com/home', '_blank')}
           className="text-cyan-400 hover:text-white p-1 transition-colors"
           title="Open Maula AI Website"
         >

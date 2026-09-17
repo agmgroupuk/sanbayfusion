@@ -1,6 +1,6 @@
 /**
- * subscriptionService — Stripe subscription management
- * Wraps /api/subscriptions/* and /api/stripe/* endpoints
+ * subscriptionService — subscription status/management
+ * Wraps /api/subscriptions/* endpoints (checkout provider removed)
  */
 
 export interface SubscriptionCheckResult {
@@ -14,18 +14,6 @@ export interface SubscriptionCheckResult {
         [key: string]: unknown;
     };
     [key: string]: unknown;
-}
-
-export interface CheckoutResult {
-    success: boolean;
-    url?: string;
-    error?: string;
-    alreadySubscribed?: boolean;
-    existingSubscription?: {
-        plan: string;
-        expiryDate: string;
-        daysRemaining?: number;
-    };
 }
 
 export const subscriptionService = {
@@ -42,30 +30,6 @@ export const subscriptionService = {
         });
         if (!res.ok) throw new Error(`Subscription check failed: ${res.statusText}`);
         return res.json();
-    },
-
-    /** Create Stripe checkout session */
-    async createCheckout(data: {
-        agentId: string;
-        agentName: string;
-        plan: string;
-        userId: string;
-        userEmail: string;
-    }, token?: string): Promise<CheckoutResult> {
-        const res = await fetch('/api/stripe/checkout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            },
-            credentials: 'include',
-            body: JSON.stringify(data),
-        });
-        const result = await res.json();
-        if (!res.ok) {
-            return { success: false, ...result };
-        }
-        return result;
     },
 
     /** Cancel subscription */

@@ -77,14 +77,14 @@ export { getLoginOTPTemplate };
 // ── Helper: inject tracking pixel into email HTML ────
 function injectTrackingPixel(html, trackingId) {
     if (!trackingId || !html) return html;
-    return html.replace('</body>', `<img src="https://maula.ai/api/email/track/${trackingId}.png" width="1" height="1" alt="" style="display:block;width:1px;height:1px;border:0;" />\n</body>`);
+    return html.replace('</body>', `<img src="https://sanbayfusion.com/api/email/track/${trackingId}.png" width="1" height="1" alt="" style="display:block;width:1px;height:1px;border:0;" />\n</body>`);
 }
 
 // =====================================================
 // SEND FUNCTIONS
 // =====================================================
 
-/** Welcome Email — from hello@maula.ai */
+/** Welcome Email — from hello@sanbayfusion.com */
 export async function sendWelcomeEmail(email, name, couponCode) {
     const transporter = getWelcomeTransporter() || getNoreplyTransporter();
     if (!transporter) { console.log('[WELCOME EMAIL] SMTP not configured. Would send to:', email); return; }
@@ -97,14 +97,14 @@ export async function sendWelcomeEmail(email, name, couponCode) {
             subject: '🎉 Welcome to Maula AI — Let\'s Get Started!',
             html: injectTrackingPixel(getWelcomeTemplate(name, couponCode), trackingId),
         });
-        console.log(`✅ Welcome email sent to ${email} from hello@maula.ai${couponCode ? ` (with coupon: ${couponCode})` : ''}`);
+        console.log(`✅ Welcome email sent to ${email} from hello@sanbayfusion.com${couponCode ? ` (with coupon: ${couponCode})` : ''}`);
     } catch (error) {
         console.error('❌ Failed to send welcome email:', error.message);
         await logEmailFailed(email, 'Welcome Email', 'welcome', error.message);
     }
 }
 
-/** Login Alert Email — from hello@maula.ai */
+/** Login Alert Email — from hello@sanbayfusion.com */
 export async function sendLoginAlertEmail(email, name, loginData) {
     const transporter = getNoreplyTransporter();
     if (!transporter) { console.log('[LOGIN ALERT] SMTP not configured. Would send to:', email); return; }
@@ -124,7 +124,7 @@ export async function sendLoginAlertEmail(email, name, loginData) {
     }
 }
 
-/** Password Reset Email — from hello@maula.ai */
+/** Password Reset Email — from hello@sanbayfusion.com */
 export async function sendPasswordResetEmail(email, name, resetUrl) {
     const transporter = getNoreplyTransporter();
     if (!transporter) { console.log('[PASSWORD RESET] SMTP not configured. Would send to:', email); return; }

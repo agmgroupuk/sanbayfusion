@@ -83,7 +83,7 @@ const faqItems = [
     { q: 'What payment methods do you accept?', a: 'We accept all major credit and debit cards (Visa, MasterCard, American Express) via Stripe. All payments are PCI DSS Level 1 compliant — your card details never touch our servers.' },
     { q: 'Is there auto-renewal on any plans?', a: 'No. All purchases are one-time. Your access expires at the end of your chosen period and you manually repurchase when you want to continue. No surprise charges.' },
     { q: 'Can I switch between plans or products?', a: 'Yes! Since each purchase is one-time, you can freely switch between per-agent pricing, GenCraft Pro, or Spaces credits at any time. There are no lock-in contracts.' },
-    { q: 'Do you offer enterprise or custom plans?', a: 'Yes. Contact our sales team at support@maula.ai for custom enterprise pricing, volume discounts, dedicated support, and SLA guarantees.' },
+    { q: 'Do you offer enterprise or custom plans?', a: 'Yes. Contact our sales team at support@sanbayfusion.com for custom enterprise pricing, volume discounts, dedicated support, and SLA guarantees.' },
     { q: 'What AI models are available?', a: 'We support 9+ AI providers including Anthropic (Claude Sonnet 4, Opus 4, Haiku), OpenAI (GPT-4o), Google (Gemini 2.5 Pro/Flash), Mistral, xAI (Grok 3), Groq, Cerebras, HuggingFace, and local models via Ollama.' },
     { q: 'Is my data safe?', a: 'Absolutely. All data is encrypted in transit (TLS 1.2/1.3) and at rest (AES-256). Credentials are encrypted with AES-256-GCM. We do not use your data to train AI models. See our Privacy Policy for full details.' },
     { q: 'What is the refund policy?', a: 'Given the low-cost, no-commitment nature of our pricing (starting at $1/day), all purchases are final and non-refundable. See our Payments & Refunds policy for details.' },
@@ -433,7 +433,7 @@ export default function PricingOverviewPage() {
                                     Choose a product above, or explore our AI agents and tools to find the perfect fit for your workflow.
                                 </p>
                                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                                    <Link href="https://maula.ai/agents" className="group relative px-8 py-3.5 rounded-xl text-white font-semibold text-sm flex items-center justify-center gap-2 overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-violet-600/20" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.85) 0%, rgba(192,38,211,0.75) 100%)' }}>
+                                    <Link href="https://sanbayfusion.com/agents" className="group relative px-8 py-3.5 rounded-xl text-white font-semibold text-sm flex items-center justify-center gap-2 overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-violet-600/20" style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.85) 0%, rgba(192,38,211,0.75) 100%)' }}>
                                         <div className="absolute inset-0 bg-gradient-to-r from-violet-400/0 via-white/10 to-violet-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                         <Bot className="w-4 h-4 relative z-10" />
                                         <span className="relative z-10">Browse Agents</span>

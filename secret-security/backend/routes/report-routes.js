@@ -1,5 +1,5 @@
 /**
- * REPORT ROUTES — called by the owner (through maula.ai website)
+ * REPORT ROUTES — called by the owner (through sanbayfusion.com website)
  *
  * POST /api/report/submit      Submit a lost device report + identity proof
  * GET  /api/report/status/:id  Check report status (polling from website)

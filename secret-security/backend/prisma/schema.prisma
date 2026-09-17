@@ -50,7 +50,7 @@ model Device {
   osVersion         String?
   appVersion        String?
 
-  // Linked maula.ai account (optional — user may not have account)
+  // Linked sanbayfusion.com account (optional — user may not have account)
   maulaUserId       String?
   ownerEmail        String?                   // email to notify
   ownerName         String?

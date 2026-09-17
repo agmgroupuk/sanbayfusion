@@ -2,8 +2,8 @@
  * agentRegistry.ts — Single source of truth for agent UI metadata
  *
  * Used by:
- *   - AgentPage.tsx  (URL-based routing: maula.ai/agents/:agentId)
- *   - index.tsx      (subdomain-based routing: ben-sega-chat.maula.ai → Ben Sega)
+ *   - AgentPage.tsx  (URL-based routing: sanbayfusion.com/agents/:agentId)
+ *   - index.tsx      (subdomain-based routing: ben-sega-chat.sanbayfusion.com → Ben Sega)
  *
  * AI config (provider, model, fallbacks, prompts) lives in:
  *   backend/universal-chat-backend/lib/agent-strict-prompts.js
@@ -42,11 +42,11 @@ export const agentIds = Object.keys(AGENTS);
 
 /**
  * Given a hostname, returns the agent slug if this is a standalone agent
- * subdomain (e.g. "ben-sega-chat.maula.ai" → "ben-sega").
+ * subdomain (e.g. "ben-sega-chat.sanbayfusion.com" → "ben-sega").
  * Returns null for main chat host, localhost, or unknown slugs.
  */
 export function getAgentFromHostname(hostname: string): string | null {
-  // Match: {slug}-chat.maula.ai
+  // Match: {slug}-chat.sanbayfusion.com
   const match = hostname.match(/^(.+)-chat\.maula\.ai$/);
   if (!match) return null;
   const slug = match[1];

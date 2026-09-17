@@ -741,7 +741,7 @@ export async function fetchUrl(url) {
 
     const response = await fetch(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; MaulaAI/1.0; +https://maula.ai)',
+        'User-Agent': 'Mozilla/5.0 (compatible; MaulaAI/1.0; +https://sanbayfusion.com)',
         Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       },
       redirect: 'follow',
@@ -1336,7 +1336,7 @@ export async function deleteFile(filename, userId = 'default') {
 // IMAGE & VIDEO GENERATION
 // ═══════════════════════════════════════════════════════════════════
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://studio.maula.ai';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://studio.sanbayfusion.com';
 
 /**
  * Generate an AI image using Stability AI

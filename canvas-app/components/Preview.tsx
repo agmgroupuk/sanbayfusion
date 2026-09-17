@@ -50,7 +50,7 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
           <div className="w-3 h-3 rounded-full bg-green-400"></div>
         </div>
         <div className="flex-1 text-center font-mono opacity-60 truncate text-cyan-400/60">
-          maula.ai/preview
+          sanbayfusion.com/preview
         </div>
       </div>
       <iframe

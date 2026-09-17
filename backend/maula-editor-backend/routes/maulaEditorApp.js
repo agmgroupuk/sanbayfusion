@@ -34,14 +34,14 @@ const mainDbPool = mainDbUrl
     : null;
 
 // ============================================================================
-// AUTH MIDDLEWARE — matches canvas.maula.ai / studio.maula.ai pattern
-// Priority: 1) maula.ai session cookies  2) editor JWT tokens
+// AUTH MIDDLEWARE — matches canvas.sanbayfusion.com / studio.sanbayfusion.com pattern
+// Priority: 1) sanbayfusion.com session cookies  2) editor JWT tokens
 // ============================================================================
 
 async function requireAuth(req, res, next) {
     try {
-        // 1) Try maula.ai session cookies first (sessionId / session_id)
-        //    Set by main site with domain=.maula.ai, shared across all subdomains
+        // 1) Try sanbayfusion.com session cookies first (sessionId / session_id)
+        //    Set by main site with domain=.sanbayfusion.com, shared across all subdomains
         const mainSessionId = req.cookies?.sessionId || req.cookies?.session_id;
         if (mainSessionId && mainDbPool) {
             try {
@@ -64,7 +64,7 @@ async function requireAuth(req, res, next) {
                             },
                             include: { credits: true },
                         });
-                        log.info(`[requireAuth] Auto-provisioned user ${mainUser.email} via maula.ai session SSO`);
+                        log.info(`[requireAuth] Auto-provisioned user ${mainUser.email} via sanbayfusion.com session SSO`);
                     }
                     req.user = editorUser;
                     return next();
@@ -207,8 +207,8 @@ router.post('/billing/checkout/:appId', requireAuth, async (req, res) => {
             mode: 'payment',
             payment_method_types: ['card'],
             line_items: lineItems,
-            success_url: `https://maula.ai/payment/success?session_id={CHECKOUT_SESSION_ID}&app=maula-editor&credits=${credits}&agent=Maula+Editor&slug=maula-editor`,
-            cancel_url: `https://maula.ai/overview/pricing?purchase=cancelled&app=maula-editor`,
+            success_url: `https://sanbayfusion.com/payment/success?session_id={CHECKOUT_SESSION_ID}&app=maula-editor&credits=${credits}&agent=Maula+Editor&slug=maula-editor`,
+            cancel_url: `https://sanbayfusion.com/overview/pricing?purchase=cancelled&app=maula-editor`,
             metadata: { userId: req.user.id, appId: req.params.appId, credits: String(credits), priceId: priceId || '', packageId: packageId || '' },
         });
 

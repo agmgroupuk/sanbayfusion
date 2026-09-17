@@ -187,7 +187,7 @@ export default function TechnologyPage() {
             Supercharge development workflows with AI-powered tools built for engineers
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="https://maula.ai/agents" className="tc-cta-btn group inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20">
+            <Link href="https://sanbayfusion.com/agents" className="tc-cta-btn group inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20">
               Explore Tools <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link href="/support/book-consultation" className="tc-cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] transition-all">

@@ -181,7 +181,7 @@ function AgentSubscriptionGuardInner({
             <div className="flex flex-col gap-3">
               {(() => {
                 const loginHref = `/auth/login?redirect=${encodeURIComponent(
-                  `https://${agentId}-chat.maula.ai/`
+                  `https://${agentId}-chat.sanbayfusion.com/`
                 )}`;
                 return (
                   <Link
@@ -207,7 +207,7 @@ function AgentSubscriptionGuardInner({
             <p className="text-gray-400">
               Don't have a subscription?{' '}
               <Link
-                href={`https://maula.ai/subscribe?agent=${encodeURIComponent(agentName)}&slug=${agentId}`}
+                href={`https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(agentName)}&slug=${agentId}`}
                 className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
               >
                 Subscribe to {agentName}
@@ -284,7 +284,7 @@ function AgentSubscriptionGuardInner({
 
             <div className="flex flex-col gap-3">
               <Link
-                href={`https://maula.ai/subscribe?agent=${encodeURIComponent(agentName)}&slug=${agentId}`}
+                href={`https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(agentName)}&slug=${agentId}`}
                 className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl font-semibold text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-[1.02]"
               >
                 <Crown className="w-5 h-5" />
@@ -292,7 +292,7 @@ function AgentSubscriptionGuardInner({
               </Link>
 
               <Link
-                href="https://maula.ai/agents"
+                href="https://sanbayfusion.com/agents"
                 className="w-full px-6 py-3 border border-gray-700/50 rounded-xl font-semibold text-gray-300 text-center hover:bg-gray-800/50 transition-all duration-300"
               >
                 Browse Other Agents

@@ -196,14 +196,14 @@ export default function PaymentCancelPage() {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
-              href="https://maula.ai/agents"
+              href="https://sanbayfusion.com/agents"
               className="cancel-action hover-btn inline-flex items-center justify-center px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-lg hover:shadow-2xl hover:shadow-amber-500/25 transition-shadow"
             >
               <RefreshCw className="w-5 h-5 mr-2" />
               Try Again
             </Link>
             <Link
-              href="https://maula.ai/agents"
+              href="https://sanbayfusion.com/agents"
               className="cancel-action hover-btn inline-flex items-center justify-center px-8 py-4 rounded-xl bg-gray-800 border border-gray-700 text-white font-medium hover:bg-gray-700 transition-colors"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />

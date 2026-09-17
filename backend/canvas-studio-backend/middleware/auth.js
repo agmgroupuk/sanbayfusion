@@ -62,7 +62,7 @@ export async function optionalAuth(req, res, next) {
 /**
  * Require active Canvas Studio subscription.
  * Checks local canvas_studio DB first, then falls back to the main maulaai DB
- * (where subscriptions purchased via maula.ai/overview/studio are stored).
+ * (where subscriptions purchased via sanbayfusion.com/overview/studio are stored).
  * Auto-syncs from main DB to local DB when found.
  * Must be applied AFTER requireAuth (needs req.userId).
  */

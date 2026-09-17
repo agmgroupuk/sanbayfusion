@@ -84,7 +84,7 @@ router.post('/checkout', requireAuth, async (req, res) => {
             });
         }
 
-        const baseUrl = process.env.FRONTEND_URL || 'https://maula.ai';
+        const baseUrl = process.env.FRONTEND_URL || 'https://sanbayfusion.com';
         const successUrl = `${baseUrl}/subscription-success?session_id={CHECKOUT_SESSION_ID}&agent=${encodeURIComponent(agentName)}&slug=${agentId}`;
         const cancelUrl = `${baseUrl}/subscribe?agent=${encodeURIComponent(agentName)}&slug=${agentId}&plan=${plan}&cancelled=true`;
 

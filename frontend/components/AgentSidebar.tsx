@@ -243,7 +243,7 @@ export default function AgentSidebar({ currentAgentSlug }: AgentSidebarProps) {
                   </div>
 
                   <Link
-                    href={`https://maula.ai/subscribe?agent=${encodeURIComponent(
+                    href={`https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(
                       agent.name
                     )}&slug=${agent.slug}`}
                     className="block w-full py-2 px-4 bg-brand-500 hover:bg-brand-600 text-center text-sm font-semibold rounded-lg transition-colors"
@@ -258,7 +258,7 @@ export default function AgentSidebar({ currentAgentSlug }: AgentSidebarProps) {
 
           <div className="mt-6 pt-6 border-t border-neutral-700">
             <Link
-              href="https://maula.ai/agents"
+              href="https://sanbayfusion.com/agents"
               className="block w-full py-3 px-4 bg-neutral-700 hover:bg-neutral-600 text-center font-semibold rounded-lg transition-colors"
               onClick={() => setIsOpen(false)}
             >

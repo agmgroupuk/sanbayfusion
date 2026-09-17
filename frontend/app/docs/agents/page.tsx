@@ -288,7 +288,7 @@ export default function DocsAgentsPage() {
               <h2 className="text-2xl font-bold mb-4">Quick Actions</h2>
               <p className="text-gray-400 mb-6">Ready to start building with AI agents?</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="https://maula.ai/agents" className="action-btn px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all flex items-center justify-center gap-2">
+                <Link href="https://sanbayfusion.com/agents" className="action-btn px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all flex items-center justify-center gap-2">
                   View All Agents
                   <ArrowRight className="w-4 h-4" />
                 </Link>

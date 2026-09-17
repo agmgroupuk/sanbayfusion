@@ -1075,7 +1075,7 @@ async function cloudNetwork(params) {
                 const cdn = {
                     id: `cdn-${crypto.randomBytes(6).toString('hex')}`,
                     origin: opts.origin,
-                    domain: `cdn-${crypto.randomBytes(4).toString('hex')}.maula.ai`,
+                    domain: `cdn-${crypto.randomBytes(4).toString('hex')}.sanbayfusion.com`,
                     cachePolicy: opts.cachePolicy || 'optimized',
                     ttl: opts.ttl || 86400,
                     geoRestrictions: opts.geoRestrictions || 'none',

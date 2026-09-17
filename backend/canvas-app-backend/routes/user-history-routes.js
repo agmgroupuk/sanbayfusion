@@ -28,7 +28,7 @@ async function ensureLocalUser(user) {
       where: { id: user.id },
       create: {
         id: user.id,
-        email: user.email || `${user.id}@noreply.maula.ai`,
+        email: user.email || `${user.id}@noreply.sanbayfusion.com`,
         name: user.name || null,
       },
       update: { updatedAt: new Date() },

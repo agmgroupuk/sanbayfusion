@@ -82,7 +82,7 @@ export default function ForbiddenPage() {
                 </div>
 
                 <p className="mt-10 text-neural-600 text-sm">
-                    Error code: 403 &middot; maula.ai
+                    Error code: 403 &middot; sanbayfusion.com
                 </p>
             </div>
         </div>

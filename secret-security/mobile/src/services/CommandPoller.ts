@@ -13,7 +13,7 @@ import { buildDeviceId } from './DeviceInfo';
 import { sendLocationPing, startContinuousPinging, stopContinuousPinging } from './LocationService';
 import { takeSilentPhoto } from './CameraService';
 
-const API_BASE = 'https://security.maula.ai/api';
+const API_BASE = 'https://security.sanbayfusion.com/api';
 
 // Poll interval when dormant (5 min). When tracking, the server sets pingIntervalSecs=30
 // but this poller only changes via SET_PING_INTERVAL command.

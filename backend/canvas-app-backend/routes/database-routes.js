@@ -84,7 +84,7 @@ router.post('/:projectId', async (req, res) => {
       try {
         await prisma.user.upsert({
           where: { id: userId },
-          create: { id: userId, email: `${userId}@noreply.maula.ai` },
+          create: { id: userId, email: `${userId}@noreply.sanbayfusion.com` },
           update: { updatedAt: new Date() },
         });
         project = await prisma.canvasProject.create({
@@ -113,9 +113,9 @@ router.post('/:projectId', async (req, res) => {
         engine: engineNorm,
         name: dbName,
         status: 'active',
-        host: process.env.DATABASE_URL?.match(/@([^:]+):/)?.[1] || 'db.maula.ai',
+        host: process.env.DATABASE_URL?.match(/@([^:]+):/)?.[1] || 'db.sanbayfusion.com',
         port: engineNorm === 'mysql' ? 3306 : 5432,
-        connectionUrl: `${engineNorm}://user:***@${process.env.DATABASE_URL?.match(/@([^:]+):/)?.[1] || 'db.maula.ai'}:${engineNorm === 'mysql' ? 3306 : 5432}/${dbName}`,
+        connectionUrl: `${engineNorm}://user:***@${process.env.DATABASE_URL?.match(/@([^:]+):/)?.[1] || 'db.sanbayfusion.com'}:${engineNorm === 'mysql' ? 3306 : 5432}/${dbName}`,
       },
     });
 

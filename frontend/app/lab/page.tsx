@@ -359,7 +359,7 @@ export default function AILabPage() {
                         <Link href="/lab/battle-arena" className="px-7 py-3.5 bg-gradient-to-r from-cyan-600/90 to-violet-600/90 rounded-xl text-white font-semibold text-sm shadow-lg shadow-cyan-600/15 hover:shadow-cyan-600/30 transition-all duration-400 flex items-center justify-center gap-2">
                             ⚔️ Start with Battle Arena
                         </Link>
-                        <Link href="https://maula.ai/agents" className="px-7 py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-gray-400 font-semibold text-sm hover:bg-white/[0.06] hover:text-white hover:border-white/[0.15] transition-all duration-400 flex items-center justify-center gap-2">
+                        <Link href="https://sanbayfusion.com/agents" className="px-7 py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-gray-400 font-semibold text-sm hover:bg-white/[0.06] hover:text-white hover:border-white/[0.15] transition-all duration-400 flex items-center justify-center gap-2">
                             Browse AI Agents <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>

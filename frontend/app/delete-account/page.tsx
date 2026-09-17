@@ -60,7 +60,7 @@ export default function DeleteAccountPage() {
             Billing records may be retained for up to 7 years as required by law.
           </p>
           <p style={{ color: '#94a3b8', fontSize: '0.875rem' }}>
-            Questions? Contact <a href="mailto:privacy@maula.ai" style={{ color: '#38bdf8' }}>privacy@maula.ai</a>
+            Questions? Contact <a href="mailto:privacy@sanbayfusion.com" style={{ color: '#38bdf8' }}>privacy@sanbayfusion.com</a>
           </p>
         </div>
       </div>
@@ -139,7 +139,7 @@ export default function DeleteAccountPage() {
         </form>
 
         <p style={{ marginTop: '1.5rem', color: '#64748b', fontSize: '0.75rem', textAlign: 'center' }}>
-          Need help? Contact <a href="mailto:privacy@maula.ai" style={{ color: '#38bdf8' }}>privacy@maula.ai</a>
+          Need help? Contact <a href="mailto:privacy@sanbayfusion.com" style={{ color: '#38bdf8' }}>privacy@sanbayfusion.com</a>
         </p>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 const ADMIN_EMAILS = [
-    'admin@maula.ai',
+    'admin@sanbayfusion.com',
 ];
 
 export interface AdminUser {

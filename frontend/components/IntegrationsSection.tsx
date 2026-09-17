@@ -11,7 +11,6 @@ const integrations = [
   { name: 'OpenAI', icon: '🤖' },
   { name: 'Slack', icon: '💬' },
   { name: 'GitHub', icon: '🐙' },
-  { name: 'Stripe', icon: '💳' },
   { name: 'AWS', icon: '☁️' },
   { name: 'Vercel', icon: '▲' },
   { name: 'Notion', icon: '📝' },

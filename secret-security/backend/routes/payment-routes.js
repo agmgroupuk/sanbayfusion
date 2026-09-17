@@ -34,7 +34,7 @@ router.post('/create-checkout', async (req, res) => {
     }
 
     const stripe = getStripe();
-    const baseUrl = process.env.APP_URL || 'https://maula.ai';
+    const baseUrl = process.env.APP_URL || 'https://sanbayfusion.com';
 
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -99,7 +99,7 @@ router.post('/webhook', async (req, res) => {
             data: { paymentPaid: true, downloadToken, downloadTokenExpiry: tokenExpiry },
         });
 
-        const downloadUrl = `${process.env.APP_URL || 'https://maula.ai'}/security/download/${downloadToken}`;
+        const downloadUrl = `${process.env.APP_URL || 'https://sanbayfusion.com'}/security/download/${downloadToken}`;
         await sendReportConfirmedEmail(report.ownerEmail, report.ownerName, downloadUrl).catch(console.error);
     }
 

@@ -22,8 +22,8 @@ app.set('trust proxy', 1);
 
 // ── CORS Origins ─────────────────────────────────────
 const CORS_ORIGINS = [
-  'https://maula.ai',
-  'https://www.maula.ai',
+  'https://sanbayfusion.com',
+  'https://www.sanbayfusion.com',
   'http://localhost:3000',
   'http://localhost:3005',
 ];

@@ -1,7 +1,7 @@
 /**
  * AUTH ROUTES — Authentication endpoints for Canvas Studio
  * Provides session verification and logout.
- * Auth is centralized at https://maula.ai/auth/login
+ * Auth is centralized at https://sanbayfusion.com/auth/login
  * This backend verifies sessions from the MAIN maulaai database.
  */
 
@@ -50,13 +50,13 @@ router.post('/verify', async (req, res) => {
 
 // ─── GET /login-url ────────────────────────────────────────────────
 router.get('/login-url', (_req, res) => {
-    const loginUrl = `https://maula.ai/auth/login?redirect=${encodeURIComponent('https://studio.maula.ai')}`;
+    const loginUrl = `https://sanbayfusion.com/auth/login?redirect=${encodeURIComponent('https://studio.sanbayfusion.com')}`;
     res.json({ success: true, loginUrl });
 });
 
 // ─── POST /logout ──────────────────────────────────────────────────
 router.post('/logout', async (req, res) => {
-    const cookieOpts = { domain: '.maula.ai', path: '/' };
+    const cookieOpts = { domain: '.sanbayfusion.com', path: '/' };
     res.clearCookie('sessionId', cookieOpts);
     res.clearCookie('session_id', cookieOpts);
     res.clearCookie('token', cookieOpts);

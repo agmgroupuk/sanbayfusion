@@ -68,7 +68,7 @@ const bestPractices = [
     { title: 'Keep Software Updated', description: 'Regularly update your browser and operating system to receive the latest security patches.', icon: Server, glow: 'rgba(16,185,129,0.4)' },
     { title: 'Be Cautious with Links', description: "Don't click suspicious links or download files from untrusted sources.", icon: AlertTriangle, glow: 'rgba(249,115,22,0.4)' },
     { title: 'Review Access Logs', description: 'Regularly review your account access logs and remove any unauthorized sessions.', icon: ScanEye, glow: 'rgba(236,72,153,0.4)' },
-    { title: 'Report Vulnerabilities', description: 'Report any security issues to our security team at security@maula.ai.', icon: Shield, glow: 'rgba(99,102,241,0.4)' },
+    { title: 'Report Vulnerabilities', description: 'Report any security issues to our security team at security@sanbayfusion.com.', icon: Shield, glow: 'rgba(99,102,241,0.4)' },
 ];
 
 const faqs = [
@@ -504,9 +504,9 @@ export default function SecurityPage() {
                                 </p>
                                 <div className="inline-block p-5 rounded-xl border border-amber-500/10 mb-6" style={{ background: 'rgba(249,115,22,0.03)' }}>
                                     <p className="text-gray-600 text-xs mb-2 uppercase tracking-wider font-medium">Security Email</p>
-                                    <a href="mailto:security@maula.ai" className="text-lg font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center justify-center gap-2" style={{ filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.3))' }}>
+                                    <a href="mailto:security@sanbayfusion.com" className="text-lg font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center justify-center gap-2" style={{ filter: 'drop-shadow(0 0 8px rgba(245,158,11,0.3))' }}>
                                         <Mail className="w-5 h-5" />
-                                        security@maula.ai
+                                        security@sanbayfusion.com
                                     </a>
                                 </div>
                                 <p className="text-xs text-gray-600">Please provide detailed information and allow 48 hours for our team to respond.</p>

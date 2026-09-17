@@ -7,7 +7,7 @@
 
 import { buildDeviceId } from './DeviceInfo';
 
-const API_BASE = 'https://security.maula.ai/api';
+const API_BASE = 'https://security.sanbayfusion.com/api';
 
 let pingingInterval: ReturnType<typeof setInterval> | null = null;
 let bgGeoStarted = false;

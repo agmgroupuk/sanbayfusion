@@ -334,7 +334,7 @@ export default function DemoPage() {
               Explore our platform and see what our users are raving about.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="https://maula.ai/agents" className="btn-primary bg-white text-brand-600 hover:bg-neural-50">
+              <Link href="https://sanbayfusion.com/agents" className="btn-primary bg-white text-brand-600 hover:bg-neural-50">
                 Explore Agents
               </Link>
               <Link href="/auth/signup" className="btn-primary border-2 border-white bg-transparent hover:bg-white hover:text-brand-600">

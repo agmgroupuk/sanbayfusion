@@ -387,7 +387,7 @@ const Preview: React.FC<PreviewProps> = ({ code, isBuilding, buildMessage, onOpe
           <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
         </div>
         <div className={`flex-1 text-center font-mono ${isDarkMode ? 'text-gray-600' : 'text-canvas-muted'} opacity-80 truncate tracking-wider text-[10px] ${previewUrl ? 'lowercase' : 'uppercase'}`}>
-          {previewUrl || 'appview.maula.ai'}
+          {previewUrl || 'appview.sanbayfusion.com'}
         </div>
 
         {/* Editor & Sandbox Buttons - Only show when there's code */}

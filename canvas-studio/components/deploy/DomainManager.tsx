@@ -57,7 +57,7 @@ const dnsColor: Record<DNSStatus, string> = {
   error: 'text-primary-400',
 };
 
-const DOMAIN_SUFFIX = '.maula.ai';
+const DOMAIN_SUFFIX = '.sanbayfusion.com';
 const RESERVED_SUBDOMAINS = new Set([
   'www', 'maula', 'app', 'canvas', 'chat', 'demo', 'studio', 'preview',
   'appview', 'spaces', 'api', 'admin', 'mail', 'smtp', 'ftp', 'ns1', 'ns2',
@@ -150,7 +150,7 @@ const DomainManager: React.FC<DomainManagerProps> = ({
                     maxLength={32}
                     autoFocus
                   />
-                  <span className="px-3 py-2 text-sm text-canvas-muted-deep font-mono bg-white/[0.03] border-l border-canvas-border shrink-0 select-none">.maula.ai</span>
+                  <span className="px-3 py-2 text-sm text-canvas-muted-deep font-mono bg-white/[0.03] border-l border-canvas-border shrink-0 select-none">.sanbayfusion.com</span>
                 </div>
                 <button
                   onClick={handleAdd}
@@ -167,7 +167,7 @@ const DomainManager: React.FC<DomainManagerProps> = ({
                 </p>
               ) : (
                 <p className="text-[10px] text-gray-600">
-                  Your app will be available at <span className="text-canvas-muted font-mono">{newDomain || 'name'}.maula.ai</span>
+                  Your app will be available at <span className="text-canvas-muted font-mono">{newDomain || 'name'}.sanbayfusion.com</span>
                 </p>
               )}
             </div>

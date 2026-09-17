@@ -23,7 +23,7 @@ class SocketService {
 
       // Production: connect to same origin
       if (hostname !== 'localhost' && !hostname.includes('127.0.0.1')) {
-        return 'https://editor.maula.ai';
+        return 'https://editor.sanbayfusion.com';
       }
     }
     // Development localhost — maula-editor-backend runs on 3204

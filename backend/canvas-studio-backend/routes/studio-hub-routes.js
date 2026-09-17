@@ -222,7 +222,7 @@ router.post('/databases', async (req, res) => {
                 engine,
                 name: name || `${project.name}_db`,
                 status: 'creating',
-                host: process.env.DATABASE_URL?.match(/@([^:]+):/)?.[1] || 'db.maula.ai',
+                host: process.env.DATABASE_URL?.match(/@([^:]+):/)?.[1] || 'db.sanbayfusion.com',
                 port: engine === 'mysql' ? 3306 : 5432,
             },
         });

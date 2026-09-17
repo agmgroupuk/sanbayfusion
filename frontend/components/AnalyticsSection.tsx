@@ -12,7 +12,7 @@ const studioFeatures = [
 const capabilities = [
   'Build complete web apps from prompts',
   'AI-powered code generation & debugging',
-  'One-click deploy to maula.ai subdomain',
+  'One-click deploy to sanbayfusion.com subdomain',
   'Free SSL, Global CDN & instant hosting',
   'Real-time preview & live collaboration',
 ];
@@ -261,7 +261,7 @@ export default function AnalyticsSection() {
                   <span className="text-white text-lg">{'🚀'}</span>
                 </div>
                 <div>
-                  <div className="text-white font-semibold text-sm">Deploy to Maula.ai</div>
+                  <div className="text-white font-semibold text-sm">Deploy to sanbayfusion.com</div>
                   <div className="text-gray-500 text-xs">Publish Your App</div>
                 </div>
               </div>
@@ -316,7 +316,7 @@ export default function AnalyticsSection() {
             {/* CTA Button */}
             <div ref={ctaRef}>
               <a
-                href="https://canvas.maula.ai"
+                href="https://canvas.sanbayfusion.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 group"

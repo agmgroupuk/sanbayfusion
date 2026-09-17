@@ -170,7 +170,7 @@ router.post('/:projectId', async (req, res) => {
             try {
                 await prisma.user.upsert({
                     where: { id: userId },
-                    create: { id: userId, email: `${userId}@noreply.maula.ai` },
+                    create: { id: userId, email: `${userId}@noreply.sanbayfusion.com` },
                     update: { updatedAt: new Date() },
                 });
                 project = await prisma.canvasProject.create({
@@ -190,7 +190,7 @@ router.post('/:projectId', async (req, res) => {
 
         const dbName = `${project.name?.replace(/[^a-zA-Z0-9]/g, '_') || 'project'}_db`;
         const engineNorm = engine === 'postgresql' ? 'postgres' : engine;
-        const dbHost = process.env.DB_HOST || 'db.maula.ai';
+        const dbHost = process.env.DB_HOST || 'db.sanbayfusion.com';
 
         // Scan project files for existing schema
         const { tables, totalSize } = await extractTablesFromProject(projectId);

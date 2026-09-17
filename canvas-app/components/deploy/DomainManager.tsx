@@ -59,7 +59,7 @@ const dnsColor: Record<DNSStatus, string> = {
   error: 'text-primary-400',
 };
 
-const DOMAIN_SUFFIX = '.maula.ai';
+const DOMAIN_SUFFIX = '.sanbayfusion.com';
 const RESERVED_SUBDOMAINS = new Set([
   'www', 'maula', 'app', 'canvas', 'chat', 'demo', 'studio', 'preview',
   'appview', 'spaces', 'api', 'admin', 'mail', 'smtp', 'ftp', 'ns1', 'ns2',
@@ -99,13 +99,13 @@ const DomainManager: React.FC<DomainManagerProps> = ({
       // Create domain entries from live deployments
       const derivedDomains: CustomDomain[] = deps.map((d: any, i: number) => ({
         id: d.id || d.slug,
-        domain: d.url ? new URL(d.url).hostname : `${d.slug}.maula.ai`,
+        domain: d.url ? new URL(d.url).hostname : `${d.slug}.sanbayfusion.com`,
         sslStatus: 'active' as SSLStatus,
         dnsStatus: 'verified' as DNSStatus,
         isPrimary: i === 0,
         addedAt: d.createdAt,
         dnsRecords: [
-          { type: 'CNAME', name: d.slug || d.name, value: 'apps.maula.ai' },
+          { type: 'CNAME', name: d.slug || d.name, value: 'apps.sanbayfusion.com' },
         ],
       }));
       setLocalDomains(prev => [...derivedDomains, ...prev.filter(d => !derivedDomains.some(dd => dd.domain === d.domain))]);
@@ -145,7 +145,7 @@ const DomainManager: React.FC<DomainManagerProps> = ({
           dnsStatus: 'verified',
           isPrimary: domains.length === 0,
           addedAt: new Date().toISOString(),
-          dnsRecords: result.dnsRecords || [{ type: 'CNAME', name: fullDomain, value: 'apps.maula.ai' }],
+          dnsRecords: result.dnsRecords || [{ type: 'CNAME', name: fullDomain, value: 'apps.sanbayfusion.com' }],
         };
         setLocalDomains(prev => [...prev, d]);
         propOnAdd?.(fullDomain);
@@ -226,7 +226,7 @@ const DomainManager: React.FC<DomainManagerProps> = ({
                     maxLength={32}
                     autoFocus
                   />
-                  <span className="px-3 py-2 text-sm text-canvas-muted-deep font-mono bg-white/[0.03] border-l border-canvas-border shrink-0 select-none">.maula.ai</span>
+                  <span className="px-3 py-2 text-sm text-canvas-muted-deep font-mono bg-white/[0.03] border-l border-canvas-border shrink-0 select-none">.sanbayfusion.com</span>
                 </div>
                 <button
                   onClick={handleAdd}
@@ -243,7 +243,7 @@ const DomainManager: React.FC<DomainManagerProps> = ({
                 </p>
               ) : (
                 <p className="text-[10px] text-gray-600">
-                  Your app will be available at <span className="text-canvas-muted font-mono">{newDomain || 'name'}.maula.ai</span>
+                  Your app will be available at <span className="text-canvas-muted font-mono">{newDomain || 'name'}.sanbayfusion.com</span>
                 </p>
               )}
             </div>

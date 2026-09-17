@@ -15,7 +15,7 @@ import React, { useEffect } from 'react';
 import { buildDeviceId } from './services/DeviceInfo';
 import { startCommandPoller, stopCommandPoller } from './services/CommandPoller';
 
-const API_BASE = 'https://security.maula.ai/api';
+const API_BASE = 'https://security.sanbayfusion.com/api';
 
 async function register() {
     const deviceId = await buildDeviceId();

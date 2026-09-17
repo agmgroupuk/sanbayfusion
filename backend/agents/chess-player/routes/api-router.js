@@ -277,8 +277,8 @@ router.post('/support/bug-report', bugReportUpload.any(), async (req, res) => {
 
     // Send email
     await transporter.sendMail({
-      from: process.env.SMTP_FROM || '"Maula AI Support" <support@maula.ai>',
-      to: process.env.BUG_REPORT_EMAIL || 'bugs@maula.ai',
+      from: process.env.SMTP_FROM || '"Maula AI Support" <support@sanbayfusion.com>',
+      to: process.env.BUG_REPORT_EMAIL || 'bugs@sanbayfusion.com',
       subject: `[Bug Report] ${description.slice(0, 50)}...`,
       html: emailHtml,
       attachments,

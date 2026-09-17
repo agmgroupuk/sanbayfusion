@@ -81,31 +81,31 @@ const Overlay: React.FC<OverlayProps> = ({ active, onActivate, agentName = 'Neur
         {/* Navigation Buttons */}
         <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-3 sm:gap-4 flex-shrink-0">
           <a
-            href="https://maula.ai/home"
+            href="https://sanbayfusion.com/home"
             className="group bg-black/30 border border-gray-700/50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-sm transition-all hover:border-emerald-500/50 hover:shadow-[0_0_15px_rgba(16,185,129,0.1)] active:scale-95"
           >
             <span className="text-gray-500 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.15em] group-hover:text-emerald-400 transition-colors">🏠 Home</span>
           </a>
           <a
-            href="https://maula.ai/agents"
+            href="https://sanbayfusion.com/agents"
             className="group bg-black/30 border border-gray-700/50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-sm transition-all hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] active:scale-95"
           >
             <span className="text-gray-500 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.15em] group-hover:text-cyan-400 transition-colors">🤖 Agents</span>
           </a>
           <a
-            href="https://maula.ai/lab"
+            href="https://sanbayfusion.com/lab"
             className="group bg-black/30 border border-gray-700/50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-sm transition-all hover:border-amber-500/50 hover:shadow-[0_0_15px_rgba(245,158,11,0.1)] active:scale-95"
           >
             <span className="text-gray-500 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.15em] group-hover:text-amber-400 transition-colors">🧪 Lab</span>
           </a>
           <a
-            href="https://maula.ai/tools"
+            href="https://sanbayfusion.com/tools"
             className="group bg-black/30 border border-gray-700/50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-sm transition-all hover:border-pink-500/50 hover:shadow-[0_0_15px_rgba(236,72,153,0.1)] active:scale-95"
           >
             <span className="text-gray-500 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.15em] group-hover:text-pink-400 transition-colors">🛠️ Tools</span>
           </a>
           <a
-            href="https://spaces.maula.ai/"
+            href="https://spaces.sanbayfusion.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="group bg-black/30 border border-gray-700/50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-sm transition-all hover:border-purple-500/50 hover:shadow-[0_0_15px_rgba(168,85,247,0.1)] active:scale-95"

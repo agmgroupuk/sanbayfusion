@@ -26,8 +26,8 @@ function LoginPageContent() {
   useEffect(() => {
     if (state.isAuthenticated) {
       const redirectTo = searchParams.get('redirect') || '/dashboard/overview';
-      // Support cross-subdomain redirects (e.g., https://canvas.maula.ai/)
-      if (redirectTo.startsWith('https://') && redirectTo.includes('.maula.ai')) {
+      // Support cross-subdomain redirects (e.g., https://canvas.sanbayfusion.com/)
+      if (redirectTo.startsWith('https://') && redirectTo.includes('.sanbayfusion.com')) {
         window.location.href = redirectTo;
       } else {
         router.push(redirectTo);

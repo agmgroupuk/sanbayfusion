@@ -24,7 +24,7 @@ import {
 
 export const dynamic = 'force-dynamic';
 
-const CHAT_API = 'https://maula.ai/chat/api/security';
+const CHAT_API = 'https://sanbayfusion.com/chat/api/security';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -351,12 +351,12 @@ export default function DeviceSecurityPage() {
                     <p>
                         To register a device, open{' '}
                         <a
-                            href="https://maula.ai/chat"
+                            href="https://sanbayfusion.com/chat"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="underline text-cyan-400"
                         >
-                            maula.ai/chat
+                            sanbayfusion.com/chat
                         </a>{' '}
                         on that device while logged in — a setup prompt will appear on first
                         visit.
@@ -391,7 +391,7 @@ export default function DeviceSecurityPage() {
                         </div>
                         <p className="text-gray-400 text-sm">No devices registered yet.</p>
                         <p className="text-gray-600 text-xs mt-2">
-                            Open maula.ai/chat from the device you want to protect.
+                            Open sanbayfusion.com/chat from the device you want to protect.
                         </p>
                     </div>
                 )}

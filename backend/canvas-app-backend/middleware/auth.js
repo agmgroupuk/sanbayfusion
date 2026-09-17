@@ -1,7 +1,7 @@
 /**
  * Auth Middleware — session-cookie based authentication
  * Reads sessionId cookie and verifies against the MAIN maulaai database.
- * Auth is centralized at https://maula.ai/auth/login;
+ * Auth is centralized at https://sanbayfusion.com/auth/login;
  * these backends only verify existing sessions via cross-subdomain cookies.
  *
  * Also provides requireActivePlan middleware to enforce active subscription.
@@ -65,7 +65,7 @@ export async function optionalAuth(req, res, next) {
 /**
  * Require active Canvas App (GenCraft Pro) subscription.
  * Checks local canvas_app DB first, then falls back to the main maulaai DB
- * (where subscriptions purchased via maula.ai/overview/pricing are stored).
+ * (where subscriptions purchased via sanbayfusion.com/overview/pricing are stored).
  * Auto-syncs from main DB to local DB when found.
  * Must be applied AFTER requireAuth (needs req.userId).
  */

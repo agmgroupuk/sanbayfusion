@@ -302,7 +302,7 @@ export default function CanvasDocsPage() {
             <div className="relative z-10">
               <h2 className="text-2xl font-bold mb-4">Ready to Build?</h2>
               <p className="text-gray-400 mb-6">Jump right in and start creating your first app with GenCraft Pro.</p>
-              <Link href="https://canvas.maula.ai" className="launch-btn inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all">
+              <Link href="https://canvas.sanbayfusion.com" className="launch-btn inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all">
                 <Rocket className="w-5 h-5" />
                 Launch GenCraft Pro
               </Link>
@@ -415,7 +415,7 @@ export default function CanvasDocsPage() {
             <div className="relative z-10">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">Start Building Now</h2>
               <p className="text-gray-400 mb-6">Transform your ideas into working applications in minutes with 170+ AI tools.</p>
-              <Link href="https://canvas.maula.ai" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all">
+              <Link href="https://canvas.sanbayfusion.com" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all">
                 🚀 Launch GenCraft Pro
               </Link>
             </div>

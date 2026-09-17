@@ -10,7 +10,7 @@ const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
 
 if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
     webpush.setVapidDetails(
-        'mailto:support@maula.ai',
+        'mailto:support@sanbayfusion.com',
         VAPID_PUBLIC_KEY,
         VAPID_PRIVATE_KEY
     );

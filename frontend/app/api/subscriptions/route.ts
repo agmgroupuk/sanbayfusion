@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyRequest, unauthorizedResponse } from '../../../lib/validateAuth';
 
 const BACKEND_BASE =
-  process.env.NEXT_PUBLIC_BACKEND_URL || 'https://maula.ai:3005';
+  process.env.NEXT_PUBLIC_BACKEND_URL || 'https://sanbayfusion.com:3005';
 
 async function proxy(request: NextRequest) {
   try {

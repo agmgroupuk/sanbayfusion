@@ -199,7 +199,7 @@ function generatePackageJson(
   const base: Record<string, unknown> = {
     name: safeName,
     version: '1.0.0',
-    description: `${name} - Built with Maula.AI Canvas Studio`,
+    description: `${name} - Built with sanbayfusion.com Canvas Studio`,
     private: true,
   };
   

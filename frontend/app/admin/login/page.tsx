@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
  * /admin/login — redirects to the normal user login page.
  * Admin flow: sign in as a regular user first → navigate to /admin/dashboard
  * → re-verify with password + optional 2FA.
- * Only admin@maula.ai can proceed.
+ * Only admin@sanbayfusion.com can proceed.
  */
 export default function AdminLoginPage() {
   const router = useRouter();

@@ -5,7 +5,7 @@ import Sidebar from './components/Sidebar';
 import SettingsPanel from './components/SettingsPanel';
 import ChatBox from './components/ChatBox';
 import NavigationDrawer from './components/NavigationDrawer';
-// CanvasAppDrawer removed — Canvas Studio is now a standalone app at studio.maula.ai
+// CanvasAppDrawer removed — Canvas Studio is now a standalone app at studio.sanbayfusion.com
 // CanvasNavDrawer removed — canvas-studio directory was removed
 import FilePanel from './components/FilePanel';
 import Overlay from './components/Overlay';
@@ -1112,13 +1112,13 @@ const App: React.FC<AppProps> = ({
               </p>
               <div className="space-y-3">
                 <a
-                  href="https://maula.ai/auth/signup"
+                  href="https://sanbayfusion.com/auth/signup"
                   className="block w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all"
                 >
                   Sign Up Free
                 </a>
                 <a
-                  href="https://maula.ai/auth/login"
+                  href="https://sanbayfusion.com/auth/login"
                   className="block w-full py-3 px-6 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all"
                 >
                   Already have an account? Log In
@@ -1194,14 +1194,14 @@ const App: React.FC<AppProps> = ({
           // Canvas App — redirect to standalone Canvas Studio
           if (item.tool === 'canvas_app') {
             setIsNavDrawerOpen(false);
-            window.open('https://studio.maula.ai', '_blank');
+            window.open('https://studio.sanbayfusion.com', '_blank');
             return;
           }
 
           // Handle Canvas writing mode - show demo restriction
           if (item.tool === 'canvas') {
             setIsNavDrawerOpen(false);
-            setDemoRestriction('Canvas writing workspace is not available in the free demo. Sign up at www.maula.ai to access all features!');
+            setDemoRestriction('Canvas writing workspace is not available in the free demo. Sign up at www.sanbayfusion.com to access all features!');
             return;
           }
 
@@ -1232,7 +1232,7 @@ const App: React.FC<AppProps> = ({
             <p className="text-gray-300 mb-6 leading-relaxed">{demoRestriction}</p>
             <div className="flex gap-3 justify-center">
               <a
-                href="https://www.maula.ai"
+                href="https://www.sanbayfusion.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-emerald-500 text-white rounded-xl font-semibold hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all"

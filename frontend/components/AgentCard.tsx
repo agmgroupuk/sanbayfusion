@@ -35,8 +35,8 @@ export default function AgentCard({ agent, index = 0 }: AgentCardProps) {
 
   // Determine link and text based on subscription status
   const linkHref = isSubscribed
-    ? `https://${agent.id}-chat.maula.ai/`
-    : `https://maula.ai/subscribe?agent=${encodeURIComponent(agent.name)}&slug=${agent.id}`;
+    ? `https://${agent.id}-chat.sanbayfusion.com/`
+    : `https://sanbayfusion.com/subscribe?agent=${encodeURIComponent(agent.name)}&slug=${agent.id}`;
 
   const actionText = loading
     ? 'Checking...'

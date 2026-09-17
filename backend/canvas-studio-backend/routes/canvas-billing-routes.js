@@ -90,8 +90,8 @@ router.post('/studio-checkout', async (req, res) => {
             return res.status(500).json({ success: false, error: 'Payment configuration not set up yet.' });
         }
 
-        // ALL flows redirect to the unified maula.ai thank-you page (with dashboard + open-app buttons).
-        const mainDomain = (req.body.returnUrl || 'https://maula.ai').replace(/\/$/, '');
+        // ALL flows redirect to the unified sanbayfusion.com thank-you page (with dashboard + open-app buttons).
+        const mainDomain = (req.body.returnUrl || 'https://sanbayfusion.com').replace(/\/$/, '');
         const successUrl = `${mainDomain}/payment/success?session_id={CHECKOUT_SESSION_ID}&app=canvas-studio&plan=${plan}&agent=Canvas+Studio&slug=canvas-studio`;
         const cancelUrl = `${mainDomain}/overview/studio?purchase=cancelled&plan=${plan}`;
 

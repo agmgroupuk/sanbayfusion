@@ -107,7 +107,7 @@ export default function NotFound() {
             Go Home
           </Link>
           <a
-            href="https://demo.maula.ai"
+            href="https://demo.sanbayfusion.com"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 border border-neural-700 text-neural-300 hover:border-brand-500/50 hover:text-white hover:bg-neural-800/50"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -118,7 +118,7 @@ export default function NotFound() {
         </div>
 
         <p className="mt-10 text-neural-600 text-sm">
-          Error code: 404 &middot; maula.ai
+          Error code: 404 &middot; sanbayfusion.com
         </p>
       </div>
 

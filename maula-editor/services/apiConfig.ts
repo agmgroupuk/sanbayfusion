@@ -5,19 +5,19 @@ const isProd = typeof window !== 'undefined' && window.location.hostname !== 'lo
 
 /** Main backend API (billing, workspace, etc.) */
 export const MAIN_API_BASE = (import.meta as any).env?.VITE_API_URL
-  || (isProd ? 'https://editor.maula.ai/api' : 'http://localhost:3204/api');
+  || (isProd ? 'https://editor.sanbayfusion.com/api' : 'http://localhost:3204/api');
 
 /** Editor backend API (AI, files, etc.) */
 export const EDITOR_API_BASE = (import.meta as any).env?.VITE_EDITOR_API_URL
-  || (isProd ? 'https://editor.maula.ai/api' : 'http://localhost:3204/api');
+  || (isProd ? 'https://editor.sanbayfusion.com/api' : 'http://localhost:3204/api');
 
 /** Editor backend root (no /api/v1 suffix) */
 export const EDITOR_SERVER_BASE = (import.meta as any).env?.VITE_EDITOR_SERVER_URL
-  || (isProd ? 'https://editor.maula.ai' : 'http://localhost:3204');
+  || (isProd ? 'https://editor.sanbayfusion.com' : 'http://localhost:3204');
 
 /** WebSocket collaboration server */
 export const COLLAB_WS_URL = (import.meta as any).env?.VITE_COLLABORATION_URL
-  || (isProd ? 'wss://editor.maula.ai/collaboration' : 'ws://localhost:3204/collaboration');
+  || (isProd ? 'wss://editor.sanbayfusion.com/collaboration' : 'ws://localhost:3204/collaboration');
 
 /** Ollama local AI server (dev only) */
 export const OLLAMA_BASE = (import.meta as any).env?.VITE_OLLAMA_URL || 'http://localhost:11434';

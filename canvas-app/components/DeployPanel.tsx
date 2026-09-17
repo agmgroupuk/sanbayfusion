@@ -244,7 +244,7 @@ const DeployPanel: React.FC<DeployPanelProps> = ({
                     <div className="flex-1">
                       <p className="text-xl font-bold text-gray-200 mb-1">Publish Your App</p>
                       <p className="text-sm text-canvas-muted mb-4">
-                        Deploy to <span className="text-primary-400 font-semibold">{subdomain}.maula.ai</span> — instant, free, shareable
+                        Deploy to <span className="text-primary-400 font-semibold">{subdomain}.sanbayfusion.com</span> — instant, free, shareable
                       </p>
 
                       <div className="flex flex-wrap gap-3 mb-6">
@@ -303,7 +303,7 @@ const DeployPanel: React.FC<DeployPanelProps> = ({
                   </div>
                   <div>
                     <p className="text-base font-bold text-gray-200">{deployStatus.message}</p>
-                    <p className="text-xs text-canvas-muted-deep">Publishing to Maula.ai CDN</p>
+                    <p className="text-xs text-canvas-muted-deep">Publishing to sanbayfusion.com CDN</p>
                   </div>
                 </div>
                 {deployStatus.progress !== undefined && (
@@ -446,7 +446,7 @@ const DeployPanel: React.FC<DeployPanelProps> = ({
                               }`}>{entry.status}</span>
                           </div>
                           <p className="text-[10px] text-gray-600 mt-0.5">
-                            {new Date(entry.timestamp).toLocaleString()} · Maula.ai
+                            {new Date(entry.timestamp).toLocaleString()} · sanbayfusion.com
                           </p>
                         </div>
                         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -493,11 +493,11 @@ const DeployPanel: React.FC<DeployPanelProps> = ({
               <div className="flex items-center gap-3">
                 <Globe className="w-4 h-4 text-primary-400 shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-gray-200">{subdomain}.maula.ai</p>
+                  <p className="text-xs font-semibold text-gray-200">{subdomain}.sanbayfusion.com</p>
                   <p className="text-[10px] text-gray-600 mt-0.5">Default subdomain · Free SSL</p>
                 </div>
                 <span className="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">Active</span>
-                <button onClick={() => handleCopy(`https://${subdomain}.maula.ai`, 'default-domain')} className="p-1.5 hover:bg-white/[0.06] rounded-lg">
+                <button onClick={() => handleCopy(`https://${subdomain}.sanbayfusion.com`, 'default-domain')} className="p-1.5 hover:bg-white/[0.06] rounded-lg">
                   {copied === 'default-domain' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-canvas-muted-deep" />}
                 </button>
               </div>
@@ -517,7 +517,7 @@ const DeployPanel: React.FC<DeployPanelProps> = ({
                 </button>
               </div>
               <p className="text-[10px] text-gray-600 mt-2">
-                Point your domain's CNAME record to <span className="text-canvas-muted font-mono">{subdomain}.maula.ai</span>
+                Point your domain's CNAME record to <span className="text-canvas-muted font-mono">{subdomain}.sanbayfusion.com</span>
               </p>
             </div>
 
@@ -552,12 +552,12 @@ const DeployPanel: React.FC<DeployPanelProps> = ({
                 <div className="grid grid-cols-3 gap-2 bg-black/30 rounded-lg px-2 py-2 text-[11px] font-mono">
                   <span className="text-cyan-400">CNAME</span>
                   <span className="text-canvas-muted">@</span>
-                  <span className="text-canvas-text">{subdomain}.maula.ai</span>
+                  <span className="text-canvas-text">{subdomain}.sanbayfusion.com</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 bg-black/30 rounded-lg px-2 py-2 text-[11px] font-mono">
                   <span className="text-cyan-400">CNAME</span>
                   <span className="text-canvas-muted">www</span>
-                  <span className="text-canvas-text">{subdomain}.maula.ai</span>
+                  <span className="text-canvas-text">{subdomain}.sanbayfusion.com</span>
                 </div>
               </div>
             </div>

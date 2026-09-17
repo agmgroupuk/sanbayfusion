@@ -30,7 +30,7 @@ export default function LegalHubPage() {
     {
       id: 'privacy',
       title: 'Privacy Policy',
-      description: 'Learn how we collect, use, and protect your personal information across maula.ai and spaces.maula.ai (Canvas App, Canvas Studio, GenCraft Pro, Maula Editor).',
+      description: 'Learn how we collect, use, and protect your personal information across sanbayfusion.com and spaces.sanbayfusion.com (Canvas App, Canvas Studio, GenCraft Pro, Maula Editor).',
       icon: Shield,
       href: '/legal/privacy-policy',
       lastUpdated: 'February 18, 2026',
@@ -41,7 +41,7 @@ export default function LegalHubPage() {
     {
       id: 'terms',
       title: 'Terms of Service',
-      description: 'Terms and conditions governing your use of maula.ai and spaces.maula.ai, including all AI tools, agents, and deployment services.',
+      description: 'Terms and conditions governing your use of sanbayfusion.com and spaces.sanbayfusion.com, including all AI tools, agents, and deployment services.',
       icon: FileText,
       href: '/legal/terms-of-service',
       lastUpdated: 'February 18, 2026',
@@ -52,7 +52,7 @@ export default function LegalHubPage() {
     {
       id: 'cookies',
       title: 'Cookie Policy',
-      description: 'Information about cookies, localStorage, and first-party tracking technologies used across maula.ai and spaces.maula.ai.',
+      description: 'Information about cookies, localStorage, and first-party tracking technologies used across sanbayfusion.com and spaces.sanbayfusion.com.',
       icon: Cookie,
       href: '/legal/cookie-policy',
       lastUpdated: 'February 18, 2026',
@@ -63,7 +63,7 @@ export default function LegalHubPage() {
     {
       id: 'payments',
       title: 'Payments & Refunds',
-      description: 'Policies regarding one-time agent purchases, payment methods, refunds, and access management across maula.ai and spaces.maula.ai.',
+      description: 'Policies regarding one-time agent purchases, payment methods, refunds, and access management across sanbayfusion.com and spaces.sanbayfusion.com.',
       icon: CreditCard,
       href: '/legal/payments-refunds',
       lastUpdated: 'February 18, 2026',
@@ -85,7 +85,7 @@ export default function LegalHubPage() {
   ];
 
   const trustItems = [
-    { icon: Shield, title: 'Data Protection', desc: 'AES-256-GCM encryption for credentials, TLS 1.2/1.3 transport, and strict access controls protect your data across maula.ai and spaces.maula.ai.', glow: 'rgba(6,182,212,0.4)' },
+    { icon: Shield, title: 'Data Protection', desc: 'AES-256-GCM encryption for credentials, TLS 1.2/1.3 transport, and strict access controls protect your data across sanbayfusion.com and spaces.sanbayfusion.com.', glow: 'rgba(6,182,212,0.4)' },
     { icon: Eye, title: 'Full Transparency', desc: 'Clear, readable policies that explain exactly how we operate and use your information.', glow: 'rgba(139,92,246,0.4)' },
     { icon: Scale, title: 'User Rights', desc: 'Access, export, or delete your data anytime. Your rights are always our top priority.', glow: 'rgba(16,185,129,0.4)' },
   ];

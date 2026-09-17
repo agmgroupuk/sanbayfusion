@@ -99,7 +99,7 @@ export default function MaintenancePage() {
                 </div>
 
                 <p className="mt-10 text-neural-600 text-sm">
-                    Status: 503 &middot; maula.ai
+                    Status: 503 &middot; sanbayfusion.com
                 </p>
             </div>
         </div>

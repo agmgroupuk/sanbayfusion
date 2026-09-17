@@ -28,7 +28,7 @@ export default function DocsAgentsApiReferencePage() {
   };
 
   const codeExamples = {
-    create: `curl -X POST https://api.maula.ai/v1/agents \\
+    create: `curl -X POST https://api.sanbayfusion.com/v1/agents \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -36,14 +36,14 @@ export default function DocsAgentsApiReferencePage() {
     "description": "A helpful assistant",
     "personality": "friendly"
   }'`,
-    chat: `curl -X POST https://api.maula.ai/v1/agents/agent_123/chat \\
+    chat: `curl -X POST https://api.sanbayfusion.com/v1/agents/agent_123/chat \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "message": "Hello, how can you help me?",
     "stream": true
   }'`,
-    list: `curl https://api.maula.ai/v1/agents \\
+    list: `curl https://api.sanbayfusion.com/v1/agents \\
   -H "Authorization: Bearer YOUR_API_KEY"`
   };
 
@@ -234,7 +234,7 @@ export default function DocsAgentsApiReferencePage() {
             Complete reference for the Agents API with examples and response formats
           </p>
           <div className="base-url inline-block px-6 py-3 bg-white/[0.02] rounded-xl border border-white/[0.06] mb-6">
-            <code className="text-rose-400 font-mono">https://api.maula.ai/v1</code>
+            <code className="text-rose-400 font-mono">https://api.sanbayfusion.com/v1</code>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="#endpoints" className="action-btn px-8 py-4 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl font-semibold hover:shadow-lg hover:shadow-rose-500/25 transition-all">
