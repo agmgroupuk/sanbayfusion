@@ -152,7 +152,7 @@
     "tailwind-merge": "^3.4.0",
     "three": "^0.182.0",
     "twilio": "^5.11.1",
-    "unzipper": "^0.12.3",
+    "unzipper": "^0.12.5",
     "uuid": "^13.0.0",
     "vitest": "^4.0.16",
     "web-vitals": "^4.2.2",
