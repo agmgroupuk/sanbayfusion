@@ -331,7 +331,7 @@ router.post('/domains', async (req, res) => {
     const cleaned = domain.toLowerCase().trim();
 
     // Extract subdomain part (strip .sanbayfusion.com if sent)
-    const sub = cleaned.replace(/\.maula\.ai$/, '');
+    const sub = cleaned.replace(/\.sanbayfusion\.com$/, '');
 
     // Validate subdomain format
     if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(sub)) {

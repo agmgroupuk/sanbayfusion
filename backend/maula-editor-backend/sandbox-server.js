@@ -42,7 +42,7 @@ let sessionId = null;
 app.use(express.json({ limit: '50mb' }));
 
 // Allowed origins for CORS
-const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://maula.onelastai.co').split(',');
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://editor.sanbayfusion.com').split(',');
 
 // CORS for sandbox — restricted to known domains
 app.use((req, res, next) => {

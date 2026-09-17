@@ -528,7 +528,7 @@ async function executeShareSnapshot(input, prisma, userId) {
                 data: { userId, name, slug, files, description, isPublic, password, expiresAt },
             });
 
-            const shareUrl = `https://share.onelastai.com/${slug}`;
+            const shareUrl = `https://share.sanbayfusion.com/${slug}`;
             return JSON.stringify({ status: 'success', snapshotId: snapshot.id, slug, shareUrl, fileCount: files.length, expiresAt: expiresAt?.toISOString(), passwordProtected: !!password });
         }
 
@@ -616,7 +616,7 @@ async function executeLiveSession(input, prisma, userId) {
                 },
             });
 
-            return JSON.stringify({ status: 'success', sessionId: session.id, sessionCode, joinUrl: `https://app.onelastai.com/live/${sessionCode}`, name });
+            return JSON.stringify({ status: 'success', sessionId: session.id, sessionCode, joinUrl: `https://app.sanbayfusion.com/live/${sessionCode}`, name });
         }
 
         case 'join': {

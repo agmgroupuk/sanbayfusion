@@ -1,7 +1,7 @@
 const { app, BrowserWindow, shell, Menu } = require('electron');
 const path = require('path');
 
-const APP_URL = 'https://maula.onelastai.co';
+const APP_URL = 'https://editor.sanbayfusion.com';
 const APP_NAME = 'Maula Editor';
 
 let mainWindow;
@@ -33,7 +33,7 @@ function createWindow() {
     });
 
     mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-        if (!url.startsWith('https://maula.onelastai.co')) {
+        if (!url.startsWith('https://editor.sanbayfusion.com')) {
             shell.openExternal(url);
             return { action: 'deny' };
         }

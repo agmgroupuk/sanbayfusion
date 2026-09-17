@@ -406,13 +406,13 @@ export const ADVANCED_SECURITY_TOOL_DEFINITIONS = [
     // 20 ─ SSL Certificate HTTPS Check
     {
         name: 'sec_ssl_cert_check',
-        description: 'SSL/TLS certificate and HTTPS configuration checker for dedicated subdomains. Validates certificate expiry, chain of trust, HTTPS enforcement, HSTS, protocol versions, cipher suites, and per-domain isolation for neural.onelastai.co, editor.onelastai.co, craft.onelastai.co, canvas.onelastai.co, and maula.onelastai.co.',
+        description: 'SSL/TLS certificate and HTTPS configuration checker for dedicated subdomains. Validates certificate expiry, chain of trust, HTTPS enforcement, HSTS, protocol versions, cipher suites, and per-domain isolation for neural.sanbayfusion.com, editor.sanbayfusion.com, canvas.sanbayfusion.com, studio.sanbayfusion.com, and sanbayfusion.com.',
         category: 'advanced_security',
         input_schema: {
             type: 'object',
             properties: {
                 action: { type: 'string', enum: ['check_cert', 'check_https', 'check_all_domains', 'check_expiry', 'check_chain', 'check_hsts', 'check_protocols', 'check_isolation', 'renew_status', 'report'], description: 'Action to perform' },
-                domain: { type: 'string', description: 'Target domain (e.g., neural.onelastai.co)' },
+                domain: { type: 'string', description: 'Target domain (e.g., neural.sanbayfusion.com)' },
                 domains: { type: 'array', items: { type: 'string' }, description: 'Multiple domains to check' },
                 warnDays: { type: 'number', description: 'Days before expiry to warn (default 30)' },
                 checkId: { type: 'string', description: 'Check ID for tracking/reporting' },
@@ -1558,7 +1558,7 @@ async function executeSecNetworkScan(input, ctx) {
             result: JSON.stringify({
                 scanId: id, target, records: [
                     { type: 'A', value: '46.137.229.146', ttl: 3600 },
-                    { type: 'MX', value: 'mail.onelastai.co', priority: 10 },
+                    { type: 'MX', value: 'mail.sanbayfusion.com', priority: 10 },
                     { type: 'TXT', value: 'v=spf1 include:_spf.google.com ~all' },
                     { type: 'CAA', value: '0 issue "letsencrypt.org"' },
                 ], security: [
@@ -1877,7 +1877,7 @@ async function executeSecCryptoAudit(input, ctx) {
         };
     }
     if (action === 'cert_check') {
-        const certs = certificates || [{ cn: target || 'onelastai.co' }];
+        const certs = certificates || [{ cn: target || 'sanbayfusion.com' }];
         return {
             result: JSON.stringify({
                 auditId: id, certificates: certs.map(c => ({
@@ -2247,7 +2247,7 @@ async function executeSecSiem(input, ctx) {
                     actions: [
                         { action: 'block_ip', target: '185.220.101.42', status: 'executed', tool: 'firewall' },
                         { action: 'disable_account', target: 'compromised_user', status: 'executed', tool: 'iam' },
-                        { action: 'notify', target: 'security-team@onelastai.co', status: 'sent', channel: 'email+slack' },
+                        { action: 'notify', target: 'security-team@sanbayfusion.com', status: 'sent', channel: 'email+slack' },
                         { action: 'create_incident', target: 'INC-2024-001', status: 'created', tool: 'incident_response' },
                         { action: 'snapshot', target: 'web-server', status: 'executed', tool: 'forensics' },
                     ], totalActions: 5, automated: true, escalation: 'SOC Lead notified'
@@ -2714,11 +2714,11 @@ export async function executeAdvancedSecurityTool(toolName, input, ctx) {
 
 // ── 20. sec_ssl_cert_check ───────────────────────────────────────
 const ONELASTAI_DOMAINS = {
-    'maula.onelastai.co': { app: 'Main Domain (Landing, Auth, Payments, Dashboard)', backend: 3200, certPath: '/etc/letsencrypt/live/maula.onelastai.co', frontendRoot: '/var/www/maula/main', dbIsolated: true, isMainDomain: true },
-    'neural.onelastai.co': { app: 'Neural Chat', backend: 3201, certPath: '/etc/letsencrypt/live/neural.onelastai.co', frontendRoot: '/var/www/neural', dbIsolated: true },
-    'editor.onelastai.co': { app: 'Maula Editor', backend: 3204, certPath: '/etc/letsencrypt/live/editor.onelastai.co', frontendRoot: '/var/www/editor', dbIsolated: true },
-    'craft.onelastai.co': { app: 'GenCraft Pro', backend: 3203, certPath: '/etc/letsencrypt/live/craft.onelastai.co', frontendRoot: '/var/www/craft', dbIsolated: true },
-    'canvas.onelastai.co': { app: 'Canvas Studio', backend: 3202, certPath: '/etc/letsencrypt/live/canvas.onelastai.co', frontendRoot: '/var/www/canvas', dbIsolated: true },
+    'sanbayfusion.com': { app: 'Main Domain (Landing, Auth, Payments, Dashboard)', backend: 3200, certPath: '/etc/letsencrypt/live/sanbayfusion.com', frontendRoot: '/var/www/maula/main', dbIsolated: true, isMainDomain: true },
+    'neural.sanbayfusion.com': { app: 'Neural Chat', backend: 3201, certPath: '/etc/letsencrypt/live/neural.sanbayfusion.com', frontendRoot: '/var/www/neural', dbIsolated: true },
+    'editor.sanbayfusion.com': { app: 'Maula Editor', backend: 3204, certPath: '/etc/letsencrypt/live/editor.sanbayfusion.com', frontendRoot: '/var/www/editor', dbIsolated: true },
+    'canvas.sanbayfusion.com': { app: 'GenCraft Pro', backend: 3203, certPath: '/etc/letsencrypt/live/canvas.sanbayfusion.com', frontendRoot: '/var/www/craft', dbIsolated: true },
+    'studio.sanbayfusion.com': { app: 'Canvas Studio', backend: 3202, certPath: '/etc/letsencrypt/live/studio.sanbayfusion.com', frontendRoot: '/var/www/canvas', dbIsolated: true },
 };
 
 async function executeSecSslCertCheck(input, ctx) {
@@ -2773,7 +2773,7 @@ async function executeSecSslCertCheck(input, ctx) {
     }
 
     if (action === 'check_cert' || action === 'check_https') {
-        const d = domain || 'maula.onelastai.co';
+        const d = domain || 'sanbayfusion.com';
         const result = buildCertInfo(d);
         return { result: JSON.stringify({ checkId: id, action, ...result }), sideEffects: null };
     }
@@ -2804,7 +2804,7 @@ async function executeSecSslCertCheck(input, ctx) {
     }
 
     if (action === 'check_chain') {
-        const d = domain || 'maula.onelastai.co';
+        const d = domain || 'sanbayfusion.com';
         return {
             result: JSON.stringify({
                 checkId: id, domain: d, chain: [
@@ -2839,7 +2839,7 @@ async function executeSecSslCertCheck(input, ctx) {
     }
 
     if (action === 'check_protocols') {
-        const d = domain || 'maula.onelastai.co';
+        const d = domain || 'sanbayfusion.com';
         return {
             result: JSON.stringify({
                 checkId: id, domain: d, protocols: {
@@ -2926,7 +2926,7 @@ async function executeSecSslCertCheck(input, ctx) {
 
         return {
             result: JSON.stringify({
-                checkId: id, title: 'SSL/HTTPS Certificate Health Report — onelastai.co',
+                checkId: id, title: 'SSL/HTTPS Certificate Health Report — sanbayfusion.com',
                 generatedAt: now.toISOString(),
                 overallGrade: expired > 0 ? 'F' : warnings > 0 ? 'B' : 'A',
                 overallStatus: expired > 0 ? 'CRITICAL' : warnings > 0 ? 'WARNING' : 'HEALTHY',

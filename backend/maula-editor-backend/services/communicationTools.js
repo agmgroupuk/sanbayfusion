@@ -179,7 +179,7 @@ async function executeEmailSend(input, prisma, userId) {
         case 'send':
         case 'schedule': {
             const {
-                to = [], cc = [], bcc = [], from: fromAddr = 'noreply@onelastai.com', replyTo,
+                to = [], cc = [], bcc = [], from: fromAddr = 'noreply@sanbayfusion.com', replyTo,
                 subject = '(no subject)', bodyHtml, bodyText, templateId, templateVars,
                 scheduledAt, provider = 'ses',
             } = input;
@@ -224,7 +224,7 @@ async function executeEmailSend(input, prisma, userId) {
         }
 
         case 'bulk': {
-            const { recipients = [], subject, bodyHtml, templateId, templateVars = {}, from: fromAddr = 'noreply@onelastai.com' } = input;
+            const { recipients = [], subject, bodyHtml, templateId, templateVars = {}, from: fromAddr = 'noreply@sanbayfusion.com' } = input;
             if (!recipients.length) return JSON.stringify({ status: 'error', error: 'recipients required' });
 
             const results = [];

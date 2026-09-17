@@ -360,7 +360,7 @@ async function executeFetchUrl(input) {
         const res = await fetch(url, {
             signal: controller.signal,
             headers: {
-                'User-Agent': 'OnelastAI/1.0 (Bot; +https://onelastai.co)',
+                'User-Agent': 'OnelastAI/1.0 (Bot; +https://sanbayfusion.com)',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             },
             redirect: 'follow',

@@ -238,7 +238,7 @@ class CollaborationService {
   // ========================================================================
 
   async initialize(): Promise<void> {
-    // COLLAB_WS_URL is already the correct base: wss://editor.onelastai.co/collaboration
+    // COLLAB_WS_URL is already the correct base: wss://editor.sanbayfusion.com/collaboration
     this.wsBaseUrl = COLLAB_WS_URL;
     this._isConnected = true;
     this.emit({ type: 'connected' });

@@ -70,7 +70,7 @@ export const UsageDashboard: React.FC = () => {
   const maxTokens = Math.max(...chartData.map(d => d.totalTokens), 1);
   const maxCredits = Math.max(...chartData.map(d => d.totalCredits), 1);
 
-  const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://editor.onelastai.co/api' : 'http://localhost:3200/api');
+  const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://editor.sanbayfusion.com/api' : 'http://localhost:3200/api');
 
   const handleAddCredits = async (packageId: string) => {
     const pkg = creditPackages.find(p => p.id === packageId);

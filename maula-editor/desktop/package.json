@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Maula Editor - AI Code Editor Desktop",
     "main": "main.js",
-    "author": "One LastAI <support@onelastai.co>",
+    "author": "One LastAI <support@sanbayfusion.com>",
     "license": "UNLICENSED",
     "scripts": {
         "start": "electron .",

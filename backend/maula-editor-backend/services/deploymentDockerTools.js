@@ -864,7 +864,7 @@ async function executeDeployStatic(input, prisma, userId) {
             });
 
             // Simulate upload/deploy
-            const deployUrl = `https://${name.replace(/\s/g, '-').toLowerCase()}-${deploy.id.slice(0, 8)}.onelastai.app`;
+            const deployUrl = `https://${name.replace(/\s/g, '-').toLowerCase()}-${deploy.id.slice(0, 8)}.sanbayfusion.com`;
 
             await prisma.staticDeploy.update({
                 where: { id: deploy.id },

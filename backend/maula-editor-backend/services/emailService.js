@@ -4,8 +4,8 @@ const log = createLogger('emailService');
  * EMAIL SERVICE — One Last AI
  * Handles all transactional emails via Namecheap Private Email SMTP
  * 
- * Emails sent from: noreply@onelastai.co
- * Support contact: support@onelastai.co
+ * Emails sent from: noreply@sanbayfusion.com
+ * Support contact: support@sanbayfusion.com
  */
 
 import nodemailer from 'nodemailer';
@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
   port: parseInt(process.env.SMTP_PORT || '587', 10),
   secure: process.env.SMTP_SECURE === 'true', // false for port 587 (STARTTLS)
   auth: {
-    user: process.env.SMTP_USER || 'noreply@onelastai.co',
+    user: process.env.SMTP_USER || 'noreply@sanbayfusion.com',
     pass: process.env.SMTP_PASS,
   },
   tls: {
@@ -27,9 +27,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const FROM = process.env.SMTP_FROM || '"One Last AI" <noreply@onelastai.co>';
-const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'support@onelastai.co';
-const BRAND_URL = 'https://maula.onelastai.co';
+const FROM = process.env.SMTP_FROM || '"One Last AI" <noreply@sanbayfusion.com>';
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'support@sanbayfusion.com';
+const BRAND_URL = 'https://editor.sanbayfusion.com';
 const BRAND_NAME = 'One Last AI';
 
 // ============================================================================
@@ -55,7 +55,7 @@ function baseTemplate(title, bodyContent) {
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="width:48px;height:48px;border-radius:14px;overflow:hidden;">
-                    <img src="https://maula.onelastai.co/one-last-ai-logo.png" alt="One Last AI" width="48" height="48" style="display:block;width:48px;height:48px;border-radius:14px;object-fit:contain;" />
+                    <img src="https://editor.sanbayfusion.com/one-last-ai-logo.png" alt="One Last AI" width="48" height="48" style="display:block;width:48px;height:48px;border-radius:14px;object-fit:contain;" />
                   </td>
                   <td style="padding-left:14px;">
                     <span style="font-size:20px;font-weight:700;color:#ffffff;">${BRAND_NAME}</span>

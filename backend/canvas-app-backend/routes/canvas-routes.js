@@ -649,7 +649,7 @@ router.post('/deploy/domain', [
   try {
     const cleaned = domain.toLowerCase().trim();
     // Extract subdomain (strip .sanbayfusion.com if sent)
-    const sub = cleaned.replace(/\.maula\.ai$/, '');
+    const sub = cleaned.replace(/\.sanbayfusion\.com$/, '');
 
     // Validate format
     if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(sub)) {
@@ -799,7 +799,7 @@ router.get('/deployments', async (req, res) => {
     const deployments = deployedApps.map(app => ({
       id: app.id,
       name: app.name,
-      slug: app.deployedUrl?.replace(/^https?:\/\//, '').replace(/\.maula\.ai\/?$/, '') || '',
+      slug: app.deployedUrl?.replace(/^https?:\/\//, '').replace(/\.sanbayfusion\.com\/?$/, '') || '',
       url: app.deployedUrl,
       language: app.language,
       source: app.source,

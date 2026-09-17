@@ -511,7 +511,7 @@ async function executeCloudStorage(input, prisma, userId) {
 
             const expiry = new Date(Date.now() + expiresIn * 1000);
             const token = crypto.randomBytes(32).toString('hex');
-            const signedUrl = `https://storage.onelastai.com/${obj.key}?token=${token}&expires=${expiry.toISOString()}`;
+            const signedUrl = `https://storage.sanbayfusion.com/${obj.key}?token=${token}&expires=${expiry.toISOString()}`;
 
             await prisma.cloudStorageObject.update({ where: { id: objectId }, data: { signedUrl, signedUrlExpiry: expiry } });
             return JSON.stringify({ status: 'success', signedUrl, expiresAt: expiry.toISOString() });

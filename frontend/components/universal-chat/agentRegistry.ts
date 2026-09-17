@@ -47,7 +47,7 @@ export const agentIds = Object.keys(AGENTS);
  */
 export function getAgentFromHostname(hostname: string): string | null {
   // Match: {slug}-chat.sanbayfusion.com
-  const match = hostname.match(/^(.+)-chat\.maula\.ai$/);
+  const match = hostname.match(/^(.+)-chat\.sanbayfusion\.com$/);
   if (!match) return null;
   const slug = match[1];
   return AGENTS[slug] ? slug : null;
