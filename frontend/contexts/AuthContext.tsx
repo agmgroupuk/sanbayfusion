@@ -10,7 +10,6 @@ import {
 } from 'react';
 import secureAuthStorage from '@/lib/secure-auth-storage';
 import { trackLogin, trackSignup, setAnalyticsUserId } from '@/lib/analytics';
-import { useDeviceSecurity } from '@/hooks/useDeviceSecurity';
 
 export interface User {
   id: string;
@@ -92,9 +91,6 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
-
-  // Silent device security — auto-register + GPS ping loop for signed-in users
-  useDeviceSecurity(state.user?.id);
 
   useEffect(() => {
     // Always check session - canvas-studio needs auth state too for subscription checks
