@@ -8,7 +8,7 @@
 # Push:    docker tag maula-sandbox:latest <ACCOUNT>.dkr.ecr.ap-southeast-1.amazonaws.com/maula-sandbox:latest
 #          docker push <ACCOUNT>.dkr.ecr.ap-southeast-1.amazonaws.com/maula-sandbox:latest
 
-FROM node:20-slim
+FROM node:26-slim
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
