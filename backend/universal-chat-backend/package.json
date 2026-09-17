@@ -32,7 +32,7 @@
         "openai": "^4.77.0",
         "pdf-parse": "^2.4.5",
         "stripe": "^17.5.0",
-        "uuid": "^11.0.5"
+        "uuid": "^14.0.2"
     },
     "devDependencies": {
         "prisma": "^6.2.1"
