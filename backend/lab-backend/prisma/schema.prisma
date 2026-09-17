@@ -1,0 +1,116 @@
+// ============================================
+// Lab Backend — Standalone Prisma Schema
+// ============================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// SESSION (for tracking active users)
+// ============================================
+
+model Session {
+  id            String   @id @default(cuid())
+  sessionId     String   @unique
+  visitorId     String?
+  userId        String?
+  isActive      Boolean  @default(true)
+  lastActivity  DateTime @default(now())
+  startedAt     DateTime @default(now())
+  endedAt       DateTime?
+  pages         Int      @default(0)
+  events        Int      @default(0)
+  metadata      Json?    @default("{}")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([isActive, lastActivity])
+  @@index([visitorId])
+  @@index([userId])
+  @@map("sessions")
+}
+
+// ============================================
+// LAB EXPERIMENTS
+// ============================================
+
+enum ExperimentStatus {
+  pending
+  processing
+  completed
+  failed
+  cancelled
+}
+
+model LabVote {
+  id        String   @id @default(cuid())
+  arena     String
+  voteKey   String
+  position  String
+  count     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([arena, voteKey, position], name: "arena_voteKey_position")
+  @@index([arena, voteKey])
+  @@map("lab_votes")
+}
+
+model LabExperiment {
+  id             String           @id @default(cuid())
+  experimentId   String           @unique
+  experimentType String
+  userId         String?
+  sessionId      String?
+  visitorId      String?
+  input          Json?            @default("{}")
+  output         Json?
+  status         ExperimentStatus @default(pending)
+  errorMessage   String?
+  processingTime Int?             @default(0)
+  tokensUsed     Int?             @default(0)
+  creditsUsed    Float?           @default(0)
+  startedAt      DateTime?
+  completedAt    DateTime?
+  feedback       Json?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([experimentId])
+  @@index([experimentType])
+  @@index([userId])
+  @@index([sessionId])
+  @@index([status])
+  @@map("lab_experiments")
+}
+
+enum DebateStatus {
+  active
+  completed
+  archived
+}
+
+model Debate {
+  id          String       @id @default(cuid())
+  debateId    String       @unique
+  topic       String
+  status      DebateStatus @default(active)
+  agent1      Json         @default("{\"name\":\"Nova\",\"position\":\"Pro\",\"avatar\":\"⚡\",\"provider\":\"Nova\",\"response\":\"\",\"responseTime\":0,\"votes\":0}")
+  agent2      Json         @default("{\"name\":\"Blaze\",\"position\":\"Con\",\"avatar\":\"🔥\",\"provider\":\"Blaze\",\"response\":\"\",\"responseTime\":0,\"votes\":0}")
+  totalVotes  Int          @default(0)
+  viewers     Int          @default(0)
+  votedUsers  String[]     @default([])
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([debateId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("debates")
+}

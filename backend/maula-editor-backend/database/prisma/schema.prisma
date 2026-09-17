@@ -1,0 +1,3175 @@
+// Maula Editor Database Schema
+// Separate database from main One Last AI app
+// Uses same Stripe account but independent credits, usage, billing
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// USER & AUTHENTICATION
+// ============================================================================
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  passwordHash      String?   @map("password_hash")  // Optional - for direct login
+  name              String?
+  avatarUrl         String?
+  
+  // OAuth providers
+  googleId          String?   @unique @map("google_id")
+  githubId          String?   @unique @map("github_id")
+  yahooId           String?   @unique @map("yahoo_id")
+  microsoftId       String?   @unique @map("microsoft_id")
+  authProvider      String?   @map("auth_provider")  // 'email', 'google', 'github', 'yahoo', 'microsoft'
+  
+  // Linked from main One Last AI account
+  onelastaiUserId   String?   @unique @map("onelastai_user_id")
+  
+  // Account status
+  isActive          Boolean   @default(true)
+  isVerified        Boolean   @default(false)
+  
+  // Email verification (6-digit OTP)
+  verificationCode    String?   @map("verification_code")
+  verificationExpires DateTime? @map("verification_expires")
+  
+  // Login OTP (6-digit code for every login)
+  loginOtpCode        String?   @map("login_otp_code")
+  loginOtpExpires     DateTime? @map("login_otp_expires")
+  
+  // Password reset
+  passwordResetToken   String?   @map("password_reset_token")
+  passwordResetExpires DateTime? @map("password_reset_expires")
+
+  // Two-factor authentication (TOTP)
+  twoFactorSecret      String?   @map("two_factor_secret")
+  twoFactorEnabled     Boolean   @default(false) @map("two_factor_enabled")
+
+  // Account lockout
+  lockLevel         Int       @default(0) @map("lock_level")      // 0=none, 1=15min, 2=24hr, 3=permanent
+  lockedUntil       DateTime? @map("locked_until")                // null = not locked (or permanent if lockLevel=3)
+  failedAttempts    Int       @default(0) @map("failed_attempts") // resets on successful login or after lock expires
+  lastFailedAt      DateTime? @map("last_failed_at")
+  
+  // Timestamps
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  lastLoginAt       DateTime? @map("last_login_at")
+  
+  // Relations
+  credits           UserCredits[]
+  sessions          ChatSession[]
+  usageLogs         UsageLog[]
+  billingHistory    BillingHistory[]
+  apiKeys           ApiKey[]
+  hostedApps        HostedApp[]
+  projects          Project[]
+  deployCredentials DeployCredential[]
+  profile           UserProfile?
+  agentMemories     AgentMemory[]
+  assets            Asset[]
+  videoGenerations  VideoGeneration[]
+  projectDatabases  ProjectDatabase[]
+  collaborations    ProjectCollaborator[]
+  agentState        AgentState?
+  loginAttempts     LoginAttempt[]
+  
+  @@map("users")
+}
+
+// ============================================================================
+// CREDITS SYSTEM
+// ============================================================================
+
+model UserCredits {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  appId           String    @default("maula-editor") @map("app_id")
+  
+  // Credit balance
+  balance         Decimal   @default(0) @db.Decimal(12, 4)
+  lifetimeEarned  Decimal   @default(0) @map("lifetime_earned") @db.Decimal(12, 4)
+  lifetimeSpent   Decimal   @default(0) @map("lifetime_spent") @db.Decimal(12, 4)
+  
+  // Free tier tracking
+  freeCreditsUsed Decimal   @default(0) @map("free_credits_used") @db.Decimal(12, 4)
+  freeCreditsMax  Decimal   @default(5) @map("free_credits_max") @db.Decimal(12, 4)
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions    CreditTransaction[]
+  
+  @@unique([userId, appId])
+  @@index([userId])
+  @@map("user_credits")
+}
+
+model CreditTransaction {
+  id              String            @id @default(cuid())
+  userCreditsId   String            @map("user_credits_id")
+  
+  // Transaction details
+  type            TransactionType
+  amount          Decimal           @db.Decimal(12, 4)
+  balanceAfter    Decimal           @map("balance_after") @db.Decimal(12, 4)
+  
+  // Context
+  description     String?
+  referenceId     String?           @map("reference_id")
+  referenceType   String?           @map("reference_type") // 'stripe', 'usage', 'bonus', 'refund'
+  
+  // Metadata
+  metadata        Json?
+  
+  // Timestamps
+  createdAt       DateTime          @default(now()) @map("created_at")
+  
+  // Relations
+  userCredits     UserCredits       @relation(fields: [userCreditsId], references: [id], onDelete: Cascade)
+  
+  @@index([userCreditsId, createdAt])
+  @@map("credit_transactions")
+}
+
+enum TransactionType {
+  PURCHASE
+  USAGE
+  BONUS
+  REFUND
+  ADJUSTMENT
+}
+
+// ============================================================================
+// CHAT SESSIONS & MESSAGES
+// ============================================================================
+
+model ChatSession {
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
+  
+  // Session info
+  name          String    @default("New Chat")
+  provider      String    @default("gemini")
+  model         String    @default("gemini-3-flash-preview")
+  chatMode      String    @default("Agent") @map("chat_mode")
+  
+  // Settings (stored as JSON)
+  settings      Json?
+  
+  // Status
+  isActive      Boolean   @default(true)
+  isPinned      Boolean   @default(false) @map("is_pinned")
+  isArchived    Boolean   @default(false) @map("is_archived")
+  isFavorited   Boolean   @default(false) @map("is_favorited")
+  messageCount  Int       @default(0) @map("message_count")
+  
+  // App isolation
+  sourceApp     String    @default("maula-editor") @map("source_app")
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages      ChatMessage[]
+  
+  @@index([userId, createdAt])
+  @@index([userId, sourceApp])
+  @@map("chat_sessions")
+}
+
+model ChatMessage {
+  id            String    @id @default(cuid())
+  sessionId     String    @map("session_id")
+  
+  // Message content
+  role          MessageRole
+  content       String    @db.Text
+  chatMode      String?   @map("chat_mode")
+  reaction      String?   // 'like' | 'dislike' | null
+  
+  // AI metadata
+  provider      String?
+  model         String?
+  tokensUsed    Int?      @map("tokens_used")
+  creditsCost   Decimal?  @map("credits_cost") @db.Decimal(12, 6)
+  latencyMs     Int?      @map("latency_ms")
+  
+  // Metadata
+  metadata      Json?
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  session       ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  @@index([sessionId, createdAt])
+  @@map("chat_messages")
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+// ============================================================================
+// USAGE TRACKING
+// ============================================================================
+
+model UsageLog {
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
+  
+  // Request details
+  provider      String
+  model         String
+  endpoint      String    // 'chat', 'image', 'audio', 'canvas'
+  
+  // Token usage
+  inputTokens   Int       @default(0) @map("input_tokens")
+  outputTokens  Int       @default(0) @map("output_tokens")
+  totalTokens   Int       @default(0) @map("total_tokens")
+  
+  // Cost
+  creditsCost   Decimal   @map("credits_cost") @db.Decimal(12, 6)
+  
+  // Performance
+  latencyMs     Int?      @map("latency_ms")
+  success       Boolean   @default(true)
+  errorMessage  String?   @map("error_message")
+  
+  // Context
+  sessionId     String?   @map("session_id")
+  
+  // App isolation
+  sourceApp     String    @default("maula-editor") @map("source_app")
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, createdAt])
+  @@index([userId, sourceApp])
+  @@index([provider, createdAt])
+  @@map("usage_logs")
+}
+
+// ============================================================================
+// BILLING & PAYMENTS
+// ============================================================================
+
+model BillingHistory {
+  id                String    @id @default(cuid())
+  userId            String    @map("user_id")
+  
+  // Stripe details
+  stripePaymentId   String?   @unique @map("stripe_payment_id")
+  stripeCustomerId  String?   @map("stripe_customer_id")
+  
+  // Amount
+  amount            Decimal   @db.Decimal(10, 2)
+  currency          String    @default("usd")
+  creditsAdded      Decimal   @map("credits_added") @db.Decimal(12, 4)
+  
+  // Status
+  status            PaymentStatus @default(PENDING)
+  
+  // Metadata
+  description       String?
+  metadata          Json?
+  
+  // Timestamps
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, createdAt])
+  @@map("billing_history")
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+// ============================================================================
+// API KEYS (for power users)
+// ============================================================================
+
+model ApiKey {
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
+  
+  // Key details
+  name          String
+  keyHash       String    @unique @map("key_hash")
+  keyPrefix     String    @map("key_prefix") // First 8 chars for identification
+  
+  // Permissions & limits
+  permissions   String[]  @default(["chat"])
+  rateLimit     Int       @default(100) @map("rate_limit") // requests per minute
+  
+  // Status
+  isActive      Boolean   @default(true)
+  lastUsedAt    DateTime? @map("last_used_at")
+  expiresAt     DateTime? @map("expires_at")
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@map("api_keys")
+}
+
+// ============================================================================
+// CREDIT PRICING
+// ============================================================================
+
+model CreditPricing {
+  id            String    @id @default(cuid())
+  
+  // Provider & model
+  provider      String
+  model         String
+  
+  // Pricing (credits per 1K tokens)
+  inputCost     Decimal   @map("input_cost") @db.Decimal(12, 6)
+  outputCost    Decimal   @map("output_cost") @db.Decimal(12, 6)
+  
+  // Status
+  isActive      Boolean   @default(true)
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  @@unique([provider, model])
+  @@map("credit_pricing")
+}
+
+// ============================================================================
+// CREDIT PACKAGES (Stripe products)
+// ============================================================================
+
+model CreditPackage {
+  id              String    @id @default(cuid())
+  
+  // Package details
+  name            String
+  credits         Decimal   @db.Decimal(12, 4)
+  price           Decimal   @db.Decimal(10, 2)
+  currency        String    @default("usd")
+  
+  // Stripe integration
+  stripePriceId   String?   @unique @map("stripe_price_id")
+  stripeProductId String?   @map("stripe_product_id")
+  
+  // Display
+  description     String?
+  isPopular       Boolean   @default(false) @map("is_popular")
+  sortOrder       Int       @default(0) @map("sort_order")
+  
+  // Status
+  isActive        Boolean   @default(true)
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@map("credit_packages")
+}
+
+// ============================================================================
+// HOSTED APPS (Phase 2: Canvas Studio Hosting)
+// ============================================================================
+
+model HostedApp {
+  id              String    @id @default(cuid())
+  userId          String?   @map("user_id")  // Optional for demo/anonymous
+  sourceApp       String    @default("maula-editor") @map("source_app") // Which app deployed this: 'canvas-studio' or 'neural-chat'
+  
+  // App identification
+  slug            String    @unique  // URL slug: myapp-123abc
+  name            String
+  description     String?
+  
+  // Code & Language
+  code            String    @db.Text
+  language        String    @default("html")  // html, react, typescript, javascript, python
+  
+  // Project structure (NEW)
+  projectType     ProjectType @default(STATIC) @map("project_type")
+  files           Json?       // Full file tree structure as JSON
+  mainFile        String?     @map("main_file")
+  
+  // Build configuration (NEW)
+  buildCommand    String?     @map("build_command")
+  startCommand    String?     @map("start_command")
+  envVars         Json?       @map("env_vars")
+  
+  // Backend config (NEW for full-stack)
+  hasBackend      Boolean     @default(false) @map("has_backend")
+  backendType     String?     @map("backend_type") // express, flask, fastapi
+  backendPort     Int?        @map("backend_port")
+  containerId     String?     @map("container_id") // Docker container ID
+  
+  // Database config (NEW)
+  hasDatabase     Boolean     @default(false) @map("has_database")
+  databaseType    String?     @map("database_type") // sqlite, postgres
+  databaseUrl     String?     @map("database_url")
+  
+  // Metadata
+  framework       String?   // react, vue, vanilla, flask, etc.
+  thumbnail       String?   // Screenshot URL
+  
+  // Access control
+  isPublic        Boolean   @default(true) @map("is_public")
+  password        String?   // Optional password protection
+  allowedEmails   String[]  @default([]) @map("allowed_emails")
+  
+  // Custom domain (Phase 2)
+  customDomain    String?   @unique @map("custom_domain")
+  sslEnabled      Boolean   @default(false) @map("ssl_enabled")
+  sslCertPath     String?   @map("ssl_cert_path")
+  sslKeyPath      String?   @map("ssl_key_path")
+  sslExpiry       DateTime? @map("ssl_expiry")
+  
+  // URLs
+  previewUrl      String?   @map("preview_url")
+  productionUrl   String?   @map("production_url")
+  
+  // Analytics
+  viewCount       Int       @default(0) @map("view_count")
+  lastViewedAt    DateTime? @map("last_viewed_at")
+  lastDeployedAt  DateTime? @map("last_deployed_at")
+  
+  // Storage
+  storageUsed     Int       @default(0) @map("storage_used") // bytes
+  bandwidthUsed   Int       @default(0) @map("bandwidth_used") // bytes this month
+  
+  // Status
+  status          HostedAppStatus @default(ACTIVE)
+  
+  // AI Generation context
+  originalPrompt  String?   @map("original_prompt") @db.Text
+  aiModel         String?   @map("ai_model")
+  aiProvider      String?   @map("ai_provider")
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  publishedAt     DateTime? @map("published_at")
+  
+  // Relations
+  user            User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  versions        HostedAppVersion[]
+  deployments     Deployment[]
+  
+  @@index([userId, createdAt])
+  @@index([userId, sourceApp])
+  @@index([slug])
+  @@index([customDomain])
+  @@index([status])
+  @@map("hosted_apps")
+}
+
+enum ProjectType {
+  STATIC        // HTML/CSS/JS static site
+  SPA           // React/Vue single-page app
+  SSR           // Next.js/Nuxt server-side rendering
+  FULLSTACK     // Frontend + Backend
+  API_ONLY      // Backend API only
+}
+
+model HostedAppVersion {
+  id              String    @id @default(cuid())
+  appId           String    @map("app_id")
+  
+  // Version info
+  version         Int       @default(1)
+  code            String    @db.Text
+  changeNote      String?   @map("change_note")
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  app             HostedApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+  
+  @@index([appId, version])
+  @@map("hosted_app_versions")
+}
+
+model Deployment {
+  id              String    @id @default(cuid())
+  appId           String    @map("app_id")
+  
+  // Deployment info
+  version         Int       @default(1)
+  environment     String    @default("production") // preview, production
+  status          DeployStatus @default(PENDING)
+  
+  // Build info
+  buildLogs       String?   @db.Text @map("build_logs")
+  buildDuration   Int?      @map("build_duration") // seconds
+  
+  // Result
+  url             String?
+  error           String?
+  
+  // Timestamps
+  startedAt       DateTime  @default(now()) @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  
+  // Relations
+  app             HostedApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+  
+  @@index([appId, startedAt])
+  @@map("deployments")
+}
+
+enum DeployStatus {
+  PENDING
+  BUILDING
+  DEPLOYING
+  LIVE
+  FAILED
+  ROLLED_BACK
+}
+
+enum HostedAppStatus {
+  ACTIVE
+  PAUSED
+  DELETED
+  SUSPENDED
+}
+
+// ============================================================================
+// WORKSPACE & PROJECTS (Canvas Studio Persistence)
+// ============================================================================
+
+model Project {
+  id              String    @id @default(cuid())
+  userId          String?   @map("user_id")
+  sourceApp       String    @default("maula-editor") @map("source_app") // Which app created this: 'canvas-studio' or 'neural-chat'
+  
+  // Project info
+  name            String    @default("Untitled Project")
+  slug            String    @unique
+  description     String?   @db.Text
+  thumbnail       String?   // Base64 or URL
+  
+  // Project type
+  language        String    @default("html")
+  framework       String?   // react, vue, html, python, etc.
+  projectType     ProjectType @default(STATIC) @map("project_type")
+  
+  // Main entry point
+  mainFile        String    @default("index.html") @map("main_file")
+  
+  // Editor state (JSON) - cursor position, open files, settings
+  editorState     Json?     @map("editor_state")
+  
+  // AI generation context
+  originalPrompt  String?   @map("original_prompt") @db.Text
+  lastAiModel     String?   @map("last_ai_model")
+  
+  // Status
+  isPublic        Boolean   @default(false) @map("is_public")
+  isArchived      Boolean   @default(false) @map("is_archived")
+  
+  // Auto-save tracking
+  lastSavedAt     DateTime? @map("last_saved_at")
+  autoSaveEnabled Boolean   @default(true) @map("auto_save_enabled")
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user            User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  files           ProjectFile[]
+  versions        ProjectVersion[]
+  databases       ProjectDatabase[]
+  collaborators   ProjectCollaborator[]
+  assets          Asset[]
+  
+  @@index([userId, updatedAt])
+  @@index([userId, sourceApp])
+  @@index([slug])
+  @@map("projects")
+}
+
+model ProjectFile {
+  id              String    @id @default(cuid())
+  projectId       String    @map("project_id")
+  
+  // File info
+  path            String    // e.g., "src/App.tsx", "index.html"
+  content         String    @db.Text
+  language        String    @default("text")
+  
+  // File metadata
+  size            Int       @default(0) // bytes
+  isMain          Boolean   @default(false) @map("is_main")
+  isOpen          Boolean   @default(false) @map("is_open")
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  project         Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  @@unique([projectId, path])
+  @@index([projectId])
+  @@map("project_files")
+}
+
+model ProjectVersion {
+  id              String    @id @default(cuid())
+  projectId       String    @map("project_id")
+  
+  // Version info
+  version         Int       @default(1)
+  name            String?   // "Initial version", "Added login", etc.
+  
+  // Snapshot of all files as JSON
+  filesSnapshot   Json      @map("files_snapshot")
+  editorState     Json?     @map("editor_state")
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  project         Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  
+  @@index([projectId, version])
+  @@map("project_versions")
+}
+
+// ============================================================================
+// DEPLOY CREDENTIALS (User's external platform tokens)
+// ============================================================================
+
+model DeployCredential {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  sourceApp       String    @default("maula-editor") @map("source_app") // Which app owns this credential
+  
+  // Platform identification
+  provider        DeployProvider
+  label           String?   // User-friendly label like "My Vercel Account"
+  
+  // Encrypted token storage
+  encryptedToken  String    @map("encrypted_token") @db.Text
+  tokenIv         String    @map("token_iv")  // AES initialization vector
+  
+  // Validated identity
+  username        String?   // Verified username/email from the platform
+  isValid         Boolean   @default(true) @map("is_valid")
+  
+  // Platform-specific extras (e.g., Cloudflare accountId, Railway teamId)
+  extras          Json?
+  
+  // Timestamps
+  lastValidatedAt DateTime? @map("last_validated_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, provider, sourceApp])
+  @@index([userId])
+  @@index([userId, sourceApp])
+  @@map("deploy_credentials")
+}
+
+enum DeployProvider {
+  VERCEL
+  NETLIFY
+  RAILWAY
+  RENDER
+  CLOUDFLARE
+  GITHUB
+}
+
+// ============================================================================
+// ANALYTICS & VISITOR TRACKING
+// ============================================================================
+
+model PageView {
+  id            String    @id @default(cuid())
+  
+  // Session tracking (anonymous)
+  visitorId     String    @map("visitor_id")  // UUID generated client-side
+  sessionId     String?   @map("session_id")  // Groups pageviews in a visit
+  
+  // User (optional - if logged in)
+  userId        String?   @map("user_id")
+  
+  // Page details
+  path          String
+  referrer      String?
+  title         String?
+  
+  // Device info
+  userAgent     String?   @map("user_agent") @db.Text
+  device        String?   // 'mobile', 'tablet', 'desktop'
+  browser       String?
+  os            String?
+  
+  // Location (from IP)
+  ip            String?
+  country       String?
+  city          String?
+  
+  // UTM tracking
+  utmSource     String?   @map("utm_source")
+  utmMedium     String?   @map("utm_medium")
+  utmCampaign   String?   @map("utm_campaign")
+  
+  // Performance
+  loadTimeMs    Int?      @map("load_time_ms")
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  
+  @@index([visitorId, createdAt])
+  @@index([path, createdAt])
+  @@index([createdAt])
+  @@map("page_views")
+}
+
+model VisitorSession {
+  id            String    @id @default(cuid())
+  visitorId     String    @map("visitor_id")
+  
+  // Session info
+  startedAt     DateTime  @default(now()) @map("started_at")
+  endedAt       DateTime? @map("ended_at")
+  pageViews     Int       @default(1) @map("page_views")
+  
+  // Entry/exit
+  landingPage   String?   @map("landing_page")
+  exitPage      String?   @map("exit_page")
+  referrer      String?
+  
+  // Device
+  device        String?
+  browser       String?
+  os            String?
+  
+  // Location
+  ip            String?
+  country       String?
+  city          String?
+  
+  // User (if logged in during session)
+  userId        String?   @map("user_id")
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  @@index([visitorId])
+  @@index([createdAt])
+  @@map("visitor_sessions")
+}
+
+model AdminActivity {
+  id            String    @id @default(cuid())
+  
+  // What happened
+  action        String    // 'login', 'view_users', 'view_analytics', etc.
+  details       Json?
+  
+  // Who/where
+  ip            String?
+  userAgent     String?   @map("user_agent")
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  
+  @@index([createdAt])
+  @@map("admin_activity")
+}
+
+// ============================================================================
+// USER PROFILE & AGENT MEMORY
+// ============================================================================
+
+model UserProfile {
+  id            String    @id @default(cuid())
+  userId        String    @unique @map("user_id")
+  
+  // Introduction / About Yourself
+  preferredName String?   @map("preferred_name")
+  age           String?
+  gender        String?
+  nationality   String?
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("user_profiles")
+}
+
+model AgentMemory {
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
+  
+  // Memory content
+  content       String    @db.Text
+  category      String    @default("general")   // 'preference', 'fact', 'interaction', 'general'
+  source        String    @default("agent")      // 'agent' (auto-saved) or 'user' (manual)
+  sessionId     String?   @map("session_id")     // Which session created this memory
+  
+  // Status
+  isEnabled     Boolean   @default(true) @map("is_enabled")
+  
+  // App isolation
+  sourceApp     String    @default("maula-editor") @map("source_app")
+  
+  // Timestamps
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, createdAt])
+  @@index([userId, sourceApp])
+  @@map("agent_memories")
+}
+
+// ============================================================================
+// ASSETS (File uploads — S3 backed)
+// ============================================================================
+
+model Asset {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  projectId       String?   @map("project_id")
+  sourceApp       String    @default("maula-editor") @map("source_app") // Which app uploaded this
+  
+  // File info
+  name            String
+  type            String    // 'image', 'video', 'audio', 'font', 'document'
+  mimeType        String    @map("mime_type")
+  size            Int       @default(0)
+  
+  // S3 storage
+  s3Key           String    @map("s3_key")
+  url             String?   @db.Text  // Current signed URL (refreshed on access)
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project         Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  
+  @@index([userId, createdAt])
+  @@index([userId, sourceApp])
+  @@index([projectId])
+  @@map("assets")
+}
+
+// ============================================================================
+// VIDEO GENERATIONS (Persist AI video/image generation history)
+// ============================================================================
+
+model VideoGeneration {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Generation details
+  prompt          String    @db.Text
+  mode            String    @default("text-to-video") // text-to-video, image-to-video, text-to-image
+  provider        String    @default("runwayml")       // runwayml, fal
+  model           String?
+  
+  // Status & result
+  status          String    @default("queued") // queued, processing, completed, failed, throttled
+  videoUrl        String?   @map("video_url") @db.Text
+  imageUrl        String?   @map("image_url") @db.Text
+  error           String?   @db.Text
+  progress        Int?
+  
+  // Provider references
+  taskId          String?   @map("task_id")     // RunwayML task ID
+  requestId       String?   @map("request_id")  // fal.ai request ID
+  
+  // App isolation
+  sourceApp       String    @default("maula-editor") @map("source_app")
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, createdAt])
+  @@index([userId, sourceApp])
+  @@index([taskId])
+  @@index([requestId])
+  @@map("video_generations")
+}
+
+// ============================================================================
+// PROJECT DATABASES (User-created databases for their apps)
+// ============================================================================
+
+model ProjectDatabase {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  projectId       String?   @map("project_id")
+  
+  // Database info
+  name            String
+  type            String    @default("sqlite") // sqlite, postgres
+  status          String    @default("active") // active, stopped, error
+  
+  // Metrics
+  tables          Int       @default(0)
+  size            String    @default("0 KB")
+  
+  // Connection
+  connectionUrl   String?   @map("connection_url") @db.Text
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project         Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  
+  @@index([userId])
+  @@index([projectId])
+  @@map("project_databases")
+}
+
+// ============================================================================
+// COLLABORATION (Project sharing & invites)
+// ============================================================================
+
+model ProjectCollaborator {
+  id              String    @id @default(cuid())
+  projectId       String    @map("project_id")
+  userId          String?   @map("user_id")     // null if invited but not yet registered
+  
+  // Invite details
+  email           String
+  role            String    @default("editor")  // owner, editor, viewer
+  status          String    @default("pending") // pending, accepted, rejected
+  
+  // Share token for invite link
+  inviteToken     String?   @unique @map("invite_token")
+  
+  // Timestamps
+  invitedAt       DateTime  @default(now()) @map("invited_at")
+  acceptedAt      DateTime? @map("accepted_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  project         Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user            User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  @@unique([projectId, email])
+  @@index([projectId])
+  @@index([email])
+  @@index([inviteToken])
+  @@map("project_collaborators")
+}
+
+// ============================================================================
+// AGENT STATE (Persistent agent control state per user)
+// ============================================================================
+
+model AgentState {
+  id                String    @id @default(cuid())
+  userId            String    @unique @map("user_id")
+  
+  // Mode & Status
+  mode              String    @default("chat")    // chat, dev, review, debug, refactor
+  status            String    @default("idle")    // idle, working, waiting, paused, error
+  previousStatus    String?   @map("previous_status")
+  pausedAt          DateTime? @map("paused_at")
+  
+  // Preferences
+  verbosity         String    @default("normal")  // quiet, normal, verbose
+  autoConfirm       Boolean   @default(false)     @map("auto_confirm")
+  showProgress      Boolean   @default(true)      @map("show_progress")
+  
+  // Context
+  projectPath       String?   @map("project_path")
+  activeFile        String?   @map("active_file")
+  workingDirectory  String?   @map("working_directory")
+  
+  // Timestamps
+  startedAt         DateTime  @default(now()) @map("started_at")
+  lastActivity      DateTime  @default(now()) @map("last_activity")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tasks             AgentTask[]
+  
+  @@index([userId])
+  @@map("agent_states")
+}
+
+// ============================================================================
+// AGENT TASK (Persistent agent task history)
+// ============================================================================
+
+model AgentTask {
+  id              String    @id @default(cuid())
+  agentStateId    String    @map("agent_state_id")
+  
+  // Task info
+  taskId          String    @unique @map("task_id")
+  name            String
+  description     String?   @db.Text
+  mode            String    // mode when task was started
+  
+  // Status
+  status          String    @default("running")  // running, completed, cancelled, interrupted
+  isCurrent       Boolean   @default(false) @map("is_current")
+  
+  // Timing
+  startedAt       DateTime  @default(now()) @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  cancelledAt     DateTime? @map("cancelled_at")
+  cancelReason    String?   @map("cancel_reason")
+  duration        Int?      // milliseconds
+  
+  // Timestamps
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  agentState      AgentState @relation(fields: [agentStateId], references: [id], onDelete: Cascade)
+  
+  @@index([agentStateId])
+  @@index([taskId])
+  @@index([isCurrent])
+  @@map("agent_tasks")
+}
+
+// ============================================================================
+// USER SECRETS — Encrypted key-value storage for API keys, credentials, etc.
+// Uses AES-256-GCM encryption (same as DeployCredential)
+// ============================================================================
+model UserSecret {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+  category        String   // 'ai_api_key', 'git_credential', etc.
+  key             String   // e.g. 'copilot_apikey_openai', 'git_creds_github.com'
+  encryptedValue  String   @map("encrypted_value")  // AES-256-GCM encrypted
+  valueIv         String   @map("value_iv")          // Initialization vector
+  label           String?  // Optional display label
+  extras          Json?    // Additional metadata (provider info, etc.)
+  
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  
+  @@unique([userId, category, key])
+  @@index([userId])
+  @@index([userId, category])
+  @@map("user_secrets")
+}
+
+// ============================================================================
+// LOGIN ATTEMPT TRACKING — email-based lockout security
+// ============================================================================
+
+model LoginAttempt {
+  id         String   @id @default(cuid())
+  email      String                          // email that was tried
+  ipAddress  String?  @map("ip_address")     // for logging/auditing
+  userAgent  String?  @map("user_agent")     // for logging/auditing
+  success    Boolean  @default(false)
+  reason     String?                          // 'invalid_password', 'account_locked', 'user_not_found', etc.
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // Link to user if email matches an account
+  userId     String?  @map("user_id")
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([email])
+  @@index([email, createdAt])
+  @@index([userId])
+  @@map("login_attempts")
+}
+
+// ============================================================================
+// DEPLOYMENT & DOCKER (Container builds, CI/CD pipelines, static deploys)
+// ============================================================================
+
+model DockerBuild {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Build config
+  imageName       String    @map("image_name")
+  imageTag        String    @default("latest") @map("image_tag")
+  dockerfile      String    @db.Text
+  buildContext     String?   @map("build_context") @db.Text // Tar base64 or path reference
+  buildArgs       Json?     @map("build_args")
+  
+  // Status
+  status          String    @default("pending") // pending, building, success, failed, cancelled
+  buildLogs       String?   @map("build_logs") @db.Text
+  errorMessage    String?   @map("error_message") @db.Text
+  imageId         String?   @map("image_id") // Docker image SHA
+  imageSize       BigInt?   @map("image_size") // bytes
+  
+  // Timing
+  startedAt       DateTime? @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  durationMs      Int?      @map("duration_ms")
+  
+  // Metadata
+  metadata        Json?
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId, createdAt])
+  @@index([status])
+  @@map("docker_builds")
+}
+
+model DockerContainer {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Container info
+  containerId     String    @unique @map("container_id")
+  containerName   String?   @map("container_name")
+  imageName       String    @map("image_name")
+  imageTag        String    @default("latest") @map("image_tag")
+  
+  // Config
+  ports           Json?     // [{ host: 8080, container: 80 }]
+  envVars         Json?     @map("env_vars")
+  volumes         Json?     // [{ host: "/data", container: "/app/data" }]
+  networkMode     String?   @map("network_mode")
+  command         String?   @db.Text
+  
+  // Runtime
+  status          String    @default("created") // created, running, paused, stopped, exited, dead
+  exitCode        Int?      @map("exit_code")
+  cpuUsage        Float?    @map("cpu_usage")
+  memoryUsage     BigInt?   @map("memory_usage") // bytes
+  
+  // Timestamps
+  startedAt       DateTime? @map("started_at")
+  stoppedAt       DateTime? @map("stopped_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([status])
+  @@map("docker_containers")
+}
+
+model CiPipeline {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Pipeline definition
+  name            String
+  description     String?   @db.Text
+  repoUrl         String?   @map("repo_url")
+  branch          String    @default("main")
+  trigger         String    @default("manual") // manual, push, schedule, webhook
+  
+  // Pipeline config (stages as JSON)
+  stages          Json      // [{ name, commands[], env, timeout }]
+  
+  // Status
+  status          String    @default("idle") // idle, running, success, failed, cancelled
+  lastRunAt       DateTime? @map("last_run_at")
+  lastRunStatus   String?   @map("last_run_status")
+  runCount        Int       @default(0) @map("run_count")
+  
+  // Schedule (cron expression if trigger=schedule)
+  cronExpression  String?   @map("cron_expression")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  runs            CiPipelineRun[]
+  
+  @@index([userId])
+  @@index([status])
+  @@map("ci_pipelines")
+}
+
+model CiPipelineRun {
+  id              String    @id @default(cuid())
+  pipelineId      String    @map("pipeline_id")
+  
+  // Run info
+  runNumber       Int       @map("run_number")
+  triggeredBy     String    @default("manual") @map("triggered_by")
+  commitSha       String?   @map("commit_sha")
+  branch          String    @default("main")
+  
+  // Stages execution log
+  stageResults    Json?     @map("stage_results") // [{ stage, status, logs, duration }]
+  
+  // Status
+  status          String    @default("pending") // pending, running, success, failed, cancelled
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  // Timing
+  startedAt       DateTime  @default(now()) @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  durationMs      Int?      @map("duration_ms")
+  
+  // Artifacts
+  artifacts       Json?     // [{ name, path, size }]
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  pipeline        CiPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  
+  @@index([pipelineId, createdAt])
+  @@index([status])
+  @@map("ci_pipeline_runs")
+}
+
+model StaticDeploy {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Deploy config
+  name            String
+  source          String    @db.Text // directory path or tar content reference
+  provider        String    @default("internal") // internal, s3, cloudflare
+  
+  // Result
+  status          String    @default("pending") // pending, uploading, live, failed, rolled_back
+  url             String?
+  cdnUrl          String?   @map("cdn_url")
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  // Stats
+  fileCount       Int       @default(0) @map("file_count")
+  totalSize       BigInt    @default(0) @map("total_size") // bytes
+  
+  // Timing
+  deployedAt      DateTime? @map("deployed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId, createdAt])
+  @@map("static_deploys")
+}
+
+// ============================================================================
+// COMMUNICATION (Email, SMS, notifications, webhooks)
+// ============================================================================
+
+model EmailMessage {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Envelope
+  fromAddress     String    @map("from_address")
+  toAddresses     String[]  @map("to_addresses")
+  ccAddresses     String[]  @default([]) @map("cc_addresses")
+  bccAddresses    String[]  @default([]) @map("bcc_addresses")
+  replyTo         String?   @map("reply_to")
+  
+  // Content
+  subject         String
+  bodyHtml        String?   @map("body_html") @db.Text
+  bodyText        String?   @map("body_text") @db.Text
+  templateId      String?   @map("template_id")
+  templateVars    Json?     @map("template_vars")
+  
+  // Attachments (S3 keys)
+  attachments     Json?     // [{ name, s3Key, mimeType, size }]
+  
+  // Status
+  status          String    @default("queued") // queued, sending, sent, delivered, bounced, failed
+  provider        String    @default("ses") // ses, sendgrid, smtp
+  providerMsgId   String?   @map("provider_msg_id")
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  // Tracking
+  openedAt        DateTime? @map("opened_at")
+  clickedAt       DateTime? @map("clicked_at")
+  bouncedAt       DateTime? @map("bounced_at")
+  
+  // Timestamps
+  sentAt          DateTime? @map("sent_at")
+  scheduledAt     DateTime? @map("scheduled_at") // for delayed sending
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  @@index([userId, createdAt])
+  @@index([status])
+  @@map("email_messages")
+}
+
+model Notification {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Content
+  title           String
+  body            String    @db.Text
+  type            String    @default("info") // info, success, warning, error, action
+  channel         String    @default("in_app") // in_app, push, email, sms, slack, discord
+  
+  // Target
+  targetUrl       String?   @map("target_url")
+  actionLabel     String?   @map("action_label")
+  iconUrl         String?   @map("icon_url")
+  
+  // Status
+  status          String    @default("pending") // pending, sent, delivered, read, dismissed, failed
+  readAt          DateTime? @map("read_at")
+  deliveredAt     DateTime? @map("delivered_at")
+  dismissedAt     DateTime? @map("dismissed_at")
+  errorMessage    String?   @map("error_message")
+  
+  // Provider info
+  provider        String?   // fcm, apns, twilio, slack, discord
+  providerMsgId   String?   @map("provider_msg_id")
+  
+  // Priority
+  priority        String    @default("normal") // low, normal, high, urgent
+  expiresAt       DateTime? @map("expires_at")
+  
+  // Metadata
+  metadata        Json?
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId, status])
+  @@index([userId, createdAt])
+  @@map("notifications")
+}
+
+model WebhookDispatch {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Webhook config
+  url             String    @db.Text
+  method          String    @default("POST") // POST, PUT, PATCH
+  headers         Json?
+  payload         Json
+  
+  // Signing
+  secret          String?   // HMAC signing secret
+  signatureHeader String?   @map("signature_header") @default("X-Webhook-Signature")
+  
+  // Response
+  status          String    @default("pending") // pending, sent, delivered, failed, retrying
+  statusCode      Int?      @map("status_code")
+  responseBody    String?   @map("response_body") @db.Text
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  // Retry
+  attempt         Int       @default(1)
+  maxRetries      Int       @default(3) @map("max_retries")
+  nextRetryAt     DateTime? @map("next_retry_at")
+  
+  // Timing
+  sentAt          DateTime? @map("sent_at")
+  latencyMs       Int?      @map("latency_ms")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  @@index([userId, createdAt])
+  @@index([status])
+  @@map("webhook_dispatches")
+}
+
+model SmsMessage {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Message
+  fromNumber      String    @map("from_number")
+  toNumber        String    @map("to_number")
+  body            String    @db.Text
+  
+  // Status
+  status          String    @default("queued") // queued, sending, sent, delivered, failed
+  provider        String    @default("twilio") // twilio, vonage, sns
+  providerMsgId   String?   @map("provider_msg_id")
+  errorMessage    String?   @map("error_message")
+  
+  // Cost
+  cost            Decimal?  @db.Decimal(10, 4)
+  segments        Int       @default(1) // SMS segments count
+  
+  // Timestamps
+  sentAt          DateTime? @map("sent_at")
+  deliveredAt     DateTime? @map("delivered_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  @@index([userId, createdAt])
+  @@index([status])
+  @@map("sms_messages")
+}
+
+// ============================================================================
+// DATA PROCESSING (ETL, validation, transformation, diff, merge)
+// ============================================================================
+
+model DataPipeline {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Pipeline definition
+  name            String
+  description     String?   @db.Text
+  
+  // Steps as JSON array
+  steps           Json      // [{ type: 'extract'|'transform'|'load', config: {} }]
+  
+  // Scheduling
+  schedule        String?   // cron expression
+  isActive        Boolean   @default(true) @map("is_active")
+  
+  // Status
+  status          String    @default("idle") // idle, running, success, failed
+  lastRunAt       DateTime? @map("last_run_at")
+  runCount        Int       @default(0) @map("run_count")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  runs            DataPipelineRun[]
+  
+  @@index([userId])
+  @@map("data_pipelines")
+}
+
+model DataPipelineRun {
+  id              String    @id @default(cuid())
+  pipelineId      String    @map("pipeline_id")
+  
+  // Run info
+  runNumber       Int       @map("run_number")
+  status          String    @default("running") // running, success, failed, cancelled
+  
+  // Step results
+  stepResults     Json?     @map("step_results") // [{ step, status, rowsProcessed, duration, error }]
+  
+  // Stats
+  rowsRead        Int       @default(0) @map("rows_read")
+  rowsWritten     Int       @default(0) @map("rows_written")
+  rowsSkipped     Int       @default(0) @map("rows_skipped")
+  rowsErrored     Int       @default(0) @map("rows_errored")
+  
+  // Timing
+  startedAt       DateTime  @default(now()) @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  durationMs      Int?      @map("duration_ms")
+  
+  // Error
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  pipeline        DataPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  
+  @@index([pipelineId, createdAt])
+  @@map("data_pipeline_runs")
+}
+
+model DataValidationRule {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Rule definition
+  name            String
+  description     String?
+  
+  // Target
+  targetModel     String    @map("target_model") // Prisma model name
+  targetField     String?   @map("target_field") // specific field, or null for cross-field
+  
+  // Rule config
+  ruleType        String    @map("rule_type") // required, type_check, range, regex, enum, unique, custom
+  ruleConfig      Json      @map("rule_config") // { min, max, pattern, values, expression }
+  severity        String    @default("error") // error, warning, info
+  
+  // Status
+  isActive        Boolean   @default(true) @map("is_active")
+  lastCheckedAt   DateTime? @map("last_checked_at")
+  lastResult      String?   @map("last_result") // pass, fail
+  violationCount  Int       @default(0) @map("violation_count")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([targetModel])
+  @@map("data_validation_rules")
+}
+
+model DataTransformJob {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Transform definition
+  name            String
+  sourceFormat    String    @map("source_format") // csv, json, xml, yaml, sql
+  targetFormat    String    @map("target_format") // csv, json, xml, yaml, sql
+  
+  // Config
+  mappings        Json      // [{ source, target, transform }]
+  filters         Json?     // [{ field, op, value }]
+  aggregations    Json?     // [{ field, func }]
+  
+  // Input/Output stored in DB
+  inputData       String?   @map("input_data") @db.Text
+  outputData      String?   @map("output_data") @db.Text
+  inputRowCount   Int?      @map("input_row_count")
+  outputRowCount  Int?      @map("output_row_count")
+  
+  // Status
+  status          String    @default("pending") // pending, running, success, failed
+  errorMessage    String?   @map("error_message") @db.Text
+  durationMs      Int?      @map("duration_ms")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId, createdAt])
+  @@map("data_transform_jobs")
+}
+
+// ============================================================================
+// TESTING & QA (E2E, load testing, snapshots, mocks, coverage)
+// ============================================================================
+
+model TestSuite {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Suite definition
+  name            String
+  description     String?   @db.Text
+  type            String    @default("e2e") // e2e, unit, integration, load, visual
+  framework       String    @default("playwright") // playwright, jest, vitest, k6, cypress
+  
+  // Config
+  config          Json?     // framework-specific config
+  baseUrl         String?   @map("base_url")
+  timeout         Int       @default(30000) // ms
+  retries         Int       @default(0)
+  
+  // Tests as JSON
+  tests           Json      // [{ name, steps[], assertions[], timeout }]
+  
+  // Status
+  status          String    @default("idle") // idle, running, passed, failed
+  lastRunAt       DateTime? @map("last_run_at")
+  runCount        Int       @default(0) @map("run_count")
+  passRate        Float?    @map("pass_rate")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  runs            TestRun[]
+  
+  @@index([userId])
+  @@map("test_suites")
+}
+
+model TestRun {
+  id              String    @id @default(cuid())
+  suiteId         String    @map("suite_id")
+  
+  // Run info
+  runNumber       Int       @map("run_number")
+  environment     String    @default("development") // development, staging, production
+  
+  // Results
+  status          String    @default("running") // running, passed, failed, cancelled
+  totalTests      Int       @default(0) @map("total_tests")
+  passedTests     Int       @default(0) @map("passed_tests")
+  failedTests     Int       @default(0) @map("failed_tests")
+  skippedTests    Int       @default(0) @map("skipped_tests")
+  
+  // Detailed results
+  testResults     Json?     @map("test_results") // [{ name, status, duration, error, screenshot }]
+  
+  // Coverage (if collected)
+  coverageSummary Json?     @map("coverage_summary") // { lines, branches, functions, statements }
+  coverageDetail  Json?     @map("coverage_detail")  // per-file coverage
+  
+  // Performance
+  durationMs      Int?      @map("duration_ms")
+  
+  // Artifacts
+  screenshots     Json?     // [{ name, s3Key }]
+  logs            String?   @db.Text
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  // Timing
+  startedAt       DateTime  @default(now()) @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  suite           TestSuite @relation(fields: [suiteId], references: [id], onDelete: Cascade)
+  
+  @@index([suiteId, createdAt])
+  @@index([status])
+  @@map("test_runs")
+}
+
+model LoadTest {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Config
+  name            String
+  targetUrl       String    @map("target_url")
+  method          String    @default("GET")
+  headers         Json?
+  body            String?   @db.Text
+  
+  // Load parameters
+  virtualUsers    Int       @default(10) @map("virtual_users")
+  duration        Int       @default(60) // seconds
+  rampUp          Int       @default(10) @map("ramp_up") // seconds
+  
+  // Thresholds
+  maxResponseTime Int?      @map("max_response_time") // ms
+  maxErrorRate    Float?    @map("max_error_rate") // 0-1
+  minRps          Float?    @map("min_rps") // requests per second
+  
+  // Results
+  status          String    @default("pending") // pending, running, completed, failed
+  totalRequests   Int       @default(0) @map("total_requests")
+  successCount    Int       @default(0) @map("success_count")
+  errorCount      Int       @default(0) @map("error_count")
+  avgResponseMs   Float?    @map("avg_response_ms")
+  p50ResponseMs   Float?    @map("p50_response_ms")
+  p95ResponseMs   Float?    @map("p95_response_ms")
+  p99ResponseMs   Float?    @map("p99_response_ms")
+  maxResponseMs   Float?    @map("max_response_ms")
+  rps             Float?    // requests per second achieved
+  thresholdsPassed Boolean  @default(true) @map("thresholds_passed")
+  
+  // Timing
+  startedAt       DateTime? @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  durationMs      Int?      @map("duration_ms")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  @@index([userId, createdAt])
+  @@map("load_tests")
+}
+
+model TestSnapshot {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Snapshot identity
+  name            String
+  key             String    // unique key for this snapshot (e.g., "homepage-header")
+  
+  // Content
+  contentType     String    @default("html") @map("content_type") // html, json, text, image
+  baseline        String?   @db.Text // baseline snapshot
+  current         String?   @db.Text // current snapshot
+  diff            String?   @db.Text // computed diff
+  
+  // Status
+  status          String    @default("new") // new, passed, failed, updated
+  matchPercentage Float?    @map("match_percentage") // 0-100
+  
+  // Metadata
+  metadata        Json?     // { url, selector, viewport, etc. }
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@unique([userId, key])
+  @@index([userId])
+  @@map("test_snapshots")
+}
+
+// ============================================================================
+// CLOUD INFRASTRUCTURE (DNS, SSL, storage, secrets, scaling)
+// ============================================================================
+
+model CloudDnsRecord {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // DNS record
+  domain          String
+  recordType      String    @map("record_type") // A, AAAA, CNAME, MX, TXT, NS, SRV
+  name            String    // subdomain or @ for root
+  value           String    @db.Text
+  ttl             Int       @default(3600) // seconds
+  priority        Int?      // for MX/SRV records
+  
+  // Provider
+  provider        String    @default("route53") // route53, cloudflare, gcp_dns
+  providerRecordId String?  @map("provider_record_id")
+  zoneId          String?   @map("zone_id")
+  
+  // Status
+  status          String    @default("pending") // pending, active, propagating, failed, deleted
+  propagatedAt    DateTime? @map("propagated_at")
+  errorMessage    String?   @map("error_message")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([domain])
+  @@map("cloud_dns_records")
+}
+
+model CloudSslCert {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Certificate info
+  domain          String
+  altDomains      String[]  @default([]) @map("alt_domains") // SANs
+  issuer          String    @default("letsencrypt") // letsencrypt, aws_acm, cloudflare, self_signed
+  
+  // Certificate data (encrypted)
+  certPem         String?   @map("cert_pem") @db.Text
+  keyPem          String?   @map("key_pem") @db.Text // encrypted
+  chainPem        String?   @map("chain_pem") @db.Text
+  keyIv           String?   @map("key_iv") // AES IV for key encryption
+  
+  // Status
+  status          String    @default("pending") // pending, issued, active, expired, revoked, failed
+  
+  // Dates
+  issuedAt        DateTime? @map("issued_at")
+  expiresAt       DateTime? @map("expires_at")
+  autoRenew       Boolean   @default(true) @map("auto_renew")
+  lastRenewedAt   DateTime? @map("last_renewed_at")
+  
+  // Provider reference
+  providerCertId  String?   @map("provider_cert_id")
+  errorMessage    String?   @map("error_message")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([domain])
+  @@index([expiresAt])
+  @@map("cloud_ssl_certs")
+}
+
+model CloudStorageBucket {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Bucket config
+  name            String
+  provider        String    @default("s3") // s3, gcs, azure_blob, r2
+  region          String    @default("ap-southeast-1")
+  
+  // Access
+  isPublic        Boolean   @default(false) @map("is_public")
+  corsConfig      Json?     @map("cors_config")
+  
+  // Provider reference
+  providerBucketId String?  @map("provider_bucket_id")
+  
+  // Stats
+  objectCount     Int       @default(0) @map("object_count")
+  totalSize       BigInt    @default(0) @map("total_size") // bytes
+  
+  // Status
+  status          String    @default("active") // active, suspended, deleted
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  objects         CloudStorageObject[]
+  
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("cloud_storage_buckets")
+}
+
+model CloudStorageObject {
+  id              String    @id @default(cuid())
+  bucketId        String    @map("bucket_id")
+  
+  // Object info
+  key             String    // path/to/file.ext
+  mimeType        String    @map("mime_type")
+  size            BigInt    // bytes
+  etag            String?
+  
+  // Metadata
+  metadata        Json?
+  
+  // Access
+  isPublic        Boolean   @default(false) @map("is_public")
+  signedUrl       String?   @map("signed_url") @db.Text
+  signedUrlExpiry DateTime? @map("signed_url_expiry")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  bucket          CloudStorageBucket @relation(fields: [bucketId], references: [id], onDelete: Cascade)
+  
+  @@unique([bucketId, key])
+  @@index([bucketId])
+  @@map("cloud_storage_objects")
+}
+
+model CloudScalingConfig {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Target service
+  serviceName     String    @map("service_name")
+  environment     String    @default("production")
+  
+  // Scaling rules
+  minInstances    Int       @default(1) @map("min_instances")
+  maxInstances    Int       @default(10) @map("max_instances")
+  targetCpuPct    Int       @default(70) @map("target_cpu_pct")
+  targetMemPct    Int       @default(80) @map("target_mem_pct")
+  cooldownSecs    Int       @default(300) @map("cooldown_secs")
+  
+  // Current state
+  currentInstances Int      @default(1) @map("current_instances")
+  lastScaleAction String?   @map("last_scale_action") // scale_up, scale_down
+  lastScaleAt     DateTime? @map("last_scale_at")
+  
+  // Status
+  isActive        Boolean   @default(true) @map("is_active")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@unique([userId, serviceName, environment])
+  @@index([userId])
+  @@map("cloud_scaling_configs")
+}
+
+// ============================================================================
+// WORKFLOW AUTOMATION (Cron, queues, triggers, workflows, retry policies)
+// ============================================================================
+
+model ScheduledJob {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Job definition
+  name            String
+  description     String?   @db.Text
+  jobType         String    @map("job_type") // cron, one_time, recurring
+  
+  // Schedule
+  cronExpression  String?   @map("cron_expression") // for cron type
+  interval        Int?      // seconds, for recurring type
+  runAt           DateTime? @map("run_at") // for one_time type
+  timezone        String    @default("UTC")
+  
+  // Action
+  actionType      String    @map("action_type") // http, tool, pipeline, notification
+  actionConfig    Json      @map("action_config") // { url, method, toolName, params }
+  
+  // Status
+  isActive        Boolean   @default(true) @map("is_active")
+  status          String    @default("scheduled") // scheduled, running, paused, completed, failed
+  lastRunAt       DateTime? @map("last_run_at")
+  nextRunAt       DateTime? @map("next_run_at")
+  runCount        Int       @default(0) @map("run_count")
+  failCount       Int       @default(0) @map("fail_count")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  executions      JobExecution[]
+  
+  @@index([userId])
+  @@index([nextRunAt])
+  @@index([status])
+  @@map("scheduled_jobs")
+}
+
+model JobExecution {
+  id              String    @id @default(cuid())
+  jobId           String    @map("job_id")
+  
+  // Execution info
+  executionNumber Int       @map("execution_number")
+  status          String    @default("running") // running, success, failed, timeout, retrying
+  
+  // Result
+  result          Json?
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  // Retry
+  attempt         Int       @default(1)
+  maxRetries      Int       @default(3) @map("max_retries")
+  retryDelay      Int       @default(60) @map("retry_delay") // seconds
+  
+  // Timing
+  startedAt       DateTime  @default(now()) @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  durationMs      Int?      @map("duration_ms")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  job             ScheduledJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
+  @@index([jobId, createdAt])
+  @@index([status])
+  @@map("job_executions")
+}
+
+model TaskQueue {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Queue config
+  name            String
+  description     String?
+  concurrency     Int       @default(5)
+  maxRetries      Int       @default(3) @map("max_retries")
+  retryDelay      Int       @default(60) @map("retry_delay") // seconds
+  
+  // Status
+  isActive        Boolean   @default(true) @map("is_active")
+  pendingCount    Int       @default(0) @map("pending_count")
+  processingCount Int       @default(0) @map("processing_count")
+  completedCount  Int       @default(0) @map("completed_count")
+  failedCount     Int       @default(0) @map("fail_count")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  tasks           QueueTask[]
+  
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("task_queues")
+}
+
+model QueueTask {
+  id              String    @id @default(cuid())
+  queueId         String    @map("queue_id")
+  
+  // Task definition
+  taskType        String    @map("task_type") // http, tool, custom
+  payload         Json
+  priority        Int       @default(0) // higher = processed first
+  
+  // Status
+  status          String    @default("pending") // pending, processing, completed, failed, dead
+  attempt         Int       @default(0)
+  
+  // Result
+  result          Json?
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  // Timing
+  scheduledAt     DateTime  @default(now()) @map("scheduled_at")
+  startedAt       DateTime? @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  queue           TaskQueue @relation(fields: [queueId], references: [id], onDelete: Cascade)
+  
+  @@index([queueId, status, priority])
+  @@index([status])
+  @@map("queue_tasks")
+}
+
+model EventTrigger {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Trigger definition
+  name            String
+  description     String?
+  
+  // Event matching
+  eventType       String    @map("event_type") // model.created, model.updated, webhook.received, cron.fired
+  eventFilter     Json?     @map("event_filter") // { model, field, operator, value }
+  
+  // Action
+  actionType      String    @map("action_type") // tool, http, notification, pipeline, workflow
+  actionConfig    Json      @map("action_config")
+  
+  // Status
+  isActive        Boolean   @default(true) @map("is_active")
+  lastFiredAt     DateTime? @map("last_fired_at")
+  fireCount       Int       @default(0) @map("fire_count")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([eventType])
+  @@map("event_triggers")
+}
+
+model Workflow {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Workflow definition
+  name            String
+  description     String?   @db.Text
+  version         Int       @default(1)
+  
+  // Steps as directed graph (JSON)
+  steps           Json      // [{ id, name, type, config, next[], condition? }]
+  
+  // Variables/context template
+  inputSchema     Json?     @map("input_schema")
+  
+  // Status
+  isActive        Boolean   @default(true) @map("is_active")
+  lastRunAt       DateTime? @map("last_run_at")
+  runCount        Int       @default(0) @map("run_count")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  runs            WorkflowRun[]
+  
+  @@index([userId])
+  @@map("workflows")
+}
+
+model WorkflowRun {
+  id              String    @id @default(cuid())
+  workflowId      String    @map("workflow_id")
+  
+  // Run info
+  runNumber       Int       @map("run_number")
+  inputData       Json?     @map("input_data")
+  
+  // Step execution log
+  stepResults     Json?     @map("step_results") // [{ stepId, status, output, duration, error }]
+  currentStepId   String?   @map("current_step_id")
+  
+  // Status
+  status          String    @default("running") // running, success, failed, cancelled, paused
+  outputData      Json?     @map("output_data")
+  errorMessage    String?   @map("error_message") @db.Text
+  
+  // Timing
+  startedAt       DateTime  @default(now()) @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  durationMs      Int?      @map("duration_ms")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  workflow        Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  
+  @@index([workflowId, createdAt])
+  @@index([status])
+  @@map("workflow_runs")
+}
+
+model RetryPolicy {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Policy definition
+  name            String
+  description     String?
+  
+  // Retry config
+  maxRetries      Int       @default(3) @map("max_retries")
+  initialDelay    Int       @default(1000) @map("initial_delay") // ms
+  maxDelay        Int       @default(300000) @map("max_delay") // ms (5 min)
+  backoffType     String    @default("exponential") @map("backoff_type") // fixed, linear, exponential
+  backoffMultiplier Float   @default(2.0) @map("backoff_multiplier")
+  jitter          Boolean   @default(true) // add randomness to prevent thundering herd
+  
+  // Conditions
+  retryOn         Json?     @map("retry_on") // [{ statusCode: 500 }, { error: "TIMEOUT" }]
+  abortOn         Json?     @map("abort_on") // [{ statusCode: 400 }]
+  
+  // Stats
+  timesApplied    Int       @default(0) @map("times_applied")
+  successAfterRetry Int     @default(0) @map("success_after_retry")
+  exhaustedCount  Int       @default(0) @map("exhausted_count")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("retry_policies")
+}
+
+// ============================================================================
+// COLLABORATION (Diff/merge, reviews, snapshots, live sessions)
+// ============================================================================
+
+model DiffMerge {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Diff definition
+  name            String
+  description     String?
+  
+  // Source data
+  sourceA         String    @map("source_a") @db.Text // "ours"
+  sourceB         String    @map("source_b") @db.Text // "theirs"
+  baseSource      String?   @map("base_source") @db.Text // common ancestor (for 3-way merge)
+  
+  // Format
+  format          String    @default("text") // text, json, code
+  language        String?   // for code diff: javascript, python, etc.
+  
+  // Result
+  diff            String?   @db.Text // unified diff output
+  merged          String?   @db.Text // merged result
+  hasConflicts    Boolean   @default(false) @map("has_conflicts")
+  conflictCount   Int       @default(0) @map("conflict_count")
+  conflictDetails Json?     @map("conflict_details") // [{ line, ours, theirs }]
+  
+  // Status
+  status          String    @default("pending") // pending, diffed, merged, conflict, resolved
+  resolvedBy      String?   @map("resolved_by") // manual, auto, ai
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId, createdAt])
+  @@map("diff_merges")
+}
+
+model ReviewComment {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Target
+  targetType      String    @map("target_type") // project, file, diff, snippet
+  targetId        String    @map("target_id")   // ID of the target entity
+  filePath        String?   @map("file_path")
+  lineStart       Int?      @map("line_start")
+  lineEnd         Int?      @map("line_end")
+  
+  // Content
+  body            String    @db.Text
+  codeSnippet     String?   @map("code_snippet") @db.Text
+  suggestion      String?   @db.Text // suggested code change
+  
+  // Classification
+  severity        String    @default("comment") // comment, suggestion, issue, blocker, praise
+  category        String?   // style, bug, security, performance, documentation
+  
+  // Status
+  status          String    @default("open") // open, resolved, dismissed, wont_fix
+  resolvedAt      DateTime? @map("resolved_at")
+  resolvedBy      String?   @map("resolved_by")
+  
+  // Threading
+  parentId        String?   @map("parent_id") // for replies
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([targetType, targetId])
+  @@index([parentId])
+  @@map("review_comments")
+}
+
+model SharedSnapshot {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+  
+  // Snapshot identity
+  name            String
+  slug            String    @unique // for sharing URL
+  
+  // Content  
+  files           Json      // [{ path, content, language }]
+  description     String?   @db.Text
+  
+  // Access
+  isPublic        Boolean   @default(true) @map("is_public")
+  password        String?
+  expiresAt       DateTime? @map("expires_at")
+  
+  // Stats
+  viewCount       Int       @default(0) @map("view_count")
+  downloadCount   Int       @default(0) @map("download_count")
+  lastViewedAt    DateTime? @map("last_viewed_at")
+  
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([slug])
+  @@map("shared_snapshots")
+}
+
+model LiveSession {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id") // host user
+  
+  // Session identity
+  name            String
+  sessionCode     String    @unique @map("session_code") // 6-8 char join code
+  
+  // Target
+  projectId       String?   @map("project_id")
+  
+  // Participants
+  participants    Json      @default("[]") // [{ userId, name, role, joinedAt, cursor }]
+  maxParticipants Int       @default(10) @map("max_participants")
+  
+  // Config
+  allowEdit       Boolean   @default(true) @map("allow_edit")
+  allowChat       Boolean   @default(true) @map("allow_chat")
+  allowVoice      Boolean   @default(false) @map("allow_voice")
+  
+  // Status
+  status          String    @default("active") // active, paused, ended
+  
+  // Chat log
+  chatLog         Json      @default("[]") @map("chat_log") // [{ userId, message, timestamp }]
+  
+  // Operation log (for sync)
+  operationLog    Json      @default("[]") @map("operation_log") // [{ type, data, userId, timestamp }]
+  
+  // Timestamps
+  startedAt       DateTime  @default(now()) @map("started_at")
+  endedAt         DateTime? @map("ended_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  @@index([userId])
+  @@index([sessionCode])
+  @@index([status])
+  @@map("live_sessions")
+}
+
+// ============================================================================
+// V4 MODELS — WORKFLOW ORCHESTRATION
+// ============================================================================
+
+model WorkflowPipeline {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  description     String?
+  version         Int       @default(1)
+
+  // Pipeline definition (DAG)
+  steps           Json      @default("[]") // [{ id, name, type, config, deps, condition, parallel }]
+  inputSchema     Json?     @map("input_schema")
+  outputSchema    Json?     @map("output_schema")
+
+  // Scheduling
+  scheduleType    String?   @map("schedule_type") // cron, event, manual
+  cronExpression  String?   @map("cron_expression")
+  eventTrigger    String?   @map("event_trigger")
+
+  // Stats
+  isActive        Boolean   @default(true) @map("is_active")
+  runCount        Int       @default(0) @map("run_count")
+  avgDurationMs   Int?      @map("avg_duration_ms")
+  lastRunAt       DateTime? @map("last_run_at")
+
+  // Optimization
+  optimizationHints Json?   @map("optimization_hints") // { suggestions, estimated savings }
+
+  runs            WorkflowPipelineRun[]
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([userId, isActive])
+  @@map("workflow_pipelines")
+}
+
+model WorkflowPipelineRun {
+  id              String    @id @default(cuid())
+  pipelineId      String    @map("pipeline_id")
+  pipeline        WorkflowPipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+
+  runNumber       Int       @map("run_number")
+  triggerType     String    @default("manual") @map("trigger_type") // manual, cron, event
+  inputData       Json?     @map("input_data")
+  outputData      Json?     @map("output_data")
+  stepResults     Json?     @map("step_results") // [{ stepId, status, output, duration, error }]
+
+  status          String    @default("pending") // pending, running, completed, failed, cancelled
+  currentStep     String?   @map("current_step")
+  durationMs      Int?      @map("duration_ms")
+  errorMessage    String?   @map("error_message")
+
+  startedAt       DateTime? @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([pipelineId])
+  @@index([status])
+  @@map("workflow_pipeline_runs")
+}
+
+// ============================================================================
+// V4 MODELS — KNOWLEDGE GRAPH
+// ============================================================================
+
+model KgEntity {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  entityType      String    @map("entity_type") // person, concept, project, tech, etc.
+  properties      Json      @default("{}") // { key: value }
+  embedding       String?   @db.Text // vector embedding for semantic search
+  aliases         Json      @default("[]") // ["alias1", "alias2"]
+  source          String?   // where entity came from (chat, file, manual)
+
+  // Stats
+  referenceCount  Int       @default(0) @map("reference_count")
+  lastReferencedAt DateTime? @map("last_referenced_at")
+
+  relationsFrom   KgRelation[] @relation("from_entity")
+  relationsTo     KgRelation[] @relation("to_entity")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@unique([userId, name, entityType])
+  @@index([userId])
+  @@index([userId, entityType])
+  @@map("kg_entities")
+}
+
+model KgRelation {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  fromEntityId    String    @map("from_entity_id")
+  fromEntity      KgEntity  @relation("from_entity", fields: [fromEntityId], references: [id], onDelete: Cascade)
+
+  toEntityId      String    @map("to_entity_id")
+  toEntity        KgEntity  @relation("to_entity", fields: [toEntityId], references: [id], onDelete: Cascade)
+
+  relationType    String    @map("relation_type") // uses, depends_on, created_by, part_of, etc.
+  weight          Float     @default(1.0)
+  properties      Json      @default("{}") // extra metadata
+  source          String?
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@unique([fromEntityId, toEntityId, relationType])
+  @@index([userId])
+  @@index([fromEntityId])
+  @@index([toEntityId])
+  @@map("kg_relations")
+}
+
+// ============================================================================
+// V4 MODELS — BUSINESS & GROWTH
+// ============================================================================
+
+model GrowthFunnel {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  description     String?
+  stages          Json      @default("[]") // [{ name, count, conversionRate }]
+  metrics         Json      @default("{}") // { churnRate, ltv, cac, mrr, arr }
+  dateRange       Json?     @map("date_range") // { from, to }
+  analysisResult  Json?     @map("analysis_result")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("growth_funnels")
+}
+
+model PricingSimulation {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  plans           Json      @default("[]") // [{ name, price, features, expectedUsers }]
+  assumptions     Json      @default("{}") // { churnRate, growthRate, cac, ltv }
+  projections     Json?     // { monthly: [...], annual: [...] }
+  recommendation  String?   @db.Text
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("pricing_simulations")
+}
+
+model AbTest {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  description     String?
+  hypothesis      String?
+  status          String    @default("draft") // draft, running, paused, completed
+  variants        Json      @default("[]") // [{ name, weight, config }]
+  metric          String?   // primary metric to track
+  secondaryMetrics Json?    @map("secondary_metrics")
+
+  // Results
+  sampleSize      Int       @default(0) @map("sample_size")
+  results         Json?     // { variantResults, winner, confidence, pValue }
+  significance    Float?    // statistical significance (0-1)
+  confidenceLevel Float     @default(0.95) @map("confidence_level")
+
+  startedAt       DateTime? @map("started_at")
+  endedAt         DateTime? @map("ended_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([status])
+  @@map("ab_tests")
+}
+
+model Lead {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  email           String?
+  name            String?
+  company         String?
+  title           String?
+  phone           String?
+  source          String?   // website, api, manual, import
+  score           Int       @default(0) // lead score 0-100
+  status          String    @default("new") // new, contacted, qualified, converted, lost
+
+  // Enriched data
+  enrichedData    Json?     @map("enriched_data") // { linkedin, company_size, industry, etc. }
+  tags            Json      @default("[]")
+  notes           String?   @db.Text
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([userId, status])
+  @@index([email])
+  @@map("leads")
+}
+
+model Campaign {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  type            String    // email, ad, social, sms
+  status          String    @default("draft") // draft, scheduled, active, paused, completed
+  content         Json      @default("{}") // { subject, body, cta, images, targeting }
+  audience        Json?     // { segments, filters, size }
+  schedule        Json?     // { sendAt, timezone, frequency }
+
+  // Metrics
+  sent            Int       @default(0)
+  opened          Int       @default(0)
+  clicked         Int       @default(0)
+  converted       Int       @default(0)
+  revenue         Float     @default(0)
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([status])
+  @@map("campaigns")
+}
+
+// ============================================================================
+// V4 MODELS — TEAM COLLABORATION
+// ============================================================================
+
+model TeamMember {
+  id              String    @id @default(cuid())
+  teamOwnerId     String    @map("team_owner_id") // the user who owns the team
+
+  email           String
+  name            String?
+  role            String    @default("member") // owner, admin, member, viewer
+  permissions     Json      @default("[]") // ["read", "write", "deploy", "admin"]
+  status          String    @default("pending") // pending, active, suspended, removed
+
+  invitedAt       DateTime  @default(now()) @map("invited_at")
+  joinedAt        DateTime? @map("joined_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@unique([teamOwnerId, email])
+  @@index([teamOwnerId])
+  @@map("team_members")
+}
+
+model CommentThread {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  targetType      String    @map("target_type") // file, project, deploy, task
+  targetId        String    @map("target_id")
+  filePath        String?   @map("file_path")
+  lineNumber      Int?      @map("line_number")
+
+  body            String    @db.Text
+  parentId        String?   @map("parent_id")
+  status          String    @default("open") // open, resolved, archived
+  priority        String    @default("normal") // low, normal, high, urgent
+
+  authorName      String?   @map("author_name")
+  mentions        Json      @default("[]") // ["userId1", "userId2"]
+
+  resolvedAt      DateTime? @map("resolved_at")
+  resolvedBy      String?   @map("resolved_by")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([targetType, targetId])
+  @@index([parentId])
+  @@map("comment_threads")
+}
+
+model TaskItem {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id") // creator
+
+  title           String
+  description     String?   @db.Text
+  status          String    @default("todo") // todo, in_progress, review, done, cancelled
+  priority        String    @default("medium") // low, medium, high, critical
+  assigneeId      String?   @map("assignee_id")
+  assigneeName    String?   @map("assignee_name")
+  dueDate         DateTime? @map("due_date")
+  tags            Json      @default("[]")
+  attachments     Json      @default("[]") // [{ name, url, type }]
+
+  // Linked entities
+  projectId       String?   @map("project_id")
+  filePath        String?   @map("file_path")
+
+  completedAt     DateTime? @map("completed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([assigneeId])
+  @@index([status])
+  @@map("task_items")
+}
+
+model ApprovalRequest {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id") // requester
+
+  title           String
+  description     String?   @db.Text
+  type            String    // deploy, merge, access, budget, config
+  status          String    @default("pending") // pending, approved, rejected, expired
+  priority        String    @default("normal")
+
+  // Approval chain
+  approvers       Json      @default("[]") // [{ userId, name, status, respondedAt }]
+  requiredCount   Int       @default(1) @map("required_count")
+  currentStep     Int       @default(0) @map("current_step")
+
+  // Context
+  context         Json?     // { deployId, branch, changes, etc. }
+  decision        String?   // final decision notes
+  decidedBy       String?   @map("decided_by")
+
+  expiresAt       DateTime? @map("expires_at")
+  decidedAt       DateTime? @map("decided_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([status])
+  @@map("approval_requests")
+}
+
+// ============================================================================
+// V4 MODELS — ADVANCED AI CONTROL
+// ============================================================================
+
+model LlmRouteLog {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  // Request
+  prompt          String    @db.Text
+  promptTokens    Int       @default(0) @map("prompt_tokens")
+  taskType        String?   @map("task_type") // code, chat, analysis, creative
+  complexity      String?   // low, medium, high
+
+  // Routing decision
+  selectedModel   String    @map("selected_model")
+  routingReason   String?   @map("routing_reason")
+  alternativeModels Json?   @map("alternative_models")
+
+  // Result
+  responseTokens   Int      @default(0) @map("response_tokens")
+  costUsd          Float    @default(0) @map("cost_usd")
+  latencyMs        Int?     @map("latency_ms")
+  qualityScore     Float?   @map("quality_score") // 0-1
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([selectedModel])
+  @@map("llm_route_logs")
+}
+
+model LlmGuardrailLog {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  // Input analyzed
+  inputText       String    @db.Text @map("input_text")
+  inputType       String    @default("prompt") @map("input_type") // prompt, response, system
+
+  // Detection results
+  threats         Json      @default("[]") // [{ type, severity, detail, confidence }]
+  riskScore       Float     @default(0) @map("risk_score") // 0-1
+  blocked         Boolean   @default(false)
+  action          String    @default("allow") // allow, warn, block, sanitize
+  sanitizedText   String?   @db.Text @map("sanitized_text")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([blocked])
+  @@map("llm_guardrail_logs")
+}
+
+model LlmEvaluation {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  // What was evaluated
+  prompt          String    @db.Text
+  response        String    @db.Text
+  model           String
+  context         String?   @db.Text
+
+  // Scores
+  relevance       Float?    // 0-1 how relevant
+  accuracy        Float?    // 0-1 factual accuracy
+  helpfulness     Float?    // 0-1 task completion
+  safety          Float?    // 0-1 safety score
+  overallScore    Float?    @map("overall_score")
+
+  // Feedback
+  feedback        String?   @db.Text
+  improvementHints Json?    @map("improvement_hints")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([model])
+  @@map("llm_evaluations")
+}
+
+model AgentInstance {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  goal            String    @db.Text
+  parentAgentId   String?   @map("parent_agent_id")
+  agentType       String    @default("sub_agent") @map("agent_type") // sub_agent, delegate, autonomous
+
+  // Config
+  model           String    @default("claude-sonnet")
+  tools           Json      @default("[]") // allowed tool names
+  maxSteps        Int       @default(10) @map("max_steps")
+  maxTokens       Int       @default(4000) @map("max_tokens")
+
+  // Execution
+  status          String    @default("created") // created, running, paused, completed, failed, cancelled
+  steps           Json      @default("[]") // [{ action, result, timestamp }]
+  currentStep     Int       @default(0) @map("current_step")
+  result          Json?
+  errorMessage    String?   @map("error_message")
+
+  // Reflection
+  reflections     Json      @default("[]") // [{ step, observation, adjustment }]
+  selfScore       Float?    @map("self_score") // 0-1
+
+  startedAt       DateTime? @map("started_at")
+  completedAt     DateTime? @map("completed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([parentAgentId])
+  @@index([status])
+  @@map("agent_instances")
+}
+
+// ============================================================================
+// V4 MODELS — DATA SCIENCE & EXPERIMENTATION
+// ============================================================================
+
+model DataProfile {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  sourceType      String    @map("source_type") // csv, json, database, api
+  rowCount        Int       @default(0) @map("row_count")
+  columnCount     Int       @default(0) @map("column_count")
+
+  // Column profiles
+  columns         Json      @default("[]") // [{ name, type, nullCount, uniqueCount, min, max, mean, stddev, distribution }]
+  qualityScore    Float?    @map("quality_score") // 0-100
+  issues          Json      @default("[]") // [{ column, issue, severity, count }]
+  summary         String?   @db.Text
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("data_profiles")
+}
+
+model DataCleanJob {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  status          String    @default("pending") // pending, running, completed, failed
+  sourceData      Json?     @map("source_data") // input data or reference
+  cleanedData     Json?     @map("cleaned_data")
+  operations      Json      @default("[]") // [{ type, column, config }]
+  stats           Json?     // { rowsBefore, rowsAfter, nullsFixed, outliersTreated, duplicatesRemoved }
+
+  durationMs      Int?      @map("duration_ms")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("data_clean_jobs")
+}
+
+model DataVisualization {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  chartType       String    @map("chart_type") // bar, line, scatter, pie, heatmap, histogram, box, treemap
+  data            Json      // data to plot
+  config          Json      @default("{}") // { xAxis, yAxis, colors, title, legend }
+  insights        Json      @default("[]") // auto-generated insights
+  svgOutput       String?   @db.Text @map("svg_output")
+  htmlOutput      String?   @db.Text @map("html_output")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("data_visualizations")
+}
+
+model MlModelRecord {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  algorithm       String    // linear_regression, random_forest, xgboost, neural_net, etc.
+  taskType        String    @map("task_type") // classification, regression, clustering
+  features        Json      @default("[]")
+  hyperparams     Json      @default("{}")
+  metrics         Json      @default("{}") // { accuracy, f1, rmse, r2, etc. }
+  confusionMatrix Json?     @map("confusion_matrix")
+  featureImportance Json?   @map("feature_importance")
+
+  status          String    @default("trained") // training, trained, deployed, archived
+  trainingDurationMs Int?   @map("training_duration_ms")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("ml_model_records")
+}
+
+// ============================================================================
+// V4 MODELS — GEO & LOCATION SERVICES
+// ============================================================================
+
+model GeoRecord {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  recordType      String    @map("record_type") // geocode, route, distance, fence
+  name            String?
+  inputData       Json      @map("input_data")
+  result          Json?
+
+  // Geocode
+  address         String?
+  latitude        Float?
+  longitude       Float?
+
+  // Route
+  origin          Json?     // { lat, lng, address }
+  destination     Json?     // { lat, lng, address }
+  waypoints       Json?     // [{ lat, lng }]
+  distance        Float?    // km
+  duration        Float?    // minutes
+  routeGeometry   Json?     @map("route_geometry")
+
+  // Fence
+  fenceName       String?   @map("fence_name")
+  fenceGeometry   Json?     @map("fence_geometry") // polygon coordinates
+  fenceRadius     Float?    @map("fence_radius") // meters (for circular)
+  isActive        Boolean   @default(true) @map("is_active")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([recordType])
+  @@map("geo_records")
+}
+
+// ============================================================================
+// V4 MODELS — CLOUD CONTROL
+// ============================================================================
+
+model CloudDeployment {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  provider        String    // aws, gcp, azure, vercel, railway, fly
+  service         String    // ec2, lambda, cloud_run, app_engine, etc.
+  region          String    @default("us-east-1")
+  environment     String    @default("production")
+
+  // Config
+  config          Json      @default("{}") // provider-specific config
+  envVars         Json      @default("{}") @map("env_vars")
+  resources       Json      @default("{}") // { cpu, memory, disk, instances }
+
+  // Status
+  status          String    @default("pending") // pending, deploying, active, failed, stopped
+  url             String?
+  deployVersion   String?   @map("deploy_version")
+
+  // Cost
+  costPerHour     Float?    @map("cost_per_hour")
+  monthlyCost     Float?    @map("monthly_cost")
+
+  deployedAt      DateTime? @map("deployed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([provider])
+  @@index([status])
+  @@map("cloud_deployments")
+}
+
+model CloudLog {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  source          String    // service name or resource ID
+  level           String    @default("info") // debug, info, warn, error, fatal
+  message         String    @db.Text
+  metadata        Json?
+  traceId         String?   @map("trace_id")
+  spanId          String?   @map("span_id")
+
+  timestamp       DateTime  @default(now())
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([source])
+  @@index([level])
+  @@index([timestamp])
+  @@map("cloud_logs")
+}
+
+model CloudCostReport {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  provider        String
+  period          String    // daily, weekly, monthly
+  startDate       DateTime  @map("start_date")
+  endDate         DateTime  @map("end_date")
+
+  totalCost       Float     @map("total_cost")
+  breakdown       Json      @default("[]") // [{ service, cost, usage, unit }]
+  trend           Json?     // [{ date, cost }]
+  anomalies       Json      @default("[]") // [{ service, expected, actual, deviation }]
+  recommendations Json      @default("[]") // [{ type, savings, description }]
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([provider])
+  @@map("cloud_cost_reports")
+}
+
+// ============================================================================
+// V4 MODELS — ADVANCED SECURITY
+// ============================================================================
+
+model SecurityScan {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  scanType        String    @map("scan_type") // sast, dast, dependency, secret, container
+  target          String    // file path, URL, or image
+  status          String    @default("pending") // pending, scanning, completed, failed
+
+  // Results
+  findings        Json      @default("[]") // [{ severity, type, file, line, description, cwe, fix }]
+  summary         Json?     // { critical, high, medium, low, info }
+  riskScore       Float?    @map("risk_score") // 0-10
+
+  durationMs      Int?      @map("duration_ms")
+  completedAt     DateTime? @map("completed_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([scanType])
+  @@map("security_scans")
+}
+
+model SecurityPolicy {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  description     String?   @db.Text
+  policyType      String    @map("policy_type") // access, network, encryption, compliance, code
+  rules           Json      @default("[]") // [{ condition, action, severity }]
+  isActive        Boolean   @default(true) @map("is_active")
+
+  // Enforcement
+  enforcementMode String    @default("warn") @map("enforcement_mode") // warn, block, audit
+  violations      Int       @default(0)
+  lastCheckedAt   DateTime? @map("last_checked_at")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([policyType])
+  @@map("security_policies")
+}
+
+model ThreatModel {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  name            String
+  description     String?   @db.Text
+  architecture    Json      @default("{}") // { components, dataFlows, trustBoundaries }
+  threats         Json      @default("[]") // [{ id, category, description, severity, mitigation, status }]
+  methodology     String    @default("STRIDE") // STRIDE, DREAD, PASTA
+
+  // Summary
+  riskLevel       String?   @map("risk_level") // low, medium, high, critical
+  mitigatedCount  Int       @default(0) @map("mitigated_count")
+  openCount       Int       @default(0) @map("open_count")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("threat_models")
+}
+
+model IncidentRecord {
+  id              String    @id @default(cuid())
+  userId          String    @map("user_id")
+
+  title           String
+  description     String?   @db.Text
+  severity        String    // critical, high, medium, low
+  status          String    @default("open") // open, investigating, mitigating, resolved, closed
+  category        String?   // breach, ddos, malware, unauthorized_access, data_leak
+
+  // Timeline
+  timeline        Json      @default("[]") // [{ timestamp, action, actor, detail }]
+  affectedSystems Json      @default("[]") @map("affected_systems")
+  rootCause       String?   @db.Text @map("root_cause")
+  resolution      String?   @db.Text
+
+  // Mitigation
+  mitigationSteps Json      @default("[]") @map("mitigation_steps") // [{ step, status, assignee }]
+  automated       Boolean   @default(false) // was mitigation automated?
+
+  detectedAt      DateTime  @default(now()) @map("detected_at")
+  resolvedAt      DateTime? @map("resolved_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([severity])
+  @@index([status])
+  @@map("incident_records")
+}
+
+// ============================================================================
+// MAULA EDITOR — USER PREFERENCES & INSTALLED EXTENSIONS
+// Replaces frontend localStorage. All UI/UX state for Maula Editor stored here.
+// ============================================================================
+
+model EditorPreferences {
+  id              String   @id @default(cuid())
+  userId          String   @unique @map("user_id")
+
+  // Theme & layout
+  theme           String   @default("charcoal-aurora")
+
+  // AI configuration (model, provider, key refs, agent settings)
+  aiConfig        Json     @default("{}") @map("ai_config")
+
+  // Editor settings (font, tab size, word wrap, minimap, line numbers, etc.)
+  editorSettings  Json     @default("{}") @map("editor_settings")
+
+  // Recently opened project IDs (ordered, capped client-side)
+  recentProjects  Json     @default("[]") @map("recent_projects")
+
+  // Active workspace context
+  activeWorkspaceId String? @map("active_workspace_id")
+
+  // Free-form per-user UI state (sidebar widths, panel toggles, etc.)
+  uiState         Json     @default("{}") @map("ui_state")
+
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("editor_preferences")
+}
+
+model EditorExtension {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+
+  // Extension identity (matches frontend Extension.id)
+  extensionId     String   @map("extension_id")
+
+  // Full extension manifest snapshot (name, version, description, category, etc.)
+  manifest        Json     @default("{}")
+
+  // User-controlled state
+  enabled         Boolean  @default(true)
+
+  // Per-extension user settings/config
+  settings        Json     @default("{}")
+
+  installedAt     DateTime @default(now()) @map("installed_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, extensionId])
+  @@index([userId])
+  @@map("editor_extensions")
+}
+
+model EditorWorkspace {
+  id              String   @id @default(cuid())
+  userId          String   @map("user_id")
+
+  name            String
+  description     String?  @db.Text
+
+  // Project IDs in this workspace (ordered)
+  projectIds      Json     @default("[]") @map("project_ids")
+
+  // Workspace-level settings (env, theme override, layout)
+  settings        Json     @default("{}")
+
+  isActive        Boolean  @default(false) @map("is_active")
+
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@map("editor_workspaces")
+}

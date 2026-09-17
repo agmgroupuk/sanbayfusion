@@ -1,0 +1,28 @@
+{
+    "name": "lab-backend",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "Standalone backend for AI Lab — experiments, battle/debate arenas, analytics",
+    "scripts": {
+        "dev": "node --watch server.js",
+        "start": "node server.js",
+        "db:generate": "npx prisma generate",
+        "db:push": "npx prisma db push",
+        "db:migrate": "npx prisma migrate dev",
+        "setup": "npm install && npx prisma generate && npx prisma db push"
+    },
+    "dependencies": {
+        "@prisma/client": "^6.2.1",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "express-rate-limit": "^7.5.0",
+        "helmet": "^8.0.0",
+        "uuid": "^11.0.5"
+    },
+    "devDependencies": {
+        "prisma": "^6.2.1"
+    }
+}

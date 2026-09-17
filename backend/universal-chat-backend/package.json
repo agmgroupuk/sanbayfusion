@@ -1,0 +1,40 @@
+{
+    "name": "universal-chat-backend",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "description": "Standalone backend for Universal Chat — AI chat, sessions, TTS, agent memory",
+    "scripts": {
+        "dev": "node --watch server.js",
+        "start": "node server.js",
+        "db:generate": "npx prisma generate",
+        "db:push": "npx prisma db push",
+        "db:migrate": "npx prisma migrate dev",
+        "db:studio": "npx prisma studio",
+        "db:seed": "node prisma/seed.js",
+        "setup": "npm install && npx prisma generate && npx prisma db push"
+    },
+    "dependencies": {
+        "@aws-sdk/client-s3": "^3.700.0",
+        "@aws-sdk/s3-request-presigner": "^3.700.0",
+        "@prisma/client": "^6.2.1",
+        "cookie-parser": "^1.4.7",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "helmet": "^8.0.0",
+        "ioredis": "^5.4.2",
+        "jsdom": "^25.0.0",
+        "jsonwebtoken": "^9.0.2",
+        "mammoth": "^1.12.0",
+        "multer": "^1.4.5-lts.1",
+        "nodemailer": "^6.9.15",
+        "openai": "^4.77.0",
+        "pdf-parse": "^2.4.5",
+        "stripe": "^17.5.0",
+        "uuid": "^11.0.5"
+    },
+    "devDependencies": {
+        "prisma": "^6.2.1"
+    }
+}

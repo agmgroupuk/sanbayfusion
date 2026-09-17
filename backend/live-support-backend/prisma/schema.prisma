@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USERS (minimal for relations)
+// ============================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tickets SupportTicket[]
+
+  @@map("users")
+}
+
+// ============================================
+// SUPPORT TICKETS
+// ============================================
+
+enum TicketPriority {
+  low
+  medium
+  high
+  urgent
+}
+
+enum TicketStatus {
+  open
+  in_progress
+  waiting
+  resolved
+  closed
+}
+
+model SupportTicket {
+  id          String         @id @default(cuid())
+  ticketId    String         @unique
+  ticketNumber Int           @default(autoincrement())
+  userId      String?
+  userEmail   String
+  userName    String?
+  subject     String
+  description String
+  category    String?
+  priority    TicketPriority @default(medium)
+  status      TicketStatus   @default(open)
+  assignedTo  String?
+  messages    Json           @default("[]")
+  satisfaction Json?
+  lastActivityAt DateTime?
+  resolvedAt  DateTime?
+  metadata    Json?          @default("{}")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+  @@index([priority])
+  @@index([ticketId])
+  @@map("support_tickets")
+}
+
+// ============================================
+// CONSULTATIONS
+// ============================================
+
+enum ConsultationStatus {
+  requested
+  scheduled
+  completed
+  cancelled
+  no_show
+}
+
+model Consultation {
+  id                 String             @id @default(cuid())
+  consultationId     String             @unique
+  consultationNumber Int                @default(autoincrement())
+  userId             String?
+  userEmail          String
+  userName           String
+  userPhone          String?
+  consultationType   String
+  company            Json?
+  project            Json?
+  preferredDates     Json?
+  timezone           String             @default("UTC")
+  source             String?
+  status             ConsultationStatus @default(requested)
+  scheduledAt        DateTime?
+  meetingUrl         String?
+  notes              String?
+  feedback           Json?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  @@index([userEmail])
+  @@index([status])
+  @@index([consultationId])
+  @@map("consultations")
+}
+
+// ============================================
+// CONTACT MESSAGES
+// ============================================
+
+model ContactMessage {
+  id         String   @id @default(cuid())
+  ticketId   String   @unique @default(cuid())
+  name       String
+  email      String
+  subject    String?
+  message    String
+  agentName  String?
+  category   String   @default("general")
+  priority   String   @default("normal")
+  status     String   @default("pending")
+  assignedTo String?
+  response   Json?
+  metadata   Json?    @default("{}")
+  isRead     Boolean  @default(false)
+  repliedAt  DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([isRead])
+  @@map("contact_messages")
+}
+
+// ============================================
+// LIVE CHAT SESSIONS
+// ============================================
+
+model LiveChatSession {
+  id              String   @id @default(cuid())
+  userId          String?
+  sessionId       String   @unique @default(cuid())
+  messages        Json     @default("[]")
+  status          String   @default("active")
+  startedAt       DateTime @default(now())
+  endedAt         DateTime?
+  feedback        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@map("live_chat_sessions")
+}

@@ -1,0 +1,464 @@
+// ============================================
+// AI Studio Demo — Standalone Prisma Schema
+// Completely independent database from the main Maula AI app
+// ============================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER & AUTHENTICATION
+// ============================================
+
+model User {
+  id                   String    @id @default(cuid())
+  email                String    @unique
+  name                 String?
+  password             String?
+  authMethod           AuthMethod @default(password)
+  emailVerified        DateTime?
+  image                String?
+  avatar               String?
+  bio                  String?
+  phoneNumber          String?
+  location             String?
+  timezone             String?
+  profession           String?
+  company              String?
+  socialLinks          Json?     @default("{}")
+  preferences          Json?     @default("{}")
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  lastLoginAt          DateTime?
+  isActive             Boolean   @default(true)
+  role                 UserRole  @default(user)
+  googleId             String?   @unique
+  githubId             String?   @unique
+  yahooId              String?   @unique
+  microsoftId          String?   @unique
+  resetPasswordToken   String?
+  resetPasswordExpires DateTime?
+  sessionId            String?
+  sessionExpiry        DateTime?
+  twoFactorEnabled     Boolean   @default(false)
+  twoFactorSecret      String?
+  backupCodes          String[]  @default([])
+  loginAttempts        Int       @default(0)
+  lockoutLevel         Int       @default(0)
+  lockUntil            DateTime?
+  permanentlyLocked    Boolean   @default(false)
+  tempToken            String?
+  tempTokenExpiry      DateTime?
+
+  // Relations
+  subscriptions        AgentSubscription[]
+  chatSessions         ChatSession[]
+  chatFeedback         ChatFeedback[]
+  chatSettings         ChatSettings[]
+  agentMemories        AgentMemory[]
+  sessions             Session[]
+
+  @@index([email])
+  @@index([sessionId])
+  @@index([resetPasswordToken])
+}
+
+enum AuthMethod {
+  password
+  google
+  github
+  yahoo
+  microsoft
+}
+
+enum UserRole {
+  user
+  admin
+  moderator
+}
+
+// ============================================
+// AGENTS
+// ============================================
+
+model Agent {
+  id            String      @id @default(cuid())
+  agentId       String      @unique
+  name          String
+  avatarUrl     String?
+  specialty     String?
+  description   String?
+  systemPrompt  String
+  welcomeMessage String
+  specialties   String[]    @default([])
+  tags          String[]    @default([])
+  color         String?
+  aiProvider    Json?       @default("{}")
+  pricingDaily  Float?      @default(0)
+  pricingWeekly Float?      @default(0)
+  pricingMonthly Float?     @default(0)
+  totalUsers    Int         @default(0)
+  totalSessions Int         @default(0)
+  averageRating Float       @default(0)
+  status        AgentStatus @default(active)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  subscriptions AgentSubscription[]
+  chatSessions  ChatSession[]
+  memories      AgentMemory[]
+  files         AgentFile[]
+
+  @@index([agentId])
+  @@index([status])
+  @@index([tags])
+}
+
+enum AgentStatus {
+  active
+  maintenance
+  deprecated
+}
+
+model AgentSubscription {
+  id                   String             @id @default(cuid())
+  userId               String
+  agentId              String
+  plan                 SubscriptionPlan
+  price                Float
+  status               SubscriptionStatus @default(active)
+  startDate            DateTime           @default(now())
+  expiryDate           DateTime
+  autoRenew            Boolean            @default(false)
+  stripeSubscriptionId String?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent                Agent              @relation(fields: [agentId], references: [agentId], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([agentId])
+  @@index([userId, agentId])
+  @@index([stripeSubscriptionId])
+  @@map("subscriptions")
+}
+
+enum SubscriptionPlan {
+  daily
+  weekly
+  monthly
+  yearly
+  lifetime
+}
+
+enum SubscriptionStatus {
+  active
+  expired
+  cancelled
+}
+
+model AgentFile {
+  id          String   @id @default(cuid())
+  agentId     String
+  userId      String
+  fileName    String
+  fileType    String
+  fileSize    Int
+  s3Key       String
+  s3Url       String
+  contentType String?
+  metadata    Json?    @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  agent       Agent    @relation(fields: [agentId], references: [agentId], onDelete: Cascade)
+
+  @@index([agentId])
+  @@index([userId])
+}
+
+// ============================================
+// AGENT MEMORY - Long-term learning
+// ============================================
+
+model AgentMemory {
+  id          String      @id @default(cuid())
+  agentId     String
+  userId      String
+  memories    Json        @default("[]")
+  summary     String?
+  totalMemories Int       @default(0)
+  lastAccessed  DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  agent       Agent       @relation(fields: [agentId], references: [agentId], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([agentId, userId])
+  @@index([agentId])
+  @@index([userId])
+  @@map("agent_memories")
+}
+
+// ============================================
+// CHAT
+// ============================================
+
+model ChatSession {
+  id          String        @id @default(cuid())
+  sessionId   String        @unique
+  userId      String
+  agentId     String?
+  name        String
+  description String?
+  isActive    Boolean       @default(true)
+  isArchived  Boolean       @default(false)
+  tags        String[]      @default([])
+  settings    Json?         @default("{\"temperature\":0.7,\"maxTokens\":2000,\"mode\":\"balanced\",\"provider\":\"mistral\"}")
+  stats       Json?         @default("{\"messageCount\":0,\"totalTokens\":0,\"durationMs\":0}")
+  archivedAt  DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent       Agent?        @relation(fields: [agentId], references: [agentId])
+  messages    ChatMessage[]
+  feedback    ChatFeedback[]
+  canvasFiles ChatCanvasFile[]
+  canvasHistory ChatCanvasHistory[]
+  canvasProjects ChatCanvasProject[]
+
+  @@index([userId, updatedAt])
+  @@index([agentId, createdAt])
+  @@index([isActive, updatedAt])
+  @@index([tags])
+  @@map("chat_sessions")
+}
+
+model ChatMessage {
+  id           String      @id @default(cuid())
+  sessionId    String
+  role         MessageRole
+  content      String
+  metadata     Json?       @default("{}")
+  tokenCount   Int?
+  latencyMs    Int?
+  createdAt    DateTime    @default(now())
+
+  session      ChatSession @relation(fields: [sessionId], references: [sessionId], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+  @@map("chat_messages")
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+}
+
+model ChatFeedback {
+  id          String      @id @default(cuid())
+  sessionId   String
+  userId      String
+  messageId   String?
+  rating      Int?
+  feedback    String?
+  type        FeedbackType?
+  createdAt   DateTime    @default(now())
+
+  session     ChatSession @relation(fields: [sessionId], references: [sessionId], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([userId])
+  @@map("chat_feedback")
+}
+
+enum FeedbackType {
+  helpful
+  not_helpful
+  incorrect
+  offensive
+  other
+}
+
+model ChatSettings {
+  id              String   @id @default(cuid())
+  userId          String
+  defaultProvider String   @default("mistral")
+  defaultModel    String?
+  temperature     Float    @default(0.7)
+  maxTokens       Int      @default(2000)
+  defaultMode     String   @default("balanced")
+  activeSessionId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+  @@map("chat_settings")
+}
+
+model ChatQuickAction {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  prompt      String
+  category    String?
+  icon        String?
+  isGlobal    Boolean  @default(false)
+  userId      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([userId])
+  @@map("chat_quick_actions")
+}
+
+// ============================================
+// CANVAS FILES (virtual project files in chat)
+// ============================================
+
+model ChatCanvasFile {
+  id          String      @id @default(cuid())
+  sessionId   String
+  fileName    String
+  fileType    String
+  content     String
+  version     Int         @default(1)
+  metadata    Json?       @default("{}")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  session     ChatSession @relation(fields: [sessionId], references: [sessionId], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@map("chat_canvas_files")
+}
+
+model ChatCanvasHistory {
+  id          String      @id @default(cuid())
+  sessionId   String
+  action      String
+  data        Json?
+  createdAt   DateTime    @default(now())
+
+  session     ChatSession @relation(fields: [sessionId], references: [sessionId], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+  @@map("chat_canvas_history")
+}
+
+model ChatCanvasProject {
+  id          String      @id @default(cuid())
+  sessionId   String
+  name        String
+  description String?
+  files       Json?       @default("[]")
+  settings    Json?       @default("{}")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  session     ChatSession @relation(fields: [sessionId], references: [sessionId], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@map("chat_canvas_projects")
+}
+
+// ============================================
+// ANALYTICS SESSIONS
+// ============================================
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionId    String   @unique
+  visitorId    String
+  userId       String?
+  startTime    DateTime @default(now())
+  lastActivity DateTime @default(now())
+  pageViews    Int      @default(0)
+  events       Int      @default(0)
+  duration     Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user         User?    @relation(fields: [userId], references: [id])
+
+  @@index([sessionId])
+  @@index([visitorId])
+  @@index([userId])
+  @@map("sessions")
+}
+
+// ============================================
+// STUDIO SESSION STATS
+// ============================================
+
+model StudioSessionStats {
+  id               String   @id @default(cuid())
+  sessionId        String   @unique
+  totalMessages    Int      @default(0)
+  totalRequests    Int      @default(0)
+  totalErrors      Int      @default(0)
+  totalTokensUsed  Int      @default(0)
+  sessionStartTime DateTime @default(now())
+  requestLog       Json     @default("[]")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([sessionId])
+  @@index([createdAt])
+  @@map("studio_session_stats")
+}
+
+// ============================================
+// GUEST SESSION RATE LIMITING
+// ============================================
+
+model GuestSession {
+  id             String   @id @default(cuid())
+  guestId        String   @unique
+  ipAddress      String?
+  fingerprint    String?
+  messageCount   Int      @default(0)
+  messageLimit   Int      @default(20)
+  lastMessageAt  DateTime @default(now())
+  createdAt      DateTime @default(now())
+  expiresAt      DateTime
+
+  @@index([guestId])
+  @@index([ipAddress])
+  @@index([expiresAt])
+  @@map("guest_sessions")
+}
+
+// ============================================
+// LAB VOTES
+// ============================================
+
+model LabVote {
+  id        String   @id @default(cuid())
+  arena     String
+  voteKey   String
+  position  String
+  count     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([arena, voteKey, position])
+  @@index([arena, voteKey])
+  @@map("lab_votes")
+}
