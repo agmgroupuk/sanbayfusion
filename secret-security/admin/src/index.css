@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: #0f0f14;
+    color: #e5e5e5;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: opacity 0.15s;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #6366f1;
+    color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #4f46e5;
+}
+
+.btn-danger {
+    background: #ef4444;
+    color: #fff;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #dc2626;
+}
+
+.btn-success {
+    background: #22c55e;
+    color: #fff;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #16a34a;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: #a3a3a3;
+    border: 1px solid #333;
+}
+
+.btn-ghost:hover:not(:disabled) {
+    background: #1e1e2a;
+    color: #fff;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.badge-pending {
+    background: #7c3aed22;
+    color: #a78bfa;
+    border: 1px solid #7c3aed44;
+}
+
+.badge-approved {
+    background: #16a34a22;
+    color: #4ade80;
+    border: 1px solid #16a34a44;
+}
+
+.badge-rejected {
+    background: #dc262622;
+    color: #f87171;
+    border: 1px solid #dc262644;
+}
+
+.badge-resolved {
+    background: #0891b222;
+    color: #38bdf8;
+    border: 1px solid #0891b244;
+}
+
+.badge-tracking {
+    background: #ea580c22;
+    color: #fb923c;
+    border: 1px solid #ea580c44;
+}
+
+.badge-registered {
+    background: #52525222;
+    color: #a3a3a3;
+    border: 1px solid #52525244;
+}

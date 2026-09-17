@@ -1,0 +1,302 @@
+/* Neural/Cyberpunk Theme Styles */
+
+/* Matrix-style background */
+.neural-theme {
+  --neural-primary: #00ffff;
+  --neural-secondary: #ff00ff;
+  --neural-accent: #00ff00;
+  --neural-bg-dark: #0a0a0f;
+  --neural-bg-medium: #121218;
+  --neural-bg-light: #1a1a24;
+  --neural-border: rgba(0, 255, 255, 0.2);
+  --neural-glow: rgba(0, 255, 255, 0.4);
+}
+
+.neural-bg {
+  background: linear-gradient(135deg, #0a0a0f 0%, #121218 50%, #0f0f1a 100%);
+  position: relative;
+}
+
+.neural-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+      ellipse at 20% 80%,
+      rgba(0, 255, 255, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgba(255, 0, 255, 0.05) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+/* Grid overlay effect */
+.neural-grid {
+  background-image: linear-gradient(
+      rgba(0, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Scanline effect */
+.neural-scanlines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+/* Glowing text */
+.neural-glow-text {
+  text-shadow: 0 0 5px var(--neural-primary), 0 0 10px var(--neural-primary),
+    0 0 20px var(--neural-primary);
+}
+
+.neural-glow-text-subtle {
+  text-shadow: 0 0 10px var(--neural-primary);
+}
+
+/* Glowing borders */
+.neural-glow-border {
+  box-shadow: 0 0 5px var(--neural-border), 0 0 10px var(--neural-border),
+    inset 0 0 5px var(--neural-border);
+}
+
+/* Animated border */
+@keyframes neural-border-pulse {
+  0%,
+  100% {
+    border-color: rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+  }
+  50% {
+    border-color: rgba(0, 255, 255, 0.6);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  }
+}
+
+.neural-border-animated {
+  animation: neural-border-pulse 2s ease-in-out infinite;
+}
+
+/* Neural button styles */
+.neural-btn {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.1) 0%,
+    rgba(255, 0, 255, 0.1) 100%
+  );
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #00ffff;
+  transition: all 0.3s ease;
+}
+
+.neural-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.2) 0%,
+    rgba(255, 0, 255, 0.2) 100%
+  );
+  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.neural-btn-primary {
+  background: linear-gradient(135deg, #00b8b8 0%, #8b00ff 100%);
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  color: white;
+}
+
+.neural-btn-primary:hover {
+  background: linear-gradient(135deg, #00d4d4 0%, #9f00ff 100%);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+}
+
+/* Neural input styles */
+.neural-input {
+  background: rgba(10, 10, 15, 0.8);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  color: #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.neural-input:focus {
+  border-color: rgba(0, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+  outline: none;
+}
+
+.neural-input::placeholder {
+  color: rgba(0, 255, 255, 0.4);
+}
+
+/* Neural card */
+.neural-card {
+  background: rgba(18, 18, 24, 0.9);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.neural-card:hover {
+  border-color: rgba(0, 255, 255, 0.3);
+}
+
+/* Neural scrollbar */
+.neural-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.neural-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.neural-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 255, 255, 0.4) 0%,
+    rgba(255, 0, 255, 0.4) 100%
+  );
+  border-radius: 3px;
+}
+
+.neural-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 255, 255, 0.6) 0%,
+    rgba(255, 0, 255, 0.6) 100%
+  );
+}
+
+/* Typing indicator animation */
+@keyframes neural-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.neural-typing-dot {
+  animation: neural-pulse 1.4s ease-in-out infinite;
+}
+
+.neural-typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.neural-typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Message bubble styles */
+.neural-message-user {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 184, 184, 0.3) 0%,
+    rgba(139, 0, 255, 0.3) 100%
+  );
+  border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.neural-message-agent {
+  background: rgba(26, 26, 36, 0.8);
+  border: 1px solid rgba(255, 0, 255, 0.2);
+}
+
+/* Status indicators */
+.neural-status-active {
+  background: #00ff00;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+.neural-status-idle {
+  background: #ffff00;
+  box-shadow: 0 0 10px #ffff00;
+}
+
+.neural-status-offline {
+  background: #ff0000;
+  box-shadow: 0 0 10px #ff0000;
+}
+
+/* Hover effects */
+.neural-hover-glow {
+  transition: all 0.3s ease;
+}
+
+.neural-hover-glow:hover {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), 0 0 20px rgba(0, 255, 255, 0.2),
+    0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+/* Data stream animation */
+@keyframes data-stream {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+.neural-data-stream {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 100% 200%;
+  animation: data-stream 3s linear infinite;
+}
+
+/* Custom scrollbar for all elements */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 120, 0.4);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 120, 0.6);
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

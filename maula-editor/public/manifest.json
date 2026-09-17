@@ -1,0 +1,80 @@
+{
+    "name": "Maula Editor",
+    "short_name": "Maula",
+    "description": "AI-powered code editor — build apps with your AI digital friend",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0A0A0A",
+    "theme_color": "#00C8E0",
+    "orientation": "any",
+    "categories": [
+        "productivity",
+        "developer"
+    ],
+    "icons": [
+        {
+            "src": "/icon-72x72.png?v=2",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-96x96.png?v=2",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-128x128.png?v=2",
+            "sizes": "128x128",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-144x144.png?v=2",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-152x152.png?v=2",
+            "sizes": "152x152",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-192x192.png?v=2",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icon-384x384.png?v=2",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png?v=2",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/icon-512x512.png?v=2",
+            "sizes": "512x512",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Maula Editor"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "New Project",
+            "short_name": "New",
+            "url": "/",
+            "icons": [
+                {
+                    "src": "/icon-96x96.png?v=2",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ]
+}

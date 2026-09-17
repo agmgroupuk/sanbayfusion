@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Device admin policies for Maula Security.
+    Requesting only the "watchdog" policy needed to prevent uninstall.
+-->
+<device-admin>
+    <uses-policies>
+        <!-- Allows wiping the device / app data if SELF_DESTRUCT command is received -->
+        <wipe-data />
+        <!-- Required to prevent uninstallation of the admin app -->
+        <force-lock />
+    </uses-policies>
+</device-admin>

@@ -1,0 +1,1407 @@
+#!/usr/bin/env python3
+"""Generate premium glassmorphism CSS for Maula Editor."""
+
+css = r"""@import "tailwindcss";
+
+/* ============================================
+   MAULA EDITOR — GLASSMORPHISM PREMIUM THEME
+   Frosted glass. Rich shadows. Zero blur text.
+   Next-level premium UI.
+   ============================================ */
+
+/* Thin horizontal scrollbar for debug tabs */
+.debug-tabs-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128,128,128,0.3) transparent;
+}
+.debug-tabs-scroll::-webkit-scrollbar { height: 3px; }
+.debug-tabs-scroll::-webkit-scrollbar-track { background: transparent; }
+.debug-tabs-scroll::-webkit-scrollbar-thumb { background: rgba(128,128,128,0.35); border-radius: 3px; }
+.debug-tabs-scroll::-webkit-scrollbar-thumb:hover { background: rgba(128,128,128,0.6); }
+
+/* ============================================
+   BASE THEME — Charcoal Aurora (Default)
+   ============================================ */
+:root {
+  --vscode-bg: #1a1b26;
+  --vscode-sidebar: #16171f;
+  --vscode-activitybar: #13141b;
+  --vscode-editor: #1a1b26;
+  --vscode-panel: #16171f;
+  --vscode-border: #2a2d3a;
+  --vscode-accent: #41d7c0;
+  --vscode-accent-hover: #5ee3d0;
+  --vscode-text: #c8cdd5;
+  --vscode-text-muted: #6b7280;
+  --vscode-icon: #41d7c0;
+  --vscode-icon-inactive: #505868;
+  --vscode-selection: #264258;
+  --vscode-hover: #1f2130;
+  --vscode-active: #252838;
+  --vscode-success: #4ade80;
+  --vscode-warning: #fbbf24;
+  --vscode-error: #f87171;
+  --icon-default: #505868;
+  --icon-hover: #8892a0;
+  --icon-active: #41d7c0;
+  --text-inactive: #505868;
+  --text-active: #41d7c0;
+  /* Glass tokens */
+  --glass-bg: rgba(22, 23, 31, 0.72);
+  --glass-bg-heavy: rgba(22, 23, 31, 0.88);
+  --glass-border: rgba(65, 215, 192, 0.08);
+  --glass-border-hover: rgba(65, 215, 192, 0.18);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(65, 215, 192, 0.06);
+  --glass-glow: rgba(65, 215, 192, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   RAZER BLACK — Electric Blue on Deep Black
+   ============================================ */
+.dark:not(.theme-github-dark):not(.theme-dracula):not(.theme-nord):not(.theme-monokai):not(.theme-solarized-dark):not(.theme-one-dark):not(.theme-steel):not(.theme-charcoal-aurora):not(.high-contrast) {
+  --vscode-bg: #0c0d14;
+  --vscode-sidebar: #0a0b10;
+  --vscode-activitybar: #08090e;
+  --vscode-editor: #0c0d14;
+  --vscode-panel: #0a0b10;
+  --vscode-border: #1c1f2e;
+  --vscode-accent: #2979ff;
+  --vscode-accent-hover: #448aff;
+  --vscode-text: #b0b8c8;
+  --vscode-text-muted: #5a6378;
+  --vscode-icon: #2979ff;
+  --vscode-icon-inactive: #384058;
+  --vscode-selection: #13294d;
+  --vscode-hover: #10111a;
+  --vscode-active: #141622;
+  --vscode-success: #00e676;
+  --vscode-warning: #ffab00;
+  --vscode-error: #ff5252;
+  --glass-bg: rgba(10, 11, 16, 0.70);
+  --glass-bg-heavy: rgba(10, 11, 16, 0.88);
+  --glass-border: rgba(41, 121, 255, 0.10);
+  --glass-border-hover: rgba(41, 121, 255, 0.22);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(41, 121, 255, 0.08);
+  --glass-glow: rgba(41, 121, 255, 0.15);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   LIGHT THEME
+   ============================================ */
+.light, [data-theme="light"] {
+  --vscode-bg: #ffffff;
+  --vscode-sidebar: #f5f5f5;
+  --vscode-activitybar: #eaeaeb;
+  --vscode-editor: #ffffff;
+  --vscode-panel: #f5f5f5;
+  --vscode-border: #e1e4e8;
+  --vscode-accent: #0078d4;
+  --vscode-accent-hover: #106ebe;
+  --vscode-text: #24292e;
+  --vscode-text-muted: #6a737d;
+  --vscode-selection: #b4d6fa;
+  --vscode-hover: #ebedef;
+  --vscode-active: #e0e2e6;
+  --vscode-success: #22863a;
+  --vscode-warning: #e36209;
+  --vscode-error: #cb2431;
+  --glass-bg: rgba(245, 245, 245, 0.70);
+  --glass-bg-heavy: rgba(245, 245, 245, 0.90);
+  --glass-border: rgba(0, 120, 212, 0.10);
+  --glass-border-hover: rgba(0, 120, 212, 0.20);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 120, 212, 0.06);
+  --glass-glow: rgba(0, 120, 212, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.6);
+  --glass-blur: blur(16px) saturate(120%);
+  --glass-blur-heavy: blur(24px) saturate(140%);
+}
+
+/* ============================================
+   HIGH CONTRAST
+   ============================================ */
+.high-contrast {
+  --vscode-bg: #000000;
+  --vscode-sidebar: #000000;
+  --vscode-activitybar: #000000;
+  --vscode-editor: #000000;
+  --vscode-panel: #000000;
+  --vscode-border: #6fc3df;
+  --vscode-accent: #ffd700;
+  --vscode-accent-hover: #ffe44d;
+  --vscode-text: #ffffff;
+  --vscode-text-muted: #d4d4d4;
+  --vscode-selection: #264f78;
+  --vscode-hover: #0a2d4d;
+  --vscode-active: #0d3a63;
+  --vscode-success: #89d185;
+  --vscode-warning: #cca700;
+  --vscode-error: #f48771;
+  --glass-bg: rgba(0, 0, 0, 0.85);
+  --glass-bg-heavy: rgba(0, 0, 0, 0.95);
+  --glass-border: rgba(111, 195, 223, 0.25);
+  --glass-border-hover: rgba(255, 215, 0, 0.35);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.8);
+  --glass-glow: rgba(255, 215, 0, 0.15);
+  --glass-highlight: rgba(255, 255, 255, 0.06);
+  --glass-blur: blur(12px) saturate(160%);
+  --glass-blur-heavy: blur(20px) saturate(180%);
+}
+
+/* ============================================
+   CYBER NEON (github-dark)
+   ============================================ */
+.theme-github-dark {
+  --vscode-bg: #0d1117;
+  --vscode-sidebar: #0c1015;
+  --vscode-activitybar: #090d12;
+  --vscode-editor: #0d1117;
+  --vscode-panel: #0c1015;
+  --vscode-border: #21262d;
+  --vscode-accent: #58a6ff;
+  --vscode-accent-hover: #79c0ff;
+  --vscode-text: #c9d1d9;
+  --vscode-text-muted: #7d8590;
+  --vscode-selection: #1c3552;
+  --vscode-hover: #111820;
+  --vscode-active: #161b22;
+  --vscode-success: #3fb950;
+  --vscode-warning: #d29922;
+  --vscode-error: #f85149;
+  --glass-bg: rgba(12, 16, 21, 0.72);
+  --glass-bg-heavy: rgba(12, 16, 21, 0.88);
+  --glass-border: rgba(88, 166, 255, 0.08);
+  --glass-border-hover: rgba(88, 166, 255, 0.20);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(88, 166, 255, 0.06);
+  --glass-glow: rgba(88, 166, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.035);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   NEON VAMPIRE (dracula)
+   ============================================ */
+.theme-dracula {
+  --vscode-bg: #282a36;
+  --vscode-sidebar: #21222c;
+  --vscode-activitybar: #1c1d26;
+  --vscode-editor: #282a36;
+  --vscode-panel: #21222c;
+  --vscode-border: #44475a;
+  --vscode-accent: #bd93f9;
+  --vscode-accent-hover: #d4b3ff;
+  --vscode-text: #f8f8f2;
+  --vscode-text-muted: #8890a0;
+  --vscode-selection: #44475a;
+  --vscode-hover: #2c2e3a;
+  --vscode-active: #343746;
+  --vscode-success: #50fa7b;
+  --vscode-warning: #f1fa8c;
+  --vscode-error: #ff5555;
+  --glass-bg: rgba(33, 34, 44, 0.72);
+  --glass-bg-heavy: rgba(33, 34, 44, 0.88);
+  --glass-border: rgba(189, 147, 249, 0.10);
+  --glass-border-hover: rgba(189, 147, 249, 0.22);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(189, 147, 249, 0.08);
+  --glass-glow: rgba(189, 147, 249, 0.14);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   FROZEN AURORA (nord)
+   ============================================ */
+.theme-nord {
+  --vscode-bg: #2e3440;
+  --vscode-sidebar: #292e38;
+  --vscode-activitybar: #242830;
+  --vscode-editor: #2e3440;
+  --vscode-panel: #292e38;
+  --vscode-border: #3b4252;
+  --vscode-accent: #88c0d0;
+  --vscode-accent-hover: #8fbcbb;
+  --vscode-text: #d8dee9;
+  --vscode-text-muted: #7b88a0;
+  --vscode-selection: #3b5070;
+  --vscode-hover: #323846;
+  --vscode-active: #38404e;
+  --vscode-success: #a3be8c;
+  --vscode-warning: #ebcb8b;
+  --vscode-error: #bf616a;
+  --glass-bg: rgba(41, 46, 56, 0.72);
+  --glass-bg-heavy: rgba(41, 46, 56, 0.88);
+  --glass-border: rgba(136, 192, 208, 0.08);
+  --glass-border-hover: rgba(136, 192, 208, 0.20);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(136, 192, 208, 0.06);
+  --glass-glow: rgba(136, 192, 208, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   TOXIC NEON (monokai)
+   ============================================ */
+.theme-monokai {
+  --vscode-bg: #272822;
+  --vscode-sidebar: #22231d;
+  --vscode-activitybar: #1d1e18;
+  --vscode-editor: #272822;
+  --vscode-panel: #22231d;
+  --vscode-border: #3e3d32;
+  --vscode-accent: #a6e22e;
+  --vscode-accent-hover: #b8f040;
+  --vscode-text: #f8f8f2;
+  --vscode-text-muted: #88846f;
+  --vscode-selection: #49483e;
+  --vscode-hover: #2c2d26;
+  --vscode-active: #34352c;
+  --vscode-success: #a6e22e;
+  --vscode-warning: #e6db74;
+  --vscode-error: #f92672;
+  --glass-bg: rgba(34, 35, 29, 0.72);
+  --glass-bg-heavy: rgba(34, 35, 29, 0.88);
+  --glass-border: rgba(166, 226, 46, 0.08);
+  --glass-border-hover: rgba(166, 226, 46, 0.20);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(166, 226, 46, 0.06);
+  --glass-glow: rgba(166, 226, 46, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   DEEP SEA (solarized-dark)
+   ============================================ */
+.theme-solarized-dark {
+  --vscode-bg: #002b36;
+  --vscode-sidebar: #002530;
+  --vscode-activitybar: #00202a;
+  --vscode-editor: #002b36;
+  --vscode-panel: #002530;
+  --vscode-border: #094959;
+  --vscode-accent: #2aa198;
+  --vscode-accent-hover: #35bcb2;
+  --vscode-text: #93a1a1;
+  --vscode-text-muted: #657b83;
+  --vscode-selection: #073642;
+  --vscode-hover: #003340;
+  --vscode-active: #003e4c;
+  --vscode-success: #859900;
+  --vscode-warning: #b58900;
+  --vscode-error: #dc322f;
+  --glass-bg: rgba(0, 37, 48, 0.72);
+  --glass-bg-heavy: rgba(0, 37, 48, 0.88);
+  --glass-border: rgba(42, 161, 152, 0.10);
+  --glass-border-hover: rgba(42, 161, 152, 0.22);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(42, 161, 152, 0.06);
+  --glass-glow: rgba(42, 161, 152, 0.14);
+  --glass-highlight: rgba(255, 255, 255, 0.035);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   PLASMA BLUE (one-dark)
+   ============================================ */
+.theme-one-dark {
+  --vscode-bg: #282c34;
+  --vscode-sidebar: #21252b;
+  --vscode-activitybar: #1c1f26;
+  --vscode-editor: #282c34;
+  --vscode-panel: #21252b;
+  --vscode-border: #3e4452;
+  --vscode-accent: #61afef;
+  --vscode-accent-hover: #7cc4ff;
+  --vscode-text: #abb2bf;
+  --vscode-text-muted: #636d83;
+  --vscode-selection: #3a4450;
+  --vscode-hover: #2c3039;
+  --vscode-active: #333842;
+  --vscode-success: #98c379;
+  --vscode-warning: #e5c07b;
+  --vscode-error: #e06c75;
+  --glass-bg: rgba(33, 37, 43, 0.72);
+  --glass-bg-heavy: rgba(33, 37, 43, 0.88);
+  --glass-border: rgba(97, 175, 239, 0.08);
+  --glass-border-hover: rgba(97, 175, 239, 0.20);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(97, 175, 239, 0.06);
+  --glass-glow: rgba(97, 175, 239, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   STEEL — Industrial Metallic
+   ============================================ */
+.theme-steel {
+  --vscode-bg: #1c1f26;
+  --vscode-sidebar: #181b22;
+  --vscode-activitybar: #14171d;
+  --vscode-editor: #1c1f26;
+  --vscode-panel: #181b22;
+  --vscode-border: #2e333d;
+  --vscode-accent: #8899b0;
+  --vscode-accent-hover: #9fb0c8;
+  --vscode-text: #b0b8c4;
+  --vscode-text-muted: #606a78;
+  --vscode-selection: #283040;
+  --vscode-hover: #20242c;
+  --vscode-active: #262b34;
+  --vscode-success: #7fb380;
+  --vscode-warning: #c0a860;
+  --vscode-error: #c07070;
+  --glass-bg: rgba(24, 27, 34, 0.72);
+  --glass-bg-heavy: rgba(24, 27, 34, 0.88);
+  --glass-border: rgba(136, 153, 176, 0.08);
+  --glass-border-hover: rgba(136, 153, 176, 0.18);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(136, 153, 176, 0.06);
+  --glass-glow: rgba(136, 153, 176, 0.10);
+  --glass-highlight: rgba(255, 255, 255, 0.035);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   CHARCOAL AURORA (explicit class)
+   ============================================ */
+.theme-charcoal-aurora {
+  --vscode-bg: #1a1b26;
+  --vscode-sidebar: #16171f;
+  --vscode-activitybar: #13141b;
+  --vscode-editor: #1a1b26;
+  --vscode-panel: #16171f;
+  --vscode-border: #2a2d3a;
+  --vscode-accent: #41d7c0;
+  --vscode-accent-hover: #5ee3d0;
+  --vscode-text: #c8cdd5;
+  --vscode-text-muted: #6b7280;
+  --vscode-icon: #41d7c0;
+  --vscode-icon-inactive: #505868;
+  --vscode-selection: #264258;
+  --vscode-hover: #1f2130;
+  --vscode-active: #252838;
+  --vscode-success: #4ade80;
+  --vscode-warning: #fbbf24;
+  --vscode-error: #f87171;
+  --icon-default: #505868;
+  --icon-hover: #8892a0;
+  --icon-active: #41d7c0;
+  --text-inactive: #505868;
+  --text-active: #41d7c0;
+  --glass-bg: rgba(22, 23, 31, 0.72);
+  --glass-bg-heavy: rgba(22, 23, 31, 0.88);
+  --glass-border: rgba(65, 215, 192, 0.08);
+  --glass-border-hover: rgba(65, 215, 192, 0.18);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(65, 215, 192, 0.06);
+  --glass-glow: rgba(65, 215, 192, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   DARK THEME FALLBACK (no specific theme class)
+   ============================================ */
+.dark:not([class*="theme-"]):not(.high-contrast) {
+  --vscode-bg: #1e1e1e;
+  --vscode-sidebar: #252526;
+  --vscode-activitybar: #333333;
+  --vscode-editor: #1e1e1e;
+  --vscode-panel: #1e1e1e;
+  --vscode-border: #3c3c3c;
+  --vscode-accent: #0078d4;
+  --vscode-accent-hover: #1c8ae0;
+  --vscode-text: #cccccc;
+  --vscode-text-muted: #858585;
+  --vscode-selection: #264f78;
+  --vscode-hover: #2a2d2e;
+  --vscode-active: #37373d;
+  --vscode-success: #4caf50;
+  --vscode-warning: #ff9800;
+  --vscode-error: #f44336;
+  --glass-bg: rgba(37, 37, 38, 0.70);
+  --glass-bg-heavy: rgba(37, 37, 38, 0.88);
+  --glass-border: rgba(0, 120, 212, 0.08);
+  --glass-border-hover: rgba(0, 120, 212, 0.18);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --glass-glow: rgba(0, 120, 212, 0.10);
+  --glass-highlight: rgba(255, 255, 255, 0.04);
+  --glass-blur: blur(16px) saturate(180%);
+  --glass-blur-heavy: blur(24px) saturate(200%);
+}
+
+/* ============================================
+   ✦ GLASSMORPHISM CORE SURFACES ✦
+   Frosted glass panels with backdrop-blur,
+   semi-transparent backgrounds, accent-tinted
+   borders, and rich layered shadows.
+   ============================================ */
+
+/* Shorthand for all dark themes */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora,
+    .high-contrast) {
+  /* sidebar, panel, activitybar all get glass */
+}
+
+/* --- Activity Bar (left icon strip) --- */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .bg-vscode-activitybar,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) aside > div:first-child {
+  background: var(--glass-bg-heavy) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-border) !important;
+}
+
+/* --- Sidebars (left & right panels) --- */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .bg-vscode-sidebar {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-border) !important;
+}
+
+/* --- Panel area (bottom panel, terminal header) --- */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .bg-vscode-panel {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-border) !important;
+}
+
+/* --- Tab headers / panel headers --- */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .border-b.bg-vscode-sidebar,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [class*="border-b"][class*="bg-vscode-sidebar"] {
+  background: var(--glass-bg-heavy) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-border) !important;
+  box-shadow: inset 0 -1px 0 var(--glass-highlight);
+}
+
+/* --- All vscode-border borders → glass borders --- */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .border-vscode-border {
+  border-color: var(--glass-border) !important;
+}
+
+/* ============================================
+   ✦ GLASS HOVER & ACTIVE STATES ✦
+   ============================================ */
+
+/* Hover background */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .hover\:bg-vscode-hover:hover,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .bg-vscode-hover {
+  background: var(--glass-highlight) !important;
+}
+
+/* Selection / active */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .bg-vscode-selection {
+  background: var(--glass-glow) !important;
+}
+
+/* ============================================
+   ✦ GLASS SCROLLBARS ✦
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) ::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) ::-webkit-scrollbar-track {
+  background: transparent;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.16);
+  background-clip: padding-box;
+}
+
+.light ::-webkit-scrollbar { width: 7px; height: 7px; }
+.light ::-webkit-scrollbar-track { background: transparent; }
+.light ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.12); border-radius: 10px; }
+.light ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.2); }
+
+.high-contrast ::-webkit-scrollbar { width: 8px; height: 8px; }
+.high-contrast ::-webkit-scrollbar-track { background: #000; }
+.high-contrast ::-webkit-scrollbar-thumb { background: #6fc3df; border-radius: 4px; }
+.high-contrast ::-webkit-scrollbar-thumb:hover { background: #ffd700; }
+
+/* ============================================
+   ✦ GLASS SELECTION ✦
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) ::selection {
+  background: var(--vscode-selection);
+  color: var(--vscode-text);
+}
+.light ::selection { background: #b4d6fa; color: #24292e; }
+.high-contrast ::selection { background: #264f78; color: #ffffff; }
+
+/* ============================================
+   ✦ GLASS INPUT / TEXTAREA / SELECT ✦
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) input,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) textarea,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) select {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border) !important;
+  color: var(--vscode-text);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) input:focus,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) textarea:focus,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) select:focus {
+  border-color: var(--vscode-accent) !important;
+  outline: none;
+  box-shadow: 0 0 0 1px var(--glass-glow), 0 0 20px var(--glass-glow);
+}
+
+.light input, .light textarea, .light select {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  color: #24292e;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+.light input:focus, .light textarea:focus, .light select:focus {
+  border-color: #0078d4;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(0, 120, 212, 0.15), 0 0 20px rgba(0, 120, 212, 0.08);
+}
+
+.high-contrast input, .high-contrast textarea, .high-contrast select {
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #6fc3df;
+  color: #fff;
+}
+.high-contrast input:focus, .high-contrast textarea:focus, .high-contrast select:focus {
+  border-color: #ffd700;
+  outline: none;
+  box-shadow: 0 0 0 2px #ffd700;
+}
+.high-contrast button:focus { outline: 2px solid #ffd700; outline-offset: 2px; }
+
+/* ============================================
+   ✦ DARK THEME UTILITY CLASS OVERRIDES ✦
+   Glass-ified: backgrounds become translucent
+   ============================================ */
+
+/* White backgrounds → glass sidebar */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora,
+    .high-contrast) :is(.bg-white, [class*="bg-white"]) {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* Light gray backgrounds → glass panel */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora,
+    .high-contrast) :is(.bg-gray-50, .bg-gray-100, .bg-gray-200, .bg-gray-300) {
+  background: var(--glass-bg) !important;
+}
+
+/* Dark gray backgrounds → bg */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.bg-gray-700, .bg-gray-800, .bg-gray-900) {
+  background: var(--vscode-bg) !important;
+}
+
+/* Slate backgrounds */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.bg-slate-50, .bg-slate-100, .bg-slate-200) {
+  background: var(--glass-bg) !important;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.bg-slate-700, .bg-slate-800, .bg-slate-900) {
+  background: var(--vscode-bg) !important;
+}
+
+/* Dark text → theme text */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora,
+    .high-contrast) :is(.text-gray-900, .text-gray-800, .text-gray-700) {
+  color: var(--vscode-text) !important;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.text-gray-600, .text-gray-500) {
+  color: var(--vscode-text-muted) !important;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.text-gray-400, .text-gray-300) {
+  color: var(--vscode-text) !important;
+}
+
+/* White text → theme text */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .text-white {
+  color: var(--vscode-text) !important;
+}
+
+/* Border overrides → glass borders */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora,
+    .high-contrast) :is(.border-gray-200, .border-gray-300, .border-gray-400) {
+  border-color: var(--glass-border) !important;
+}
+
+/* Slate text overrides */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.text-slate-800, .text-slate-900, .text-slate-700) {
+  color: var(--vscode-text) !important;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.text-slate-500, .text-slate-400) {
+  color: var(--vscode-text-muted) !important;
+}
+
+/* Slate borders → glass */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.border-slate-200, .border-slate-300, .border-slate-700) {
+  border-color: var(--glass-border) !important;
+}
+
+/* Modal/dialog backgrounds → glass */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora,
+    .high-contrast) .fixed.inset-0 > div:not([class*="bg-black"]) {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+}
+
+/* Hardcoded hex bg overrides */
+:is(.theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel) :is(
+    [class*="bg-[#0"], [class*="bg-[#1"], [class*="bg-[#2"]) {
+  background: var(--glass-bg) !important;
+}
+
+/* Hardcoded hex border overrides */
+:is(.theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel) [class*="border-[#"] {
+  border-color: var(--glass-border) !important;
+}
+
+/* Blue utility → accent */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.bg-blue-500, .bg-blue-600) {
+  background: var(--vscode-accent) !important;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(.text-blue-500, .text-blue-600, .text-blue-400) {
+  color: var(--vscode-accent) !important;
+}
+
+/* Green utility */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .bg-green-500 {
+  background: var(--vscode-success) !important;
+}
+
+/* Hover states → glass */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) :is(
+    [class*="hover:bg-[#"]:hover, .hover\:bg-gray-100:hover, .hover\:bg-gray-200:hover) {
+  background: var(--glass-highlight) !important;
+}
+
+/* ============================================
+   ✦ GLASSMORPHISM ACCENT BUTTONS ✦
+   Glowing accent with glass edge
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .bg-vscode-accent {
+  background: var(--vscode-accent) !important;
+  color: #000 !important;
+  font-weight: 600;
+  border: none !important;
+  border-radius: 8px;
+  box-shadow: 0 0 20px var(--glass-glow), 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .bg-vscode-accent:hover {
+  background: var(--vscode-accent-hover) !important;
+  box-shadow: 0 0 30px var(--glass-glow), 0 4px 16px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   ✦ GLASS BUTTONS — All non-accent buttons ✦
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) button:not(.bg-vscode-accent):not([class*="bg-vscode-accent"]) {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) button:not(.bg-vscode-accent):not([class*="bg-vscode-accent"]):hover {
+  background: var(--glass-highlight) !important;
+}
+
+/* ============================================
+   ✦ GLASS TOOLTIPS ✦
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .tooltip,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [class*="tooltip"] {
+  background: var(--glass-bg-heavy) !important;
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow);
+  border-radius: 8px;
+}
+
+/* ============================================
+   ✦ GLASS MENUS / DROPDOWNS ✦
+   ============================================ */
+.menu,
+[role="menu"],
+[role="listbox"] {
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .menu,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [role="menu"],
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [role="listbox"] {
+  background: var(--glass-bg-heavy) !important;
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow-lg);
+}
+
+.menu-item { padding: 8px 12px; color: var(--vscode-text); cursor: pointer; border-radius: 6px; margin: 2px 4px; transition: all 0.15s ease; }
+.menu-item:hover { background: var(--glass-highlight); }
+.menu-item.active { background: var(--glass-glow); }
+
+/* ============================================
+   ✦ GLASS CARDS ✦
+   ============================================ */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--glass-shadow);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--glass-shadow-lg);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   ✦ GLASS MODALS / DIALOGS ✦
+   Heavy frosted glass with accent glow
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .fixed.inset-0[class*="bg-black"],
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [class*="bg-black/50"],
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [class*="bg-black/80"] {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) saturate(150%);
+  -webkit-backdrop-filter: blur(8px) saturate(150%);
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .fixed.inset-0 > div[class*="bg-"],
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [class*="modal"],
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [class*="dialog"],
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [role="dialog"],
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .fixed.inset-0 .rounded-lg {
+  background: var(--glass-bg-heavy) !important;
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow-lg) !important;
+  border-radius: 14px !important;
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .fixed.inset-0 input,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .fixed.inset-0 textarea,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .fixed.inset-0 select,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [role="dialog"] input,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [role="dialog"] textarea {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  color: var(--vscode-text) !important;
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .fixed.inset-0 input:focus,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) [role="dialog"] input:focus {
+  border-color: var(--vscode-accent) !important;
+  box-shadow: 0 0 0 1px var(--glass-glow), 0 0 20px var(--glass-glow) !important;
+}
+
+/* ============================================
+   ✦ ACCENT TOP LINE — subtle glow strip ✦
+   ============================================ */
+:is(.theme-charcoal-aurora, .theme-github-dark, .theme-dracula, .theme-nord,
+    .theme-monokai, .theme-solarized-dark, .theme-one-dark, .theme-steel)::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--vscode-accent) 50%, transparent 100%);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ============================================
+   ✦ GLASS TABS ✦
+   ============================================ */
+.tab {
+  padding: 8px 16px;
+  color: var(--vscode-text-muted);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.2s ease;
+}
+.tab:hover {
+  color: var(--vscode-text);
+  background: var(--glass-highlight);
+}
+.tab.active {
+  color: var(--vscode-text);
+  border-bottom-color: var(--vscode-accent);
+  background: var(--glass-glow);
+}
+
+/* ============================================
+   ✦ GLASS LIST ITEMS ✦
+   ============================================ */
+.list-item {
+  padding: 8px 12px;
+  color: var(--vscode-text);
+  border-left: 2px solid transparent;
+  border-radius: 6px;
+  margin: 1px 4px;
+  transition: all 0.15s ease;
+}
+.list-item:hover {
+  background: var(--glass-highlight);
+}
+.list-item.active {
+  background: var(--glass-glow);
+  border-left-color: var(--vscode-accent);
+}
+
+/* ============================================
+   ✦ STEEL — Metallic Glass ✦
+   ============================================ */
+.theme-steel .bg-vscode-sidebar,
+.theme-steel .bg-vscode-activitybar,
+.theme-steel .bg-vscode-panel {
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+}
+
+.theme-steel .bg-vscode-accent {
+  background: linear-gradient(180deg, #8899ad 0%, #6b7a8f 100%) !important;
+}
+
+.theme-steel .tab-active {
+  background: linear-gradient(180deg, rgba(37, 41, 50, 0.8) 0%, rgba(30, 33, 40, 0.8) 100%);
+}
+
+/* ============================================
+   ✦ GLOBAL ELEMENT STYLES ✦
+   ============================================ */
+
+/* Placeholder text */
+input::placeholder, textarea::placeholder {
+  color: var(--vscode-text-muted);
+  opacity: 0.6;
+}
+
+/* Focus ring — glass glow */
+button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--glass-glow), 0 0 12px var(--glass-glow);
+}
+
+/* Links */
+a { color: var(--vscode-accent); transition: all 0.15s ease; }
+a:hover { color: var(--vscode-accent-hover); }
+
+/* Status utilities */
+.text-success { color: var(--vscode-success); }
+.text-warning { color: var(--vscode-warning); }
+.text-error { color: var(--vscode-error); }
+.bg-success { background-color: var(--vscode-success); }
+.bg-warning { background-color: var(--vscode-warning); }
+.bg-error { background-color: var(--vscode-error); }
+
+/* Smooth glass transitions on theme switch */
+body, .bg-vscode-bg, .bg-vscode-sidebar, .bg-vscode-panel,
+.text-vscode-text, .border-vscode-border,
+button, input, textarea, select, aside, footer, div {
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.2s ease,
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              backdrop-filter 0.3s ease;
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.08) transparent;
+}
+
+/* Code elements → glass */
+code, pre {
+  background: var(--glass-bg);
+  color: var(--vscode-text);
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+}
+pre { padding: 12px; overflow-x: auto; }
+code { padding: 2px 6px; font-size: 0.9em; }
+
+/* Badge → glass accent */
+.badge {
+  background: var(--vscode-accent);
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75em;
+  font-weight: 600;
+  box-shadow: 0 0 12px var(--glass-glow);
+}
+
+/* Divider → subtle glass line */
+.divider {
+  height: 1px;
+  background: var(--glass-border);
+  margin: 8px 0;
+}
+
+/* Tooltip → glass */
+.tooltip {
+  background: var(--glass-bg-heavy);
+  color: var(--vscode-text);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.85em;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+}
+
+/* Status dots → glow */
+.status-dot { width: 8px; height: 8px; border-radius: 50%; }
+.status-dot.online { background: var(--vscode-success); box-shadow: 0 0 8px var(--vscode-success); }
+.status-dot.offline { background: var(--vscode-error); box-shadow: 0 0 8px var(--vscode-error); }
+.status-dot.busy { background: var(--vscode-warning); box-shadow: 0 0 8px var(--vscode-warning); }
+
+/* ============================================
+   ✦ SIDEBAR ICON VISIBILITY — Glass style ✦
+   ============================================ */
+
+/* Dark theme activity bar icons */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) aside svg {
+  color: var(--vscode-text-muted);
+  transition: all 0.2s ease;
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) aside button:hover svg {
+  color: var(--vscode-text);
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) aside button.border-l-vscode-accent svg,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) aside button.active svg,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) aside [aria-selected="true"] svg,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) aside [class*="border-l-2"] svg {
+  color: var(--vscode-accent);
+}
+
+/* Sidebar text */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) aside span {
+  color: var(--vscode-text);
+}
+
+/* ✦ Glass Status Bar ✦ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) footer {
+  background: var(--glass-bg-heavy) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--glass-border) !important;
+  color: var(--vscode-text-muted);
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) footer * {
+  color: var(--vscode-text-muted);
+}
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) footer *:hover {
+  color: var(--vscode-accent) !important;
+}
+
+.light footer {
+  background: rgba(234, 234, 235, 0.7) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--glass-border) !important;
+}
+
+/* ============================================
+   ✦ CHARCOAL AURORA — SPECIFIC GLASS STYLES ✦
+   ============================================ */
+
+/* Activity bar icons */
+.theme-charcoal-aurora .bg-vscode-activitybar button svg {
+  color: var(--icon-default, #505868) !important;
+}
+.theme-charcoal-aurora .bg-vscode-activitybar button:hover svg {
+  color: var(--icon-hover, #8892a0) !important;
+}
+.theme-charcoal-aurora .bg-vscode-activitybar button.active svg,
+.theme-charcoal-aurora .bg-vscode-activitybar [class*="border-l"] svg {
+  color: var(--vscode-accent) !important;
+}
+
+/* Tabs — glass active state */
+.theme-charcoal-aurora [role="tablist"] button,
+.theme-charcoal-aurora [role="tab"] {
+  color: var(--vscode-text-muted) !important;
+  background: transparent !important;
+  border-bottom: 2px solid transparent !important;
+  transition: all 0.2s ease;
+}
+.theme-charcoal-aurora [role="tablist"] button:hover,
+.theme-charcoal-aurora [role="tab"]:hover {
+  color: var(--vscode-text) !important;
+  background: var(--glass-highlight) !important;
+}
+.theme-charcoal-aurora [role="tablist"] button[aria-selected="true"],
+.theme-charcoal-aurora [role="tab"][aria-selected="true"],
+.theme-charcoal-aurora [role="tablist"] button.active,
+.theme-charcoal-aurora .tab-active {
+  color: var(--vscode-accent) !important;
+  border-bottom-color: var(--vscode-accent) !important;
+  background: var(--glass-glow) !important;
+}
+
+/* Accent buttons → accent glow */
+.theme-charcoal-aurora .bg-vscode-accent,
+.theme-charcoal-aurora button[class*="bg-vscode-accent"] {
+  background: var(--vscode-accent) !important;
+  color: #000 !important;
+  font-weight: 600;
+  box-shadow: 0 0 20px var(--glass-glow), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.theme-charcoal-aurora .bg-vscode-accent:hover {
+  background: var(--vscode-accent-hover) !important;
+  box-shadow: 0 0 30px var(--glass-glow), 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Accent text */
+.theme-charcoal-aurora .text-vscode-accent {
+  color: var(--vscode-accent) !important;
+}
+
+/* kbd / code tags → glass */
+.theme-charcoal-aurora kbd,
+.theme-charcoal-aurora [class*="kbd"] {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  color: var(--vscode-text-muted) !important;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* Monaco editor */
+.theme-charcoal-aurora .monaco-editor {
+  background: var(--vscode-editor) !important;
+}
+.theme-charcoal-aurora .monaco-editor .margin {
+  background: var(--vscode-editor) !important;
+}
+.theme-charcoal-aurora .monaco-editor .line-numbers {
+  color: var(--vscode-text-muted) !important;
+}
+
+/* Terminal */
+.theme-charcoal-aurora .xterm,
+.theme-charcoal-aurora [class*="terminal"] {
+  background: var(--vscode-bg) !important;
+}
+
+/* Rounded cards / AI chat → glass */
+.theme-charcoal-aurora div[class*="rounded-xl"],
+.theme-charcoal-aurora div[class*="border-dashed"] {
+  background: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* File explorer hover/active → glass */
+.theme-charcoal-aurora .file-item:hover,
+.theme-charcoal-aurora [class*="tree-item"]:hover {
+  background: var(--glass-highlight) !important;
+}
+.theme-charcoal-aurora .file-item.selected,
+.theme-charcoal-aurora [class*="tree-item"].selected {
+  background: var(--glass-glow) !important;
+  color: var(--vscode-accent) !important;
+}
+
+/* Status colors */
+.theme-charcoal-aurora .bg-red-500 { background: var(--vscode-error) !important; }
+.theme-charcoal-aurora .text-red-500,
+.theme-charcoal-aurora .text-red-400 { color: var(--vscode-error) !important; }
+.theme-charcoal-aurora .bg-green-500 { background: var(--vscode-success) !important; }
+.theme-charcoal-aurora .text-green-500,
+.theme-charcoal-aurora .text-green-400 { color: var(--vscode-success) !important; }
+.theme-charcoal-aurora .text-yellow-500,
+.theme-charcoal-aurora .text-yellow-400 { color: var(--vscode-warning) !important; }
+
+/* VS Code styled bgs → glass */
+.theme-charcoal-aurora [class*="bg-[#1e1e1e]"],
+.theme-charcoal-aurora [class*="bg-[#252526]"],
+.theme-charcoal-aurora [class*="bg-[#2d2d2d]"],
+.theme-charcoal-aurora [class*="bg-[#3c3c3c]"] {
+  background: var(--glass-bg) !important;
+}
+
+/* Links */
+.theme-charcoal-aurora a:not(button) { color: var(--vscode-accent) !important; }
+.theme-charcoal-aurora a:not(button):hover { color: var(--vscode-accent-hover) !important; }
+
+/* HR → glass border */
+.theme-charcoal-aurora hr { border-color: var(--glass-border) !important; }
+
+/* ============================================
+   ✦ RAZER BLACK — Glass with Blue Glow ✦
+   ============================================ */
+.dark:not([class*="theme-"]):not(.high-contrast) .bg-vscode-accent {
+  background: linear-gradient(135deg, #2979ff 0%, #1565c0 100%);
+  box-shadow: 0 0 20px rgba(41, 121, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   ✦ TEXT CLEANUP — Zero text-shadow, zero icon filter ✦
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) h1,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) h2,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) h3,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) h4,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) p,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) span,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) a,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) button,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) label,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) div {
+  text-shadow: none !important;
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) svg {
+  filter: none !important;
+}
+
+/* ============================================
+   ✦ STEEL — Tab & Terminal glass specifics ✦
+   ============================================ */
+.theme-steel .xterm {
+  background: #14171d;
+}
+.theme-steel .monaco-editor .margin {
+  background: linear-gradient(90deg, rgba(24, 27, 34, 0.9) 0%, rgba(28, 31, 38, 0.9) 100%) !important;
+}
+
+/* ============================================
+   ✦ COMPREHENSIVE HARDCODED BG OVERRIDES ✦
+   ============================================ */
+:is(.theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel) :is(
+    .bg-\[\#252526\], .bg-\[\#3c3c3c\], .bg-\[\#2a2d2e\],
+    .bg-\[\#1a1a1a\], .bg-\[\#094771\]) {
+  background: var(--glass-bg) !important;
+}
+
+:is(.theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel) .border-\[\#3c3c3c\] {
+  border-color: var(--glass-border) !important;
+}
+
+:is(.theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel) .hover\:text-white:hover {
+  color: var(--vscode-text) !important;
+}
+
+/* Inline style bg override */
+:is(.theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel) > [style*="background"]:not([style*="linear-gradient"]):not([style*="background-image"]) {
+  background: var(--glass-bg) !important;
+}
+
+/* ============================================
+   ✦ GLASS ROUNDED ELEMENTS ✦
+   Make all rounded-lg and rounded-xl properly glass
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .rounded-lg,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .rounded-xl {
+  border-color: var(--glass-border);
+}
+
+/* ============================================
+   ✦ GLASS SHADOW UTILITIES ✦
+   ============================================ */
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .shadow-lg,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .shadow-xl,
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .shadow-2xl {
+  box-shadow: var(--glass-shadow-lg) !important;
+}
+
+:is(.dark, .theme-github-dark, .theme-dracula, .theme-nord, .theme-monokai,
+    .theme-solarized-dark, .theme-one-dark, .theme-steel, .theme-charcoal-aurora) .shadow-vscode {
+  box-shadow: var(--glass-shadow) !important;
+}
+
+/* ============================================
+   ✦ LIGHT THEME GLASS ✦
+   ============================================ */
+.light .bg-vscode-sidebar {
+  background: rgba(245, 245, 245, 0.65) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-border) !important;
+}
+
+.light .bg-vscode-panel {
+  background: rgba(245, 245, 245, 0.65) !important;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.light .border-vscode-border,
+.light .border-gray-200,
+.light .border-gray-300 {
+  border-color: var(--glass-border) !important;
+}
+
+.light .shadow-lg,
+.light .shadow-xl {
+  box-shadow: var(--glass-shadow) !important;
+}
+
+/* ============================================
+   END OF GLASSMORPHISM THEME SYSTEM
+   ============================================ */
+"""
+
+import os
+target = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'index.css')
+with open(target, 'w') as f:
+    f.write(css.strip() + '\n')
+print(f"Written {len(css.strip().splitlines())} lines to {target}")

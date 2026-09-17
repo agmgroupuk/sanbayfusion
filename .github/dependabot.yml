@@ -1,0 +1,225 @@
+# Dependabot version updates — maula.ai monorepo
+# Docs: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # ── Root ────────────────────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "root"
+
+  # ── Frontend (Next.js) ─────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 15
+    labels:
+      - "dependencies"
+      - "frontend"
+    groups:
+      next-ecosystem:
+        patterns:
+          - "next"
+          - "next-*"
+          - "@next/*"
+          - "react"
+          - "react-dom"
+          - "@types/react*"
+      linting-and-formatting:
+        patterns:
+          - "eslint*"
+          - "@eslint/*"
+          - "prettier"
+          - "typescript"
+      tailwind:
+        patterns:
+          - "tailwindcss"
+          - "postcss"
+          - "autoprefixer"
+
+  # ── Universal Chat Frontend ────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/frontend/components/universal-chat"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "universal-chat"
+
+  # ── Canvas App Frontend ────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/canvas-app"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "canvas-app"
+
+  # ── AI Studio Demo Frontend ────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/frontend/ai-studio-demo"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ai-studio-demo"
+
+  # ── Backend (shared) ───────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "backend"
+    groups:
+      express-ecosystem:
+        patterns:
+          - "express"
+          - "cors"
+          - "helmet"
+          - "cookie-parser"
+          - "compression"
+      prisma:
+        patterns:
+          - "@prisma/*"
+          - "prisma"
+      ai-providers:
+        patterns:
+          - "openai"
+          - "@anthropic-ai/*"
+          - "@google/*"
+
+  # ── Universal Chat Backend ─────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend/universal-chat-backend"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "backend"
+      - "universal-chat"
+
+  # ── Canvas App Backend ─────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend/canvas-app-backend"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "backend"
+      - "canvas-app"
+
+  # ── Canvas Studio Backend ──────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend/canvas-studio-backend"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "backend"
+      - "canvas-studio"
+
+  # ── AI Studio Demo Backend ─────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend/ai-studio-demo-backend"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "backend"
+      - "ai-studio-demo"
+
+  # ── Community Backend ──────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend/community-backend"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "backend"
+      - "community"
+
+  # ── Lab Backend ────────────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend/lab-backend"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "backend"
+      - "lab"
+
+  # ── Live Support Backend ───────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend/live-support-backend"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "backend"
+      - "live-support"
+
+  # ── Tools Backend ──────────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/backend/tools-backend"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "backend"
+      - "tools"
+
+  # ── Packages / Database ────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/packages/database"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "database"
+
+  # ── Docker (sandbox) ───────────────────────────────────────────────
+  - package-ecosystem: "docker"
+    directory: "/backend/sandbox"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "docker"

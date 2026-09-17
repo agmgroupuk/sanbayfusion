@@ -1,0 +1,66 @@
+{
+    "name": "maula-editor-desktop",
+    "version": "1.0.0",
+    "description": "Maula Editor - AI Code Editor Desktop",
+    "main": "main.js",
+    "author": "One LastAI <support@onelastai.co>",
+    "license": "UNLICENSED",
+    "scripts": {
+        "start": "electron .",
+        "build:mac": "electron-builder --mac",
+        "build:win": "electron-builder --win",
+        "build:linux": "electron-builder --linux",
+        "build:all": "electron-builder --mac --win --linux"
+    },
+    "devDependencies": {
+        "electron": "^35.2.1",
+        "electron-builder": "^26.0.12"
+    },
+    "build": {
+        "appId": "co.onelastai.maula",
+        "productName": "Maula Editor",
+        "directories": {
+            "output": "release"
+        },
+        "mac": {
+            "category": "public.app-category.developer-tools",
+            "icon": "icons/icon.icns",
+            "target": [
+                {
+                    "target": "dmg",
+                    "arch": [
+                        "universal"
+                    ]
+                }
+            ],
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false
+        },
+        "win": {
+            "icon": "icons/icon.ico",
+            "target": [
+                {
+                    "target": "nsis",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "installerIcon": "icons/icon.ico",
+            "uninstallerIcon": "icons/icon.ico",
+            "installerHeaderIcon": "icons/icon.ico"
+        },
+        "linux": {
+            "icon": "icons",
+            "target": [
+                "AppImage",
+                "deb"
+            ],
+            "category": "Development"
+        }
+    }
+}

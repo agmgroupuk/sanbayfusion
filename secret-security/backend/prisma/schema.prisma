@@ -1,0 +1,188 @@
+// This is your Prisma schema file
+// Security system database: security_system
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────
+
+enum DeviceStatus {
+  registered    // installed, silent, NOT tracking
+  verified      // ownership pre-verified (e.g. at purchase)
+  tracking      // security team activated tracking (device marked lost)
+  found         // device recovered
+  disabled      // deactivated / unregistered
+}
+
+enum ReportStatus {
+  pending       // awaiting security team review
+  approved      // identity verified, tracking activated
+  rejected      // verification failed (identity mismatch)
+  resolved      // device found/returned
+  closed        // case closed
+}
+
+enum CommandType {
+  START_TRACKING     // begin silent GPS + photo collection
+  STOP_TRACKING      // stop collection, return to dormant
+  TAKE_PHOTO         // take front camera photo silently
+  TRIGGER_ALARM      // play loud alarm (owner-triggered, optional)
+  SET_PING_INTERVAL  // change GPS ping frequency
+  SELF_DESTRUCT      // wipe the security app from device
+}
+
+// ─── Models ───────────────────────────────────────────────────────────
+
+model Device {
+  id                String       @id @default(cuid())
+
+  // Hardware identity
+  deviceId          String       @unique    // deterministic fingerprint (ANDROID_ID + model)
+  deviceName        String
+  model             String?
+  os                String       @default("Android")
+  osVersion         String?
+  appVersion        String?
+
+  // Linked maula.ai account (optional — user may not have account)
+  maulaUserId       String?
+  ownerEmail        String?                   // email to notify
+  ownerName         String?
+
+  // State
+  status            DeviceStatus @default(registered)
+  trackingActive    Boolean      @default(false)   // CRITICAL: false until security team activates
+  activatedAt       DateTime?
+  activatedBy       String?                   // admin ID who activated
+
+  // Geofence (optional, set by user after registration)
+  geofenceLat       Float?
+  geofenceLng       Float?
+  geofenceRadius    Float?
+
+  // Last heartbeat
+  lastSeenAt        DateTime?
+  lastLat           Float?
+  lastLng           Float?
+  lastBattery       Int?
+  lastNetwork       String?
+  lastSimHash       String?
+  simChangedAt      DateTime?
+
+  pingIntervalSecs  Int          @default(300)     // 5 min default; 30 s when tracking
+
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  pings             LocationPing[]
+  photos            DevicePhoto[]
+  reports           LostReport[]
+  commands          CommandQueue[]
+
+  @@map("devices")
+}
+
+model LocationPing {
+  id          String   @id @default(cuid())
+  deviceId    String
+
+  lat         Float
+  lng         Float
+  accuracy    Float?
+  altitude    Float?
+  speed       Float?
+  heading     Float?
+  battery     Int?
+  network     String?                             // "wifi" | "mobile" | "none"
+  simHash     String?
+  simChanged  Boolean  @default(false)
+
+  timestamp   DateTime @default(now())
+
+  device      Device   @relation(fields: [deviceId], references: [deviceId], onDelete: Cascade)
+
+  @@index([deviceId, timestamp])
+  @@map("location_pings")
+}
+
+model DevicePhoto {
+  id          String   @id @default(cuid())
+  deviceId    String
+
+  s3Key       String                              // S3 object key
+  camera      String   @default("front")          // "front" | "rear"
+  sizeBytes   Int?
+  takenAt     DateTime @default(now())
+
+  device      Device   @relation(fields: [deviceId], references: [deviceId], onDelete: Cascade)
+
+  @@map("device_photos")
+}
+
+model LostReport {
+  id              String       @id @default(cuid())
+  deviceId        String
+
+  // Owner verification — submitted through website
+  ownerName       String
+  ownerEmail      String
+  ownerPhone      String?
+  purchaseProof   String?      // URL to uploaded receipt / IMEI proof document
+  description     String?      // where/when device was lost
+
+  status          ReportStatus @default(pending)
+  reviewedBy      String?      // admin ID
+  reviewNote      String?      // internal admin note
+  reviewedAt      DateTime?
+
+  // Payment & report delivery
+  reportS3Key          String?      // generated ZIP (location + photos) once ready
+  paymentIntentId      String?      // Stripe PaymentIntent ID
+  paymentSessionId     String?      // Stripe Checkout Session ID
+  paymentPaid          Boolean      @default(false)
+  paidAt               DateTime?
+  downloadToken        String?      // signed token for download link (1-time use, 48h expiry)
+  downloadTokenExpiry  DateTime?    // expiry date for download token
+
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  device          Device       @relation(fields: [deviceId], references: [deviceId])
+
+  @@map("lost_reports")
+}
+
+model CommandQueue {
+  id           String      @id @default(cuid())
+  deviceId     String
+
+  command      CommandType
+  payload      Json?                              // e.g. { intervalSecs: 30 }
+  issuedBy     String?                            // admin ID
+
+  createdAt    DateTime    @default(now())
+  deliveredAt  DateTime?                          // set when device polls and receives it
+
+  device       Device      @relation(fields: [deviceId], references: [deviceId], onDelete: Cascade)
+
+  @@index([deviceId, deliveredAt])
+  @@map("command_queue")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("agent")         // "agent" | "superadmin"
+  createdAt    DateTime @default(now())
+  lastLoginAt  DateTime?
+
+  @@map("admin_users")
+}

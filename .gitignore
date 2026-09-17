@@ -1,0 +1,530 @@
+# ==================================================
+# 🔒 SECURITY & SENSITIVE FILES - DO NOT COMMIT
+# ==================================================
+# WARNING: This file prevents committing sensitive data
+# Review .gitignore rules before pushing to remote repositories
+# Never commit: API keys, passwords, secrets, tokens, credentials
+# ==================================================
+
+# Internal documentation (not for version control)
+BACKEND-ARCHITECTURE.md
+
+# Environment variables and secrets (CRITICAL!)
+.env
+.env.*
+.env.local
+.env.production
+.env.production.local
+.env.development.local
+.env.test.local
+.env.staging
+.env.*.local
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+frontend/.env.local
+frontend/.env.production.local
+!.env.example
+!.env.template
+!**/.env.example
+!**/.env.template
+.env.production.frontend.template
+.env.production.backend.template
+.env-archive/
+
+# API Keys and sensitive configuration
+APIKEYS.md
+apikeys.md
+API_KEYS.md
+**/apikeys.*
+**/api-keys.*
+**/secrets.*
+**/*secret*
+**/*private*
+**/*credentials*
+**/*token*
+
+# Specific AI API keys (double protection)
+openai_key.txt
+anthropic_key.txt
+gemini_key.txt
+cohere_key.txt
+elevenlabs_key.txt
+
+# Payment provider keys
+stripe_keys.txt
+paypal_keys.txt
+payment_credentials.*
+
+# AWS credentials
+.aws/
+aws-credentials.json
+**/aws-config.json
+
+# Database connection strings
+database_url.txt
+db-credentials.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+*.jks
+*.keystore
+private/
+secrets/
+# Certificates/keys (do not commit private keys)
+*.pem
+*.key
+*.crt
+
+
+# Backup files
+*.backup
+*.bak
+*.tmp
+*.swp
+.bak
+
+# Authentication & OAuth tokens
+auth.tokens
+tokens/
+oauth/
+
+# Local credentials cache
+.credentials
+credentials.json
+service-account-*.json
+
+# ==================================================
+# NODE.JS & NPM
+# ==================================================
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons
+build/Release
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# ==================================================
+# NEXT.JS
+# ==================================================
+
+# Next.js build output
+.next/
+out/
+
+# Next.js cache
+.next/cache/
+
+# Vercel deployment
+.vercel
+
+# ==================================================
+# REACT & FRONTEND
+# ==================================================
+
+# Build directories
+/build/
+/dist/
+public/build/
+
+# Allow backend services build directory
+!backend/services/build/
+
+# Static files that shouldn't be tracked
+public/uploads/
+public/temp/
+
+# ==================================================
+# TYPESCRIPT
+# ==================================================
+
+# TypeScript compiled files
+*.tsbuildinfo
+*.d.ts.map
+
+# ==================================================
+# TESTING
+# ==================================================
+
+# Test coverage
+coverage/
+.nyc_output/
+junit.xml
+
+# ==================================================
+# LOGS & SENSITIVE OUTPUT
+# ==================================================
+
+# Log files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+server.log
+debug.log
+error.log
+
+# Runtime logs
+*.log
+*.out
+
+# Logs from PM2
+pm2.log
+pm2-error.log
+
+# Pids
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ==================================================
+# OPERATING SYSTEM
+# ==================================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ==================================================
+# EDITORS & IDEs
+# ==================================================
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+*.swp
+*.swo
+*~
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ==================================================
+# CLOUD & DEPLOYMENT
+# ==================================================
+
+# AWS
+.aws/
+
+# Google Cloud
+.gcloud/
+
+# Docker
+.dockerignore
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# ==================================================
+# MISCELLANEOUS
+# ==================================================
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# Local development files
+.local
+.cache
+
+# Package manager lock files (optional - some teams prefer to ignore these)
+# package-lock.json
+# yarn.lock
+
+# ==================================================
+# PROJECT SPECIFIC - SHINY FRIEND DISCO
+# ==================================================
+
+# Integration test outputs
+integration-test-results/
+test-results/
+
+# Generated documentation
+docs/generated/
+
+# Local configuration overrides
+config.local.*
+settings.local.*
+
+# AI Model cache files
+**/model-cache/
+**/.cache/huggingface/
+**/.cache/transformers/
+
+# Voice/Audio cache
+**/voice-cache/
+**/tts-cache/
+**/audio-temp/
+
+# User uploaded files
+**/uploads/
+**/user-uploads/
+**/user-data/
+public/uploads/
+frontend/public/uploads/
+
+# Payment processing logs
+**/payment-logs/
+**/transaction-logs/
+**/stripe-webhooks.log
+**/paypal-webhooks.log
+
+# Email service logs
+**/email-logs/
+**/sendgrid-logs/
+
+# Session storage
+sessions/
+**/sessions/
+!frontend/app/api/sessions/
+!frontend/app/api/sessions/**
+
+# Analytics data
+**/analytics-data/
+**/user-analytics/
+
+# Backup directories
+backups/
+**/backups/
+*.backup
+backup_*/
+
+# Database dumps
+*.sql
+!backend/prisma/migrations/**/*.sql
+!backend/**/prisma/migrations/**/*.sql
+
+# ==================================================
+# ADDITIONAL SENSITIVE FILES - ENSURE THESE ARE IGNORED
+# ==================================================
+# SSH keys and auth
+.ssh/
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+.netrc
+
+# HTTP auth and server secrets
+.htpasswd
+.htaccess
+
+# Rails / other encrypted credentials
+credentials.yml.enc
+
+# macOS keychain exports
+*.keychain
+
+# Generic secrets and key stores
+*.jks
+*.keystore
+*.p12
+*.pfx
+
+# Local sensitive documentation that may contain keys
+*credentials*
+*secret*
+*private*
+*tokens*
+*api-key*
+
+# Exception: track secret-security backend code (not .env files)
+!secret-security/
+!secret-security/**
+secret-security/**/.env
+secret-security/**/node_modules/
+
+# Narrow allowlist: keep example env templates but ignore any other env-like files
+!.env.example
+!.env.template
+
+# Editor local histories
+.history
+.vscode/*history*
+
+# Git large file storage metadata (if storing secrets accidentally)
+.gitattributes
+
+*.dump
+dump.rdb
+
+# SSL certificates for local development
+**/ssl/
+**/certificates/
+localhost.pem
+localhost-key.pem
+
+# PM2 process manager
+.pm2/
+pm2.log
+pm2-error.log
+ecosystem.config.local.js
+
+# Nginx configuration (if contains sensitive data)
+nginx/production.conf
+nginx/ssl.conf
+
+# Deployment scripts with secrets
+deploy-production.sh
+deploy.local.sh
+**/deploy-secrets.*
+
+# Test accounts and data
+test-accounts.json
+test-users.json
+test-api-keys.json
+
+# OpenAI fine-tuning data
+**/training-data/
+**/fine-tune-data/
+
+# Large media files
+*.mp4
+*.mov
+*.avi
+*.mp3
+*.wav
+*.flac
+**/large-files/
+
+# Temporary agent conversation logs
+**/conversation-logs/
+**/chat-history/
+
+# Redis dumps
+dump.rdb
+
+# Sentry configuration
+.sentryclirc
+
+# Cloudflare credentials
+.cloudflare/
+cloudflare-credentials.json
+
+# Email templates with sensitive info
+**/email-templates/production/
+
+# Monitoring and metrics
+**/metrics/
+**/monitoring-data/

@@ -1,0 +1,8 @@
+{
+  "name": "Maula AI Universal Chat",
+  "description": "AI chat interface with multi-agent support, voice calls, memory, and file analysis.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}

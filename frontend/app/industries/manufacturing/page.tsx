@@ -1,0 +1,289 @@
+'use client';
+
+import Link from 'next/link';
+import { useEffect, useRef, useCallback, useState } from 'react';
+import { Settings, Eye, ClipboardList, Truck, TrendingUp, Factory, ArrowRight, ChevronRight } from 'lucide-react';
+import { gsap, ScrollTrigger, SplitText, ScrambleTextPlugin, Flip, Observer, MotionPathPlugin, DrawSVGPlugin } from '@/lib/gsap';
+
+gsap.registerPlugin(ScrollTrigger, SplitText, ScrambleTextPlugin, Flip, Observer, MotionPathPlugin, DrawSVGPlugin);
+
+export default function ManufacturingPage() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const mouseRef = useRef({ x: 0, y: 0 });
+    const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+    const features = [
+        { icon: Settings, title: 'Predictive Maintenance', description: 'AI-powered equipment monitoring that predicts failures before they happen, reducing downtime', benefits: ['Failure Prediction', 'Asset Optimization', 'Zero Downtime'] },
+        { icon: Eye, title: 'Quality Control', description: 'Computer vision and AI inspection systems ensuring consistent product quality at scale', benefits: ['Visual Inspection', 'Defect Detection', 'Real-time Alerts'] },
+        { icon: ClipboardList, title: 'Production Planning', description: 'Intelligent production scheduling and resource allocation for maximum efficiency', benefits: ['Smart Scheduling', 'Resource Optimization', 'Just-in-Time'] },
+        { icon: Truck, title: 'Supply Chain AI', description: 'End-to-end supply chain optimization with demand forecasting and logistics intelligence', benefits: ['Demand Forecasting', 'Route Optimization', 'Vendor Management'] },
+    ];
+
+    const stats = [
+        { value: '30%', label: 'Less Downtime', icon: Settings },
+        { value: '25%', label: 'Quality Improvement', icon: Eye },
+        { value: '40%', label: 'Efficiency Gains', icon: TrendingUp },
+        { value: '99.5%', label: 'Production Accuracy', icon: Factory },
+    ];
+
+    const applications = [
+        { title: 'Equipment Monitoring', desc: 'Real-time sensor data analysis and alerts' },
+        { title: 'Visual Inspection', desc: 'AI-powered defect detection and quality assurance' },
+        { title: 'Energy Optimization', desc: 'Smart energy management and cost reduction' },
+        { title: 'Worker Safety', desc: 'AI-driven safety monitoring and compliance' },
+        { title: 'Demand Planning', desc: 'Predictive demand forecasting and inventory' },
+        { title: 'Process Optimization', desc: 'Continuous improvement through AI analytics' },
+    ];
+
+    const handleMouseMove = useCallback((e: React.MouseEvent) => { mouseRef.current = { x: e.clientX, y: e.clientY }; }, []);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        let raf: number;
+        const resize = () => { canvas.width = window.innerWidth; canvas.height = document.documentElement.scrollHeight; };
+        resize(); window.addEventListener('resize', resize);
+        const starColors = ['#ffffff', '#fcd34d', '#fde68a', '#f59e0b', '#c4b5fd', '#fed7aa'];
+        const stars = Array.from({ length: 120 }, () => ({
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            r: Math.random() * 1.4 + 0.3, alpha: Math.random(),
+            speed: Math.random() * 0.008 + 0.003,
+            color: starColors[Math.floor(Math.random() * starColors.length)],
+        }));
+        const draw = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                s.alpha += s.speed; if (s.alpha > 1 || s.alpha < 0) s.speed *= -1;
+                ctx.globalAlpha = Math.max(0, Math.min(1, s.alpha)) * 0.7;
+                ctx.fillStyle = s.color;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+                if (s.r > 1) { ctx.globalAlpha = Math.max(0, Math.min(1, s.alpha)) * 0.15; ctx.beginPath(); ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2); ctx.fill(); }
+            });
+            raf = requestAnimationFrame(draw);
+        };
+        draw();
+        return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); };
+    }, []);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+        const ctx = gsap.context(() => {
+            gsap.set('.mf-badge', { y: 20, opacity: 0, scale: 0.8 });
+            gsap.set('.mf-sub', { y: 30, opacity: 0 });
+            const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+            tl.to('.mf-badge', { y: 0, opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.7)' });
+
+            gsap.set('.mf-title', { opacity: 0, y: 40 });
+            tl.to('.mf-title', { opacity: 1, y: 0, duration: 0.8, ease: 'back.out(1.7)' }, '-=0.3');
+            tl.to('.mf-sub', { y: 0, opacity: 1, duration: 0.5 }, '-=0.4');
+            tl.from('.mf-cta-btn', { y: 20, opacity: 0, duration: 0.5, stagger: 0.1 }, '-=0.2');
+
+            gsap.utils.toArray<HTMLElement>('.mf-stat-value').forEach((el, i) => {
+                const orig = el.textContent || '';
+                ScrollTrigger.create({
+                    trigger: el, start: 'top 90%',
+                    onEnter: () => { gsap.to(el, { duration: 1, scrambleText: { text: orig, chars: '0123456789+%.', speed: 0.3 }, delay: i * 0.1 }); },
+                });
+            });
+
+            gsap.set('.mf-stat', { opacity: 0, y: 30 });
+            ScrollTrigger.create({
+                trigger: '.mf-stats-grid', start: 'top 80%',
+                onEnter: () => {
+                    gsap.utils.toArray<HTMLElement>('.mf-stat').forEach((el, i) => {
+                        const state = Flip.getState(el);
+                        gsap.set(el, { opacity: 1, y: 0 });
+                        Flip.from(state, { duration: 0.5, delay: i * 0.1, ease: 'power2.out' });
+                    });
+                },
+            });
+
+            gsap.set('.mf-feature', { y: 60, opacity: 0, scale: 0.95 });
+            ScrollTrigger.batch('.mf-feature', {
+                start: 'top 88%',
+                onEnter: batch => gsap.to(batch, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.1, ease: 'back.out(1.7)' }),
+                onLeaveBack: batch => gsap.to(batch, { y: 60, opacity: 0, scale: 0.95, duration: 0.3 }),
+            });
+
+            gsap.set('.mf-app', { y: 40, opacity: 0 });
+            ScrollTrigger.batch('.mf-app', {
+                start: 'top 88%',
+                onEnter: batch => gsap.to(batch, { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power2.out' }),
+            });
+
+            gsap.set('.mf-draw-line', { drawSVG: '0%' });
+            ScrollTrigger.create({ trigger: '.mf-features-section', start: 'top 80%', onEnter: () => gsap.to('.mf-draw-line', { drawSVG: '100%', duration: 1.2, ease: 'power2.inOut' }) });
+
+            gsap.set('.mf-bottom-cta', { y: 40, opacity: 0 });
+            ScrollTrigger.create({ trigger: '.mf-bottom-cta', start: 'top 85%', onEnter: () => gsap.to('.mf-bottom-cta', { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }) });
+
+            Observer.create({
+                target: window, type: 'scroll', onChangeY: (self) => {
+                    gsap.to('.mf-nebula-1', { y: self.scrollY * 0.12, duration: 0.4, ease: 'none' });
+                    gsap.to('.mf-nebula-2', { y: self.scrollY * -0.08, duration: 0.4, ease: 'none' });
+                }
+            });
+
+            gsap.to('.mf-orbit-dot', {
+                motionPath: { path: [{ x: 0, y: 0 }, { x: 50, y: -25 }, { x: 100, y: 0 }, { x: 50, y: 25 }, { x: 0, y: 0 }], curviness: 2 },
+                duration: 16, repeat: -1, ease: 'none',
+            });
+        }, containerRef);
+        return () => ctx.revert();
+    }, []);
+
+    const handleCardMove = useCallback((e: React.MouseEvent<HTMLElement>, idx: number) => {
+        setHoveredCard(idx);
+        const card = e.currentTarget; const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        gsap.to(card, { rotateY: x * 8, rotateX: -y * 8, duration: 0.3, ease: 'power2.out' });
+        const shine = card.querySelector('.card-shine') as HTMLElement;
+        if (shine) { shine.style.opacity = '1'; shine.style.background = `radial-gradient(circle at ${(x + 0.5) * 100}% ${(y + 0.5) * 100}%, rgba(255,255,255,0.06) 0%, transparent 60%)`; }
+        const glow = card.querySelector('.card-glow') as HTMLElement;
+        if (glow) glow.style.opacity = '1';
+    }, []);
+
+    const handleCardLeave = useCallback((e: React.MouseEvent<HTMLElement>) => {
+        setHoveredCard(null);
+        const card = e.currentTarget;
+        gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+        const shine = card.querySelector('.card-shine') as HTMLElement;
+        const glow = card.querySelector('.card-glow') as HTMLElement;
+        if (shine) shine.style.opacity = '0';
+        if (glow) glow.style.opacity = '0';
+    }, []);
+
+    return (
+        <div ref={containerRef} onMouseMove={handleMouseMove} className="relative min-h-screen text-white overflow-x-hidden" style={{ background: '#030304' }}>
+            <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />
+            <div className="fixed inset-0 pointer-events-none z-[1]">
+                <div className="mf-nebula-1 absolute top-[15%] left-[20%] w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.04) 0%, transparent 70%)' }} />
+                <div className="mf-nebula-2 absolute bottom-[20%] right-[15%] w-[500px] h-[500px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(251,191,36,0.03) 0%, transparent 70%)' }} />
+                <div className="mf-orbit-dot absolute top-48 left-1/3 w-2 h-2 bg-amber-400/40 rounded-full" />
+            </div>
+            <div className="fixed inset-0 pointer-events-none z-[2]" style={{ background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(245,158,11,0.012) 2px, rgba(245,158,11,0.012) 4px)' }} />
+            <div className="fixed inset-0 pointer-events-none z-[2] opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+            <div className="fixed inset-0 pointer-events-none z-[3] opacity-[0.02]" style={{ background: `radial-gradient(600px circle at ${mouseRef.current.x}px ${mouseRef.current.y}px, rgba(245,158,11,0.15), transparent 70%)` }} />
+            <div className="fixed inset-0 pointer-events-none z-[2]">
+                {[...Array(16)].map((_, i) => (
+                    <div key={i} className="absolute rounded-full" style={{ width: Math.random() * 3 + 1 + 'px', height: Math.random() * 3 + 1 + 'px', left: Math.random() * 100 + '%', top: Math.random() * 100 + '%', background: 'rgba(245,158,11,0.3)', animation: `float-particle ${10 + Math.random() * 20}s linear infinite`, animationDelay: `-${Math.random() * 20}s` }} />
+                ))}
+            </div>
+
+            <section className="relative z-10 pt-28 pb-16 lg:pt-36 lg:pb-20 px-4">
+                <div className="max-w-5xl mx-auto text-center">
+                    <div className="mf-badge inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-amber-500/20 bg-white/[0.02] backdrop-blur-sm mb-8">
+                        <Factory className="w-4 h-4 text-amber-400" />
+                        <span className="text-sm font-medium bg-gradient-to-r from-amber-300 to-orange-300 bg-clip-text text-transparent">Manufacturing Solutions</span>
+                    </div>
+                    <h1 className="mf-title text-5xl md:text-7xl font-bold mb-4 leading-tight" style={{ background: 'linear-gradient(to right, #ffffff, #fcd34d, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                        <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>AI for Manufacturing</span>
+                    </h1>
+                    <p className="mf-sub text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+                        Smart factory solutions powered by AI for the next generation of manufacturing
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link href="https://maula.ai/agents" className="mf-cta-btn group inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 transition-all shadow-lg shadow-amber-500/20">
+                            Explore Solutions <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                        <Link href="/support/book-consultation" className="mf-cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-white bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] transition-all">
+                            Book Consultation
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <section className="relative z-10 py-12 px-4">
+                <div className="mf-stats-grid max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {stats.map((s, idx) => {
+                        const Icon = s.icon;
+                        return (
+                            <div key={idx} className="mf-stat relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm text-center group hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300">
+                                <Icon className="w-5 h-5 text-amber-400/60 mx-auto mb-3" />
+                                <div className="mf-stat-value text-2xl md:text-3xl font-bold mb-1 bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">{s.value}</div>
+                                <p className="text-gray-500 text-xs">{s.label}</p>
+                            </div>
+                        );
+                    })}
+                </div>
+            </section>
+
+            <section className="mf-features-section relative z-10 py-20 px-4">
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-14 relative">
+                        <svg className="absolute -top-4 left-1/2 -translate-x-1/2 w-48 h-1 overflow-visible" viewBox="0 0 200 2"><line className="mf-draw-line" x1="0" y1="1" x2="200" y2="1" stroke="rgba(245,158,11,0.3)" strokeWidth="2" /></svg>
+                        <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent mb-3">Manufacturing Features</h2>
+                        <p className="text-gray-500 text-lg">Industrial-grade AI for smart factories</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {features.map((f, idx) => {
+                            const Icon = f.icon;
+                            return (
+                                <div key={idx} className="mf-feature group relative rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-white/[0.12]"
+                                    style={{ perspective: '800px', transformStyle: 'preserve-3d' }}
+                                    onMouseMove={(e) => handleCardMove(e, idx)} onMouseLeave={handleCardLeave}
+                                >
+                                    <div className="card-shine absolute inset-0 opacity-0 pointer-events-none z-10 transition-opacity duration-300" />
+                                    <div className="card-glow absolute -inset-px rounded-2xl opacity-0 pointer-events-none z-0 transition-opacity duration-300" style={{ boxShadow: '0 0 30px rgba(245,158,11,0.2)' }} />
+                                    <div className="relative z-10 p-8">
+                                        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-amber-500 to-orange-500 opacity-20" />
+                                        <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5"><Icon className="w-6 h-6 text-amber-400" /></div>
+                                        <h3 className="text-xl font-bold text-white mb-2">{f.title}</h3>
+                                        <p className="text-gray-500 text-sm leading-relaxed mb-4">{f.description}</p>
+                                        <div className="flex flex-wrap gap-2">
+                                            {f.benefits.map((b, i) => (<span key={i} className="text-xs px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">{b}</span>))}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            <section className="relative z-10 py-20 px-4">
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-14">
+                        <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent mb-3">Applications</h2>
+                        <p className="text-gray-500 text-lg">AI applications across the production line</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {applications.map((app, idx) => (
+                            <div key={idx} className="mf-app relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm group hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300">
+                                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-amber-500/0 via-amber-500/20 to-amber-500/0" />
+                                <h3 className="text-base font-bold text-white mb-2">{app.title}</h3>
+                                <p className="text-gray-500 text-sm leading-relaxed">{app.desc}</p>
+                                <ChevronRight className="w-4 h-4 text-amber-400/40 absolute top-6 right-6 group-hover:translate-x-1 group-hover:text-amber-400 transition-all" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="mf-bottom-cta relative z-10 py-24 px-4">
+                <div className="max-w-4xl mx-auto text-center">
+                    <div className="relative p-12 md:p-16 rounded-3xl overflow-hidden" style={{ background: 'rgba(3,3,4,0.85)', backdropFilter: 'blur(12px)' }}>
+                        <div className="absolute inset-0 rounded-3xl border border-white/[0.06]" />
+                        <div className="absolute inset-0 rounded-3xl" style={{ background: 'radial-gradient(ellipse at center, rgba(245,158,11,0.04) 0%, transparent 70%)' }} />
+                        <div className="relative z-10">
+                            <Factory className="w-8 h-8 text-amber-400/60 mx-auto mb-4" />
+                            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white via-amber-200 to-orange-300 bg-clip-text text-transparent">Ready to Transform Manufacturing?</h2>
+                            <p className="text-gray-500 mb-8 text-lg max-w-xl mx-auto leading-relaxed">Join smart factories worldwide using our AI to boost efficiency and quality.</p>
+                            <Link href="/support/book-consultation" className="group inline-flex items-center gap-2 px-10 py-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 rounded-xl font-semibold text-lg shadow-lg shadow-amber-500/20 transition-all">
+                                Get Started <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <style jsx global>{`
+        @keyframes float-particle { 0%, 100% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 50% { transform: translateY(-100px) translateX(30px); } }
+      `}</style>
+        </div>
+    );
+}

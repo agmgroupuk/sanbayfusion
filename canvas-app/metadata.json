@@ -1,0 +1,8 @@
+{
+  "name": "Maula AI - Canvas Studio",
+  "description": "An advanced AI-powered web application builder that generates complete, functional apps with real-time preview, code editing, and multi-model AI code generation. Features 78+ IDE tools, cloud sandbox, and one-click deployment.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
