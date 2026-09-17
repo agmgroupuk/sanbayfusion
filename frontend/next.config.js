@@ -7,12 +7,7 @@ const nextConfig = {
   // Server-rendered deployment; disable static export during production builds to support route handlers
   output: undefined,
 
-  // Allow webpack to transpile and resolve backend modules in monorepo structure
-  transpilePackages: ['ai-app-monorepo'],
-
-  // Enable importing from parent directory (monorepo structure)
   experimental: {
-    externalDir: true,
     // Enable partial prerendering for better prefetch behavior
     ppr: false,
     // Disable aggressive prefetching to reduce RSC errors
