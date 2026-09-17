@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Auto-syncs the Prisma schema copies and re-stages them before every commit,
+# so frontend/backend schema.prisma can never silently drift from the
+# canonical packages/database/prisma/schema.prisma.
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+"$repo_root/scripts/sync-prisma-schema.sh"
+
+git add \
+  "$repo_root/frontend/prisma/schema.prisma" \
+  "$repo_root/backend/prisma/schema.prisma"
