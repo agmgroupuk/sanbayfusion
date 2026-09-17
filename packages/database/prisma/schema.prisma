@@ -1,0 +1,808 @@
+// ============================================
+// Sanbay Fusion — Shared Prisma Schema
+// Consumed by frontend/ (Next.js API routes) and backend/ (Express server)
+// Reconstructed from field-level usage across both codebases —
+// see frontend/lib/*, frontend/app/api/**, backend/lib/db.js,
+// backend/lib/tracking-middleware.js, backend/lib/account-lockout.js.
+// ============================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER & AUTHENTICATION
+// ============================================
+
+model User {
+  id                       String    @id @default(cuid())
+  email                    String    @unique
+  name                     String?
+  password                 String?
+  authMethod               String    @default("password")
+  emailVerified            DateTime?
+  emailVerificationCode    String?
+  emailVerificationExpires DateTime?
+  image                    String?
+  avatar                   String?
+  bio                      String?
+  phoneNumber              String?
+  location                 String?
+  timezone                 String?
+  profession               String?
+  company                  String?
+  socialLinks              Json?     @default("{}")
+  preferences              Json?     @default("{}")
+  role                     String    @default("user")
+  isActive                 Boolean   @default(true)
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+  lastLoginAt              DateTime?
+
+  // OAuth
+  googleId    String? @unique
+  githubId    String? @unique
+  yahooId     String? @unique
+  microsoftId String? @unique
+
+  // Password reset
+  resetPasswordToken   String?
+  resetPasswordExpires DateTime?
+
+  // Session (legacy single-session cookie pattern)
+  sessionId     String?
+  sessionExpiry DateTime?
+
+  // 2FA / login OTP
+  twoFactorEnabled Boolean   @default(false)
+  twoFactorSecret  String?
+  backupCodes      String[] @default([])
+  tempToken        String?
+  tempTokenExpiry  DateTime?
+
+  // Account lockout (mirrors backend/lib/account-lockout.js)
+  loginAttempts     Int       @default(0)
+  lockUntil         DateTime?
+  permanentlyLocked Boolean   @default(false)
+
+  // Rewards / gamification
+  pointsBalance     Int    @default(0)
+  totalPointsEarned Int    @default(0)
+  referralCodeUsed  String?
+
+  // Relations
+  subscriptions          AgentSubscription[]
+  chatSessions           ChatSession[]
+  transactions           Transaction[]
+  supportTickets         SupportTicket[]
+  communityPosts         CommunityPost[]
+  communityComments      CommunityComment[]
+  communityLikes         CommunityLike[]
+  chatSettings           ChatSettings?
+  security               UserSecurity?
+  badges                 UserBadge[]
+  achievements           UserAchievement[]
+  pointsTransactions     PointsTransaction[]
+  referralCode           ReferralCode?
+  referralsMade          Referral[]          @relation("ReferralsMadeByUser")
+  referredAs             Referral?           @relation("UserWasReferred")
+  rewardRedemptions      RewardRedemption[]
+  canvasApps             CanvasApp[]
+  labExperiments         LabExperiment[]
+  favorites              UserFavorites[]
+
+  @@index([email])
+  @@index([sessionId])
+  @@index([resetPasswordToken])
+}
+
+model UserSecurity {
+  id                   String    @id @default(cuid())
+  userId               String    @unique
+  twoFactorEnabled     Boolean   @default(false)
+  tempTwoFactorSecret  String?
+  tempBackupCodes      String[]  @default([])
+  trustedDevices       Json?     @default("[]")
+  loginHistory         Json?     @default("[]")
+  passwordLastChanged  DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ============================================
+// AGENTS
+// ============================================
+
+model Agent {
+  id             String   @id @default(cuid())
+  agentId        String   @unique
+  name           String
+  avatarUrl      String?
+  specialty      String?
+  description    String?
+  systemPrompt   String   @default("")
+  welcomeMessage String   @default("")
+  specialties    String[] @default([])
+  tags           String[] @default([])
+  color          String?
+  status         String   @default("active")
+  totalUsers     Int      @default(0)
+  totalSessions  Int      @default(0)
+  averageRating  Float    @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  subscriptions AgentSubscription[]
+  chatSessions  ChatSession[]
+
+  @@index([agentId])
+  @@index([status])
+}
+
+model AgentSubscription {
+  id                   String    @id @default(cuid())
+  userId               String
+  agentId              String
+  plan                 String
+  price                Float
+  status               String    @default("active")
+  startDate            DateTime  @default(now())
+  expiryDate           DateTime
+  autoRenew            Boolean   @default(false)
+  stripeSubscriptionId String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent Agent @relation(fields: [agentId], references: [agentId], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([agentId])
+  @@index([userId, agentId])
+  @@index([stripeSubscriptionId])
+  @@map("subscriptions")
+}
+
+// ============================================
+// CHAT
+// ============================================
+
+model ChatSession {
+  id         String    @id @default(cuid())
+  sessionId  String    @unique
+  userId     String
+  agentId    String?
+  name       String    @default("New Conversation")
+  isActive   Boolean   @default(true)
+  isArchived Boolean   @default(false)
+  archivedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agent    Agent?        @relation(fields: [agentId], references: [agentId])
+  messages ChatMessage[]
+
+  @@index([userId])
+  @@index([agentId])
+  @@index([sessionId])
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  sessionId String
+  role      String
+  content   String
+  metadata  Json?    @default("{}")
+  createdAt DateTime @default(now())
+
+  session ChatSession @relation(fields: [sessionId], references: [sessionId], onDelete: Cascade)
+
+  @@index([sessionId])
+}
+
+model ChatSettings {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  settings  Json?    @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ChatFeedback {
+  id        String   @id @default(cuid())
+  sessionId String?
+  userId    String?
+  agentId   String?
+  rating    Int
+  feedback  String?
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+  @@index([userId])
+  @@index([agentId])
+}
+
+model ChatAnalyticsInteraction {
+  id             String    @id @default(cuid())
+  conversationId String
+  userId         String?
+  agentId        String?
+  channel        String    @default("web")
+  messages       Json?     @default("[]")
+  status         String    @default("active")
+  priority       String?
+  startedAt      DateTime  @default(now())
+  durationMs     Int       @default(0)
+  totalTokens    Int       @default(0)
+  turnCount      Int       @default(1)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([conversationId])
+  @@index([userId])
+  @@index([agentId])
+  @@index([createdAt])
+  @@index([startedAt])
+}
+
+// ============================================
+// BILLING & TRANSACTIONS
+// ============================================
+
+model Transaction {
+  id                     String    @id @default(cuid())
+  transactionId          String    @unique
+  userId                 String
+  type                   String
+  amount                 Float
+  status                 String    @default("pending")
+  stripePaymentIntentId  String?
+  metadata               Json?     @default("{}")
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([transactionId])
+  @@index([stripePaymentIntentId])
+}
+
+// ============================================
+// ANALYTICS & TRACKING
+// ============================================
+
+model Visitor {
+  id           String   @id @default(cuid())
+  visitorId    String   @unique
+  ipAddress    String?
+  userAgent    String?
+  referrer     String?
+  landingPage  String?
+  device       String?
+  browser      String?
+  os           String?
+  country      String?
+  city         String?
+  lastVisit    DateTime @default(now())
+  visitCount   Int      @default(1)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  @@index([visitorId])
+  @@index([createdAt])
+  @@index([lastVisit])
+}
+
+model PageView {
+  id        String   @id @default(cuid())
+  visitorId String
+  userId    String?
+  url       String
+  referrer  String?
+  timeSpent Int?
+  timestamp DateTime @default(now())
+
+  @@index([visitorId])
+  @@index([userId])
+  @@index([timestamp])
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  visitorId String?
+  userId    String?
+  sessionId String?
+  eventName String?
+  category  String?
+  action    String?
+  label     String?
+  value     Float?
+  metadata  Json?    @default("{}")
+  timestamp DateTime @default(now())
+
+  @@index([visitorId])
+  @@index([userId])
+  @@index([timestamp])
+}
+
+model Session {
+  id            String   @id @default(cuid())
+  sessionId     String   @unique
+  visitorId     String?
+  userId        String?
+  startTime     DateTime @default(now())
+  lastActivity  DateTime @default(now())
+  pageViews     Int      @default(0)
+  events        Int      @default(0)
+  duration      Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  @@index([sessionId])
+  @@index([userId])
+  @@index([visitorId])
+  @@index([isActive, lastActivity])
+  @@index([createdAt])
+}
+
+model UserEvent {
+  id         String   @id @default(cuid())
+  userId     String?
+  eventType  String
+  category   String   @default("general")
+  action     String
+  label      String?
+  value      Int?
+  properties Json?    @default("{}")
+  source     String   @default("web")
+  occurredAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([eventType])
+  @@index([occurredAt])
+}
+
+model ApiUsage {
+  id           String   @id @default(cuid())
+  visitorId    String?
+  sessionId    String?
+  userId       String?
+  endpoint     String
+  method       String
+  statusCode   Int
+  responseTime Int      @default(0)
+  userAgent    String?
+  ipAddress    String?
+  timestamp    DateTime @default(now())
+
+  @@index([endpoint])
+  @@index([statusCode])
+  @@index([userId])
+  @@index([timestamp])
+}
+
+model ToolUsage {
+  id          String   @id @default(cuid())
+  toolName    String
+  userId      String?
+  agentId     String?
+  command     String?
+  tokensInput  Int     @default(0)
+  tokensOutput Int     @default(0)
+  latencyMs   Int      @default(0)
+  status      String   @default("completed")
+  occurredAt  DateTime @default(now())
+
+  @@index([toolName])
+  @@index([userId])
+  @@index([occurredAt])
+}
+
+// ============================================
+// COMMUNITY
+// ============================================
+
+model CommunityPost {
+  id           String   @id @default(cuid())
+  authorId     String
+  authorName   String?
+  authorAvatar String?
+  content      String
+  category     String?
+  isPinned     Boolean  @default(false)
+  likesCount   Int      @default(0)
+  repliesCount Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  author   User               @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments CommunityComment[]
+  likes    CommunityLike[]
+
+  @@index([authorId])
+  @@index([category])
+  @@index([createdAt])
+}
+
+model CommunityComment {
+  id           String   @id @default(cuid())
+  postId       String
+  authorId     String
+  authorName   String?
+  authorAvatar String?
+  content      String
+  createdAt    DateTime @default(now())
+
+  post   CommunityPost   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  likes  CommunityLike[]
+
+  @@index([postId])
+  @@index([authorId])
+}
+
+model CommunityLike {
+  id        String   @id @default(cuid())
+  userId    String
+  postId    String?
+  commentId String?
+  createdAt DateTime @default(now())
+
+  user    User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post    CommunityPost?     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment CommunityComment?  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId], name: "userId_postId")
+  @@unique([userId, commentId], name: "userId_commentId")
+  @@index([postId])
+  @@index([commentId])
+}
+
+// ============================================
+// SUPPORT
+// ============================================
+
+model SupportTicket {
+  id        String   @id @default(cuid())
+  ticketId  String   @unique
+  userId    String?
+  subject   String?
+  message   String?
+  status    String   @default("open")
+  priority  String   @default("medium")
+  responses Json?    @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([status])
+  @@index([priority])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String?
+  subject   String?
+  message   String?
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
+
+// ============================================
+// CANVAS (main app's saved apps — distinct from
+// the standalone canvas-app/canvas-studio DBs)
+// ============================================
+
+model CanvasApp {
+  id         String   @id @default(cuid())
+  userId     String
+  name       String
+  prompt     String?
+  code       String?
+  language   String   @default("html")
+  provider   String?
+  modelId    String?
+  thumbnail  String?
+  history    Json?    @default("[]")
+  metadata   Json?    @default("{}")
+  isFavorite Boolean  @default(false)
+  isPublic   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isPublic])
+}
+
+// ============================================
+// LAB EXPERIMENTS
+// ============================================
+
+model LabExperiment {
+  id             String    @id @default(cuid())
+  experimentId   String    @unique
+  userId         String?
+  experimentType String
+  input          Json?     @default("{}")
+  output         Json?     @default("{}")
+  status         String    @default("processing")
+  processingTime Int?
+  errorMessage   String?
+  startedAt      DateTime  @default(now())
+  completedAt    DateTime?
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([experimentId])
+  @@index([userId])
+  @@index([status])
+}
+
+// ============================================
+// EMAIL
+// ============================================
+
+model EmailLog {
+  id         String    @id @default(cuid())
+  email      String
+  subject    String?
+  type       String?
+  status     String    @default("sent")
+  openCount  Int       @default(0)
+  openedAt   DateTime?
+  userAgent  String?
+  ip         String?
+  createdAt  DateTime  @default(now())
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ============================================
+// REWARDS / GAMIFICATION
+// ============================================
+
+model UserBadge {
+  id          String   @id @default(cuid())
+  userId      String
+  badgeId     String
+  name        String
+  description String?
+  icon        String?
+  rarity      String?
+  earnedAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+  @@index([userId])
+}
+
+model UserAchievement {
+  id            String    @id @default(cuid())
+  userId        String
+  achievementId String
+  name          String
+  description   String?
+  icon          String?
+  points        Int       @default(0)
+  progress      Int       @default(0)
+  target        Int       @default(0)
+  completed     Boolean   @default(false)
+  completedAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId])
+}
+
+model PointsTransaction {
+  id          String   @id @default(cuid())
+  userId      String
+  type        String
+  amount      Int
+  balance     Int
+  source      String
+  sourceId    String?
+  description String?
+  metadata    Json?    @default("{}")
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([source])
+  @@index([createdAt])
+}
+
+model ReferralCode {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  code              String   @unique
+  totalReferrals    Int      @default(0)
+  totalPointsEarned Int      @default(0)
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  referrals Referral[]
+
+  @@index([userId])
+  @@index([code])
+}
+
+model Referral {
+  id               String    @id @default(cuid())
+  referralCodeId   String
+  referrerId       String
+  referredUserId   String    @unique
+  pointsAwarded    Int       @default(0)
+  status           String    @default("pending")
+  completedAt      DateTime?
+  createdAt        DateTime  @default(now())
+
+  referralCode ReferralCode @relation(fields: [referralCodeId], references: [id], onDelete: Cascade)
+  referrer     User         @relation("ReferralsMadeByUser", fields: [referrerId], references: [id], onDelete: Cascade)
+  referredUser User         @relation("UserWasReferred", fields: [referredUserId], references: [id], onDelete: Cascade)
+
+  @@index([referrerId])
+  @@index([referralCodeId])
+  @@index([createdAt])
+}
+
+model RewardRedemption {
+  id          String    @id @default(cuid())
+  userId      String
+  rewardId    String
+  rewardName  String
+  pointsCost  Int
+  code        String?
+  status      String    @default("redeemed")
+  redeemedAt  DateTime  @default(now())
+  expiresAt   DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+}
+
+// ============================================
+// USER FAVORITES (backend-only, generic favorites list)
+// ============================================
+
+model UserFavorites {
+  id        String   @id @default(cuid())
+  userId    String
+  itemType  String
+  itemId    String
+  notes     String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, itemType, itemId])
+  @@index([userId])
+}
+
+// ============================================
+// AGENT MEMORY (backend-only)
+// ============================================
+
+model AgentMemory {
+  id             String   @id @default(cuid())
+  agentId        String
+  userId         String
+  memories       Json?    @default("[]")
+  totalMemories  Int      @default(0)
+  summary        String?
+  lastAccessed   DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([agentId, userId])
+  @@index([agentId])
+  @@index([userId])
+}
+
+// ============================================
+// CAREERS (backend-only)
+// ============================================
+
+model JobApplication {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String?
+  position  String?
+  status    String   @default("submitted")
+  resumeUrl String?
+  metadata  Json?    @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([position])
+}
+
+// ============================================
+// WEBINARS (backend-only)
+// ============================================
+
+model WebinarRegistration {
+  id         String    @id @default(cuid())
+  webinarId  String
+  email      String
+  name       String?
+  attended   Boolean   @default(false)
+  joinedAt   DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@unique([webinarId, email])
+  @@index([webinarId])
+}
+
+// ============================================
+// CANVAS CHAT ARTIFACTS (backend-only — created from
+// Universal Chat's embedded Canvas Studio, keyed by chat sessionId,
+// distinct from the CanvasApp model above)
+// ============================================
+
+model ChatCanvasFile {
+  id        String   @id @default(cuid())
+  sessionId String
+  name      String?
+  content   String?
+  language  String?
+  version   Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sessionId])
+}
+
+model ChatCanvasProject {
+  id        String   @id @default(cuid())
+  sessionId String
+  name      String?
+  metadata  Json?    @default("{}")
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+model ChatCanvasHistory {
+  id        String   @id @default(cuid())
+  sessionId String
+  action    String
+  data      Json?    @default("{}")
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}
