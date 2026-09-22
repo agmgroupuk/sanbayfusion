@@ -155,7 +155,7 @@ function AgentSubscriptionGuardInner({
         <div className="relative z-10 max-w-md w-full space-y-8">
           {/* Header with Logo */}
           <div className="text-center">
-            <Link href="/home" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-6">
               <Image src="/images/logos/company-logo.png" alt="Maula AI" width={80} height={80} className="w-20 h-20 object-contain" priority />
             </Link>
             <h1 className="text-4xl font-bold mb-2">
@@ -213,7 +213,7 @@ function AgentSubscriptionGuardInner({
                 Subscribe to {agentName}
               </Link>
             </p>
-            <Link href="/home" className="inline-block text-sm text-gray-500 hover:text-gray-300 transition-colors">← Back to homepage</Link>
+            <Link href="/" className="inline-block text-sm text-gray-500 hover:text-gray-300 transition-colors">← Back to homepage</Link>
           </div>
         </div>
       </div>
@@ -237,7 +237,7 @@ function AgentSubscriptionGuardInner({
         <div className="relative z-10 max-w-md w-full space-y-8">
           {/* Header with Logo */}
           <div className="text-center">
-            <Link href="/home" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-6">
               <Image src="/images/logos/company-logo.png" alt="Maula AI" width={80} height={80} className="w-20 h-20 object-contain" priority />
             </Link>
             <h1 className="text-4xl font-bold mb-2">
@@ -302,7 +302,7 @@ function AgentSubscriptionGuardInner({
 
           {/* Footer */}
           <div className="text-center">
-            <Link href="/home" className="inline-block text-sm text-gray-500 hover:text-gray-300 transition-colors">← Back to homepage</Link>
+            <Link href="/" className="inline-block text-sm text-gray-500 hover:text-gray-300 transition-colors">← Back to homepage</Link>
           </div>
         </div>
       </div>

@@ -252,6 +252,16 @@ const nextConfig = {
         destination: '/overview/pricing',
         permanent: true,
       },
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/demo',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
 

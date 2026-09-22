@@ -86,7 +86,7 @@ export default function Error({
                         Try Again
                     </button>
                     <Link
-                        href="/home"
+                        href="/"
                         className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 border border-neural-700 text-neural-300 hover:border-brand-500/50 hover:text-white hover:bg-neural-800/50"
                     >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

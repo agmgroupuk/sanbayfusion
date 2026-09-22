@@ -84,7 +84,7 @@ export default function Footer() {
   // All navigation links in one organized structure
   const footerLinks = [
     { name: 'Agents', href: '/agents' },
-    { name: 'Demo', href: 'https://demo.sanbayfusion.com' },
+    { name: 'Demo', href: '/' },
     { name: 'Canvas', href: 'https://studio.sanbayfusion.com' },
     { name: 'Editor', href: 'https://editor.sanbayfusion.com' },
     { name: 'AI Lab', href: '/lab' },
@@ -132,7 +132,7 @@ export default function Footer() {
 
           {/* Left Column: Brand & Description */}
           <div ref={brandRef}>
-            <Link href="/home" className="flex items-center gap-3 mb-4 group">
+            <Link href="/" className="flex items-center gap-3 mb-4 group">
               <div className="relative">
                 <div className="absolute inset-0 bg-brand-500/20 rounded-xl blur-xl group-hover:bg-brand-500/40 transition-all duration-300"></div>
                 <Image

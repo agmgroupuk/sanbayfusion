@@ -81,7 +81,7 @@ const Overlay: React.FC<OverlayProps> = ({ active, onActivate, agentName = 'Neur
         {/* Navigation Buttons */}
         <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-3 sm:gap-4 flex-shrink-0">
           <a
-            href="https://sanbayfusion.com/home"
+            href="/"
             className="group bg-black/30 border border-gray-700/50 px-4 sm:px-6 py-2.5 sm:py-3 rounded-sm transition-all hover:border-emerald-500/50 hover:shadow-[0_0_15px_rgba(16,185,129,0.1)] active:scale-95"
           >
             <span className="text-gray-500 font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.15em] group-hover:text-emerald-400 transition-colors">🏠 Home</span>

@@ -89,7 +89,7 @@ export default function GlobalError({
                                 Try Again
                             </button>
                             <a
-                                href="/home"
+                                href="/"
                                 style={{
                                     display: 'inline-flex',
                                     alignItems: 'center',

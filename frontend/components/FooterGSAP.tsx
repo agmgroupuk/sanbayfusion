@@ -241,7 +241,7 @@ export default function FooterGSAP() {
               {/* Inner frost sheen */}
               <div className="absolute top-0 left-0 right-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(186,230,253,0.04) 0%, transparent 100%)' }} />
 
-              <Link href="/home" className="relative flex items-center gap-3 mb-5 group">
+              <Link href="/" className="relative flex items-center gap-3 mb-5 group">
                 <div className="relative">
                   <div className="absolute inset-[-4px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'radial-gradient(circle, rgba(147,197,253,0.15) 0%, transparent 70%)' }} />
                   <Image src="/images/logos/company-logo.png" alt="Maula AI" width={44} height={44} className="relative w-11 h-11 object-contain" />

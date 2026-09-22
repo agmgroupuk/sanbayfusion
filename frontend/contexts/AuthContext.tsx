@@ -259,9 +259,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       dispatch({ type: 'AUTH_LOGOUT' });
 
-      // Force hard redirect to home page (clears all state)
+      // Force hard redirect to main homepage (clears all state)
       if (typeof window !== 'undefined') {
-        window.location.href = '/home';
+        window.location.href = '/';
       }
     }
   };

@@ -15847,7 +15847,7 @@ const BlogPage: React.FC = () => {
           {/* Footer */}
           <div className="p-3 lg:p-4 border-t border-white/10">
             <button
-              onClick={() => router.push('/home')}
+              onClick={() => router.push('/')}
               className="w-full ca-btn-secondary ca-magnetic text-center text-sm lg:text-base"
             >
               <i className="fas fa-home mr-2"></i>Back to Home

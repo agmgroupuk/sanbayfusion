@@ -410,7 +410,7 @@ export default function EnvironmentSetupSection() {
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
           </a>
           <a
-            href="https://demo.sanbayfusion.com"
+            href="/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 bg-white/[0.04] border border-white/[0.12] text-white rounded-xl px-8 py-4 text-sm font-bold backdrop-blur-xl hover:bg-white/[0.08] hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300 group"

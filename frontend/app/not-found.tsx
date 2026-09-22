@@ -97,7 +97,7 @@ export default function NotFound() {
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
-            href="/home"
+            href="/"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-brand-500/25"
             style={{ background: 'linear-gradient(135deg, #0ea5e9, #0284c7)' }}
           >
@@ -106,8 +106,8 @@ export default function NotFound() {
             </svg>
             Go Home
           </Link>
-          <a
-            href="https://demo.sanbayfusion.com"
+          <Link
+            href="/"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 border border-neural-700 text-neural-300 hover:border-brand-500/50 hover:text-white hover:bg-neural-800/50"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

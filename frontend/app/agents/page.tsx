@@ -418,7 +418,7 @@ export default function AgentsPage() {
             <a href="https://sanbayfusion.com/agents/random" className="px-7 py-3.5 bg-gradient-to-r from-violet-600/90 to-fuchsia-600/90 rounded-xl text-white font-semibold text-sm shadow-lg shadow-violet-600/15 hover:shadow-violet-600/30 transition-all duration-400 flex items-center justify-center gap-2" onClick={(e) => { e.preventDefault(); const random = allAgents[Math.floor(Math.random() * allAgents.length)]; window.location.href = `https://${random.id}-chat.sanbayfusion.com/`; }}>
               🎲 Surprise Me
             </a>
-            <a href="https://demo.sanbayfusion.com" className="px-7 py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-gray-400 font-semibold text-sm hover:bg-white/[0.06] hover:text-white hover:border-white/[0.15] transition-all duration-400 flex items-center justify-center gap-2">
+            <a href="/" className="px-7 py-3.5 bg-white/[0.03] border border-white/[0.08] rounded-xl text-gray-400 font-semibold text-sm hover:bg-white/[0.06] hover:text-white hover:border-white/[0.15] transition-all duration-400 flex items-center justify-center gap-2">
               🎨 Open Studio <ArrowRight className="w-4 h-4" />
             </a>
           </div>

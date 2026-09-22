@@ -125,7 +125,7 @@ function ConfirmResetForm() {
                     <div className="confirm-icon text-center py-5 rounded-t-2xl relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(147,197,253,0.05) 0%, rgba(186,230,253,0.02) 50%, rgba(96,165,250,0.04) 100%)', border: '1px solid rgba(147,197,253,0.1)', borderBottom: '1px solid rgba(147,197,253,0.06)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.05), 0 4px 24px rgba(0,0,0,0.15)' }}>
                         <div className="absolute top-0 left-0 right-0 h-1/2 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)' }} />
                         <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.08) 70%, transparent)' }} />
-                        <Link href="/home" className="relative inline-block mb-3">
+                        <Link href="/" className="relative inline-block mb-3">
                             <Image src="/images/logos/company-logo-original.png" alt="Maula AI" width={52} height={52} className="w-[52px] h-[52px] object-contain" priority />
                         </Link>
                         <h1 className="relative text-xl font-bold leading-tight">

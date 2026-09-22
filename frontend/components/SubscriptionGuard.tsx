@@ -104,7 +104,7 @@ export function SubscriptionGuard({
         <div className="relative z-10 max-w-lg w-full space-y-8">
           {/* Header with Logo */}
           <div className="text-center">
-            <Link href="/home" className="inline-block mb-6 group">
+            <Link href="/" className="inline-block mb-6 group">
               <div className="relative">
                 <Image src="/images/logos/company-logo.png" alt="Maula AI" width={80} height={80} className="w-20 h-20 object-contain transition-transform duration-500 group-hover:scale-110" priority />
                 <div className="absolute inset-0 bg-violet-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -166,7 +166,7 @@ export function SubscriptionGuard({
                 View our plans
               </Link>
             </p>
-            <Link href="/home" className="inline-flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-400 transition-colors">
+            <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-600 hover:text-gray-400 transition-colors">
               <ArrowLeft className="w-3.5 h-3.5" />
               Back to homepage
             </Link>

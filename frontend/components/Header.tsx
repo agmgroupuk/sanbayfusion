@@ -79,7 +79,7 @@ export default function Header() {
       { name: 'Agents', href: '/agents' },
       { name: 'Tools', href: '/tools' },
       { name: 'Status', href: '/status' },
-      { name: 'Demo', href: 'https://demo.sanbayfusion.com' },
+      { name: 'Demo', href: '/' },
       { name: 'AI Lab', href: '/lab' },
       { name: 'AI Space', href: 'https://canvas.sanbayfusion.com' },
       { name: 'Canvas', href: 'https://studio.sanbayfusion.com' },
@@ -114,7 +114,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
 
           {/* ── Logo ── */}
-          <Link href="/home" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <div className="relative">
               <div className="absolute inset-[-3px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'radial-gradient(circle, rgba(147,197,253,0.15) 0%, transparent 70%)' }} />
               <Image

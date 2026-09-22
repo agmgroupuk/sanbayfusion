@@ -184,7 +184,7 @@ export default function ConfigSetupPage() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
               <Link 
-                href="/home"
+                href="/"
                 className="flex items-center space-x-2 text-neural-300 hover:text-white transition-colors"
               >
                 <ChevronLeftIcon className="h-5 w-5" />

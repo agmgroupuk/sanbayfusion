@@ -45,7 +45,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Left: Logo/Brand */}
           <div className="flex items-center">
-            <Link href="/home" className="flex items-center space-x-2 group">
+            <Link href="/" className="flex items-center space-x-2 group">
               <div className="w-8 h-8 bg-brand-gradient rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
                 <CpuChipIcon className="w-5 h-5 text-white" />
               </div>

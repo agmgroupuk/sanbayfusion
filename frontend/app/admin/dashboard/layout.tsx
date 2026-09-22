@@ -426,7 +426,7 @@ export default function AdminDashboardLayout({
 
           <div className="flex items-center gap-2">
             <Link
-              href="/home"
+              href="/"
               className="text-xs text-gray-500 hover:text-gray-300 px-3 py-1.5 rounded-lg hover:bg-white/[0.04] transition-colors"
             >
               ← Back to Site
