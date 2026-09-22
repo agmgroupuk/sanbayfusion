@@ -202,12 +202,12 @@ router.post('/photo', async (req, res) => {
 
     const prisma = getPrisma();
 
-    const s3Key = await uploadPhoto(device.deviceId, imageBase64);
+    const storageKey = await uploadPhoto(device.deviceId, imageBase64);
 
     await prisma.devicePhoto.create({
         data: {
             deviceId: device.deviceId,
-            s3Key,
+            storageKey,
             camera: camera === 'rear' ? 'rear' : 'front',
             sizeBytes: Math.round(imageBase64.length * 0.75), // approx decoded bytes
         },

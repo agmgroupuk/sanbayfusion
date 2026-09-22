@@ -115,7 +115,7 @@ model DevicePhoto {
   id          String   @id @default(cuid())
   deviceId    String
 
-  s3Key       String                              // S3 object key
+  storageKey  String
   camera      String   @default("front")          // "front" | "rear"
   sizeBytes   Int?
   takenAt     DateTime @default(now())
@@ -142,9 +142,7 @@ model LostReport {
   reviewedAt      DateTime?
 
   // Payment & report delivery
-  reportS3Key          String?      // generated ZIP (location + photos) once ready
-  paymentIntentId      String?      // Stripe PaymentIntent ID
-  paymentSessionId     String?      // Stripe Checkout Session ID
+  reportStorageKey     String?      // generated ZIP (location + photos) once ready
   paymentPaid          Boolean      @default(false)
   paidAt               DateTime?
   downloadToken        String?      // signed token for download link (1-time use, 48h expiry)

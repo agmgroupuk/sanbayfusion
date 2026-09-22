@@ -126,10 +126,6 @@ export const AgentSubscriptionService = {
         where: { userId, agentId, status: 'active', expiryDate: { gt: new Date() } },
         include: { agent: true },
     }),
-    findByStripeSubscriptionId: async (stripeSubscriptionId) => prisma.agentSubscription.findFirst({
-        where: { stripeSubscriptionId },
-        include: { user: true, agent: true },
-    }),
     create: async (data) => prisma.agentSubscription.create({ data, include: { user: true, agent: true } }),
     update: async (id, data) => prisma.agentSubscription.update({ where: { id }, data: { ...data, updatedAt: new Date() }, include: { user: true, agent: true } }),
     cancel: async (id) => prisma.agentSubscription.update({ where: { id }, data: { status: 'cancelled', autoRenew: false, updatedAt: new Date() } }),
@@ -198,7 +194,6 @@ export const TransactionService = {
         return prisma.transaction.create({ data: { ...data, transactionId } });
     },
     update: async (id, data) => prisma.transaction.update({ where: { id }, data: { ...data, updatedAt: new Date() } }),
-    updateByStripeId: async (stripePaymentIntentId, data) => prisma.transaction.updateMany({ where: { stripePaymentIntentId }, data: { ...data, updatedAt: new Date() } }),
 };
 
 // ============================================

@@ -91,7 +91,7 @@ router.get('/report/:id', async (req, res) => {
     const photosWithUrls = await Promise.all(
         (report.device?.photos || []).map(async (p) => ({
             ...p,
-            url: await getPhotoUrl(p.s3Key).catch(() => null),
+            url: await getPhotoUrl(p.storageKey).catch(() => null),
         }))
     );
 
@@ -246,7 +246,7 @@ router.get('/device/:deviceId/photos', async (req, res) => {
         take: 100,
     });
     const withUrls = await Promise.all(
-        photos.map(async (p) => ({ ...p, url: await getPhotoUrl(p.s3Key).catch(() => null) }))
+        photos.map(async (p) => ({ ...p, url: await getPhotoUrl(p.storageKey).catch(() => null) }))
     );
     return res.json({ photos: withUrls });
 });

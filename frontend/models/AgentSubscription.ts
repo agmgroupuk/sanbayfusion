@@ -12,7 +12,6 @@ export interface IAgentSubscription {
   status: 'active' | 'expired' | 'cancelled';
   startDate: Date;
   expiryDate: Date;
-  stripeSubscriptionId?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }

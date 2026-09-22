@@ -158,7 +158,6 @@ model AgentSubscription {
   startDate            DateTime  @default(now())
   expiryDate           DateTime
   autoRenew            Boolean   @default(false)
-  stripeSubscriptionId String?
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
 
@@ -168,7 +167,6 @@ model AgentSubscription {
   @@index([userId])
   @@index([agentId])
   @@index([userId, agentId])
-  @@index([stripeSubscriptionId])
   @@map("subscriptions")
 }
 
@@ -270,7 +268,6 @@ model Transaction {
   type                   String
   amount                 Float
   status                 String    @default("pending")
-  stripePaymentIntentId  String?
   metadata               Json?     @default("{}")
   createdAt              DateTime  @default(now())
   updatedAt              DateTime  @updatedAt
@@ -279,7 +276,6 @@ model Transaction {
 
   @@index([userId])
   @@index([transactionId])
-  @@index([stripePaymentIntentId])
 }
 
 // ============================================

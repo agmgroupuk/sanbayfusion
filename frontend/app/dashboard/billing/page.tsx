@@ -29,7 +29,6 @@ interface CanvasSubscription {
   price: number;
   startDate: string;
   expiryDate: string;
-  stripeSubscriptionId: string | null;
   createdAt: string;
 }
 

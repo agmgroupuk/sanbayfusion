@@ -450,7 +450,6 @@ export default function UsersPage() {
                         'Status',
                         userDetail.user?.isActive ? 'Active' : 'Banned',
                       ],
-                      ['Payment ID', userDetail.user?.stripeCustomerId || 'N/A'],
                     ].map(([label, value]) => (
                       <div
                         key={label}

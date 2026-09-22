@@ -103,7 +103,7 @@ function SuccessContent() {
     const agentSlug = searchParams.get('slug') || agentName.toLowerCase().replace(/\s+/g, '-');
     const appTypeFromUrl = searchParams.get('app'); // 'canvas-studio' | 'gencraft-pro' | 'maula-editor' | null
 
-    // App may come from URL OR be discovered from Stripe metadata via verify-session.
+    // App may come from the URL or be discovered by the payment verification service.
     const [resolvedApp, setResolvedApp] = useState<string | null>(appTypeFromUrl);
     const appType = resolvedApp;
     const isCanvasStudio = appType === 'canvas-studio' || appType === 'gencraft-pro';

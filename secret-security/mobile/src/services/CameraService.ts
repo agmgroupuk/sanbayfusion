@@ -3,7 +3,7 @@
  *
  * This ONLY runs after the security team has manually activated tracking.
  * Photos are taken silently (no shutter sound on rooted/Android 9+) and
- * sent to the secure S3 bucket via the backend.
+ * sent to secure backend storage.
  */
 
 import { Camera, CameraResultType, CameraSource, CameraDirection } from '@capacitor/camera';

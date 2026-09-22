@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Polyline, Popup } from 'react-leaflet'
 import L from 'leaflet';
 
 interface Ping { id: string; lat: number; lng: number; accuracy?: number; battery?: number; network?: string; timestamp: string; }
-interface Photo { id: string; s3Key: string; url?: string; camera: string; takenAt: string; sizeBytes?: number; }
+interface Photo { id: string; storageKey: string; url?: string; camera: string; takenAt: string; sizeBytes?: number; }
 interface DeviceData {
     deviceId: string; deviceName: string; model?: string; os: string;
     status: string; trackingActive: boolean; lastBattery?: number; lastNetwork?: string;
