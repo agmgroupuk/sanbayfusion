@@ -278,26 +278,14 @@ router.get('/tools/available', (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════
-// FILE OPERATION ROUTES - PostgreSQL + S3 Hybrid Storage
+// FILE OPERATION ROUTES - PostgreSQL storage
 // ═══════════════════════════════════════════════════════════════════
 
 import AgentFile from '../models/AgentFile.js';
-import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
-
-const S3_BUCKET = process.env.S3_BUCKET || 'maula-ai-bucket';
-const S3_REGION = process.env.AWS_REGION || 'ap-southeast-1';
-
-const s3Client = new S3Client({
-  region: S3_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-});
 
 /**
  * GET /api/agents/files/download
- * Download a file from PostgreSQL or S3 storage
+ * Download a file from PostgreSQL storage
  */
 router.get('/files/download', async (req, res) => {
   try {
@@ -329,26 +317,8 @@ router.get('/files/download', async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="${file.filename}"`);
     res.setHeader('Content-Type', file.mimeType || 'application/octet-stream');
 
-    // Check storage type
-    if (file.storageType === 's3' && file.s3Key) {
-      // Stream from S3
-      try {
-        const s3Response = await s3Client.send(new GetObjectCommand({
-          Bucket: S3_BUCKET,
-          Key: file.s3Key,
-        }));
-
-        res.setHeader('Content-Length', s3Response.ContentLength);
-        s3Response.Body.pipe(res);
-      } catch (s3Error) {
-        console.error('S3 download error:', s3Error);
-        return res.status(500).json({ success: false, error: 'Failed to download from S3' });
-      }
-    } else {
-      // Serve from database
-      res.setHeader('Content-Length', file.size);
-      res.send(file.content);
-    }
+    res.setHeader('Content-Length', file.size);
+    res.send(file.content);
   } catch (error) {
     console.error('Error downloading file:', error);
     res.status(500).json({ success: false, error: error.message });

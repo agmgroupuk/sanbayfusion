@@ -49,7 +49,7 @@ export default function FAQsPage() {
         { q: 'What\'s included in each purchase?', a: 'Every purchase includes: unlimited chat sessions with your chosen agent, Canvas code generation, conversation history sync across devices, agent memory (the AI remembers your preferences), and all features of that specific agent for the duration.' },
         { q: 'Is there auto-renewal?', a: 'No. There are no subscriptions or auto-renewals. Your access simply expires at the end of the purchased period. You keep full access until expiration and can repurchase whenever you want. No cancellation needed.' },
         { q: 'Do you offer refunds?', a: 'Yes. Please see our Payments & Refunds policy at sanbayfusion.com/legal/payments-refunds for full refund details, timelines, and how to submit a request. Contact support@sanbayfusion.com for refund inquiries.' },
-        { q: 'What payment methods do you accept?', a: 'We accept all major credit cards (Visa, Mastercard, American Express) via Stripe. All payments are securely processed — your card details never touch our servers, going directly to Stripe (PCI DSS Level 1 certified).' }
+        { q: 'What payment methods do you accept?', a: 'Payment methods will be announced when the new billing system launches.' }
       ]
     },
     {
@@ -75,7 +75,7 @@ export default function FAQsPage() {
         { q: 'What cookies does Maula AI use?', a: 'We use only 3 essential cookies for authentication (neural_link_session, neural_token, session_id) — all HTTP-only and secure. No marketing cookies, no analytics cookies, no third-party cookies. We also store some preferences in your browser\'s localStorage (theme, selected model). See our Cookie Policy at sanbayfusion.com/legal/cookie-policy.' },
         { q: 'Are you GDPR and CCPA compliant?', a: 'Yes. We comply with GDPR (EU/EEA/UK), CCPA/CPRA (California), and CalOPPA. You have the right to access, correct, export, and delete your data. You can exercise any of these rights by emailing privacy@sanbayfusion.com — we respond within 30-45 days as required by law.' },
         { q: 'What are my data rights?', a: 'You can: access and download your data, correct inaccurate information, request deletion of all your data, export data in JSON format, object to processing, and control AI agent memories. For GDPR requests: dpo@sanbayfusion.com. For CCPA requests: privacy@sanbayfusion.com.' },
-        { q: 'Where is my data stored?', a: 'Your data is stored on AWS infrastructure with encryption at rest and in transit. Payment processing is handled by Stripe (PCI DSS Level 1 certified) — your card details never touch our servers. Files you upload are stored securely with encryption.' }
+        { q: 'Where is my data stored?', a: 'Your data is stored in encrypted application databases and file storage. Files you upload are stored securely with encryption.' }
       ]
     },
     {

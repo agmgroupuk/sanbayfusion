@@ -163,7 +163,7 @@
  * - 70% to tool developer
  * - 30% platform fee
  * - Complete transaction audit trail
- * - Support for future Stripe/PayPal integration
+ * - Support for future payment-provider integration
  */
 
 // ============================================================================
@@ -221,7 +221,7 @@
  * ✅ Developer earnings tracking
  * ✅ Revenue analytics
  * ✅ Monthly/tool-based reporting
- * ✅ Payout infrastructure (ready for Stripe/PayPal)
+ * ✅ Payout infrastructure (ready for the relaunch payment provider)
  * ✅ Complete financial audit trail
  */
 

@@ -129,15 +129,11 @@ const nextConfig = {
       { protocol: 'https', hostname: '*.wikimedia.org' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'picsum.photos' },
-      // AWS S3 bucket for chat uploads and media
-      { protocol: 'https', hostname: 'maula-ai-bucket.s3.ap-southeast-1.amazonaws.com' },
-      { protocol: 'https', hostname: '*.s3.ap-southeast-1.amazonaws.com' },
-      { protocol: 'https', hostname: '*.s3.amazonaws.com' },
     ],
     unoptimized: false,
-    // Fix CSP for Next.js images - allow inline scripts for Stripe, Cloudflare, Google Maps and other integrations
+    // Fix CSP for Next.js images and permitted integrations
     contentSecurityPolicy:
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://static.cloudflareinsights.com https://maps.googleapis.com https://maps.gstatic.com; frame-src 'self' https://js.stripe.com https://www.google.com;",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://maps.googleapis.com https://maps.gstatic.com; frame-src 'self' https://www.google.com;",
   },
 
   // Expose Google Maps API key to the client; prefer NEXT_PUBLIC_ but fall back to non-prefixed if provided
@@ -211,7 +207,7 @@ const nextConfig = {
             value: 'geolocation=(), microphone=(self), camera=()',
           },
           // Content Security Policy - allow Stripe, Cloudflare Insights, AI APIs, Google Maps, and S3 uploads
-          {
+            {
             key: 'Content-Security-Policy',
             // Allow Monaco workers (blob), Google Maps, PayPal, base64 image downloads, audio playback, third-party assets used by the canvas preview.
             value:

@@ -260,10 +260,10 @@ Developer earnings updated
 - Real-time updates
 
 ### External Services
-- Stripe for payments
+- Payment provider to be selected during relaunch
 - SendGrid for emails
 - Algolia for advanced search
-- AWS S3 for file storage
+- Provider-neutral encrypted file storage
 
 ---
 

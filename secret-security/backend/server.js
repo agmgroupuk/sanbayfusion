@@ -23,7 +23,6 @@ import { existsSync } from 'fs';
 import deviceRouter from './routes/device-routes.js';
 import reportRouter from './routes/report-routes.js';
 import adminRouter from './routes/admin-routes.js';
-import paymentRouter from './routes/payment-routes.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -57,7 +56,6 @@ app.get('/health', (_req, res) => res.json({ ok: true, service: 'maula-security'
 // ── API routes ────────────────────────────────────────────────────────
 app.use('/api/device', strictLimiter, deviceRouter);
 app.use('/api/report', strictLimiter, reportRouter);
-app.use('/api/payment', strictLimiter, paymentRouter);
 app.use('/api/admin', adminRouter);       // admin has own auth middleware
 
 // ── Serve admin SPA ───────────────────────────────────────────────────

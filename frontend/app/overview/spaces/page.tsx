@@ -189,7 +189,7 @@ const securityItems = [
   { icon: Cloud, label: 'Isolated Sandboxes', desc: 'Each project runs in its own container' },
   { icon: Zap, label: 'Rate Limiting', desc: 'Per-IP limits on all endpoints' },
   { icon: Shield, label: 'No AI Training', desc: 'Your data is never used to train models' },
-  { icon: CreditCard, label: 'Stripe Payments', desc: 'PCI DSS Level 1 — card data never on our servers' },
+  { icon: CreditCard, label: 'Payments', desc: 'Billing infrastructure will be announced before launch' },
 ];
 
 /* ================================================================== */

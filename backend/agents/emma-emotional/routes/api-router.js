@@ -15,8 +15,6 @@ import missingEndpointsRouter from './missing-endpoints.js';
 import studioStatsRouter from './studio-stats-routes.js';
 import agentMemoryRouter from './agent-memory-routes.js';
 import stsRouter from './sts-routes.js';
-import stripeRouter from './stripe-routes.js';
-import subscriptionRouter from './subscription-routes.js';
 import deviceSecurityRouter from './device-security-routes.js';
 
 const router = express.Router();
@@ -199,16 +197,13 @@ router.post('/extract-document', apiLimiter, requireAuth, upload.single('file'),
 // STRIPE — /api/stripe/* (checkout, webhook)
 // ============================================
 
-router.use('/stripe', stripeRouter);
 
 // ============================================
 // SUBSCRIPTIONS — /api/subscriptions/* (check, cancel, user list)
 // ============================================
 
-router.use('/subscriptions', subscriptionRouter);
 
 // Also mount at /agent/subscriptions for backward compat with main backend
-router.use('/agent/subscriptions', subscriptionRouter);
 
 // ============================================
 // DEVICE SECURITY — /api/security/*

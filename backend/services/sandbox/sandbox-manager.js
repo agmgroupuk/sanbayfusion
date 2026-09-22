@@ -4,7 +4,6 @@
  * 
  * Dual mode:
  *   SANDBOX_MODE=docker → Local Docker containers (default, dev/small scale)
- *   SANDBOX_MODE=ecs    → AWS ECS Fargate (production, auto-scaling)
  * 
  * - Create/start/stop/destroy containers
  * - Resource limits (CPU/RAM/disk) per plan
@@ -22,18 +21,6 @@ import { SandboxStorage } from './sandbox-storage.js';
 const execAsync = promisify(exec);
 
 // ── Sandbox mode detection ─────────────────────────────────────────
-const SANDBOX_MODE = process.env.SANDBOX_MODE || 'docker';
-
-// Lazy-load ECS manager only when needed
-let ecsSandboxManager = null;
-async function getEcsManager() {
-  if (!ecsSandboxManager) {
-    const mod = await import('./ecs-sandbox-manager.js');
-    ecsSandboxManager = mod.default;
-  }
-  return ecsSandboxManager;
-}
-
 // Plan-based resource limits
 const PLAN_LIMITS = {
   weekly: {
@@ -75,19 +62,9 @@ class SandboxManager {
    */
   async init() {
     try {
-      if (SANDBOX_MODE === 'ecs') {
-        const ecs = await getEcsManager();
-        const ready = await ecs.init();
-        if (ready) {
-          console.log('[SandboxManager] Running in ECS (cloud) mode');
-          return;
-        }
-        console.warn('[SandboxManager] ECS init failed — falling back to Docker mode');
-      }
-
       await this.verifyDocker();
       this.startCleanupCron();
-      console.log(`[SandboxManager] Initialized in ${SANDBOX_MODE} mode`);
+      console.log('[SandboxManager] Initialized in Docker mode');
     } catch (error) {
       console.error('[SandboxManager] Init error:', error.message);
     }
@@ -96,10 +73,6 @@ class SandboxManager {
   /**
    * Check if running in ECS mode
    */
-  isEcsMode() {
-    return SANDBOX_MODE === 'ecs';
-  }
-
   /**
    * Verify Docker is installed and running
    */
@@ -120,11 +93,6 @@ class SandboxManager {
    */
   async create({ projectId, userId, template = 'node-20', plan = 'weekly' }) {
     // Delegate to ECS in cloud mode
-    if (this.isEcsMode()) {
-      const ecs = await getEcsManager();
-      return ecs.create({ projectId, userId, template, plan });
-    }
-
     const limits = PLAN_LIMITS[plan] || PLAN_LIMITS.weekly;
 
     // Check sandbox count limit

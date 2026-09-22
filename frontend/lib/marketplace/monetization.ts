@@ -169,7 +169,7 @@ export class TransactionManager {
         totalTransactions: 1,
         monthlyEarnings: {},
         toolEarnings: {},
-        payoutMethod: 'stripe',
+        payoutMethod: 'paypal',
         payoutSchedule: 'monthly'
       }
       this.developerEarnings.set(developerId, earnings)

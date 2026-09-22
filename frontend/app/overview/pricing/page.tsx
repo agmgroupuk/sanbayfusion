@@ -113,7 +113,7 @@ const APP_CAPABILITIES = [
   { icon: FileCode, title: 'Dual Code Editors', description: 'Monaco Editor (VS Code engine) and CodeMirror 6 — syntax highlighting, IntelliSense, and multi-file editing for 40+ languages.' },
   { icon: Layers, title: 'Multi-File Projects', description: 'Full project structure with file tree, multi-file support, and project history. Build real apps, not just snippets.' },
   { icon: Terminal, title: '35 AI Tools', description: 'AI calls 35 specialized tools: file create/edit/delete, terminal execution, npm build validation, and more — up to 10 rounds per request.' },
-  { icon: Globe, title: 'Deploy to 5 Platforms', description: 'One-click deployment to Vercel, Netlify, GitHub Pages, AWS, and cloud preview. Export and download projects locally.' },
+  { icon: Globe, title: 'Deploy to 5 Platforms', description: 'One-click deployment to Vercel, Netlify, GitHub Pages, the hosting provider, and cloud preview. Export and download projects locally.' },
   { icon: Image, title: 'Image-to-Code', description: 'Upload a screenshot or design mockup and GenCraft Pro converts it into working code using Azure AI Vision.' },
   { icon: Video, title: 'AI Video Generation', description: 'Generate videos from text prompts using integrated AI video tools powered by fal.ai and Minimax.' },
   { icon: Mic, title: 'Voice Input', description: 'Speak your instructions instead of typing. Voice-to-text input lets you describe apps hands-free.' },
@@ -133,7 +133,7 @@ const comparisonRows = [
   { feature: 'Image-to-Code', w: true, m: true, y: true },
   { feature: 'AI Video Generation', w: true, m: true, y: true },
   { feature: 'Voice Input', w: true, m: true, y: true },
-  { feature: 'Deploy (Vercel, Netlify, GitHub, AWS)', w: true, m: true, y: true },
+  { feature: 'Deploy (Vercel, Netlify, GitHub, the hosting provider)', w: true, m: true, y: true },
   { feature: 'Export & Download', w: true, m: true, y: true },
   { feature: 'Starter Templates', w: '10', m: '10', y: '10' },
   { feature: 'Generations', w: 'Unlimited', m: 'Unlimited', y: 'Unlimited' },
@@ -147,7 +147,7 @@ const faqs = [
   { q: 'Are all features the same on every plan?', a: 'Yes. Weekly, Monthly, and Yearly plans all include identical features — full AI app generation, all 9+ providers, 40+ languages, deployment, video generation, and unlimited generations. The only difference is billing cycle and savings.' },
   { q: 'Which AI models can I use?', a: 'All plans include access to 9+ providers: Anthropic (Claude Sonnet 4, Opus 4, Haiku), OpenAI (GPT-4o), Google (Gemini 2.5 Pro/Flash), Mistral (Codestral), xAI (Grok 3), Groq (LLaMA 3.3), Cerebras, HuggingFace, and Ollama (local).' },
   { q: 'Is there auto-renewal?', a: 'No. All purchases are one-time. Your access expires at the end of your chosen period and you manually repurchase when you want to continue. No surprise charges ever.' },
-  { q: 'Can I deploy apps I build?', a: 'Yes. GenCraft Pro supports one-click deployment to Vercel, Netlify, GitHub Pages, AWS, and cloud preview. You can also export and download your projects to run locally.' },
+  { q: 'Can I deploy apps I build?', a: 'Yes. GenCraft Pro supports one-click deployment to Vercel, Netlify, GitHub Pages, the hosting provider, and cloud preview. You can also export and download your projects to run locally.' },
   { q: 'What languages and frameworks are supported?', a: 'GenCraft Pro supports 40+ programming languages and comes with 10 starter templates including React, Next.js, Vue, Svelte, HTML/CSS/JS, Python, Node.js, TypeScript, and more.' },
 ];
 
@@ -162,7 +162,7 @@ export default function CanvasStudioPricingPage() {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [activePlan, setActivePlan] = useState<{ type: string; daysRemaining: number; id: string; stripeSubscriptionId?: string } | null>(null);
+  const [activePlan, setActivePlan] = useState<{ type: string; daysRemaining: number; id: string } | null>(null);
   const [isCancelling, setIsCancelling] = useState(false);
 
   useEffect(() => {
@@ -207,7 +207,6 @@ export default function CanvasStudioPricingPage() {
             type: data.plan.type,
             daysRemaining: data.plan.daysRemaining,
             id: data.plan.id,
-            stripeSubscriptionId: data.plan.stripeSubscriptionId,
           });
         }
       } catch (e) {
@@ -396,7 +395,7 @@ export default function CanvasStudioPricingPage() {
 
           <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
             {[
-              { icon: Shield, label: 'Secure Payment via Stripe' },
+              { icon: Shield, label: 'Secure Payment via the payment provider' },
               { icon: Gift, label: 'No Auto-Renewal' },
               { icon: Zap, label: 'Instant Access' },
             ].map((badge, i) => (
@@ -736,7 +735,7 @@ export default function CanvasStudioPricingPage() {
 
       {/* ═══ FOOTER NOTE ═══ */}
       <div className="text-center pb-12 space-y-2">
-        <p className="text-white/15 text-xs">Powered by Stripe • SSL encrypted • No auto-renewal</p>
+        <p className="text-white/15 text-xs">Secure checkout • SSL encrypted • No auto-renewal</p>
         <p className="text-white/10 text-xs">GenCraft Pro by Maula AI</p>
       </div>
 

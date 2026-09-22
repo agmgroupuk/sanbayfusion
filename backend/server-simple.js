@@ -9,7 +9,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-import { S3Client, HeadBucketCommand } from '@aws-sdk/client-s3';
 import cors from 'cors';
 import helmet from 'helmet';
 import os from 'os';
@@ -27,14 +26,12 @@ import {
   trackVisitorMiddleware,
   trackPageViewMiddleware,
 } from './lib/tracking-middleware.js';
-import agentSubscriptionsRouter from './routes/agentSubscriptions.js';
 import pushNotificationRouter from './routes/push-notification-routes.js';
 import apiRouter from './routes/api-router.js';
 import { rateLimiters, cache } from './lib/cache.js';
 import { checkLockout, recordFailedAttempt, resetLockoutOnSuccess } from './lib/account-lockout.js';
 import { startSubscriptionExpirationCron } from './services/subscription-cron.js';
-import sandboxManager from './services/sandbox/sandbox-manager.js';
-import { sendWelcomeEmail, sendLoginAlertEmail, notifyAdminNewUser, sendVerificationCodeEmail, sendPasswordChangedAlert, sendLoginOTPEmail, sendNewsletterConfirmationEmail, sendSubscriptionConfirmationEmail, sendSubscriptionCancelledEmail, sendPaymentReceiptEmail } from './services/email.js';
+import { sendWelcomeEmail, sendLoginAlertEmail, notifyAdminNewUser, sendVerificationCodeEmail, sendPasswordChangedAlert, sendLoginOTPEmail, sendNewsletterConfirmationEmail } from './services/email.js';
 
 const app = express();
 const server = createServer(app);
@@ -287,27 +284,6 @@ app.get('/health', async (req, res) => {
   const dbCheck = await checkPostgresFast();
   const pgStatus = dbCheck.ok ? 'connected' : 'disconnected';
 
-  // Check S3 status
-  let s3Status = 'not_configured';
-  let s3Connected = false;
-  const s3Bucket = process.env.AWS_S3_BUCKET || process.env.S3_BUCKET_NAME;
-  try {
-    if (s3Bucket && process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
-      const s3Client = new S3Client({
-        region: process.env.AWS_REGION || 'ap-southeast-1',
-        credentials: {
-          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        },
-      });
-      await s3Client.send(new HeadBucketCommand({ Bucket: s3Bucket }));
-      s3Status = 'connected';
-      s3Connected = true;
-    }
-  } catch {
-    s3Status = s3Bucket ? 'error' : 'not_configured';
-  }
-
   res.json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
@@ -326,9 +302,6 @@ app.get('/health', async (req, res) => {
       redisConnected,
       postgresql: pgStatus,
       postgresLatencyMs: dbCheck.latencyMs,
-      s3: s3Status,
-      s3Connected,
-      s3Bucket: s3Bucket || null,
     },
     hasAIService,
   });
@@ -431,64 +404,12 @@ app.post('/api/email/newsletter-confirmation', async (req, res) => {
 // Called by Stripe webhook after successful checkout
 // ============================================
 
-app.post('/api/email/subscription-confirmation', async (req, res) => {
-  try {
-    const { email, userName, agentName, agentId, plan, price, startDate, expiryDate, autoRenew } = req.body;
-    if (!email || typeof email !== 'string' || !email.includes('@')) {
-      return res.status(400).json({ success: false, error: 'Valid email is required' });
-    }
-    if (!agentName || !plan) {
-      return res.status(400).json({ success: false, error: 'agentName and plan are required' });
-    }
-    await sendSubscriptionConfirmationEmail({
-      email: email.trim().toLowerCase(),
-      userName: userName || 'there',
-      agentName,
-      agentId,
-      plan,
-      price,
-      startDate: startDate ? new Date(startDate) : new Date(),
-      expiryDate: expiryDate ? new Date(expiryDate) : null,
-      autoRenew: autoRenew || false,
-    });
-    res.json({ success: true, message: 'Subscription confirmation email sent' });
-  } catch (error) {
-    console.error('[SUBSCRIPTION CONFIRMATION] Error:', error.message);
-    res.status(500).json({ success: false, error: 'Failed to send subscription confirmation email' });
-  }
-});
 
 // ============================================
 // PAYMENT RECEIPT EMAIL ENDPOINT
 // Called by Stripe webhook after invoice.paid
 // ============================================
 
-app.post('/api/email/payment-receipt', async (req, res) => {
-  try {
-    const { email, userName, agentName, plan, transactionId, date, amount, currency, startDate, endDate } = req.body;
-    if (!email || typeof email !== 'string' || !email.includes('@')) {
-      return res.status(400).json({ success: false, error: 'Valid email is required' });
-    }
-    if (!agentName || !amount) {
-      return res.status(400).json({ success: false, error: 'agentName and amount are required' });
-    }
-    await sendPaymentReceiptEmail(email.trim().toLowerCase(), {
-      userName: userName || 'there',
-      agentName,
-      plan,
-      transactionId,
-      date: date ? new Date(date) : new Date(),
-      amount,
-      currency: currency || 'USD',
-      startDate: startDate ? new Date(startDate) : new Date(),
-      endDate: endDate ? new Date(endDate) : null,
-    });
-    res.json({ success: true, message: 'Payment receipt email sent' });
-  } catch (error) {
-    console.error('[PAYMENT RECEIPT] Error:', error.message);
-    res.status(500).json({ success: false, error: 'Failed to send payment receipt email' });
-  }
-});
 
 // ============================================
 // STATUS ENDPOINT - Enhanced with real-time monitoring
@@ -1589,7 +1510,6 @@ app.post('/api/doctor-network/feedback', async (req, res) => {
 // ============================================
 
 // These must come BEFORE apiRouter — apiRouter has a catch-all 404 handler
-app.use('/api/subscriptions', agentSubscriptionsRouter);
 app.use('/api/push', pushNotificationRouter);
 
 // Main API router (has 404 catch-all, must be last)
@@ -1755,7 +1675,6 @@ async function initializeServer() {
       startSubscriptionExpirationCron();
 
       try {
-        await sandboxManager.init();
       } catch (sandboxErr) {
         console.warn('⚠️  Sandbox init failed (non-fatal):', sandboxErr.message);
       }

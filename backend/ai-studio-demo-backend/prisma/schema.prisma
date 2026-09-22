@@ -137,7 +137,6 @@ model AgentSubscription {
   startDate            DateTime           @default(now())
   expiryDate           DateTime
   autoRenew            Boolean            @default(false)
-  stripeSubscriptionId String?
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
 
@@ -147,7 +146,6 @@ model AgentSubscription {
   @@index([userId])
   @@index([agentId])
   @@index([userId, agentId])
-  @@index([stripeSubscriptionId])
   @@map("subscriptions")
 }
 
@@ -172,7 +170,6 @@ model AgentFile {
   fileName    String
   fileType    String
   fileSize    Int
-  s3Key       String
   s3Url       String
   contentType String?
   metadata    Json?    @default("{}")

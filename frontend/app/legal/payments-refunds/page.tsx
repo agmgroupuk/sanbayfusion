@@ -42,7 +42,7 @@ export default function PaymentsRefundsPage() {
         {
             id: 'payment-methods', icon: Shield, title: '3. Payment Methods', glow: 'rgba(6,182,212,0.4)', content: [
                 { subtitle: 'Accepted Payment Methods', text: 'Credit & Debit Cards: Visa, MasterCard, American Express, Discover, Diners Club, JCB. PayPal: Link your PayPal account for convenient payments. International Payments: We accept payments from most countries worldwide.' },
-                { subtitle: '3.1 Payment Processing', text: 'Payments are processed securely through Stripe (PCI DSS Level 1 certified) and PayPal. All transactions use 256-bit SSL encryption. We do NOT store full credit card numbers — card data never touches our servers.' },
+                { subtitle: '3.1 Payment Processing', text: 'Payments are processed securely through the payment provider (PCI DSS Level 1 certified) and PayPal. All transactions use 256-bit SSL encryption. We do NOT store full credit card numbers — card data never touches our servers.' },
                 { subtitle: 'Secure Payment Guarantee', text: 'Your payment information is never stored on our servers. All transactions are processed through PCI-compliant third-party providers with bank-level security.' },
                 { subtitle: 'Currency', text: 'All prices are listed in USD (United States Dollars). Currency conversion is handled by your payment provider and may include additional fees from your bank.' },
             ]

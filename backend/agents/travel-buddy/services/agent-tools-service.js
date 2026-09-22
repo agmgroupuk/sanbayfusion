@@ -3,7 +3,7 @@
  * Gives agents capabilities beyond just text generation:
  * - Web Search (using DuckDuckGo/SerpAPI)
  * - URL Fetching & Content Extraction
- * - File Operations (stored in PostgreSQL + S3 for persistence)
+ * - File Operations (stored in PostgreSQL for persistence)
  * - Image Understanding (via vision models)
  * - Date/Time awareness
  * - Calculator/Math operations
@@ -22,12 +22,6 @@ import { execFile as _cpExecFile } from 'child_process';
 import AgentFile from '../models/AgentFile.js';
 import { prisma } from '../lib/prisma.js';
 import { cache } from '../lib/cache.js';
-import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
-  DeleteObjectCommand,
-} from '@aws-sdk/client-s3';
 import {
   agentMemory,
   agentSafety,
@@ -70,101 +64,10 @@ async function initFFmpeg() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// S3 CONFIGURATION
-// ═══════════════════════════════════════════════════════════════════
-
-const S3_BUCKET = process.env.AWS_S3_BUCKET || process.env.S3_BUCKET || 'maula-prod-assets';
-const S3_REGION = process.env.AWS_REGION || 'ap-southeast-1';
-
-const s3Client = new S3Client({
-  region: S3_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-});
-
-/**
- * Upload file to S3
- */
-async function uploadToS3(key, content, mimeType) {
-  try {
-    const buffer =
-      typeof content === 'string' ? Buffer.from(content, 'utf-8') : content;
-
-    await s3Client.send(
-      new PutObjectCommand({
-        Bucket: S3_BUCKET,
-        Key: key,
-        Body: buffer,
-        ContentType: mimeType,
-      })
-    );
-
-    const url = `https://${S3_BUCKET}.s3.${S3_REGION}.amazonaws.com/${key}`;
-    console.log(`[S3] Uploaded: ${key} (${buffer.length} bytes)`);
-
-    return { success: true, url, key };
-  } catch (error) {
-    console.error('[S3] Upload error:', error);
-    return { success: false, error: error.message };
-  }
-}
-
-/**
- * Download file from S3
- */
-async function downloadFromS3(key) {
-  try {
-    const response = await s3Client.send(
-      new GetObjectCommand({
-        Bucket: S3_BUCKET,
-        Key: key,
-      })
-    );
-
-    const chunks = [];
-    for await (const chunk of response.Body) {
-      chunks.push(chunk);
-    }
-    const buffer = Buffer.concat(chunks);
-
-    return {
-      success: true,
-      content: buffer,
-      mimeType: response.ContentType,
-      size: response.ContentLength,
-    };
-  } catch (error) {
-    console.error('[S3] Download error:', error);
-    return { success: false, error: error.message };
-  }
-}
-
-/**
- * Delete file from S3
- */
-async function deleteFromS3(key) {
-  try {
-    await s3Client.send(
-      new DeleteObjectCommand({
-        Bucket: S3_BUCKET,
-        Key: key,
-      })
-    );
-    console.log(`[S3] Deleted: ${key}`);
-    return { success: true };
-  } catch (error) {
-    console.error('[S3] Delete error:', error);
-    return { success: false, error: error.message };
-  }
-}
-
-// ═══════════════════════════════════════════════════════════════════
 // STORAGE HELPERS
 // ═══════════════════════════════════════════════════════════════════
 
-// File types that should always go to S3
+// File types that should be stored as binary content
 const BINARY_EXTENSIONS = [
   '.png',
   '.jpg',
@@ -202,7 +105,7 @@ function isBinaryFile(filename) {
   return BINARY_EXTENSIONS.includes(ext);
 }
 
-// Maximum size for database storage (1MB for text, all binary to S3)
+// Maximum size guidance for database storage
 const MAX_DATABASE_SIZE = 1024 * 1024; // 1MB
 
 const BACKEND_API_URL =
@@ -4402,12 +4305,12 @@ export const TOOL_DEFINITIONS = [
   // ─── CLOUD & INFRASTRUCTURE ────────────────────────────────────
   {
     name: 'cloud_deploy',
-    description: 'Deploy applications to cloud providers (AWS, GCP, Azure). Manage deployments, rollbacks, blue-green/canary strategies, environment configs, and deployment history.',
+    description: 'Deploy applications to supported cloud providers. Manage deployments, rollbacks, blue-green/canary strategies, environment configs, and deployment history.',
     input_schema: {
       type: 'object',
       properties: {
         action: { type: 'string', enum: ['deploy', 'rollback', 'status', 'history', 'promote', 'destroy', 'config'], description: 'Deployment action' },
-        provider: { type: 'string', enum: ['aws', 'gcp', 'azure', 'heroku', 'digitalocean', 'fly'], description: 'Cloud provider' },
+        provider: { type: 'string', enum: ['gcp', 'azure', 'heroku', 'digitalocean', 'fly'], description: 'Cloud provider' },
         service: { type: 'string', description: 'Service/app name' },
         environment: { type: 'string', enum: ['development', 'staging', 'production'], description: 'Target environment' },
         region: { type: 'string', description: 'Cloud region (e.g., us-east-1, europe-west1)' },
@@ -4428,7 +4331,7 @@ export const TOOL_DEFINITIONS = [
       properties: {
         action: { type: 'string', enum: ['set', 'auto', 'schedule', 'status', 'history', 'policy', 'scale_to_zero'], description: 'Scaling action' },
         service: { type: 'string', description: 'Service name' },
-        provider: { type: 'string', enum: ['aws', 'gcp', 'azure'], description: 'Cloud provider' },
+        provider: { type: 'string', enum: ['gcp', 'azure'], description: 'Cloud provider' },
         minInstances: { type: 'number', description: 'Minimum instance count' },
         maxInstances: { type: 'number', description: 'Maximum instance count' },
         desiredCount: { type: 'number', description: 'Desired instance count for manual scaling' },
@@ -4449,7 +4352,7 @@ export const TOOL_DEFINITIONS = [
       properties: {
         action: { type: 'string', enum: ['fetch', 'search', 'tail', 'export', 'analyze', 'stats', 'streams'], description: 'Log action' },
         service: { type: 'string', description: 'Service/app name' },
-        provider: { type: 'string', enum: ['aws', 'gcp', 'azure'], description: 'Cloud provider' },
+        provider: { type: 'string', enum: ['gcp', 'azure'], description: 'Cloud provider' },
         logGroup: { type: 'string', description: 'Log group/stream name' },
         query: { type: 'string', description: 'Search query or filter pattern' },
         startTime: { type: 'string', description: 'Start time (ISO or relative like -1h, -30m)' },
@@ -4463,7 +4366,7 @@ export const TOOL_DEFINITIONS = [
   },
   {
     name: 'cloud_secrets',
-    description: 'Secret and vault management. Store, retrieve, rotate, audit secrets using AWS Secrets Manager, GCP Secret Manager, Azure Key Vault, or HashiCorp Vault.',
+    description: 'Secret and vault management. Store, retrieve, rotate, audit secrets using supported secret managers or HashiCorp Vault.',
     input_schema: {
       type: 'object',
       properties: {
@@ -4499,12 +4402,12 @@ export const TOOL_DEFINITIONS = [
   },
   {
     name: 'cloud_storage',
-    description: 'Cloud object storage management (S3, GCS, Azure Blob). Upload, download, list, copy, set permissions, manage lifecycle rules, and generate signed URLs.',
+    description: 'Cloud object storage management. Upload, download, list, copy, set permissions, manage lifecycle rules, and generate signed URLs.',
     input_schema: {
       type: 'object',
       properties: {
         action: { type: 'string', enum: ['upload', 'download', 'list', 'delete', 'copy', 'move', 'presign', 'lifecycle', 'acl', 'stats'], description: 'Storage action' },
-        provider: { type: 'string', enum: ['aws', 'gcp', 'azure', 'minio', 'r2'], description: 'Storage provider' },
+        provider: { type: 'string', enum: ['gcp', 'azure', 'minio', 'r2'], description: 'Storage provider' },
         bucket: { type: 'string', description: 'Bucket/container name' },
         key: { type: 'string', description: 'Object key/path' },
         content: { type: 'string', description: 'File content for upload' },
@@ -4524,7 +4427,7 @@ export const TOOL_DEFINITIONS = [
       type: 'object',
       properties: {
         action: { type: 'string', enum: ['create', 'update', 'delete', 'list', 'zone_create', 'zone_list', 'health_check', 'propagation'], description: 'DNS action' },
-        provider: { type: 'string', enum: ['aws', 'gcp', 'azure', 'cloudflare'], description: 'DNS provider' },
+        provider: { type: 'string', enum: ['gcp', 'azure', 'cloudflare'], description: 'DNS provider' },
         zone: { type: 'string', description: 'DNS zone/domain' },
         name: { type: 'string', description: 'Record name (e.g., api.example.com)' },
         type: { type: 'string', enum: ['A', 'AAAA', 'CNAME', 'MX', 'TXT', 'NS', 'SRV', 'CAA'], description: 'Record type' },
@@ -4562,7 +4465,7 @@ export const TOOL_DEFINITIONS = [
       type: 'object',
       properties: {
         action: { type: 'string', enum: ['vpc_create', 'vpc_list', 'subnet_create', 'firewall_rule', 'lb_create', 'lb_list', 'peering', 'route_table', 'nat_gateway'], description: 'Network action' },
-        provider: { type: 'string', enum: ['aws', 'gcp', 'azure'], description: 'Cloud provider' },
+        provider: { type: 'string', enum: ['gcp', 'azure'], description: 'Cloud provider' },
         vpcId: { type: 'string', description: 'VPC/network ID' },
         cidr: { type: 'string', description: 'CIDR block (e.g., 10.0.0.0/16)' },
         name: { type: 'string', description: 'Resource name' },
@@ -4603,7 +4506,7 @@ export const TOOL_DEFINITIONS = [
       type: 'object',
       properties: {
         action: { type: 'string', enum: ['user_create', 'user_list', 'role_create', 'role_assign', 'policy_create', 'policy_attach', 'service_account', 'mfa_status', 'access_review', 'audit'], description: 'IAM action' },
-        provider: { type: 'string', enum: ['aws', 'gcp', 'azure'], description: 'Cloud provider' },
+        provider: { type: 'string', enum: ['gcp', 'azure'], description: 'Cloud provider' },
         username: { type: 'string', description: 'User or service account name' },
         role: { type: 'string', description: 'Role name or ARN' },
         policy: { type: 'object', description: 'IAM policy document' },
@@ -5945,34 +5848,8 @@ export async function createFile(
     const contentBuffer =
       typeof content === 'string' ? Buffer.from(content, 'utf-8') : content;
     const size = contentBuffer.length;
-    const useS3 = isBinary || size > MAX_DATABASE_SIZE;
-
     let storageType = 'database';
-    let s3Key = null;
-    let s3Url = null;
-    let storedContent = null;
-
-    if (useS3) {
-      // Upload to S3
-      s3Key = `agent-files/${userId}/${agentId}${filePath}`;
-      const s3Result = await uploadToS3(s3Key, contentBuffer, mimeType);
-
-      if (!s3Result.success) {
-        // Fallback to database if S3 fails
-        console.warn(
-          `[AgentFiles] S3 upload failed, falling back to database: ${s3Result.error}`
-        );
-        storageType = 'database';
-        storedContent = isBinary ? contentBuffer.toString('base64') : content;
-      } else {
-        storageType = 's3';
-        s3Url = s3Result.url;
-        console.log(`[AgentFiles] Stored in S3: ${s3Key}`);
-      }
-    } else {
-      // Store in database (PostgreSQL)
-      storedContent = content;
-    }
+    const storedContent = isBinary ? contentBuffer.toString('base64') : content;
 
     // Create file document
     const newFile = new AgentFile({
@@ -5986,9 +5863,6 @@ export async function createFile(
       size,
       storageType,
       content: storedContent,
-      s3Key,
-      s3Bucket: useS3 && storageType === 's3' ? S3_BUCKET : null,
-      s3Url,
     });
 
     await newFile.save();
@@ -6006,7 +5880,6 @@ export async function createFile(
       message: `File created successfully: ${sanitizedFilename}`,
       downloadUrl: `/api/agents/files/download?path=${encodeURIComponent(filePath)}&userId=${userId}`,
       storedIn: storageType,
-      s3Url: s3Url || undefined,
       instructions: 'Show the user the download link above. NEVER invent a preview URL or mention localhost. If the file is HTML/CSS/JS, show the code in a markdown code block so the built-in live preview works automatically.',
     };
   } catch (error) {
@@ -6043,24 +5916,6 @@ export async function readFile(filename, userId = 'default') {
 
     // Get content based on storage type
     let content = file.content;
-
-    if (file.storageType === 's3' && file.s3Key) {
-      // Download from S3
-      const s3Result = await downloadFromS3(file.s3Key);
-      if (s3Result.success) {
-        // For text files, convert to string
-        const isBinary = isBinaryFile(file.filename);
-        content = isBinary
-          ? s3Result.content.toString('base64')
-          : s3Result.content.toString('utf-8');
-      } else {
-        return {
-          success: false,
-          filename,
-          error: `Failed to download from S3: ${s3Result.error}`,
-        };
-      }
-    }
 
     return {
       success: true,
@@ -6465,16 +6320,6 @@ export async function deleteFile(filename, userId = 'default') {
         filename,
         error: `File not found: ${filename}`,
       };
-    }
-
-    // Delete from S3 if stored there
-    if (file.storageType === 's3' && file.s3Key) {
-      const s3Result = await deleteFromS3(file.s3Key);
-      if (!s3Result.success) {
-        console.warn(
-          `[AgentFiles] Failed to delete from S3: ${s3Result.error}`
-        );
-      }
     }
 
     // Soft delete in Database
@@ -7008,10 +6853,6 @@ export async function zipFiles(
     await archive.finalize();
     const zipBuffer = Buffer.concat(chunks);
 
-    // Upload ZIP to S3 for reliable storage
-    const s3Key = `agent-files/${userId}/archives/${outputName}`;
-    const uploadResult = await uploadToS3(s3Key, zipBuffer, 'application/zip');
-
     const zipFile = new AgentFile({
       userId,
       filename: outputName,
@@ -7019,8 +6860,8 @@ export async function zipFiles(
       path: `/${outputName}`,
       mimeType: 'application/zip',
       size: zipBuffer.length,
-      s3Key,
-      s3Url: uploadResult.success ? uploadResult.url : undefined,
+      storageType: 'database',
+      content: zipBuffer.toString('base64'),
     });
 
     await zipFile.save();
@@ -7030,7 +6871,6 @@ export async function zipFiles(
       filename: outputName,
       size: zipBuffer.length,
       filesIncluded: files.length,
-      url: uploadResult.success ? uploadResult.url : undefined,
       message: `Created ${outputName} with ${files.length} files`,
     };
   } catch (error) {
@@ -7077,9 +6917,6 @@ export async function unzipFiles(
 
         let fileData;
         if (isBinary || content.length > MAX_DATABASE_SIZE) {
-          // Store binary/large files in S3
-          const s3Key = `agent-files/${userId}/extracted/${Date.now()}-${entry.path.replace(/\//g, '_')}`;
-          const uploadResult = await uploadToS3(s3Key, content, entryMimeType);
           fileData = {
             userId,
             filename: entry.path,
@@ -7087,8 +6924,8 @@ export async function unzipFiles(
             path: `${destFolder}/${entry.path}`,
             mimeType: entryMimeType,
             size: content.length,
-            s3Key,
-            s3Url: uploadResult.success ? uploadResult.url : undefined,
+            storageType: 'database',
+            content: content.toString('base64'),
           };
         } else {
           fileData = {
@@ -7269,12 +7106,9 @@ export async function transcribeAudio(
 
     if (!audioPath.startsWith('/') && !audioPath.startsWith('http')) {
       const file = await AgentFile.findOne({ userId, filename: audioPath });
-      if (file && file.s3Key) {
-        const s3Result = await downloadFromS3(file.s3Key);
-        if (s3Result.success) {
-          audioBuffer = s3Result.content;
-          filename = file.filename;
-        }
+      if (file && file.content) {
+        audioBuffer = Buffer.from(file.content, 'base64');
+        filename = file.filename;
       }
     } else if (audioPath.startsWith('/') && fs.existsSync(audioPath)) {
       audioBuffer = fs.readFileSync(audioPath);
@@ -7328,16 +7162,13 @@ export async function transcribeAudio(
     // Save transcript as a file
     const transcriptFilename = `transcript_${Date.now()}.txt`;
     const transcriptContent = result.text;
-    const s3Key = `agent-files/${userId}/transcripts/${transcriptFilename}`;
-    await uploadToS3(s3Key, transcriptContent, 'text/plain');
-
     const transcriptFile = new AgentFile({
       userId,
       agentId: 'whisper',
       filename: transcriptFilename,
       mimeType: 'text/plain',
       size: transcriptContent.length,
-      s3Key,
+      storageType: 'database',
       content: transcriptContent,
     });
     await transcriptFile.save();
@@ -11667,11 +11498,8 @@ export async function scanSecrets(content, options = {}, userId = 'default') {
     if (!content) return { success: false, error: 'Content to scan is required' };
 
     const patterns = [
-      { name: 'AWS Access Key', regex: /AKIA[0-9A-Z]{16}/g },
-      { name: 'AWS Secret Key', regex: /(?:aws_secret_access_key|secret_key)\s*[=:]\s*['"]?([A-Za-z0-9/+=]{40})/gi },
       { name: 'GitHub Token', regex: /gh[pous]_[A-Za-z0-9_]{36,}/g },
       { name: 'OpenAI API Key', regex: /sk-[A-Za-z0-9]{20,}/g },
-      { name: 'Stripe Key', regex: /[sr]k_(test|live)_[A-Za-z0-9]{20,}/g },
       { name: 'JWT Token', regex: /eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}/g },
       { name: 'Generic API Key', regex: /(?:api[_-]?key|apikey|api[_-]?secret)\s*[=:]\s*['"]?([A-Za-z0-9_-]{20,})/gi },
       { name: 'Private Key', regex: /-----BEGIN (?:RSA |EC )?PRIVATE KEY-----/g },

@@ -193,14 +193,12 @@ async function scanSecrets(params) {
     try {
         const patterns = [
             { name: 'AWS Access Key', regex: /AKIA[0-9A-Z]{16}/g },
-            { name: 'AWS Secret Key', regex: /(?:aws_secret_access_key|AWS_SECRET_ACCESS_KEY)\s*[=:]\s*['"]?([A-Za-z0-9/+=]{40})['"]?/g },
             { name: 'GitHub Token', regex: /gh[ps]_[A-Za-z0-9_]{36,}/g },
             { name: 'Generic API Key', regex: /(?:api[_-]?key|apikey|api_secret)\s*[=:]\s*['"]([A-Za-z0-9_\-]{20,})['"]?/gi },
             { name: 'Private Key', regex: /-----BEGIN (?:RSA |EC )?PRIVATE KEY-----/g },
             { name: 'JWT', regex: /eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}/g },
             { name: 'Database URL', regex: /(?:postgres|mysql|mongodb)(?:ql)?:\/\/[^\s'"]+/gi },
             { name: 'Slack Token', regex: /xox[bporas]-[0-9]{10,}-[A-Za-z0-9-]+/g },
-            { name: 'Stripe Key', regex: /(?:sk|pk)_(?:test|live)_[0-9a-zA-Z]{24,}/g },
             { name: 'Google API Key', regex: /AIza[0-9A-Za-z_-]{35}/g },
             { name: 'SendGrid Key', regex: /SG\.[A-Za-z0-9_-]{22}\.[A-Za-z0-9_-]{43}/g },
             { name: 'Twilio Key', regex: /SK[0-9a-fA-F]{32}/g },

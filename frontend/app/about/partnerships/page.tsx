@@ -244,7 +244,7 @@ export default function PartnershipsPage() {
           </div>
           <div className="p-6 rounded-xl bg-white/[0.02] border border-white/[0.06]">
             <p className="text-gray-300 text-sm">
-              We partner with Google Cloud, AWS, and Microsoft Azure to ensure Maula AI runs on best-in-class infrastructure — guaranteeing reliability, security, and scalability.
+              We partner with leading infrastructure providers to ensure Maula AI runs with reliability, security, and scalability.
             </p>
           </div>
         </div>

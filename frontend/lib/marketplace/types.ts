@@ -298,7 +298,6 @@ export interface MarketplaceTransaction {
   
   // Payment Processing
   paymentMethodId: string
-  stripeTransactionId?: string
   
   // Dates
   createdAt: Date
@@ -327,7 +326,7 @@ export interface DeveloperEarnings {
   toolEarnings: Record<string, number> // toolId: earnings
   
   // Payout info
-  payoutMethod: 'stripe' | 'paypal' | 'wire'
+  payoutMethod: 'paypal' | 'wire'
   payoutSchedule: 'monthly' | 'weekly'
   lastPayoutDate?: Date
 }

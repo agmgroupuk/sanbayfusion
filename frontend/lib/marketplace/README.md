@@ -348,7 +348,7 @@ GET /api/marketplace/plugins
 1. **Task 7**: Create REST API endpoints (`backend/app/api/marketplace/*`)
 2. **Task 8**: Build React components (`frontend/components/marketplace/*`)
 3. **Integration**: Connect to PostgreSQL database via Prisma
-4. **Payments**: Integrate Stripe for transactions
+4. **Payments**: Integrate the new payment provider for transactions
 5. **Deployment**: Deploy marketplace services
 
 ## 🆘 Common Operations

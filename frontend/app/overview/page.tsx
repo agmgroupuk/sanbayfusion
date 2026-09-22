@@ -38,7 +38,7 @@ const overviewCards = [
     },
     {
         title: 'Canvas Studio',
-        description: 'AI-powered web builder with Sandpack live preview, CloudPreview via AWS, sandbox execution, and one-click deployment.',
+        description: 'AI-powered web builder with Sandpack live preview, cloud preview, sandbox execution, and one-click deployment.',
         href: '/overview/studio',
         icon: Layers,
         glow: 'rgba(249,115,22,0.4)',
@@ -72,7 +72,7 @@ const comparisonRows = [
     { feature: 'AI Chat', agent: '✅', gencraft: '✅', studio: '✅', spaces: '✅' },
     { feature: 'Code Generation', agent: '—', gencraft: '✅', studio: '✅', spaces: '✅' },
     { feature: 'Live Preview', agent: '—', gencraft: '✅', studio: '✅ Sandpack', spaces: '✅' },
-    { feature: 'Cloud Deployment', agent: '—', gencraft: '—', studio: '✅ AWS', spaces: '✅' },
+    { feature: 'Cloud Deployment', agent: '—', gencraft: '—', studio: '✅', spaces: '✅' },
     { feature: 'AI Tools', agent: 'Agent-specific', gencraft: 'Code tools', studio: '268 tools', spaces: '268 tools' },
     { feature: 'Video Generation', agent: '—', gencraft: '✅', studio: '✅', spaces: '✅' },
     { feature: 'Sandbox Execution', agent: '—', gencraft: '—', studio: '✅', spaces: '✅' },
@@ -80,7 +80,7 @@ const comparisonRows = [
 ];
 
 const faqItems = [
-    { q: 'What payment methods do you accept?', a: 'We accept all major credit and debit cards (Visa, MasterCard, American Express) via Stripe. All payments are PCI DSS Level 1 compliant — your card details never touch our servers.' },
+    { q: 'What payment methods do you accept?', a: 'Payment methods will be announced when the new billing system launches.' },
     { q: 'Is there auto-renewal on any plans?', a: 'No. All purchases are one-time. Your access expires at the end of your chosen period and you manually repurchase when you want to continue. No surprise charges.' },
     { q: 'Can I switch between plans or products?', a: 'Yes! Since each purchase is one-time, you can freely switch between per-agent pricing, GenCraft Pro, or Spaces credits at any time. There are no lock-in contracts.' },
     { q: 'Do you offer enterprise or custom plans?', a: 'Yes. Contact our sales team at support@sanbayfusion.com for custom enterprise pricing, volume discounts, dedicated support, and SLA guarantees.' },
@@ -232,7 +232,7 @@ export default function PricingOverviewPage() {
 
                     <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
                         {[
-                            { icon: Shield, label: 'Secure Stripe Payments' },
+                            { icon: Shield, label: 'Secure Payments' },
                             { icon: CreditCard, label: 'No Auto-Renewal' },
                             { icon: Zap, label: 'Instant Access' },
                         ].map((badge, i) => (

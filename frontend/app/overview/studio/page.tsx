@@ -37,7 +37,7 @@ const PLANS = [
             'Full AI-powered web builder',
             '9+ AI providers (Anthropic, OpenAI, Google, Mistral, xAI, Groq & more)',
             'Sandpack live preview',
-            'CloudPreview via AWS ECS',
+            'CloudPreview via isolated sandbox infrastructure',
             'Sandbox code execution',
             '268 AI tools across 20 categories',
             'One-click cloud deployment',
@@ -66,7 +66,7 @@ const PLANS = [
             'Full AI-powered web builder',
             '9+ AI providers (Anthropic, OpenAI, Google, Mistral, xAI, Groq & more)',
             'Sandpack live preview',
-            'CloudPreview via AWS ECS',
+            'CloudPreview via isolated sandbox infrastructure',
             'Sandbox code execution',
             '268 AI tools across 20 categories',
             'One-click cloud deployment',
@@ -95,7 +95,7 @@ const PLANS = [
             'Full AI-powered web builder',
             '9+ AI providers (Anthropic, OpenAI, Google, Mistral, xAI, Groq & more)',
             'Sandpack live preview',
-            'CloudPreview via AWS ECS',
+            'CloudPreview via isolated sandbox infrastructure',
             'Sandbox code execution',
             '268 AI tools across 20 categories',
             'One-click cloud deployment',
@@ -111,11 +111,11 @@ const PLANS = [
 const APP_CAPABILITIES = [
     { icon: Code2, title: 'AI Code Generation', description: 'Describe any web app in natural language and Canvas Studio generates full working code — frontend, backend, styling, and logic.' },
     { icon: Monitor, title: 'Sandpack Live Preview', description: 'See your app running in real-time with Sandpack runtime. Edit code and watch changes instantly in the browser.' },
-    { icon: Cloud, title: 'CloudPreview via AWS ECS', description: 'Deploy live previews to AWS ECS containers. Full server-side rendering, API routes, and backend logic — not just static pages.' },
+    { icon: Cloud, title: 'CloudPreview via isolated sandbox infrastructure', description: 'Deploy live previews to isolated sandbox infrastructure containers. Full server-side rendering, API routes, and backend logic — not just static pages.' },
     { icon: Box, title: 'Sandbox Code Execution', description: 'Run code safely in isolated Docker sandbox containers. Execute Node.js, Python, and more with full terminal output.' },
     { icon: Layers, title: 'Multi-File Projects', description: 'Full project structure with file tree, multi-file support, and project history. Build real applications, not just snippets.' },
     { icon: Wrench, title: '268 AI Tools', description: '20 tool categories: AI/ML, analytics, API, cloud, data science, database, dev, document, security, workflow, and more — 268 tools total.' },
-    { icon: Rocket, title: 'One-Click Deployment', description: 'Deploy to Vercel, Netlify, GitHub Pages, AWS, and CloudPreview. Export and download projects to run locally.' },
+    { icon: Rocket, title: 'One-Click Deployment', description: 'Deploy to Vercel, Netlify, GitHub Pages, the hosting provider, and CloudPreview. Export and download projects to run locally.' },
     { icon: BrainCircuit, title: 'AI Agent Orchestration', description: 'Multi-agent system with specialized agents for different tasks — code generation, debugging, testing, documentation, and refactoring.' },
     { icon: Image, title: 'Image-to-Code', description: 'Upload a screenshot or design mockup and Canvas Studio converts it into working code using Azure AI Vision.' },
     { icon: Video, title: 'AI Video Generation', description: 'Generate videos from text prompts using integrated AI video tools powered by fal.ai and Minimax.' },
@@ -129,13 +129,13 @@ const comparisonRows = [
     { feature: 'AI Tools', w: '268', m: '268', y: '268' },
     { feature: 'Tool Categories', w: '20', m: '20', y: '20' },
     { feature: 'Sandpack Live Preview', w: true, m: true, y: true },
-    { feature: 'CloudPreview (AWS ECS)', w: true, m: true, y: true },
+    { feature: 'CloudPreview (isolated sandbox infrastructure)', w: true, m: true, y: true },
     { feature: 'Sandbox Execution (Docker)', w: true, m: true, y: true },
     { feature: 'Multi-File Projects', w: true, m: true, y: true },
     { feature: 'Image-to-Code', w: true, m: true, y: true },
     { feature: 'AI Video Generation', w: true, m: true, y: true },
     { feature: 'Agent Orchestration', w: true, m: true, y: true },
-    { feature: 'Deploy (Vercel, Netlify, GitHub, AWS)', w: true, m: true, y: true },
+    { feature: 'Deploy (Vercel, Netlify, GitHub, the hosting provider)', w: true, m: true, y: true },
     { feature: 'Export & Download', w: true, m: true, y: true },
     { feature: 'Generations', w: 'Unlimited', m: 'Unlimited', y: 'Unlimited' },
     { feature: 'Auto-Renewal', w: 'No', m: 'No', y: 'No' },
@@ -144,11 +144,11 @@ const comparisonRows = [
 ];
 
 const faqs = [
-    { q: 'What is Canvas Studio?', a: 'Canvas Studio is a professional AI-powered web builder and IDE. It generates full-stack web applications from natural language descriptions, featuring Sandpack live preview, CloudPreview via AWS ECS, Docker sandbox execution, 268 AI tools across 20 categories, and one-click deployment to multiple platforms.' },
-    { q: 'How is Canvas Studio different from GenCraft Pro?', a: 'Canvas Studio is the professional-tier product with CloudPreview (AWS ECS), Docker sandbox code execution, 268 AI tools (vs 35 in GenCraft Pro), 20 tool categories, and multi-agent orchestration. GenCraft Pro is a lighter app builder focused on code generation and Sandpack preview.' },
+    { q: 'What is Canvas Studio?', a: 'Canvas Studio is a professional AI-powered web builder and IDE. It generates full-stack web applications from natural language descriptions, featuring Sandpack live preview, CloudPreview via isolated sandbox infrastructure, Docker sandbox execution, 268 AI tools across 20 categories, and one-click deployment to multiple platforms.' },
+    { q: 'How is Canvas Studio different from GenCraft Pro?', a: 'Canvas Studio is the professional-tier product with CloudPreview (isolated sandbox infrastructure), Docker sandbox code execution, 268 AI tools (vs 35 in GenCraft Pro), 20 tool categories, and multi-agent orchestration. GenCraft Pro is a lighter app builder focused on code generation and Sandpack preview.' },
     { q: 'Are all features the same on every plan?', a: 'Yes. Weekly, Monthly, and Yearly plans all include identical features — full AI web builder, all 268 tools, CloudPreview, sandbox execution, deployment, and unlimited generations. The only difference is billing cycle and savings.' },
     { q: 'Which AI models can I use?', a: 'All plans include access to 9+ providers: Anthropic (Claude Sonnet 4, Opus 4, Haiku), OpenAI (GPT-4o), Google (Gemini 2.5 Pro/Flash), Mistral (Codestral), xAI (Grok 3), Groq (LLaMA 3.3), Cerebras, HuggingFace, and Ollama (local).' },
-    { q: 'What is CloudPreview?', a: 'CloudPreview deploys your app to an isolated AWS ECS container, giving you a live URL with full server-side capabilities. Unlike Sandpack (client-side only), CloudPreview supports API routes, database connections, server-side rendering, and backend logic.' },
+    { q: 'What is CloudPreview?', a: 'CloudPreview deploys your app to an isolated isolated sandbox infrastructure container, giving you a live URL with full server-side capabilities. Unlike Sandpack (client-side only), CloudPreview supports API routes, database connections, server-side rendering, and backend logic.' },
     { q: 'Is there auto-renewal?', a: 'No. All purchases are one-time. Your access expires at the end of your chosen period and you manually repurchase when you want to continue. No surprise charges ever.' },
 ];
 
@@ -163,7 +163,7 @@ export default function CanvasStudioPricingPage() {
     const [isCheckingAuth, setIsCheckingAuth] = useState(true);
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const [activePlan, setActivePlan] = useState<{ type: string; daysRemaining: number; id: string; stripeSubscriptionId?: string } | null>(null);
+    const [activePlan, setActivePlan] = useState<{ type: string; daysRemaining: number; id: string } | null>(null);
     const [isCancelling, setIsCancelling] = useState(false);
 
     useEffect(() => {
@@ -208,7 +208,6 @@ export default function CanvasStudioPricingPage() {
                         type: data.plan.type,
                         daysRemaining: data.plan.daysRemaining,
                         id: data.plan.id,
-                        stripeSubscriptionId: data.plan.stripeSubscriptionId,
                     });
                 }
             } catch (e) {
@@ -234,7 +233,7 @@ export default function CanvasStudioPricingPage() {
             if (subtitleRef.current) gsap.fromTo(subtitleRef.current, { opacity: 0, y: 40, filter: 'blur(10px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', delay: 0.5 });
 
             if (typewriterRef.current) {
-                const phrases = ['AI-powered professional web builder', '268 AI tools across 20 categories', 'CloudPreview via AWS ECS', 'Docker sandbox execution', 'No auto-renewal, one-time purchase'];
+                const phrases = ['AI-powered professional web builder', '268 AI tools across 20 categories', 'CloudPreview via isolated sandbox infrastructure', 'Docker sandbox execution', 'No auto-renewal, one-time purchase'];
                 const tl = gsap.timeline({ repeat: -1, delay: 1.2 });
                 phrases.forEach((phrase) => {
                     tl.to(typewriterRef.current, { duration: 0.6, text: { value: phrase, delimiter: '' }, ease: 'none' });
@@ -392,12 +391,12 @@ export default function CanvasStudioPricingPage() {
 
                     <p ref={subtitleRef} className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed font-light" style={{ opacity: 0 }}>
                         Professional AI-powered web builder & IDE. Generate full-stack apps, preview live, execute in sandboxes, and deploy in one click.
-                        <span className="text-orange-400"> 268 AI tools, 20 categories, CloudPreview via AWS ECS.</span>
+                        <span className="text-orange-400"> 268 AI tools, 20 categories, CloudPreview via isolated sandbox infrastructure.</span>
                     </p>
 
                     <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
                         {[
-                            { icon: Shield, label: 'Secure Payment via Stripe' },
+                            { icon: Shield, label: 'Secure Payment via the payment provider' },
                             { icon: Gift, label: 'No Auto-Renewal' },
                             { icon: Zap, label: 'Instant Access' },
                         ].map((badge, i) => (
@@ -737,7 +736,7 @@ export default function CanvasStudioPricingPage() {
 
             {/* ═══ FOOTER NOTE ═══ */}
             <div className="text-center pb-12 space-y-2">
-                <p className="text-white/15 text-xs">Powered by Stripe • SSL encrypted • No auto-renewal</p>
+                <p className="text-white/15 text-xs">Secure checkout • SSL encrypted • No auto-renewal</p>
                 <p className="text-white/10 text-xs">Canvas Studio by Maula AI</p>
             </div>
 
