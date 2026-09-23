@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     // Generate secret and QR code for 2FA setup
     const secret = authenticator.generateSecret();
-    const appName = 'MaulaAI';
+    const appName = 'Sanbay Fusion';
     const accountName = sessionUser.email;
 
     const otpauth = authenticator.keyuri(accountName, appName, secret);

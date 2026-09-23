@@ -244,7 +244,7 @@ export default function FooterGSAP() {
               <Link href="/" className="relative flex items-center gap-3 mb-5 group">
                 <div className="relative">
                   <div className="absolute inset-[-4px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'radial-gradient(circle, rgba(147,197,253,0.15) 0%, transparent 70%)' }} />
-                  <Image src="/images/logos/company-logo.png" alt="Maula AI" width={44} height={44} className="relative w-11 h-11 object-contain" />
+                  <Image src="/images/logos/company-logo.png" alt="Sanbay Fusion" width={44} height={44} className="relative w-11 h-11 object-contain" />
                 </div>
                 <span className="text-xl font-bold" style={{ background: 'linear-gradient(135deg, #e2e8f0 0%, #bae6fd 50%, #93c5fd 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                   sanbayfusion.com
@@ -382,7 +382,7 @@ export default function FooterGSAP() {
           <div className="relative py-5 px-1" style={{ borderTop: '1px solid rgba(147,197,253,0.06)' }}>
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
               <p className="text-slate-600 text-sm">
-                © {currentYear} Maula AI. All rights reserved.
+                © {currentYear} Sanbay Fusion. All rights reserved.
               </p>
               <div className="flex items-center gap-6">
                 {bottomLinks.map((link) => (

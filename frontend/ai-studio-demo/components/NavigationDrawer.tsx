@@ -206,7 +206,7 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
           </div>
           <div>
             <h3 className="text-emerald-400 font-bold text-lg tracking-[0.2em] font-mono leading-none">
-              MAULA_AI
+              SANBAY_FUSION
             </h3>
             <p className="text-[9px] text-emerald-600/60 uppercase font-mono tracking-[0.3em] mt-1">
               STATUS: <span className="text-emerald-400">ONLINE</span> | LATENCY: <span className="text-emerald-400">{stats.avgLatency || '...'}MS</span>
@@ -402,7 +402,7 @@ const NavigationDrawer: React.FC<NavigationDrawerProps> = ({
         <div className="flex items-center gap-3">
           <Activity size={14} className="text-emerald-600 animate-pulse" />
           <span className="text-[10px] text-emerald-500/70 font-mono uppercase tracking-widest">
-            MAULA_AI: {displayId}
+            SANBAY_FUSION: {displayId}
           </span>
         </div>
         <div className="flex items-center gap-4">

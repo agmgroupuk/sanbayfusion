@@ -1,6 +1,6 @@
 // ============================================
 // AI Studio Demo — Standalone Prisma Schema
-// Completely independent database from the main Maula AI app
+// Completely independent database from the main Sanbay Fusion app
 // ============================================
 
 generator client {

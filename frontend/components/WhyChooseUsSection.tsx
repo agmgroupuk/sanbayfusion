@@ -92,12 +92,12 @@ export default function WhyChooseUsSection() {
 
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 bg-cyan-500/10 rounded-full px-4 py-2 mb-6 border border-cyan-500/20">
-              <span className="text-cyan-300 text-sm font-medium">✨ Why Maula AI</span>
+              <span className="text-cyan-300 text-sm font-medium">✨ Why Sanbay Fusion</span>
             </div>
             <h2 ref={titleRef} className="text-4xl md:text-6xl font-bold bg-gradient-to-b from-white via-cyan-100 to-blue-300/60 bg-clip-text text-transparent leading-tight mb-4" style={{ opacity: 0 }}>
               Why Choose Us
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">The platform that grows with you. Here&apos;s why teams love building with Maula AI.</p>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">The platform that grows with you. Here&apos;s why teams love building with Sanbay Fusion.</p>
           </div>
 
           <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

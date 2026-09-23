@@ -53,7 +53,7 @@ const resources = [
   {
     id: 'news',
     title: 'News',
-    description: 'Latest product announcements, industry insights, community milestones, and AI breakthroughs from Maula AI.',
+    description: 'Latest product announcements, industry insights, community milestones, and AI breakthroughs from Sanbay Fusion.',
     icon: Newspaper,
     href: '/resources/news',
     color: 'from-amber-500 to-orange-500',
@@ -204,7 +204,7 @@ export default function NewsSection() {
             <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">Stay Informed</span>
           </h2>
           <p ref={subtitleRef} className="text-gray-400 text-lg max-w-2xl mx-auto font-light" style={{ opacity: 0 }}>
-            Discover tutorials, deep-dive articles, technical docs, and the latest news from Maula AI.
+            Discover tutorials, deep-dive articles, technical docs, and the latest news from Sanbay Fusion.
           </p>
         </div>
 

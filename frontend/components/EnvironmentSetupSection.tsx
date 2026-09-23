@@ -247,11 +247,11 @@ export default function EnvironmentSetupSection() {
               </div>
             </div>
 
-            {/* MAULA_AI Status Badge */}
+            {/* SANBAY_FUSION Status Badge */}
             <div className="rounded-2xl border border-emerald-500/[0.16] backdrop-blur-2xl p-5 shadow-[0_0_50px_rgba(0,0,0,0.5),0_0_20px_rgba(16,185,129,0.07),inset_0_1px_0_rgba(255,255,255,0.08)]" style={{ background: 'linear-gradient(135deg, rgba(16,185,129,0.08), rgba(6,182,212,0.04), rgba(0,0,0,0.28))' }}>
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h4 className="text-emerald-400 font-mono font-bold text-sm tracking-wider">MAULA_AI</h4>
+                  <h4 className="text-emerald-400 font-mono font-bold text-sm tracking-wider">SANBAY_FUSION</h4>
                   <p className="text-xs font-mono mt-1">
                     <span className="text-gray-500">STATUS: </span>
                     <span className="text-emerald-400 font-bold">ONLINE</span>

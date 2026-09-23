@@ -1,5 +1,5 @@
 {
-  "name": "Maula AI Universal Chat",
+  "name": "Sanbay Fusion Universal Chat",
   "description": "AI chat interface with multi-agent support, voice calls, memory, and file analysis.",
   "requestFramePermissions": [
     "microphone",

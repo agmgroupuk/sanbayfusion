@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({
         <button
           onClick={() => window.open('https://sanbayfusion.com/home', '_blank')}
           className="text-cyan-400 hover:text-white p-1 transition-colors"
-          title="Open Maula AI Website"
+          title="Open Sanbay Fusion Website"
         >
           <ExternalLink size={20} />
         </button>

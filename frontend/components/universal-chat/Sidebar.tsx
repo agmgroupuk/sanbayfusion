@@ -76,8 +76,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sessions, onSelect, onCreate, onDelet
         <div className="flex items-center gap-3 p-3 bg-[#151515] rounded-lg border border-gray-800">
           <span className="text-xl">🧠</span>
           <div className="text-left">
-            <div className="text-sm text-gray-200 font-medium">Maula AI</div>
-            <div className="text-[10px] text-gray-500">Powered by Maula AI</div>
+            <div className="text-sm text-gray-200 font-medium">Sanbay Fusion</div>
+            <div className="text-[10px] text-gray-500">Powered by Sanbay Fusion</div>
           </div>
           <div className="ml-auto px-2 py-0.5 bg-emerald-500/20 rounded text-[9px] text-emerald-400 font-bold">ACTIVE</div>
         </div>
@@ -144,7 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sessions, onSelect, onCreate, onDelet
       {/* Footer */}
       <div className="p-4 border-t border-gray-800">
         <div className="text-[11px] text-gray-600 text-center">
-          Maula AI Studio
+          Sanbay Fusion Studio
         </div>
       </div>
     </aside>

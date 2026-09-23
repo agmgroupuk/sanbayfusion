@@ -247,7 +247,7 @@ export const VoiceCallModal: React.FC<VoiceCallModalProps> = ({
             {agentAvatar ? (
               <img src={agentAvatar} alt={agentName} className="w-full h-full rounded-full object-cover" />
             ) : (
-              <img src="/images/logos/company-logo.png" alt="Maula AI" className="w-16 h-16 object-contain" />
+              <img src="/images/logos/company-logo.png" alt="Sanbay Fusion" className="w-16 h-16 object-contain" />
             )}
           </div>
         </div>

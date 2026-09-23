@@ -31,7 +31,7 @@ export default function AboutOverviewPage() {
       features: ['Real-world labs & AI-powered mentors', 'Certification pathways', 'Youth-focused, premium, secure, invite-only']
     },
     { 
-      name: 'Maula AI', 
+      name: 'Sanbay Fusion',
       icon: '🌌', 
       desc: 'Cinematic AI multiverse with 50+ modular agents',
       gradient: 'from-purple-500 to-pink-500',
@@ -212,7 +212,7 @@ export default function AboutOverviewPage() {
             <span className="text-4xl">👥</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
-            <span className="hero-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>About Maula AI</span>
+            <span className="hero-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>About Sanbay Fusion</span>
           </h1>
           <p className="hero-subtitle text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-6">
             Transforming businesses with emotionally intelligent, human-centric AI agents
@@ -239,7 +239,7 @@ export default function AboutOverviewPage() {
               <span className="inline-block px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono mb-4">SPECIAL_RECOGNITION</span>
               <h3 className="text-2xl font-bold text-amber-200 mb-4">Special Recognition</h3>
               <p className="text-lg text-amber-100/90 mb-4">
-                We extend our heartfelt gratitude to <span className="font-bold text-amber-300">Miss Chuttra Dilokkanwong (TH)</span>, Owner &amp; Founder, for her exceptional and invaluable contributions to Maula AI.
+                We extend our heartfelt gratitude to <span className="font-bold text-amber-300">Miss Chuttra Dilokkanwong (TH)</span>, Owner &amp; Founder, for her exceptional and invaluable contributions to Sanbay Fusion.
               </p>
               <ul className="space-y-3 text-amber-100/80">
                 {['Significant improvements to our core services and platform architecture', 
@@ -253,7 +253,7 @@ export default function AboutOverviewPage() {
                 ))}
               </ul>
               <p className="text-amber-200 font-semibold mt-6 pt-4 border-t border-amber-500/30">
-                Miss Chuttra Dilokkanwong&apos;s vision, generosity, and commitment to excellence have been instrumental in bringing Maula AI to life.
+                Miss Chuttra Dilokkanwong&apos;s vision, generosity, and commitment to excellence have been instrumental in bringing Sanbay Fusion to life.
               </p>
             </div>
           </div>

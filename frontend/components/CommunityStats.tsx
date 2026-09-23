@@ -104,7 +104,7 @@ export default function CommunityStats() {
               <span className="text-cyan-300 text-sm font-medium">🌐 Join the Community</span>
             </div>
             <h2 ref={titleRef} className="text-4xl md:text-6xl font-bold bg-gradient-to-b from-white via-cyan-100 to-blue-300/60 bg-clip-text text-transparent leading-tight mb-4">
-              Build with Maula AI
+              Build with Sanbay Fusion
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Everything you need to create, deploy, and scale intelligent AI applications — all in one platform.

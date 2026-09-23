@@ -119,7 +119,7 @@ export default function Header() {
               <div className="absolute inset-[-3px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'radial-gradient(circle, rgba(147,197,253,0.15) 0%, transparent 70%)' }} />
               <Image
                 src="/images/logos/company-logo.png"
-                alt="Maula AI"
+                alt="Sanbay Fusion"
                 width={36}
                 height={36}
                 className="relative w-9 h-9 object-contain"
@@ -130,7 +130,7 @@ export default function Header() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}>
-              Maula AI
+              Sanbay Fusion
             </span>
           </Link>
 

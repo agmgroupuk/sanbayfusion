@@ -156,7 +156,7 @@ function AgentSubscriptionGuardInner({
           {/* Header with Logo */}
           <div className="text-center">
             <Link href="/" className="inline-block mb-6">
-              <Image src="/images/logos/company-logo.png" alt="Maula AI" width={80} height={80} className="w-20 h-20 object-contain" priority />
+              <Image src="/images/logos/company-logo.png" alt="Sanbay Fusion" width={80} height={80} className="w-20 h-20 object-contain" priority />
             </Link>
             <h1 className="text-4xl font-bold mb-2">
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">Login Required</span>
@@ -238,7 +238,7 @@ function AgentSubscriptionGuardInner({
           {/* Header with Logo */}
           <div className="text-center">
             <Link href="/" className="inline-block mb-6">
-              <Image src="/images/logos/company-logo.png" alt="Maula AI" width={80} height={80} className="w-20 h-20 object-contain" priority />
+                  <Image src="/images/logos/company-logo.png" alt="Sanbay Fusion" width={80} height={80} className="w-20 h-20 object-contain" priority />
             </Link>
             <h1 className="text-4xl font-bold mb-2">
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">Subscribe to {agentName}</span>

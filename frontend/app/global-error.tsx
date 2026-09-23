@@ -10,7 +10,7 @@ export default function GlobalError({
     reset: () => void;
 }) {
     useEffect(() => {
-        console.error('[Maula AI] Global error:', error);
+        console.error('[Sanbay Fusion] Global error:', error);
     }, [error]);
 
     return (
@@ -26,7 +26,7 @@ export default function GlobalError({
                     <div style={{ textAlign: 'center', maxWidth: '480px' }}>
                         {/* Brand logo */}
                         <div style={{ marginBottom: '32px' }}>
-                            <img src="/images/logos/company-logo.png" alt="Maula AI" style={{ height: '40px', width: 'auto', opacity: 0.8, margin: '0 auto' }} />
+                            <img src="/images/logos/company-logo.png" alt="Sanbay Fusion" style={{ height: '40px', width: 'auto', opacity: 0.8, margin: '0 auto' }} />
                         </div>
 
                         {/* Error icon */}

@@ -19,7 +19,7 @@
                                                     │
                                          ┌──────────▼───────────────────┐
                                          │  PostgreSQL (ai_studio_demo) │
-                                         │  + Auth DB (maulaai)         │
+                                         │  + Auth DB (legacy maulaai)  │
                                          └──────────────────────────────┘
 ```
 

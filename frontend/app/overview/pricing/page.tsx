@@ -736,7 +736,7 @@ export default function CanvasStudioPricingPage() {
       {/* ═══ FOOTER NOTE ═══ */}
       <div className="text-center pb-12 space-y-2">
         <p className="text-white/15 text-xs">Secure checkout • SSL encrypted • No auto-renewal</p>
-        <p className="text-white/10 text-xs">GenCraft Pro by Maula AI</p>
+        <p className="text-white/10 text-xs">GenCraft Pro by Sanbay Fusion</p>
       </div>
 
       <style jsx global>{`

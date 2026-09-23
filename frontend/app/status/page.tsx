@@ -329,7 +329,7 @@ export default function StatusPage() {
           <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
             <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>System Status</span>
           </h1>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-6">Real-time monitoring of all Maula AI services</p>
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-6">Real-time monitoring of all Sanbay Fusion services</p>
           <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
             <StatusBadge status={overallStatus} />
             <span className="text-gray-500 text-sm">Last updated: {lastUpdate.toLocaleTimeString()}</span>

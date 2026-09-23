@@ -1,8 +1,8 @@
 {
     "id": "ai-studio-demo-pwa",
-    "name": "AI Studio Demo - Maula AI",
+    "name": "AI Studio Demo - Sanbay Fusion",
     "short_name": "AI Studio",
-    "description": "Try Maula AI's interactive demo. Chat with AI agents, explore tools, and experience AI-powered features.",
+    "description": "Try Sanbay Fusion's interactive demo. Chat with AI agents, explore tools, and experience AI-powered features.",
     "start_url": "/",
     "scope": "/",
     "display": "standalone",

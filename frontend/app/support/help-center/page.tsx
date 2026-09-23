@@ -286,7 +286,7 @@ export default function HelpCenterPage() {
             <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Help Center</span>
           </h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-10">
-            Find everything you need to get the most out of Maula AI. Browse our documentation, tutorials, community resources, and support options.
+            Find everything you need to get the most out of Sanbay Fusion. Browse our documentation, tutorials, community resources, and support options.
           </p>
 
           {/* Search Bar */}

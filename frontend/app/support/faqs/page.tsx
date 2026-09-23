@@ -18,11 +18,11 @@ export default function FAQsPage() {
       icon: '🚀',
       color: 'from-blue-500 to-cyan-500',
       questions: [
-        { q: 'What is Maula AI?', a: 'Maula AI is a comprehensive AI platform with 20+ specialized AI agents, Canvas Studio for building full-stack web apps, and powerful creative tools for images, video, audio, and data. Access it through sanbayfusion.com and spaces.sanbayfusion.com (Canvas App, Canvas Studio, GenCraft Pro, and Maula Editor).' },
+        { q: 'What is Sanbay Fusion?', a: 'Sanbay Fusion is a comprehensive AI platform with 20+ specialized AI agents, Canvas Studio for building full-stack web apps, and powerful creative tools for images, video, audio, and data. Access it through sanbayfusion.com and spaces.sanbayfusion.com (Canvas App, Canvas Studio, GenCraft Pro, and Maula Editor).' },
         { q: 'How do I get started?', a: 'Create your account, browse our AI agents, and choose the one that fits your needs. Purchase access for $1/day, $5/week, or $15/month. Once purchased, start chatting with your agent immediately — no setup required.' },
         { q: 'What can I do with AI agents?', a: 'Chat with unique AI personalities, get help with coding, science, cooking, fitness, travel, entertainment, and more. Agents can generate code, create images, process documents, build web apps, and remember your preferences across conversations.' },
         { q: 'What is Canvas Studio?', a: 'Canvas Studio is our AI-powered web app builder. Describe what you want, and the AI generates, edits, and deploys full-stack applications for you. It includes a code editor, project management, live preview, and one-click deployment.' },
-        { q: 'Do I need technical skills?', a: 'Not at all! Maula AI is designed for everyone. Non-technical users can chat with agents naturally, while developers can use Canvas Studio and GenCraft Pro for advanced projects. We provide tutorials for all skill levels.' },
+        { q: 'Do I need technical skills?', a: 'Not at all! Sanbay Fusion is designed for everyone. Non-technical users can chat with agents naturally, while developers can use Canvas Studio and GenCraft Pro for advanced projects. We provide tutorials for all skill levels.' },
         { q: 'What agents are available?', a: 'We offer 20+ AI agents including Einstein (Physics & Math), Tech Wizard (Programming), Chef Biew (Cooking), Fitness Guru (Health), Travel Buddy (Travel), Comedy King (Entertainment), Emma (Emotional Support), and specialized agents for business, education, and creativity.' }
       ]
     },
@@ -61,7 +61,7 @@ export default function FAQsPage() {
         { q: 'How do I reset my password?', a: 'Click "Forgot Password" on the login page. You\'ll receive a secure reset link via email. For additional security, your account is automatically locked after multiple failed login attempts.' },
         { q: 'Can I export my data?', a: 'Yes. You can request a full export of your personal data in JSON format by contacting privacy@sanbayfusion.com. This includes your account data, conversation history, agent memories, and project files. We will process your request within 30 days.' },
         { q: 'What happens if I delete my account?', a: 'All personal data — including account information, conversations, projects, agent memories, and stored credentials — is permanently deleted within 30 days. You can also request immediate deletion of specific data. We retain only minimal anonymised metadata as required by law.' },
-        { q: 'Does Maula AI use my data for AI training?', a: 'No. We do NOT use your data to train AI models. Your prompts and generated code are used solely to provide the service you requested. See our Privacy Policy for full details on how your data is handled.' },
+        { q: 'Does Sanbay Fusion use my data for AI training?', a: 'No. We do NOT use your data to train AI models. Your prompts and generated code are used solely to provide the service you requested. See our Privacy Policy for full details on how your data is handled.' },
         { q: 'How do I delete specific conversations or memories?', a: 'In the chat interface, you can delete individual conversations. Agent memories can be viewed and individually deleted through the Agent Memory panel. Deleted data cannot be recovered.' }
       ]
     },
@@ -72,7 +72,7 @@ export default function FAQsPage() {
       questions: [
         { q: 'What data do you collect?', a: 'We collect your email, a securely hashed password, optional profile info (display name, avatar), and data you create on the platform (chats, projects, agent memories). We also collect anonymous usage analytics (page views, session data) through our own first-party system — no Google Analytics or third-party trackers.' },
         { q: 'Do you sell my data?', a: 'No. We do NOT sell personal information. We do NOT share data for advertising. We do not use third-party tracking cookies, pixels, or ad networks. See our Privacy Policy at sanbayfusion.com/legal/privacy-policy for complete details.' },
-        { q: 'What cookies does Maula AI use?', a: 'We use only 3 essential cookies for authentication (neural_link_session, neural_token, session_id) — all HTTP-only and secure. No marketing cookies, no analytics cookies, no third-party cookies. We also store some preferences in your browser\'s localStorage (theme, selected model). See our Cookie Policy at sanbayfusion.com/legal/cookie-policy.' },
+        { q: 'What cookies does Sanbay Fusion use?', a: 'We use only 3 essential cookies for authentication (neural_link_session, neural_token, session_id) — all HTTP-only and secure. No marketing cookies, no analytics cookies, no third-party cookies. We also store some preferences in your browser\'s localStorage (theme, selected model). See our Cookie Policy at sanbayfusion.com/legal/cookie-policy.' },
         { q: 'Are you GDPR and CCPA compliant?', a: 'Yes. We comply with GDPR (EU/EEA/UK), CCPA/CPRA (California), and CalOPPA. You have the right to access, correct, export, and delete your data. You can exercise any of these rights by emailing privacy@sanbayfusion.com — we respond within 30-45 days as required by law.' },
         { q: 'What are my data rights?', a: 'You can: access and download your data, correct inaccurate information, request deletion of all your data, export data in JSON format, object to processing, and control AI agent memories. For GDPR requests: dpo@sanbayfusion.com. For CCPA requests: privacy@sanbayfusion.com.' },
         { q: 'Where is my data stored?', a: 'Your data is stored in encrypted application databases and file storage. Files you upload are stored securely with encryption.' }
@@ -303,7 +303,7 @@ export default function FAQsPage() {
             <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Frequently Asked Questions</span>
           </h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto mb-8">
-            Find answers to common questions about Maula AI, our agents, and features.
+            Find answers to common questions about Sanbay Fusion, our agents, and features.
           </p>
 
           {/* Search Bar */}

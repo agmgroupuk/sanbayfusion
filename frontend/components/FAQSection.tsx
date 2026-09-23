@@ -6,8 +6,8 @@ import { gsap, ScrollTrigger, DrawSVGPlugin, CustomEase, Observer, ScrambleTextP
 
 const faqs = [
   {
-    q: 'What is Maula AI and what can I do with it?',
-    a: 'Maula AI is an all-in-one AI platform with 20+ specialized AI agents, Canvas Studio for building and deploying web apps, and powerful creative tools. You can chat with unique AI personalities, generate code, build full-stack web apps, create images and videos, process data, and much more — all from one place at sanbayfusion.com and spaces.sanbayfusion.com.'
+    q: 'What is Sanbay Fusion and what can I do with it?',
+    a: 'Sanbay Fusion is an all-in-one AI platform with 20+ specialized AI agents, Canvas Studio for building and deploying web apps, and powerful creative tools. You can chat with unique AI personalities, generate code, build full-stack web apps, create images and videos, process data, and much more — all from one place at sanbayfusion.com and spaces.sanbayfusion.com.'
   },
   {
     q: 'How do the AI agents work?',
@@ -157,7 +157,7 @@ export default function FAQSection() {
               <h2 ref={titleRef} className="text-4xl md:text-6xl font-bold bg-gradient-to-b from-white via-cyan-100 to-blue-300/60 bg-clip-text text-transparent leading-tight mb-4">
                 Questions & Answers
               </h2>
-              <p className="text-gray-400 text-lg">Everything you need to know about Maula AI.</p>
+              <p className="text-gray-400 text-lg">Everything you need to know about Sanbay Fusion.</p>
             </div>
 
             <div ref={faqsRef} className="space-y-3">

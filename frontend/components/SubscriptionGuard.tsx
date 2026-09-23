@@ -106,7 +106,7 @@ export function SubscriptionGuard({
           <div className="text-center">
             <Link href="/" className="inline-block mb-6 group">
               <div className="relative">
-                <Image src="/images/logos/company-logo.png" alt="Maula AI" width={80} height={80} className="w-20 h-20 object-contain transition-transform duration-500 group-hover:scale-110" priority />
+                <Image src="/images/logos/company-logo.png" alt="Sanbay Fusion" width={80} height={80} className="w-20 h-20 object-contain transition-transform duration-500 group-hover:scale-110" priority />
                 <div className="absolute inset-0 bg-violet-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
             </Link>
@@ -161,7 +161,7 @@ export function SubscriptionGuard({
           {/* Footer */}
           <div className="text-center space-y-4">
             <p className="text-gray-500 text-sm">
-              New to Maula AI?{' '}
+              New to Sanbay Fusion?{' '}
               <Link href="/overview" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
                 View our plans
               </Link>

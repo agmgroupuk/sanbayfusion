@@ -205,7 +205,7 @@ export default function DocumentationPage() {
 
           <p className="hero-subtitle text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed font-light">
             Everything you need to integrate and build with
-            <span className="text-cyan-400"> Maula AI agents.</span>
+            <span className="text-cyan-400"> Sanbay Fusion agents.</span>
           </p>
 
           <div className="flex justify-center items-center">
@@ -276,7 +276,7 @@ export default function DocumentationPage() {
                   Getting Started
                 </h2>
                 <p className="text-gray-400 mb-6 leading-relaxed">
-                  Maula AI is a complete AI platform with 18+ specialized agents, GenCraft Pro (AI app builder with 170+ tools), Canvas Studio (professional AI code editor with 16 panels), Developer Tools, and AI Lab experiments.
+                  Sanbay Fusion is a complete AI platform with 18+ specialized agents, GenCraft Pro (AI app builder with 170+ tools), Canvas Studio (professional AI code editor with 16 panels), Developer Tools, and AI Lab experiments.
                 </p>
 
                 <div className="space-y-4">

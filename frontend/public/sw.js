@@ -1,5 +1,5 @@
 /**
- * Maula AI — Service Worker
+ * Sanbay Fusion — Service Worker
  * PWA: Offline support, caching, push notifications
  *
  * Strategy:
@@ -169,7 +169,7 @@ async function navigationHandler(request) {
         if (offlinePage) return offlinePage;
 
         return new Response(
-            '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Offline — Maula AI</title></head><body style="font-family:system-ui;background:#0a0a0a;color:#e5e7eb;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center"><div><h1>📡 Offline</h1><p>Check your connection.</p><button onclick="location.reload()" style="background:#6366f1;color:#fff;border:none;padding:.75rem 1.5rem;border-radius:8px;cursor:pointer">Retry</button></div></body></html>',
+            '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Offline — Sanbay Fusion</title></head><body style="font-family:system-ui;background:#0a0a0a;color:#e5e7eb;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center"><div><h1>📡 Offline</h1><p>Check your connection.</p><button onclick="location.reload()" style="background:#6366f1;color:#fff;border:none;padding:.75rem 1.5rem;border-radius:8px;cursor:pointer">Retry</button></div></body></html>',
             { status: 200, headers: { 'Content-Type': 'text/html' } }
         );
     }
@@ -182,7 +182,7 @@ function isStaticAsset(pathname) {
 // ─── Push Notifications ───────────────────────────────────────────
 
 self.addEventListener('push', (event) => {
-    let data = { title: 'Maula AI', body: 'You have a new notification', icon: '/icons/icon-192x192.png' };
+    let data = { title: 'Sanbay Fusion', body: 'You have a new notification', icon: '/icons/icon-192x192.png' };
 
     if (event.data) {
         try {

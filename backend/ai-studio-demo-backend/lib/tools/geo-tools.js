@@ -28,7 +28,7 @@ async function geoGeocode(params) {
                 const url = `https://nominatim.openstreetmap.org/search?q=${encoded}&format=json&limit=${opts.limit || 5}&addressdetails=1`;
 
                 const resp = await fetch(url, {
-                    headers: { 'User-Agent': 'MaulaAI/3.0 (contact@sanbayfusion.com)' },
+                    headers: { 'User-Agent': 'SanbayFusion/3.0 (contact@sanbayfusion.com)' },
                 });
                 if (!resp.ok) return { success: false, error: `Geocoding failed: ${resp.status}` };
                 const results = await resp.json();
@@ -64,7 +64,7 @@ async function geoGeocode(params) {
                 const url = `https://nominatim.openstreetmap.org/reverse?lat=${opts.lat}&lon=${opts.lon}&format=json&addressdetails=1`;
 
                 const resp = await fetch(url, {
-                    headers: { 'User-Agent': 'MaulaAI/3.0 (contact@sanbayfusion.com)' },
+                    headers: { 'User-Agent': 'SanbayFusion/3.0 (contact@sanbayfusion.com)' },
                 });
                 if (!resp.ok) return { success: false, error: `Reverse geocoding failed: ${resp.status}` };
                 const result = await resp.json();
@@ -98,7 +98,7 @@ async function geoGeocode(params) {
                     const url = `https://nominatim.openstreetmap.org/search?q=${encoded}&format=json&limit=1`;
                     try {
                         const resp = await fetch(url, {
-                            headers: { 'User-Agent': 'MaulaAI/3.0 (contact@sanbayfusion.com)' },
+                            headers: { 'User-Agent': 'SanbayFusion/3.0 (contact@sanbayfusion.com)' },
                         });
                         const data = await resp.json();
                         if (data.length > 0) {
@@ -792,7 +792,7 @@ async function geoAddressValidate(params) {
                 const encoded = encodeURIComponent(opts.address);
                 const url = `https://nominatim.openstreetmap.org/search?q=${encoded}&format=json&limit=1&addressdetails=1`;
                 const resp = await fetch(url, {
-                    headers: { 'User-Agent': 'MaulaAI/3.0 (contact@sanbayfusion.com)' },
+                    headers: { 'User-Agent': 'SanbayFusion/3.0 (contact@sanbayfusion.com)' },
                 });
                 if (!resp.ok) return { success: false, error: `Validation failed: ${resp.status}` };
                 const results = await resp.json();
@@ -885,7 +885,7 @@ async function geoAddressValidate(params) {
                     const url = `https://nominatim.openstreetmap.org/search?q=${encoded}&format=json&limit=1&addressdetails=1`;
                     try {
                         const resp = await fetch(url, {
-                            headers: { 'User-Agent': 'MaulaAI/3.0 (contact@sanbayfusion.com)' },
+                            headers: { 'User-Agent': 'SanbayFusion/3.0 (contact@sanbayfusion.com)' },
                         });
                         const data = await resp.json();
                         if (data.length > 0) {

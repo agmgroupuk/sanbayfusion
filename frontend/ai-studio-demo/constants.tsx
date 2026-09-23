@@ -12,7 +12,7 @@ import { SettingsState, NavItem } from './types';
 export const PROVIDER_CONFIG = [
   {
     id: 'anthropic',
-    name: 'Maula AI',
+    name: 'Sanbay Fusion',
     icon: '🧠',
     models: [
       { id: 'claude-sonnet-4-20250514', name: 'Claude' }

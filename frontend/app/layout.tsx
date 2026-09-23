@@ -15,7 +15,7 @@ import '@/styles/globals.css';
 
 // Metadata for SEO and browser tabs
 export const metadata: Metadata = {
-  title: 'Maula AI - Your AI Dream Team',
+  title: 'Sanbay Fusion - Your AI Dream Team',
   description:
     "Transform your workflow with 18 specialized AI personalities. From Einstein's genius to Shakespeare's creativity - unlock the power of history's greatest minds.",
   keywords: [
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     'AI personalities',
     'machine learning',
   ],
-  authors: [{ name: 'Maula AI' }],
-  creator: 'Maula AI',
-  publisher: 'Maula AI',
+  authors: [{ name: 'Sanbay Fusion' }],
+  creator: 'Sanbay Fusion',
+  publisher: 'Sanbay Fusion',
   metadataBase: new URL('https://sanbayfusion.com'),
   alternates: {
     canonical: 'https://sanbayfusion.com',
@@ -38,22 +38,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://sanbayfusion.com',
-    title: 'Maula AI - Your AI Dream Team',
+    title: 'Sanbay Fusion - Your AI Dream Team',
     description:
       "Transform your workflow with 18 specialized AI personalities. From Einstein's genius to Shakespeare's creativity.",
-    siteName: 'Maula AI',
+    siteName: 'Sanbay Fusion',
     images: [
       {
         url: '/images/logos/company-logo.png',
         width: 1200,
         height: 630,
-        alt: 'Maula AI - AI Dream Team',
+        alt: 'Sanbay Fusion - AI Dream Team',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Maula AI - Your AI Dream Team',
+    title: 'Sanbay Fusion - Your AI Dream Team',
     description:
       'Transform your workflow with 18 specialized AI personalities.',
     images: ['/images/logos/company-logo.png'],
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Maula AI',
+    title: 'Sanbay Fusion',
   },
   other: {
     'mobile-web-app-capable': 'yes',

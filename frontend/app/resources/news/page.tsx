@@ -124,7 +124,7 @@ export default function NewsPage() {
   const newsArticles = [
     {
       id: 1,
-      title: 'Maula AI Launches New $1/Day Testing Plan',
+      title: 'Sanbay Fusion Launches New $1/Day Testing Plan',
       description: 'We\'re excited to announce our affordable new testing plan, allowing users to evaluate all features for just $1 per day before committing to larger subscriptions.',
       category: 'product',
       date: 'October 22, 2025',
@@ -150,8 +150,8 @@ export default function NewsPage() {
     },
     {
       id: 3,
-      title: 'Maula AI Recognized as Top AI Platform',
-      description: 'We\'re thrilled to announce that Maula AI has been recognized by TechCrunch as one of the top 10 emerging AI platforms for 2025.',
+      title: 'Sanbay Fusion Recognized as Top AI Platform',
+      description: 'We\'re thrilled to announce that Sanbay Fusion has been recognized by TechCrunch as one of the top 10 emerging AI platforms for 2025.',
       category: 'awards',
       date: 'October 18, 2025',
       image: '🏆',
@@ -189,7 +189,7 @@ export default function NewsPage() {
     },
     {
       id: 6,
-      title: 'Maula AI Community Continues to Grow',
+      title: 'Sanbay Fusion Community Continues to Grow',
       description: 'Our community is growing rapidly with active members sharing insights, best practices, and innovative use cases across the platform.',
       category: 'product',
       date: 'October 10, 2025',
@@ -215,8 +215,8 @@ export default function NewsPage() {
     },
     {
       id: 8,
-      title: 'Maula AI Security Certification Achieved',
-      description: 'We\'re proud to announce that Maula AI has achieved SOC 2 Type II certification, ensuring the highest security standards.',
+      title: 'Sanbay Fusion Security Certification Achieved',
+      description: 'We\'re proud to announce that Sanbay Fusion has achieved SOC 2 Type II certification, ensuring the highest security standards.',
       category: 'awards',
       date: 'October 5, 2025',
       image: '🔒',
@@ -508,7 +508,7 @@ export default function NewsPage() {
             className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed font-light"
             style={{ opacity: 0 }}
           >
-            Stay updated with the latest news, product announcements, and industry insights about AI and Maula AI.
+            Stay updated with the latest news, product announcements, and industry insights about AI and Sanbay Fusion.
           </p>
 
           {/* Badge similar to tools */}

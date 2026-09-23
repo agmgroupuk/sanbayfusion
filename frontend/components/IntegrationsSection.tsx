@@ -201,7 +201,7 @@ export default function IntegrationsSection() {
                 <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-400 bg-clip-text text-transparent">Everything</span>
               </h2>
               <p ref={subtitleRef} className="text-gray-400 text-lg mb-6 leading-relaxed font-light" style={{ opacity: 0 }}>
-                Seamlessly connect Maula AI with 100+ tools and services you already use. From AI providers to deployment platforms — it all works together.
+                Seamlessly connect Sanbay Fusion with 100+ tools and services you already use. From AI providers to deployment platforms — it all works together.
               </p>
               <div className="flex flex-wrap gap-2 mb-8">
                 {integrations.map((int, i) => (

@@ -574,7 +574,7 @@ export default function DocsAPIPage() {
                             </h1>
 
                             <p className="hero-sub text-center text-lg sm:text-xl text-white/40 max-w-2xl mx-auto mb-10">
-                                {totalEndpoints} endpoints across {apiCategories.length} categories. Build powerful integrations with the Maula AI platform.
+                                {totalEndpoints} endpoints across {apiCategories.length} categories. Build powerful integrations with the Sanbay Fusion platform.
                             </p>
 
                             {/* Quick info cards */}

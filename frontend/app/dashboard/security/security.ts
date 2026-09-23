@@ -837,7 +837,7 @@ export const securityUtils = {
   generateQRCodeUrl(
     email: string,
     secret: string,
-    issuer: string = 'MaulaAI'
+    issuer: string = 'Sanbay Fusion'
   ): string {
     const otpauthUrl = `otpauth://totp/${issuer}:${email}?secret=${secret}&issuer=${issuer}`;
     return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(

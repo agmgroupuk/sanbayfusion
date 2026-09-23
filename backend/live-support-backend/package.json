@@ -2,7 +2,7 @@
   "name": "live-support-backend",
   "version": "1.0.0",
   "type": "module",
-  "description": "Maula AI Live Support Backend — tickets, consultations, contact, live chat",
+  "description": "Sanbay Fusion Live Support Backend — tickets, consultations, contact, live chat",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

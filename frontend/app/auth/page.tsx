@@ -114,7 +114,7 @@ export default function AuthPage() {
           {/* ── Header ── */}
           <div className="mb-12">
             <div className="hero-icon inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-6" style={{ background: 'linear-gradient(135deg, rgba(147,197,253,0.08) 0%, rgba(186,230,253,0.04) 100%)', border: '1px solid rgba(147,197,253,0.15)', boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(147,197,253,0.05), inset 0 1px 0 rgba(186,230,253,0.08)' }}>
-              <Image src="/images/logos/company-logo-original.png" alt="Maula AI" width={120} height={120} className="w-28 h-28 object-contain" />
+              <Image src="/images/logos/company-logo-original.png" alt="Sanbay Fusion" width={120} height={120} className="w-28 h-28 object-contain" />
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
               <span className="hero-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Welcome to AI Agents</span>

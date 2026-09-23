@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'ai.maula.app',
-  appName: 'Maula AI',
+  appName: 'Sanbay Fusion',
   webDir: 'out',
   server: {
     url: 'https://sanbayfusion.com',

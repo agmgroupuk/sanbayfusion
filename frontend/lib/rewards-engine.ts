@@ -1,5 +1,5 @@
 /**
- * Rewards Engine — Core gamification logic for Maula AI
+ * Rewards Engine — Core gamification logic for Sanbay Fusion
  * Handles points awarding, badge/achievement tracking, referral system, level calculation
  */
 
@@ -47,7 +47,7 @@ export const LEVEL_THRESHOLDS = [
 ];
 
 export const BADGE_DEFINITIONS = [
-    { id: 'welcome', name: 'Welcome!', description: 'Joined Maula AI', icon: '👋', rarity: 'common', condition: 'signup' },
+    { id: 'welcome', name: 'Welcome!', description: 'Joined Sanbay Fusion', icon: '👋', rarity: 'common', condition: 'signup' },
     { id: 'first_chat', name: 'First Steps', description: 'Had your first AI conversation', icon: '💬', rarity: 'common', condition: 'chat_1' },
     { id: 'chatter', name: 'Chatter', description: 'Completed 10 conversations', icon: '🗣️', rarity: 'common', condition: 'chat_10' },
     { id: 'conversationalist', name: 'Conversationalist', description: 'Completed 50 conversations', icon: '🎙️', rarity: 'rare', condition: 'chat_50' },
@@ -81,7 +81,7 @@ export const ACHIEVEMENT_DEFINITIONS = [
     { id: 'tool_master', name: 'Tool Master', description: 'Use 10 different tools', icon: '🔧', points: 200, target: 10, source: 'tool' },
     { id: 'lab_scientist', name: 'Lab Scientist', description: 'Run 10 experiments', icon: '🔬', points: 200, target: 10, source: 'lab' },
     { id: 'explorer', name: 'Explorer', description: 'Try 5 different agents', icon: '🧭', points: 150, target: 5, source: 'agent_diversity' },
-    { id: 'early_adopter', name: 'Early Adopter', description: 'Join Maula AI before 2027', icon: '🚀', points: 200, target: 1, source: 'special' },
+    { id: 'early_adopter', name: 'Early Adopter', description: 'Join Sanbay Fusion before 2027', icon: '🚀', points: 200, target: 1, source: 'special' },
 ];
 
 export const REWARDS_CATALOG = [

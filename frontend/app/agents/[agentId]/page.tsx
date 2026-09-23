@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: { params: Promise<{ agentId: 
         .join(' ');
 
     return {
-        title: `Chat with ${agentName} | Maula AI`,
+        title: `Chat with ${agentName} | Sanbay Fusion`,
         description: `Have a conversation with ${agentName}, your AI assistant specialized in their unique domain.`,
     };
 }

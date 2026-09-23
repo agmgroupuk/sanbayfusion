@@ -8,14 +8,14 @@ import { SettingsState, NavItem } from './types';
 export const PROVIDER_CONFIG = [
   {
     id: 'mistral',
-    name: 'Maula AI',
+    name: 'Sanbay Fusion',
     icon: '🧠',
     models: [
       { id: 'mistral-small-latest', name: 'Mistral Small' },
       { id: 'mistral-large-latest', name: 'Mistral Large' }
     ],
     defaultModel: 'mistral-small-latest',
-    description: 'Powered by Maula AI with auto-fallback',
+    description: 'Powered by Sanbay Fusion with auto-fallback',
     status: 'active'
   }
 ];

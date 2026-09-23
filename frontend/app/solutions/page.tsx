@@ -81,7 +81,7 @@ export default function SolutionsPage() {
       // Morphing background orbs
       gsap.utils.toArray('.morph-orb').forEach((orb: any, i) => {
         gsap.to(orb, {
-          borderRadius: ['30% 70% 70% 30% / 30% 30% 70% 70%', '60% 40% 30% 70% / 60% 30% 70% 40%', '30% 60% 70% 40% / 50% 60% 30% 60%'],
+          borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%' as any,
           x: `random(-50, 50)`,
           y: `random(-50, 50)`,
           rotation: 360,
@@ -379,7 +379,7 @@ export default function SolutionsPage() {
             Ready to Transform Your Business?
           </h2>
           <p className="text-xl text-gray-400 mb-8">
-            Join thousands of companies already using Maula AI
+            Join thousands of companies already using Sanbay Fusion
           </p>
           <Link
             href="/overview/spaces"

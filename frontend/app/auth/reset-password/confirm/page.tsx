@@ -126,7 +126,7 @@ function ConfirmResetForm() {
                         <div className="absolute top-0 left-0 right-0 h-1/2 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)' }} />
                         <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.08) 70%, transparent)' }} />
                         <Link href="/" className="relative inline-block mb-3">
-                            <Image src="/images/logos/company-logo-original.png" alt="Maula AI" width={52} height={52} className="w-[52px] h-[52px] object-contain" priority />
+                            <Image src="/images/logos/company-logo-original.png" alt="Sanbay Fusion" width={52} height={52} className="w-[52px] h-[52px] object-contain" priority />
                         </Link>
                         <h1 className="relative text-xl font-bold leading-tight">
                             <span className="confirm-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>New Password</span>

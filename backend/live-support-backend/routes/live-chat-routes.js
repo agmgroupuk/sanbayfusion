@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
     if (!issue) return res.status(400).json({ error: 'Issue required' });
 
     const response = await callProviderSync('openai', [
-      { role: 'system', content: 'You are a helpful customer support agent for Maula AI platform. Provide clear, concise solutions. Be friendly and professional.' },
+      { role: 'system', content: 'You are a helpful customer support agent for Sanbay Fusion. Provide clear, concise solutions. Be friendly and professional.' },
       { role: 'user', content: issue },
     ], null, 800);
 
@@ -98,7 +98,7 @@ router.post('/live-chat', async (req, res) => {
 
     // Build messages array with conversation history
     const messages = [
-      { role: 'system', content: 'You are a helpful customer support agent for Maula AI platform. You help users with their issues regarding AI tools, subscriptions, billing, and technical problems. Be friendly, professional, and thorough in your responses.' },
+      { role: 'system', content: 'You are a helpful customer support agent for Sanbay Fusion. You help users with their issues regarding AI tools, subscriptions, billing, and technical problems. Be friendly, professional, and thorough in your responses.' },
     ];
 
     // Add conversation history
@@ -189,7 +189,7 @@ function buildSystemPrompt(userContext) {
     ).join('\n');
   }
 
-  return `You are Luna, the AI support agent for the Maula AI platform. You are warm, helpful, and knowledgeable.
+  return `You are Luna, the AI support agent for the Sanbay Fusion platform. You are warm, helpful, and knowledgeable.
 
 IMPORTANT RULES:
 - You already have all the user's account information below. Use it to answer questions directly — never ask the user for information you already have.
@@ -227,7 +227,7 @@ ${ticketInfo}
 ═══════════════════════════════════════
 PLATFORM INFO
 ═══════════════════════════════════════
-Maula AI is a platform offering AI agents for various tasks. Plans: daily, weekly, monthly, yearly, lifetime.
+Sanbay Fusion is a platform offering AI agents for various tasks. Plans: daily, weekly, monthly, yearly, lifetime.
 Website: https://sanbayfusion.com
 Support email: support@sanbayfusion.com
 Users can manage subscriptions at /dashboard/billing.`;

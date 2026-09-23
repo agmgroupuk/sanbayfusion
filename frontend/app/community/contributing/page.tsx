@@ -199,10 +199,10 @@ export default function ContributingPage() {
             <span className="text-5xl">❤️</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
-            <span className="hero-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Contributing to Maula AI</span>
+            <span className="hero-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Contributing to Sanbay Fusion</span>
           </h1>
           <p className="hero-subtitle text-xl md:text-2xl text-gray-500 mb-4">Help us build a thriving community of AI enthusiasts and innovators</p>
-          <p className="text-gray-600 text-lg">Every contribution matters. Help shape the future of Maula AI.</p>
+          <p className="text-gray-600 text-lg">Every contribution matters. Help shape the future of Sanbay Fusion.</p>
         </div>
       </section>
 
@@ -230,7 +230,7 @@ export default function ContributingPage() {
               <span className="text-2xl">⭐</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Ways to Contribute</h2>
-            <p className="text-gray-500 text-lg">Choose how you'd like to contribute to Maula AI</p>
+            <p className="text-gray-500 text-lg">Choose how you'd like to contribute to Sanbay Fusion</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">

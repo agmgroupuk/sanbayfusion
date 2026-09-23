@@ -12,8 +12,8 @@ import {
 
 const APPS = [
     {
-        id: 'maula-ai',
-        name: 'Maula AI',
+        id: 'sanbay-fusion',
+        name: 'Sanbay Fusion',
         tagline: 'Your AI Dream Team',
         description: '18 specialized AI personalities — chat with Einstein, Shakespeare, comedy legends & more. Full voice support, persistent conversations, and smart memory.',
         gradient: 'from-violet-500 to-indigo-600',
@@ -78,7 +78,7 @@ const APPS = [
         id: 'ai-studio-demo',
         name: 'AI Studio Demo',
         tagline: 'Try Before You Build',
-        description: 'Interactive demo showcasing Maula AI capabilities. Explore AI chat, tools, and features before committing. No sign-up required to try.',
+        description: 'Interactive demo showcasing Sanbay Fusion capabilities. Explore AI chat, tools, and features before committing. No sign-up required to try.',
         gradient: 'from-amber-500 to-orange-600',
         glow: 'rgba(245,158,11,0.35)',
         icon: Sparkles,
@@ -214,7 +214,7 @@ export default function AppsPage() {
 
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">
                         <span style={{ background: 'linear-gradient(to right, #ffffff, #a78bfa, #22d3ee)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                            Get Maula AI Apps
+                            Get Sanbay Fusion Apps
                         </span>
                     </h1>
 
@@ -452,7 +452,7 @@ export default function AppsPage() {
                                 What is a PWA?
                             </h2>
                             <p className="text-gray-400 mb-4">
-                                Progressive Web Apps (PWAs) let you install any Maula AI app directly from your browser — no app store needed.
+                                Progressive Web Apps (PWAs) let you install any Sanbay Fusion app directly from your browser — no app store needed.
                                 They work offline, receive push notifications, and run in their own window just like native apps.
                             </p>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

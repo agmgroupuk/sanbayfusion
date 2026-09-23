@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate unique redemption code
-    const code = `MAULA-${rewardId.toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
+    const code = `SANBAY-${rewardId.toUpperCase()}-${Date.now().toString(36).toUpperCase()}`;
 
     // Spend points and create redemption record in a transaction
     await spendPoints(sessionUser.id, reward.cost, 'redemption', `Redeemed: ${reward.name}`, rewardId);

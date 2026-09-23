@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     // Award signup bonus points + process referral (async, don't block response)
     (async () => {
       try {
-        await awardPoints(newUser.id, POINTS_CONFIG.signup_bonus, 'signup', 'Welcome bonus for joining Maula AI');
+        await awardPoints(newUser.id, POINTS_CONFIG.signup_bonus, 'signup', 'Welcome bonus for joining Sanbay Fusion');
         await checkAndAwardBadges(newUser.id);
         if (referralCode && typeof referralCode === 'string') {
           await processReferralSignup(newUser.id, referralCode.trim().toUpperCase());

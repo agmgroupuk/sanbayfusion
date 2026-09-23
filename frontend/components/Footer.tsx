@@ -137,14 +137,14 @@ export default function Footer() {
                 <div className="absolute inset-0 bg-brand-500/20 rounded-xl blur-xl group-hover:bg-brand-500/40 transition-all duration-300"></div>
                 <Image
                   src="/images/logos/company-logo.png"
-                  alt="Maula AI"
+                  alt="Sanbay Fusion"
                   width={48}
                   height={48}
                   className="relative w-12 h-12 object-contain"
                 />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-white via-white to-neural-300 bg-clip-text text-transparent">
-                Maula AI
+                Sanbay Fusion
               </span>
             </Link>
             <p className="text-neural-400 text-base leading-relaxed max-w-md mb-5">
@@ -264,7 +264,7 @@ export default function Footer() {
         <div className="container-custom py-3 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
             <p className="text-purple-300/70 text-[11px] sm:text-xs">
-              © {currentYear} Maula AI. All rights reserved.
+              © {currentYear} Sanbay Fusion. All rights reserved.
             </p>
             <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
               {bottomLinks.map((link) => (

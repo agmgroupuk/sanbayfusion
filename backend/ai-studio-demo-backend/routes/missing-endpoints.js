@@ -4514,7 +4514,7 @@ router.post('/chat', checkContentSafety, async (req, res) => {
         // Per-user AI rate limit
         await AiQueue.checkUserRate(userId);
 
-        // STRICT_AGENT_PROMPTS is the single source of truth — agentId picks the prompt, 'default' is Maula AI
+        // STRICT_AGENT_PROMPTS is the single source of truth — agentId picks the prompt, 'default' is Sanbay Fusion
         const systemPrompt = STRICT_AGENT_PROMPTS[agentId] || STRICT_AGENT_PROMPTS['default'];
         const temperature = (agentId && AGENT_TEMPERATURES[agentId] !== undefined) ? AGENT_TEMPERATURES[agentId] : _rawTemperature;
 
@@ -4718,7 +4718,7 @@ router.post('/chat/stream', checkContentSafety, async (req, res) => {
         // Per-user AI rate limit
         await AiQueue.checkUserRate(userId);
 
-        // STRICT_AGENT_PROMPTS is the single source of truth — agentId picks the prompt, 'default' is Maula AI
+        // STRICT_AGENT_PROMPTS is the single source of truth — agentId picks the prompt, 'default' is Sanbay Fusion
         const systemPrompt = STRICT_AGENT_PROMPTS[agentId] || STRICT_AGENT_PROMPTS['default'];
         const temperature = (agentId && AGENT_TEMPERATURES[agentId] !== undefined) ? AGENT_TEMPERATURES[agentId] : _rawTemperature;
 

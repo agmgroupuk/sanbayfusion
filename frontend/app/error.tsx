@@ -13,7 +13,7 @@ export default function Error({
     const [showDetails, setShowDetails] = useState(false);
 
     useEffect(() => {
-        console.error('[Maula AI] Runtime error:', error);
+        console.error('[Sanbay Fusion] Runtime error:', error);
     }, [error]);
 
     return (
@@ -39,7 +39,7 @@ export default function Error({
             <div className="relative z-10 text-center px-6 max-w-lg">
                 {/* Brand logo */}
                 <div className="mb-8 flex justify-center">
-                    <img src="/images/logos/company-logo.png" alt="Maula AI" className="h-10 w-auto opacity-80" />
+                    <img src="/images/logos/company-logo.png" alt="Sanbay Fusion" className="h-10 w-auto opacity-80" />
                 </div>
 
                 {/* Error icon */}

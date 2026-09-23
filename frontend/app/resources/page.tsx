@@ -26,7 +26,7 @@ const resourceCategories = [
   },
   {
     title: 'News',
-    description: 'Latest news, product updates, and announcements from Maula AI.',
+    description: 'Latest news, product updates, and announcements from Sanbay Fusion.',
     icon: Newspaper,
     href: '/resources/news',
     color: 'amber',

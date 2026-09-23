@@ -500,7 +500,7 @@ export default function CommunityPage() {
           </div>
 
           <h1 ref={titleRef} className="text-5xl md:text-7xl font-bold mb-4 leading-tight" style={{ opacity: 1 }}>
-            <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Maula AI</span>
+            <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Sanbay Fusion</span>
             <br />
             <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Community</span>
           </h1>
@@ -812,7 +812,7 @@ export default function CommunityPage() {
             {[
               { icon: '🤝', title: 'Be Respectful', desc: 'Harassment, hate speech, doxxing, and threats are strictly prohibited. Disagreements are fine—keep them civil and on-topic.', color: 'from-cyan-500 to-blue-500', glow: 'rgba(6,182,212,0.4)' },
               { icon: '💡', title: 'Share Knowledge', desc: "Provide constructive, good-faith contributions. Don't post spam, scams, or misleading content.", color: 'from-amber-500 to-orange-500', glow: 'rgba(245,158,11,0.4)' },
-              { icon: '🎯', title: 'Stay On Topic', desc: "Keep discussions relevant to Maula AI and applicable law. Don't share illegal content or proprietary data without permission.", color: 'from-emerald-500 to-green-500', glow: 'rgba(16,185,129,0.4)' },
+              { icon: '🎯', title: 'Stay On Topic', desc: "Keep discussions relevant to Sanbay Fusion and applicable law. Don't share illegal content or proprietary data without permission.", color: 'from-emerald-500 to-green-500', glow: 'rgba(16,185,129,0.4)' },
               { icon: '✨', title: 'Be Authentic', desc: "Protect your account. Don't impersonate others. By participating, you agree to our Terms and applicable policies.", color: 'from-violet-500 to-purple-500', glow: 'rgba(139,92,246,0.4)' },
             ].map((rule, idx) => (
               <div key={idx} className="reveal-card group relative p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-sm overflow-hidden transition-colors duration-500 hover:border-white/[0.1] hover:bg-white/[0.04]">

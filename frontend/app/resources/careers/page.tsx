@@ -338,7 +338,7 @@ export default function CareersPage() {
           </div>
 
           <p className="hero-subtitle text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed font-light">
-            Join Maula AI and help shape the future of
+            Join Sanbay Fusion and help shape the future of
             <span className="text-violet-400"> conversational AI.</span>
           </p>
 

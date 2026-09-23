@@ -1,7 +1,7 @@
 {
-  "id": "maula-ai-pwa",
-  "name": "Maula AI - Your AI Dream Team",
-  "short_name": "Maula AI",
+  "id": "sanbay-fusion-pwa",
+  "name": "Sanbay Fusion - Your AI Dream Team",
+  "short_name": "Sanbay Fusion",
   "description": "Transform your workflow with 18 specialized AI personalities. From Einstein's genius to Shakespeare's creativity - unlock the power of history's greatest minds.",
   "start_url": "/?utm_source=pwa",
   "scope": "/",

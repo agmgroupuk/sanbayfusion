@@ -276,7 +276,7 @@ export default function SuggestionsPage() {
             <span className="hero-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Share Your Ideas</span>
           </h1>
           <p className="hero-subtitle text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto">
-            Help shape the future of Maula AI. Submit your feature requests, improvements, and ideas.
+            Help shape the future of Sanbay Fusion. Submit your feature requests, improvements, and ideas.
           </p>
         </div>
       </section>

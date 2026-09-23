@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-gradient-to-t from-[#0a0a0a] to-[#0d0d0d] border-t border-gray-800/50 p-2 text-[10px] flex justify-between items-center z-50 px-4">
-      <div className="text-gray-600 tracking-wide">Maula AI Studio</div>
+      <div className="text-gray-600 tracking-wide">Sanbay Fusion Studio</div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.6)]"></span>

@@ -14,7 +14,7 @@ export interface ProviderModelOption {
 // ============================================================================
 // Users see SIMPLE options - backend handles model fallback automatically:
 // 1. [Agent Name] - Anthropic Claude (Character/Personality AI)
-// 2. Maula AI - Mistral (Platform Branding)
+// 2. Sanbay Fusion - Mistral (Platform Branding)
 // 3. Image Generator - OpenAI (Best for image generation/vision)
 // 4. Code Builder - Cerebras (Fastest for code)
 // 5. Fast Response - Groq (Ultra-fast inference)
@@ -32,10 +32,10 @@ export interface ProviderModelOption {
 // Users only see ONE default model per provider - backend handles fallbacks
 function createAgentOptions(agentName: string): ProviderModelOption[] {
   return [
-    // 1. Maula AI - Anthropic Claude (Main platform AI)
+    // 1. Sanbay Fusion - Anthropic Claude (Main platform AI)
     {
       provider: 'anthropic',
-      label: 'Maula AI',
+      label: 'Sanbay Fusion',
       models: [
         { value: 'claude-opus-4-20250514', label: 'Nova Pro' },
       ],
@@ -274,9 +274,9 @@ export function getAgentCanvasProviders(agentId: string, agentName?: string): Re
         { id: 'gemini-2.0-flash', name: 'Design Flash' },
       ],
     },
-    // 4. Maula AI - Claude (high quality)
+    // 4. Sanbay Fusion - Claude (high quality)
     anthropic: {
-      name: '✨ Maula AI',
+      name: '✨ Sanbay Fusion',
       models: [
         { id: 'claude-sonnet-4-20250514', name: 'Nova' },
       ],
@@ -341,10 +341,10 @@ export function getAgentDefaultModel(agentId: string, provider?: string): string
 // Users see SIMPLE options - backend handles model fallback automatically
 // ============================================================================
 export const PROVIDER_MODEL_OPTIONS: ProviderModelOption[] = [
-  // 1. Maula AI - Anthropic Claude
+  // 1. Sanbay Fusion - Anthropic Claude
   {
     provider: 'anthropic',
-    label: 'Maula AI',
+    label: 'Sanbay Fusion',
     models: [
       { value: 'claude-opus-4-20250514', label: 'Nova Pro' },
     ],

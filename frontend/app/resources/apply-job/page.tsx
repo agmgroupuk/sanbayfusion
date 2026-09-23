@@ -612,7 +612,7 @@ function ApplyJobContent() {
                     <h2 className="text-xl font-bold text-white mb-6">Additional Information</h2>
 
                     <div>
-                      <label className="block text-sm text-gray-400 mb-2">Why do you want to join Maula AI?</label>
+                      <label className="block text-sm text-gray-400 mb-2">Why do you want to join Sanbay Fusion?</label>
                       <textarea
                         value={formData.whyJoin}
                         onChange={(e) => updateField('whyJoin', e.target.value)}

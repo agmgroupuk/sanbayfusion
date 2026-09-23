@@ -34,7 +34,7 @@ const HelpPanel: React.FC<HelpPanelProps> = ({ isOpen, onClose, userEmail, userI
       id: 'apps',
       icon: Smartphone,
       label: 'Download Apps',
-      description: 'Get Maula AI on your devices',
+      description: 'Get Sanbay Fusion on your devices',
       color: 'cyan',
       href: 'https://sanbayfusion.com/apps'
     },

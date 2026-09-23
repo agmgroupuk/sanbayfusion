@@ -54,7 +54,7 @@ export default function PWAInstallBanner() {
                             </svg>
                         </div>
                         <div className="min-w-0">
-                            <p className="font-semibold text-sm truncate">Install Maula AI</p>
+                            <p className="font-semibold text-sm truncate">Install Sanbay Fusion</p>
                             <p className="text-xs text-white/80 truncate">
                                 {isIOS ? 'Add to Home Screen for the best experience' : 'Get the app for faster access & offline support'}
                             </p>
@@ -84,7 +84,7 @@ export default function PWAInstallBanner() {
             {showIOSModal && (
                 <div className="fixed inset-0 z-[60] bg-black/50 flex items-end sm:items-center justify-center p-4">
                     <div className="bg-slate-900 rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-slate-700">
-                        <h3 className="text-lg font-bold text-white mb-4">Install Maula AI</h3>
+                        <h3 className="text-lg font-bold text-white mb-4">Install Sanbay Fusion</h3>
                         <div className="space-y-4 text-sm text-slate-300">
                             <div className="flex items-start gap-3">
                                 <span className="flex-shrink-0 w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold">1</span>

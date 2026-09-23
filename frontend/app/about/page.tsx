@@ -224,7 +224,7 @@ export default function About() {
                     <h1 ref={titleRef} className="text-5xl md:text-7xl font-bold mb-4 leading-tight" style={{ opacity: 0 }}>
                         <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>About</span>
                         <br />
-                        <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Maula AI</span>
+                        <span style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Sanbay Fusion</span>
                     </h1>
 
                     <p ref={subtitleRef} className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed font-light" style={{ opacity: 0 }}>
@@ -316,7 +316,7 @@ export default function About() {
                                 <Building2 className="w-5 h-5" style={{ color: '#a5f3fc', filter: 'drop-shadow(0 0 6px rgba(6,182,212,0.4))' }} />
                             </div>
                             <div>
-                                <h2 className="text-2xl font-bold text-white tracking-tight">Discover Maula AI</h2>
+                                <h2 className="text-2xl font-bold text-white tracking-tight">Discover Sanbay Fusion</h2>
                                 <p className="text-sm text-gray-600">Learn more about our company, people, and partners</p>
                             </div>
                         </div>
@@ -436,7 +436,7 @@ export default function About() {
                 <div className="container mx-auto px-4 text-center">
                     <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">Ready to Get Started?</h3>
                     <p className="text-gray-600 mb-10 max-w-xl mx-auto text-sm">
-                        Join thousands of businesses already using Maula AI to transform their workflows
+                        Join thousands of businesses already using Sanbay Fusion to transform their workflows
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-3">
                         <Link href="https://sanbayfusion.com/agents" className="px-7 py-3.5 bg-gradient-to-r from-cyan-600/90 to-violet-600/90 rounded-xl text-white font-semibold text-sm shadow-lg shadow-cyan-600/15 hover:shadow-cyan-600/30 transition-all duration-400 flex items-center justify-center gap-2">

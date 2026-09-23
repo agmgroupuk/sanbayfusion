@@ -258,7 +258,7 @@ export default function PricingSection() {
                 </div>
 
                 <p className="text-gray-400 text-sm leading-relaxed mb-5">
-                  Add credits and use them across all Maula AI apps. Pay as you go — load a minimum of $5 and use credits across our entire suite of AI-powered tools.
+                  Add credits and use them across all Sanbay Fusion apps. Pay as you go — load a minimum of $5 and use credits across our entire suite of AI-powered tools.
                 </p>
 
                 {/* Features */}

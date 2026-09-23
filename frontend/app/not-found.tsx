@@ -58,7 +58,7 @@ export default function NotFound() {
       <div className="relative z-10 text-center px-6 max-w-lg">
         {/* Brand logo */}
         <div className="mb-8 flex justify-center">
-          <img src="/images/logos/company-logo.png" alt="Maula AI" className="h-10 w-auto opacity-80" />
+          <img src="/images/logos/company-logo.png" alt="Sanbay Fusion" className="h-10 w-auto opacity-80" />
         </div>
 
         {/* Animated 404 */}
@@ -114,7 +114,7 @@ export default function NotFound() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             Chat with AI
-          </a>
+          </Link>
         </div>
 
         <p className="mt-10 text-neural-600 text-sm">

@@ -246,7 +246,7 @@ export default function RoadmapPage() {
             <span className="hero-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Product Roadmap</span>
           </h1>
           <p className="hero-subtitle text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto">
-            See what we're building next and help shape the future of Maula AI
+            See what we're building next and help shape the future of Sanbay Fusion
           </p>
         </div>
       </section>
@@ -368,7 +368,7 @@ export default function RoadmapPage() {
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Have an Idea?</h2>
               <p className="text-gray-500 text-lg mb-8 max-w-xl mx-auto">
-                We love hearing from our community. Share your feature requests and help shape the future of Maula AI.
+                We love hearing from our community. Share your feature requests and help shape the future of Sanbay Fusion.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/community/suggestions" className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-violet-600 hover:from-cyan-500 hover:to-violet-500 rounded-xl font-semibold text-white shadow-lg shadow-cyan-500/20 transition-all">

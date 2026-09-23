@@ -1,5 +1,5 @@
 /**
- * MAULA AI - PRODUCTION SERVER
+ * SANBAY FUSION - PRODUCTION SERVER
  * PostgreSQL/Prisma Backend
  */
 
@@ -1662,7 +1662,7 @@ const host = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 
 async function initializeServer() {
   try {
-    console.log('🔧 Initializing Maula AI Server...');
+    console.log('🔧 Initializing Sanbay Fusion Server...');
     console.log('📦 Database: PostgreSQL via Prisma');
 
     // Connect to PostgreSQL (with retry/backoff)
@@ -1687,7 +1687,7 @@ async function initializeServer() {
 
     // Start server
     server.listen(PORT, host, () => {
-      console.log(`🚀 Maula AI Backend running on ${host}:${PORT}`);
+      console.log(`🚀 Sanbay Fusion Backend running on ${host}:${PORT}`);
       console.log(`📊 Health check: http://${host}:${PORT}/health`);
       console.log(`🔗 API: http://${host}:${PORT}/api`);
 

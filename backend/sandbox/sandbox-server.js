@@ -1,5 +1,5 @@
 /**
- * MAULA AI — SANDBOX SERVER
+ * SANBAY FUSION — SANDBOX SERVER
  * Runs inside each ECS Fargate container
  * 
  * Provides:

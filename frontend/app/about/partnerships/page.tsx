@@ -200,7 +200,7 @@ export default function PartnershipsPage() {
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {[
-            { icon: '☁️', title: 'Technology Partnerships', desc: 'Infrastructure and cloud services powering Maula AI', color: 'cyan' },
+            { icon: '☁️', title: 'Technology Partnerships', desc: 'Infrastructure and cloud services powering Sanbay Fusion', color: 'cyan' },
             { icon: '⚡', title: 'Integration Partnerships', desc: 'Tools and platforms that enhance our capabilities', color: 'purple' },
             { icon: '👥', title: 'Reseller Partnerships', desc: 'Consulting firms helping enterprises implement solutions', color: 'pink' }
           ].map((item, i) => (
@@ -244,7 +244,7 @@ export default function PartnershipsPage() {
           </div>
           <div className="p-6 rounded-xl bg-white/[0.02] border border-white/[0.06]">
             <p className="text-gray-300 text-sm">
-              We partner with leading infrastructure providers to ensure Maula AI runs with reliability, security, and scalability.
+              We partner with leading infrastructure providers to ensure Sanbay Fusion runs with reliability, security, and scalability.
             </p>
           </div>
         </div>
@@ -279,7 +279,7 @@ export default function PartnershipsPage() {
           </div>
           <div className="p-6 rounded-xl bg-white/[0.02] border border-white/[0.06]">
             <p className="text-gray-300 text-sm">
-              Our integration partnerships enable Maula AI to work seamlessly with tools your team already uses — constantly expanding our ecosystem to enhance productivity.
+              Our integration partnerships enable Sanbay Fusion to work seamlessly with tools your team already uses — constantly expanding our ecosystem to enhance productivity.
             </p>
           </div>
         </div>
@@ -314,7 +314,7 @@ export default function PartnershipsPage() {
           </div>
           <div className="p-6 rounded-xl bg-white/[0.02] border border-white/[0.06]">
             <p className="text-gray-300 text-sm">
-              Our reseller partners bring deep enterprise expertise and global reach — helping organizations successfully implement and optimize Maula AI for their specific needs.
+              Our reseller partners bring deep enterprise expertise and global reach — helping organizations successfully implement and optimize Sanbay Fusion for their specific needs.
             </p>
           </div>
         </div>
@@ -369,7 +369,7 @@ export default function PartnershipsPage() {
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Interested in Partnering?</h2>
             <p className="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
-              We're always looking for innovative companies and consulting firms to partner with Maula AI.
+              We're always looking for innovative companies and consulting firms to partner with Sanbay Fusion.
             </p>
             <p className="text-white/70 mb-8 max-w-xl mx-auto">
               Whether you're interested in technology partnerships, integrations, or reselling, we'd love to explore opportunities together.

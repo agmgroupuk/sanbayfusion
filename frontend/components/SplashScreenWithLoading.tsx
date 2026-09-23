@@ -61,7 +61,7 @@ export default function SplashScreenWithLoading() {
               className="text-center"
             >
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                Maula AI
+                Sanbay Fusion
               </h1>
               <p className="text-lg text-neural-300">
                 Intelligent AI Agents Platform

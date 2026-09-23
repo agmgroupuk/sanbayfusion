@@ -55,7 +55,7 @@ export default function SplashScreen({ isLoading, onLoadingComplete }: SplashScr
             >
               <Image
                 src="/images/logos/company-logo.png"
-                alt="Maula AI"
+                alt="Sanbay Fusion"
                 width={128}
                 height={128}
                 className="w-32 h-32 object-contain drop-shadow-2xl"
@@ -71,7 +71,7 @@ export default function SplashScreen({ isLoading, onLoadingComplete }: SplashScr
               className="text-center"
             >
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
-                Maula AI
+                Sanbay Fusion
               </h1>
               <p className="text-lg text-neural-300">
                 Intelligent AI Agents Platform

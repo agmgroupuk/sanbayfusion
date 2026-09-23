@@ -2,7 +2,7 @@
   "name": "tools-backend",
   "version": "1.0.0",
   "type": "module",
-  "description": "Maula AI Tools Backend — standalone server for toolbox utilities",
+  "description": "Sanbay Fusion Tools Backend — standalone server for toolbox utilities",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

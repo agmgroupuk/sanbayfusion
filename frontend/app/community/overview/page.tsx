@@ -14,7 +14,7 @@ export default function CommunityOverviewPage() {
 
   const communityLinks = [
     { emoji: '💬', title: 'Discord Community', description: 'Join our active Discord server to connect with other AI enthusiasts, get help, and share your projects.', link: '/community/discord', linkText: 'Join Discord', color: 'from-indigo-500 to-purple-600' },
-    { emoji: '🔧', title: 'Contributing', description: 'Help improve Maula AI by contributing code, reporting bugs, or suggesting new features.', link: '/community/contributing', linkText: 'Get Involved', color: 'from-green-500 to-emerald-600' },
+    { emoji: '🔧', title: 'Contributing', description: 'Help improve Sanbay Fusion by contributing code, reporting bugs, or suggesting new features.', link: '/community/contributing', linkText: 'Get Involved', color: 'from-green-500 to-emerald-600' },
     { emoji: '🗺️', title: 'Open Roadmap', description: 'See what features are coming next, track progress, and vote on what matters to you.', link: '/community/roadmap', linkText: 'View Roadmap', color: 'from-amber-500 to-orange-600' },
     { emoji: '💡', title: 'Suggestions', description: 'Share your ideas and feature requests. We love hearing from our community!', link: '/community/suggestions', linkText: 'Submit Ideas', color: 'from-pink-500 to-rose-600' }
   ];

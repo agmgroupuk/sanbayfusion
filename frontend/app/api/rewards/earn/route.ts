@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
         switch (action) {
             case 'signup':
                 pointsAwarded = POINTS_CONFIG.signup_bonus;
-                description = 'Welcome bonus for joining Maula AI';
+                description = 'Welcome bonus for joining Sanbay Fusion';
                 await awardPoints(userId, pointsAwarded, 'signup', description);
                 break;
 

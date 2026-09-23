@@ -90,11 +90,11 @@ export async function sendWelcomeEmail(email, name, couponCode) {
     if (!transporter) { console.log('[WELCOME EMAIL] SMTP not configured. Would send to:', email); return; }
     try {
         const cfg = getWelcomeSmtpConfig();
-        const trackingId = await logEmailSend(email, '🎉 Welcome to Maula AI — Let\'s Get Started!', 'welcome');
+        const trackingId = await logEmailSend(email, '🎉 Welcome to Sanbay Fusion — Let\'s Get Started!', 'welcome');
         await transporter.sendMail({
             from: cfg.from,
             to: email,
-            subject: '🎉 Welcome to Maula AI — Let\'s Get Started!',
+            subject: '🎉 Welcome to Sanbay Fusion — Let\'s Get Started!',
             html: injectTrackingPixel(getWelcomeTemplate(name, couponCode), trackingId),
         });
         console.log(`✅ Welcome email sent to ${email} from hello@sanbayfusion.com${couponCode ? ` (with coupon: ${couponCode})` : ''}`);
@@ -110,11 +110,11 @@ export async function sendLoginAlertEmail(email, name, loginData) {
     if (!transporter) { console.log('[LOGIN ALERT] SMTP not configured. Would send to:', email); return; }
     try {
         const cfg = getNoreplySmtpConfig();
-        const trackingId = await logEmailSend(email, '🔐 New Login to Your Maula AI Account', 'login_alert');
+        const trackingId = await logEmailSend(email, '🔐 New Login to Your Sanbay Fusion Account', 'login_alert');
         await transporter.sendMail({
             from: cfg.from,
             to: email,
-            subject: '🔐 New Login to Your Maula AI Account',
+            subject: '🔐 New Login to Your Sanbay Fusion Account',
             html: injectTrackingPixel(getLoginAlertTemplate(name, loginData), trackingId),
         });
         console.log(`✅ Login alert email sent to ${email}`);
@@ -130,11 +130,11 @@ export async function sendPasswordResetEmail(email, name, resetUrl) {
     if (!transporter) { console.log('[PASSWORD RESET] SMTP not configured. Would send to:', email); return; }
     try {
         const cfg = getNoreplySmtpConfig();
-        const trackingId = await logEmailSend(email, '🔐 Reset Your Password — Maula AI', 'password_reset');
+        const trackingId = await logEmailSend(email, '🔐 Reset Your Password — Sanbay Fusion', 'password_reset');
         await transporter.sendMail({
             from: cfg.from,
             to: email,
-            subject: '🔐 Reset Your Password — Maula AI',
+            subject: '🔐 Reset Your Password — Sanbay Fusion',
             html: injectTrackingPixel(getPasswordResetTemplate(name, resetUrl), trackingId),
         });
         console.log(`✅ Password reset email sent to ${email}`);
@@ -279,11 +279,11 @@ export async function sendVerificationCodeEmail(email, name, code) {
     if (!transporter) { console.log('[VERIFY EMAIL] SMTP not configured. Would send to:', email); return; }
     try {
         const cfg = getNoreplySmtpConfig();
-        const trackingId = await logEmailSend(email, '🔑 Maula AI — Your Email Verification Code', 'verification_code');
+        const trackingId = await logEmailSend(email, '🔑 Sanbay Fusion — Your Email Verification Code', 'verification_code');
         await transporter.sendMail({
             from: cfg.from,
             to: email,
-            subject: '🔑 Maula AI — Your Email Verification Code',
+            subject: '🔑 Sanbay Fusion — Your Email Verification Code',
             html: injectTrackingPixel(getVerificationCodeTemplate(name, code), trackingId),
         });
         console.log(`✅ Verification code email sent to ${email}`);
@@ -299,11 +299,11 @@ export async function sendLoginOTPEmail(email, name, code) {
     if (!transporter) { console.log('[LOGIN OTP] SMTP not configured. Would send to:', email); return; }
     try {
         const cfg = getNoreplySmtpConfig();
-        const trackingId = await logEmailSend(email, '🔑 Maula AI — Your Login Verification Code', 'login_otp');
+        const trackingId = await logEmailSend(email, '🔑 Sanbay Fusion — Your Login Verification Code', 'login_otp');
         await transporter.sendMail({
             from: cfg.from,
             to: email,
-            subject: '🔑 Maula AI — Your Login Verification Code',
+            subject: '🔑 Sanbay Fusion — Your Login Verification Code',
             html: injectTrackingPixel(getLoginOTPTemplate(name, code), trackingId),
         });
         console.log(`✅ Login OTP email sent to ${email}`);
@@ -319,11 +319,11 @@ export async function sendPasswordChangedAlert(email, name, changeData) {
     if (!transporter) { console.log('[PASSWORD CHANGED] SMTP not configured. Would send to:', email); return; }
     try {
         const cfg = getNoreplySmtpConfig();
-        const trackingId = await logEmailSend(email, '🔒 Your Maula AI Password Was Changed', 'password_changed');
+        const trackingId = await logEmailSend(email, '🔒 Your Sanbay Fusion Password Was Changed', 'password_changed');
         await transporter.sendMail({
             from: cfg.from,
             to: email,
-            subject: '🔒 Your Maula AI Password Was Changed',
+            subject: '🔒 Your Sanbay Fusion Password Was Changed',
             html: injectTrackingPixel(getPasswordChangedTemplate(name, changeData), trackingId),
         });
         console.log(`✅ Password changed alert sent to ${email}`);

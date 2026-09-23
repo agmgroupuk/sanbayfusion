@@ -16,7 +16,7 @@ export default function DiscordPage() {
   ];
 
   const reasons = [
-    { icon: '⚡', title: 'Real-Time Support', desc: 'Get instant help from community members and Maula AI team', color: 'from-purple-500 to-purple-600' },
+    { icon: '⚡', title: 'Real-Time Support', desc: 'Get instant help from community members and the Sanbay Fusion team', color: 'from-purple-500 to-purple-600' },
     { icon: '👥', title: 'Network & Collaborate', desc: 'Build connections with fellow developers and AI enthusiasts', color: 'from-indigo-500 to-indigo-600' },
     { icon: '📈', title: 'Learn & Grow', desc: 'Access tutorials, case studies, and best practices shared by experts', color: 'from-pink-500 to-pink-600' },
     { icon: '🏆', title: 'Exclusive Opportunities', desc: 'Get early access to features, special events, and recognition programs', color: 'from-green-500 to-green-600' },
@@ -200,7 +200,7 @@ export default function DiscordPage() {
           <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
             <span className="hero-title" style={{ background: 'linear-gradient(to right, #ffffff, #a5f3fc, #c4b5fd)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Join Our Discord</span>
           </h1>
-          <p className="hero-subtitle text-xl md:text-2xl text-gray-500 mb-4">Connect with the Maula AI community</p>
+          <p className="hero-subtitle text-xl md:text-2xl text-gray-500 mb-4">Connect with the Sanbay Fusion community</p>
           <p className="text-gray-600 text-lg mb-10">10,000+ members sharing knowledge and building together</p>
 
           {/* Main CTA */}

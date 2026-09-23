@@ -2,7 +2,7 @@
   "name": "community-backend",
   "version": "1.0.0",
   "type": "module",
-  "description": "Maula AI Community Backend — posts, likes, suggestions, metrics",
+  "description": "Sanbay Fusion Community Backend — posts, likes, suggestions, metrics",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

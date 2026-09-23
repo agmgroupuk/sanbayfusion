@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap, ScrollTrigger, Observer, CustomEase, ScrambleTextPlugin, Flip } from '@/lib/gsap';
 
 const testimonials = [
-  { name: 'Sarah Chen', role: 'CTO, TechFlow', avatar: '👩‍💻', quote: 'Maula AI reduced our development time by 60%. The canvas builder is a game-changer for our team.', rating: 5 },
+  { name: 'Sarah Chen', role: 'CTO, TechFlow', avatar: '👩‍💻', quote: 'Sanbay Fusion reduced our development time by 60%. The canvas builder is a game-changer for our team.', rating: 5 },
   { name: 'Marcus Webb', role: 'Lead Dev, NovaSoft', avatar: '👨‍💻', quote: 'The AI agent system is incredibly intuitive. We went from concept to production in just 2 weeks.', rating: 5 },
   { name: 'Priya Patel', role: 'Founder, DataVerse', avatar: '👩‍🔬', quote: 'Best-in-class data generation tools. Our ML pipeline quality improved dramatically.', rating: 5 },
   { name: 'Alex Rivera', role: 'VP Eng, CloudScale', avatar: '🧑‍💼', quote: 'The analytics dashboard gives us insights we never had before. Absolutely essential tool.', rating: 5 },
@@ -123,7 +123,7 @@ export default function TestimonialSection() {
             <h2 ref={titleRef} className="text-4xl md:text-6xl font-bold bg-gradient-to-b from-white via-cyan-100 to-blue-300/60 bg-clip-text text-transparent leading-tight mb-4" style={{ opacity: 0 }}>
               Loved by Builders
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">Join thousands of developers and teams already building the future with Maula AI.</p>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">Join thousands of developers and teams already building the future with Sanbay Fusion.</p>
           </div>
 
           {/* Marquee row 1 → */}

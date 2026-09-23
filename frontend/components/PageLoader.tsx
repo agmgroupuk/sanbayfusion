@@ -48,7 +48,7 @@ export default function PageLoader({
           >
             <Image
               src="/images/logos/company-logo.png"
-              alt="Maula AI"
+              alt="Sanbay Fusion"
               width={width}
               height={height}
               className="w-full h-full object-contain drop-shadow-lg"

@@ -8,7 +8,7 @@ export default function TeamPage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const teamMembers = [
-    { name: "Miss Chuttra Dilokkanwong", role: "Owner & Founder", bio: "Visionary leader driving Maula AI's mission from Thailand", gradient: 'from-amber-500 to-orange-600', flag: '🇹🇭' },
+    { name: "Miss Chuttra Dilokkanwong", role: "Owner & Founder", bio: "Visionary leader driving Sanbay Fusion's mission from Thailand", gradient: 'from-amber-500 to-orange-600', flag: '🇹🇭' },
     { name: "Shahbaz Chaudhary", role: "Manager", bio: "Operations and strategy leader based in Thailand", gradient: 'from-cyan-500 to-blue-600', flag: '🇹🇭' },
     { name: "Professor Johnny Benz", role: "Security & Architecture Lead", bio: "Technical brilliance shaping platform security, architecture, and strategy from the UK", gradient: 'from-purple-500 to-pink-600', flag: '🇬🇧' },
     { name: "Adil Pieter", role: "CTO & Co-founder", bio: "Machine learning expert and former Google AI researcher", gradient: 'from-green-500 to-emerald-600', flag: '🇳🇱' },

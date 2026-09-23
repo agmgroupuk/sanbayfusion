@@ -123,7 +123,7 @@ export default function CTASection() {
             </h2>
 
             <p ref={subtitleRef} className="text-gray-400 text-lg md:text-xl mb-10 leading-relaxed max-w-xl mx-auto" style={{ opacity: 0 }}>
-              Have an idea for a new feature? Want to request something special? Share your suggestions with us — or explore our docs and tutorials to get the most out of Maula AI.
+              Have an idea for a new feature? Want to request something special? Share your suggestions with us — or explore our docs and tutorials to get the most out of Sanbay Fusion.
             </p>
 
             <div ref={btnsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">

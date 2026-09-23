@@ -646,7 +646,7 @@ export default function SpacesPage() {
       {/* ═══ FOOTER NOTE ═══ */}
       <section className="relative pb-16 pt-4">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-[11px] text-gray-800">© {new Date().getFullYear()} Maula AI — All rights reserved. Prices in USD.</p>
+          <p className="text-[11px] text-gray-800">© {new Date().getFullYear()} Sanbay Fusion — All rights reserved. Prices in USD.</p>
         </div>
       </section>
 
